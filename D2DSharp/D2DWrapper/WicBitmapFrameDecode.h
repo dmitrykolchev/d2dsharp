@@ -1,0 +1,23 @@
+#pragma once
+
+#include "WicBitmapSource.h"
+
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+namespace DykBits { namespace Graphics { namespace Imaging
+{
+	public ref class WicBitmapFrameDecode: WicBitmapSource
+	{
+	internal:
+		WicBitmapFrameDecode(IWICBitmapFrameDecode* native): WicBitmapSource(native)
+		{
+		}
+	public:
+	internal:
+		IWICBitmapFrameDecode* GetNative()
+		{
+			return (IWICBitmapFrameDecode*)WicBitmapSource::GetNative();
+		}
+	};
+}}}

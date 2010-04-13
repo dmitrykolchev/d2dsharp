@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DirectWrite">
+      <UniqueIdentifier>{d0e0ff05-c112-4789-8d4d-f33e1842a097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Direct2D">
+      <UniqueIdentifier>{1206b443-b973-4572-acc7-f0464b00f46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DirectWrite">
+      <UniqueIdentifier>{a317cd49-22b8-4339-8506-2488efffb9f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Direct2D">
+      <UniqueIdentifier>{cf960e22-4b7e-4eb2-bc3b-47836d41cf55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Imaging">
+      <UniqueIdentifier>{4001f1c4-34cc-4a51-a58a-178aa7fbe7ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Imaging">
+      <UniqueIdentifier>{db3601a2-dcc7-4d41-bd15-412426c660c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DWCommon.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectWriteFactory.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLayout.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="Brush.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DCommon.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct2DFactory.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DResource.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseGeometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryGroup.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometrySink.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GradientStopCollection.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerParameters.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearGradientBrush.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="PathGeometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RadialGradientBrush.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleGeometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="RoundedRectangleGeometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplifiedGeometrySink.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidColorBrush.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="TessellationSink.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="StrokeStyle.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformedGeometry.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowRenderTarget.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="ComWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FontCollection.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapBrush.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapRenderTarget.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="WicImagingFactory.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicComponentInfo.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicPixelFormat.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmap.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapSource.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicPalette.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicCommon.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapDecoder.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapFrameDecode.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicFormatConverter.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="DCRenderTarget.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectWriteFactory.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct2DFactory.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometrySink.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="PathGeometry.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DResource.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="WicPalette.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicBitmapSource.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicImagingFactory.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicFormatConverter.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="app.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

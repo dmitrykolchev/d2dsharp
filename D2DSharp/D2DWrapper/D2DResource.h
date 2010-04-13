@@ -1,0 +1,31 @@
+#pragma once
+
+#include "ComWrapper.h"
+#include "D2DCommon.h"
+
+using namespace System;
+using namespace System::Runtime::InteropServices;
+using namespace DykBits::Runtime::InteropServices;
+
+namespace DykBits { namespace Graphics { namespace Direct2D 
+{
+	ref class Direct2DFactory;
+
+	public ref class D2DResource abstract: ComWrapper
+	{
+	internal:
+		D2DResource(ID2D1Resource* native): 
+			ComWrapper(native)
+		{
+		}
+
+	public:
+		Direct2DFactory^ GetFactory();
+
+	internal:
+		inline ID2D1Resource* GetNative()
+		{
+			return (ID2D1Resource*)ComWrapper::GetNative();
+		}
+	};
+}}}
