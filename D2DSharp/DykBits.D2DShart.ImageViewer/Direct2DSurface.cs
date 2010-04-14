@@ -40,6 +40,8 @@ namespace DykBits.D2DShart.ImageViewer
         private Bitmap _image;
         private SolidColorBrush _borderBrush;
         private string _imagePath;
+        private float _rotationAngle;
+        private bool _showBorder;
 
         public Direct2DSurface()
         {
@@ -99,13 +101,15 @@ namespace DykBits.D2DShart.ImageViewer
                 this._renderTarget.Clear(Colors.Black);
                 if (this._image != null)
                 {
+                    this._renderTarget.Transform = Matrix3x2.Rotation(this.RotationAngle, new PointF(ClientSize.Width / 2, ClientSize.Height /2));
                     SizeU imageSize = this._image.PixelSize;
                     double scale = Math.Min((double)(ClientSize.Width - 20) / imageSize.Width, (double)(ClientSize.Height - 20) / imageSize.Height);
                     int imageWidth = (int)(imageSize.Width * scale);
                     int imageHeight = (int)(imageSize.Height * scale);
                     RectF imageBounds = new RectF((ClientSize.Width - imageWidth) / 2, (ClientSize.Height - imageHeight) / 2, imageWidth, imageHeight);
                     this._renderTarget.DrawBitmap(this._image, imageBounds, 1, BitmapInterpolationMode.Linear);
-                    this._renderTarget.DrawRect(this._borderBrush, 8, imageBounds);
+                    if(ShowBorder)
+                        this._renderTarget.DrawRect(this._borderBrush, 8, imageBounds);
                 }
             }
             finally
@@ -114,6 +118,8 @@ namespace DykBits.D2DShart.ImageViewer
             }
         }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ImagePath
         {
             get { return this._imagePath ?? string.Empty; }
@@ -123,7 +129,36 @@ namespace DykBits.D2DShart.ImageViewer
                 if (this.ImagePath != value)
                 {
                     this._imagePath = value;
+                    this.RotationAngle = 0;
                     OnImagePathChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        public bool ShowBorder
+        {
+            get { return _showBorder; }
+            set
+            {
+                if (this._showBorder != value)
+                {
+                    this._showBorder = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public float RotationAngle
+        {
+            get { return this._rotationAngle; }
+            set
+            {
+                if (this._rotationAngle != value)
+                {
+                    this._rotationAngle = value;
+                    Invalidate();
                 }
             }
         }

@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using DykBits.Graphics.Direct2D;
 
 namespace DykBits.D2DShart.ImageViewer
 {
@@ -36,26 +36,36 @@ namespace DykBits.D2DShart.ImageViewer
         private string _path;
         private string[] _files;
         private int _currentImage;
+        private int _angle;
 
         public MainWindow()
         {
             InitializeComponent();
+            this.Load += new EventHandler(MainWindow_Load);
+        }
+
+        void MainWindow_Load(object sender, EventArgs e)
+        {
+            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sample Pictures"));
         }
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
             if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                this._path = this.folderBrowserDialog1.SelectedPath;
-                Initialize();
+                Initialize(this.folderBrowserDialog1.SelectedPath);
             }
         }
 
-        private void Initialize()
+        private void Initialize(string path)
         {
-            this._files = Directory.GetFiles(this._path);
-            this._currentImage = 0;
-            this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+            this._files = Directory.GetFiles(path);
+            if (this._files.Length > 0)
+            {
+                this._path = path;
+                this._currentImage = 0;
+                this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+            }
         }
 
         private bool PrevImage()
@@ -65,6 +75,7 @@ namespace DykBits.D2DShart.ImageViewer
                 if (this._files != null && this._files.Length > 0)
                 {
                     this._currentImage = (this._currentImage - 1 + this._files.Length) % this._files.Length;
+                    this.direct2DSurface1.RotationAngle = this._angle = 0;
                     this.direct2DSurface1.ImagePath = this._files[this._currentImage];
                 }
                 return true;
@@ -83,6 +94,7 @@ namespace DykBits.D2DShart.ImageViewer
                 {
                     this._currentImage = (this._currentImage + 1) % this._files.Length;
                     this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+                    this.direct2DSurface1.RotationAngle = this._angle = 0;
                 }
                 return true;
             }
@@ -114,6 +126,23 @@ namespace DykBits.D2DShart.ImageViewer
                 if (saveImage == this._currentImage)
                     break;
             }
+        }
+
+        private void buttonRotateLeft_Click(object sender, EventArgs e)
+        {
+            this._angle = (this._angle - 45 + 360) % 360;
+            this.direct2DSurface1.RotationAngle = _angle;
+        }
+
+        private void buttonRotateRight_Click(object sender, EventArgs e)
+        {
+            this._angle = (this._angle + 45 + 360) % 360;
+            this.direct2DSurface1.RotationAngle = _angle;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.direct2DSurface1.ShowBorder = this.checkBox1.Checked;
         }
     }
 }
