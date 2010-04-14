@@ -9,6 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{7627
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DShart.ImageViewer", "DykBits.D2DShart.ImageViewer\DykBits.D2DShart.ImageViewer.csproj", "{1210A1A4-8446-4D38-A8C4-19EE053518ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8FC6064-A18E-4EB2-84A4-DC68FBB634C1}"
+	ProjectSection(SolutionItems) = preProject
+		license.txt = license.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4
