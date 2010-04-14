@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DWrapper", "D2DWrapper\D2DWrapper.vcxproj", "{151AE681-22CC-404D-A759-8D80BF85E9F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2DWrapper.Sample", "D2DWrapper.Sample\D2DWrapper.Sample.csproj", "{99BBCD07-D169-4EC1-A47B-2AB467EF99D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.Sample1", "D2DWrapper.Sample\DykBits.D2DSharp.Sample1.csproj", "{99BBCD07-D169-4EC1-A47B-2AB467EF99D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{76278E1B-8FA4-4D5D-AD81-815BAC067D8A}"
 EndProject
@@ -19,17 +19,18 @@ Global
 		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
-		SccProjectUniqueName0 = D2DWrapper.Sample\\D2DWrapper.Sample.csproj
-		SccProjectName0 = D2DWrapper.Sample
-		SccLocalPath0 = D2DWrapper.Sample
+		SccLocalPath0 = .
 		SccProjectUniqueName1 = D2DWrapper\\D2DWrapper.vcxproj
 		SccProjectName1 = D2DWrapper
 		SccLocalPath1 = D2DWrapper
-		SccLocalPath2 = .
-		SccProjectUniqueName3 = DykBits.D2DShart.ImageViewer\\DykBits.D2DShart.ImageViewer.csproj
+		SccProjectUniqueName2 = DykBits.D2DShart.ImageViewer\\DykBits.D2DShart.ImageViewer.csproj
+		SccProjectTopLevelParentUniqueName2 = D2DSharp.sln
+		SccProjectName2 = DykBits.D2DShart.ImageViewer
+		SccLocalPath2 = DykBits.D2DShart.ImageViewer
+		SccProjectUniqueName3 = D2DWrapper.Sample\\DykBits.D2DSharp.Sample1.csproj
 		SccProjectTopLevelParentUniqueName3 = D2DSharp.sln
-		SccProjectName3 = DykBits.D2DShart.ImageViewer
-		SccLocalPath3 = DykBits.D2DShart.ImageViewer
+		SccProjectName3 = D2DWrapper.Sample
+		SccLocalPath3 = D2DWrapper.Sample
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -76,5 +77,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1210A1A4-8446-4D38-A8C4-19EE053518ED} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{99BBCD07-D169-4EC1-A47B-2AB467EF99D6} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
 EndGlobal
