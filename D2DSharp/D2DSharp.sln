@@ -14,9 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		license.txt = license.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.Sample2", "DykBits.D2DSharp.Sample2\DykBits.D2DSharp.Sample2.csproj", "{A281A863-46CD-4E26-8443-9A083D12FCD8}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -31,6 +33,10 @@ Global
 		SccProjectTopLevelParentUniqueName3 = D2DSharp.sln
 		SccProjectName3 = D2DWrapper.Sample
 		SccLocalPath3 = D2DWrapper.Sample
+		SccProjectUniqueName4 = DykBits.D2DSharp.Sample2\\DykBits.D2DSharp.Sample2.csproj
+		SccProjectTopLevelParentUniqueName4 = D2DSharp.sln
+		SccProjectName4 = DykBits.D2DSharp.Sample2
+		SccLocalPath4 = DykBits.D2DSharp.Sample2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -71,12 +77,23 @@ Global
 		{1210A1A4-8446-4D38-A8C4-19EE053518ED}.Release|Win32.ActiveCfg = Release|x86
 		{1210A1A4-8446-4D38-A8C4-19EE053518ED}.Release|x86.ActiveCfg = Release|x86
 		{1210A1A4-8446-4D38-A8C4-19EE053518ED}.Release|x86.Build.0 = Release|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Debug|Win32.ActiveCfg = Debug|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Debug|x86.ActiveCfg = Debug|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Debug|x86.Build.0 = Debug|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Release|Win32.ActiveCfg = Release|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Release|x86.ActiveCfg = Release|x86
+		{A281A863-46CD-4E26-8443-9A083D12FCD8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1210A1A4-8446-4D38-A8C4-19EE053518ED} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{99BBCD07-D169-4EC1-A47B-2AB467EF99D6} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{1210A1A4-8446-4D38-A8C4-19EE053518ED} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{A281A863-46CD-4E26-8443-9A083D12FCD8} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
 EndGlobal

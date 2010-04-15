@@ -25,6 +25,7 @@
 #include "TextFormat.h"
 #include "WicBitmapSource.h"
 
+
 using namespace DykBits::Graphics::DirectWrite;
 using namespace DykBits::Graphics::Imaging;
 
@@ -134,6 +135,15 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			Marshal::ThrowExceptionForHR(hr);
 
 		return gcnew Bitmap(bitmap);
+	}
+
+	BitmapRenderTarget^ RenderTarget::CreateCompatibleRenderTarget()
+	{
+		ID2D1BitmapRenderTarget *bitmapRenderTarget;
+		HRESULT hr = GetNative()->CreateCompatibleRenderTarget(&bitmapRenderTarget);
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+		return gcnew BitmapRenderTarget(bitmapRenderTarget);
 	}
 
 

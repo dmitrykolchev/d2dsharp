@@ -47,7 +47,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 	ref class LayerParameters;
 	ref class Mesh;
 	ref class Bitmap;
-	
+	ref class BitmapRenderTarget;	
 
 	public enum class AntialiasMode  
 	{
@@ -216,6 +216,9 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		Bitmap^ CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties bitmapProperties);
 		Bitmap^ CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties bitmapProperties);
 		Bitmap^ CreateBitmap(WicBitmapSource^ source, BitmapProperties bitmapProperties);
+
+
+		BitmapRenderTarget^ CreateCompatibleRenderTarget();
 
 		SolidColorBrush^ CreateSolidColorBrush(Color color, BrushProperties properties);
 		SolidColorBrush^ CreateSolidColorBrush(Color color)
