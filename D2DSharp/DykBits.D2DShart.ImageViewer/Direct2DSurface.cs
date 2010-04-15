@@ -78,7 +78,7 @@ namespace DykBits.D2DShart.ImageViewer
             this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
             this._renderTarget = this._factory.CreateWindowRenderTarget(this, PresentOptions.None, RenderTargetProperties.Default);
             this._imagingFactory = WicImagingFactory.Create();
-            this._borderBrush = this._renderTarget.CreateSolidColorBrush(Colors.White);
+            this._borderBrush = this._renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.White, 1));
             this.Paint += new PaintEventHandler(Direct2DSurface_Paint);
             this.Resize += new EventHandler(Direct2DSurface_Resize);
         }
@@ -98,7 +98,7 @@ namespace DykBits.D2DShart.ImageViewer
             this._renderTarget.BeginDraw();
             try
             {
-                this._renderTarget.Clear(Colors.Black);
+                this._renderTarget.Clear(Color.FromARGB(Colors.Black, 1));
                 if (this._image != null)
                 {
                     this._renderTarget.Transform = Matrix3x2.Rotation(this.RotationAngle, new PointF(ClientSize.Width / 2, ClientSize.Height /2));

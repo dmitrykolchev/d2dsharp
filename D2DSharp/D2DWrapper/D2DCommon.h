@@ -37,6 +37,20 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		Linear            = 1 
 	};
 
+	public enum class ExtendMode 
+	{
+		Clamp    = 0,
+		Wrap     = 1,
+		Mirror   = 2 
+	};
+
+	public enum class Gamma 
+	{
+		Gamma22   = 0,
+		Gamma10   = 1 
+	};
+
+
 	/// <summary>
 	/// The measuring method used for text layout.
 	/// </summary>
@@ -211,6 +225,22 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			_top = y;
 			_right = x + width;
 			_bottom = y + height;
+		}
+
+		RectF(PointF p1, PointF p2)
+		{
+			_left = p1.X;
+			_top = p1.Y;
+			_right = p2.X;
+			_bottom = p2.Y;
+		}
+
+		RectF(PointF point, SizeF size)
+		{
+			_left = point.X;
+			_top = point.Y;
+			_right = _left + size.Width;
+			_bottom = _top + size.Height;
 		}
 
 	    property FLOAT X

@@ -31,13 +31,6 @@ using namespace System::Runtime::InteropServices;
 
 namespace DykBits { namespace Graphics { namespace Direct2D 
 {
-	public enum class ExtendMode 
-	{
-		Clamp    = 0,
-		Wrap     = 1,
-		Mirror   = 2 
-	};
-
 	public ref class BitmapBrush: Brush
 	{
 	internal:

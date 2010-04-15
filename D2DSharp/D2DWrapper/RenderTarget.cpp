@@ -146,6 +146,14 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		return gcnew BitmapRenderTarget(bitmapRenderTarget);
 	}
 
+	BitmapRenderTarget^ RenderTarget::CreateCompatibleRenderTarget(SizeF desiredSize)
+	{
+		ID2D1BitmapRenderTarget *bitmapRenderTarget;
+		HRESULT hr = GetNative()->CreateCompatibleRenderTarget(*(D2D1_SIZE_F*)&desiredSize, &bitmapRenderTarget);
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+		return gcnew BitmapRenderTarget(bitmapRenderTarget);
+	}
 
 	SolidColorBrush^ RenderTarget::CreateSolidColorBrush(Color color, BrushProperties properties)
 	{
@@ -163,6 +171,18 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		D2D1_GRADIENT_STOP* gs = (D2D1_GRADIENT_STOP*)p;
 		ID2D1GradientStopCollection *gradientStopCollection;
 		HRESULT hr = GetNative()->CreateGradientStopCollection(gs, count, &gradientStopCollection);
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+		return gcnew GradientStopCollection(gradientStopCollection);
+	}
+
+	GradientStopCollection^ RenderTarget::CreateGradientStopCollection(array<GradientStop>^ gradientStops, Gamma colorInterpolationGamma, ExtendMode extendMode)
+	{
+		int count = gradientStops->Length;
+		pin_ptr<GradientStop> p = &gradientStops[0];
+		D2D1_GRADIENT_STOP* gs = (D2D1_GRADIENT_STOP*)p;
+		ID2D1GradientStopCollection *gradientStopCollection;
+		HRESULT hr = GetNative()->CreateGradientStopCollection(gs, count, (D2D1_GAMMA)colorInterpolationGamma, (D2D1_EXTEND_MODE)extendMode, &gradientStopCollection);
 		if(FAILED(hr))
 			Marshal::ThrowExceptionForHR(hr);
 		return gcnew GradientStopCollection(gradientStopCollection);
@@ -197,6 +217,58 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		if(FAILED(hr))
 			Marshal::ThrowExceptionForHR(hr);
 		return gcnew RadialGradientBrush(brush);
+	}
+
+	BitmapBrush^ RenderTarget::CreateBitmapBrush(Bitmap^ bitmap, BitmapBrushProperties bitmapBrushProperties, BrushProperties brushProperties)
+	{
+		ID2D1BitmapBrush* brush;
+		HRESULT hr = GetNative()->CreateBitmapBrush(
+			bitmap->GetNative(),
+			(D2D1_BITMAP_BRUSH_PROPERTIES *)&bitmapBrushProperties,
+			(D2D1_BRUSH_PROPERTIES *)&brushProperties,
+			&brush);
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+		return gcnew BitmapBrush(brush);
+	}
+
+	BitmapBrush^ RenderTarget::CreateGridPatternBrush(SizeF cellSize, Color gridColor)
+	{
+		ID2D1BitmapBrush* bitmapBrush = NULL;
+		ID2D1RenderTarget* renderTarget = GetNative();
+		ID2D1BitmapRenderTarget* compatibleRenderTarget;
+		HRESULT hr = renderTarget->CreateCompatibleRenderTarget(*(D2D1_SIZE_F*)&cellSize, &compatibleRenderTarget);
+		if(SUCCEEDED(hr))
+		{
+			ID2D1SolidColorBrush* gridBrush;
+			hr = compatibleRenderTarget->CreateSolidColorBrush(*(D2D1::ColorF*)&gridColor, &gridBrush);
+			if(SUCCEEDED(hr))
+			{
+				compatibleRenderTarget->BeginDraw();
+				compatibleRenderTarget->FillRectangle(D2D1::RectF(0, 0, cellSize.Width, 1), gridBrush);
+				compatibleRenderTarget->FillRectangle(D2D1::RectF(0, 0, 1, cellSize.Height), gridBrush);
+				hr = compatibleRenderTarget->EndDraw();
+				if(SUCCEEDED(hr))
+				{
+					ID2D1Bitmap* bitmap;
+					hr = compatibleRenderTarget->GetBitmap(&bitmap);
+					if(SUCCEEDED(hr))
+					{
+						BitmapBrushProperties bbp = BitmapBrushProperties(ExtendMode::Wrap, ExtendMode::Wrap, BitmapInterpolationMode::Linear);
+						hr = renderTarget->CreateBitmapBrush(
+							bitmap, 
+							D2D1::BitmapBrushProperties(D2D1_EXTEND_MODE::D2D1_EXTEND_MODE_WRAP,D2D1_EXTEND_MODE::D2D1_EXTEND_MODE_WRAP), 
+							&bitmapBrush);
+						bitmap->Release();
+					}
+				}
+				gridBrush->Release();
+			}
+			compatibleRenderTarget->Release();
+		}
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+		return gcnew BitmapBrush(bitmapBrush);
 	}
 
 	Layer^ RenderTarget::CreateLayer()

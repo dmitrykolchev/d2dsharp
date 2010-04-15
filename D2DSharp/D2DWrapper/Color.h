@@ -58,6 +58,14 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			_alpha = alpha;
 		}
 	public:
+		static Color FromARGB(int color, FLOAT alpha)
+		{
+			return Color(
+				alpha,
+				(float)((color & 0xFF0000) >> 16) / 255,
+				(float)((color & 0x00FF00) >> 8) / 255,
+				(float)(color & 0x0000FF) / 255);
+		}
 		static Color FromRGB(FLOAT red, FLOAT green, FLOAT blue)
 		{
 			return Color(red, green, blue);

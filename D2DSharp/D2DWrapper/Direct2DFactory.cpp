@@ -111,6 +111,18 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		return gcnew StrokeStyle(native);
 	}
 
+	PathGeometry^ Direct2DFactory::CreatePathGeometry()
+	{
+		ID2D1PathGeometry *geometry;
+		
+		HRESULT hr = GetNative()->CreatePathGeometry(&geometry);
+		
+		if(FAILED(hr))
+			Marshal::ThrowExceptionForHR(hr);
+
+		return gcnew PathGeometry(geometry);
+	}
+
 	EllipseGeometry^ Direct2DFactory::CreateEllipseGeometry(Ellipse ellipse)
 	{
 		ID2D1EllipseGeometry *ellipseGeometry;

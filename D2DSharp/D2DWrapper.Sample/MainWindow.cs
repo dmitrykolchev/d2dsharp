@@ -43,9 +43,9 @@ namespace D2DWrapper.Sample
         public MainWindow()
         {
             SetStyle(
-                ControlStyles.AllPaintingInWmPaint | 
-                ControlStyles.Opaque | 
-                ControlStyles.ResizeRedraw | 
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.Opaque |
+                ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint, true);
             InitializeComponent();
             this.Load += new EventHandler(MainWindow_Load);
@@ -54,7 +54,7 @@ namespace D2DWrapper.Sample
 
         void MainWindow_Resize(object sender, EventArgs e)
         {
-            if(IsHandleCreated)
+            if (IsHandleCreated)
                 this._renderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
         }
 
@@ -65,7 +65,7 @@ namespace D2DWrapper.Sample
                 if (this._brush == null)
                 {
 
-                    this._brush = _renderTarget.CreateSolidColorBrush(Colors.Red, BrushProperties.Default);
+                    this._brush = _renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Red, 1), BrushProperties.Default);
                     this._brush.Opacity = 1f;
                 }
                 return this._brush;
@@ -77,7 +77,7 @@ namespace D2DWrapper.Sample
         void MainWindow_Paint(object sender, PaintEventArgs e)
         {
             this._renderTarget.BeginDraw();
-            this._renderTarget.Clear(Colors.Blue);
+            this._renderTarget.Clear(Color.FromARGB(Colors.Blue, 1));
 
             PointF center = new PointF(ClientSize.Width / 2, ClientSize.Height / 2);
             this._renderTarget.Transform = Matrix3x2.Rotation(_angle, center);
@@ -96,11 +96,11 @@ namespace D2DWrapper.Sample
                 }
             }
             RectF textBounds = new RectF(0, 0, ClientSize.Width, ClientSize.Height);
-            
+
             this._renderTarget.DrawText("Hello, world!", _textFormat, textBounds, _strokeBrush, DrawTextOptions.None, MeasuringMode.Natural);
 
             this._renderTarget.DrawLine(_strokeBrush, 5, _strokeStyle, new PointF(0, 0), new PointF(ClientSize.Width, ClientSize.Height));
-            
+
             this._renderTarget.EndDraw();
         }
 
@@ -108,14 +108,14 @@ namespace D2DWrapper.Sample
         {
             RectF bounds = ellipse.Bounds;
 
-            RadialGradientBrushProperties properties = new RadialGradientBrushProperties(bounds.Center, 
-                new PointF(), 
-                ellipse.RadiusX, 
+            RadialGradientBrushProperties properties = new RadialGradientBrushProperties(bounds.Center,
+                new PointF(),
+                ellipse.RadiusX,
                 ellipse.RadiusY);
             using (GradientStopCollection collection = _renderTarget.CreateGradientStopCollection(new GradientStop[] { 
-                        new GradientStop(0, Colors.Blue), 
-                        new GradientStop(0.5f, Colors.Green), 
-                        new GradientStop(1, Colors.Blue)
+                        new GradientStop(0, Color.FromARGB(Colors.Blue,1)), 
+                        new GradientStop(0.5f, Color.FromARGB(Colors.Green,1)), 
+                        new GradientStop(1, Color.FromARGB(Colors.Blue,1))
                     }))
             {
                 Brush brush = _renderTarget.CreateRadialGradientBrush(properties, BrushProperties.Default, collection);
@@ -137,7 +137,7 @@ namespace D2DWrapper.Sample
             this._renderTarget = this._factory.CreateWindowRenderTarget(this, PresentOptions.None, RenderTargetProperties.Default);
             AntialiasMode amode = this._renderTarget.AntialiasMode;
             TextAntialiasMode tamode = this._renderTarget.TextAntialiasMode;
-            this._strokeBrush = this._renderTarget.CreateSolidColorBrush(Colors.Cyan);
+            this._strokeBrush = this._renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Cyan, 1));
             this._strokeStyle = this._factory.CreateStrokeStyle(new StrokeStyleProperties(LineCapStyle.Flat,
                 LineCapStyle.Flat, LineCapStyle.Round, LineJoin.Miter, 10, DashStyle.Dot, 0), null);
 

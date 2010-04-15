@@ -47,6 +47,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 	ref class LayerParameters;
 	ref class Mesh;
 	ref class Bitmap;
+	ref class BitmapBrush;
 	ref class BitmapRenderTarget;	
 
 	public enum class AntialiasMode  
@@ -80,6 +81,22 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		System::UInt64 _tag1;
 		System::UInt64 _tag2;
 		Matrix3x2 _transform;
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct BitmapBrushProperties
+	{
+	private:
+		ExtendMode _extendModeX;
+		ExtendMode _extendModeY;
+		BitmapInterpolationMode _interpolationMode;
+	public:
+		BitmapBrushProperties(ExtendMode extendModeX, ExtendMode extendModeY, BitmapInterpolationMode interpolationMode)
+		{
+			_extendModeX = extendModeX;
+			_extendModeY = extendModeY;
+			_interpolationMode = interpolationMode;
+		}
 	};
 
 	public ref class RenderTarget: D2DResource
@@ -219,6 +236,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 
 
 		BitmapRenderTarget^ CreateCompatibleRenderTarget();
+		BitmapRenderTarget^ CreateCompatibleRenderTarget(SizeF desiredSize);
 
 		SolidColorBrush^ CreateSolidColorBrush(Color color, BrushProperties properties);
 		SolidColorBrush^ CreateSolidColorBrush(Color color)
@@ -237,6 +255,11 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			GradientStopCollection^ gradientStopCollection);
 
 		GradientStopCollection^ CreateGradientStopCollection(array<GradientStop>^ gradientStops);
+		GradientStopCollection^ CreateGradientStopCollection(array<GradientStop>^ gradientStops, Gamma colorInterpolationGamma, ExtendMode extendMode);
+
+		BitmapBrush^ CreateBitmapBrush(Bitmap^ bitmap, BitmapBrushProperties bitmapBrushProperties, BrushProperties brushProperties);
+
+		BitmapBrush^ CreateGridPatternBrush(SizeF cellSize, Color gridColor);
 
 		Layer^ CreateLayer();
 		Layer^ CreateLayer(SizeF size);

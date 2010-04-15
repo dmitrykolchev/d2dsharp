@@ -46,6 +46,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 	ref class TransformedGeometry;
 	ref class GeometryGroup;
 	ref class DCRenderTarget;
+	ref class PathGeometry;
 
 	public enum class DxgiFormat
 	{
@@ -326,6 +327,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		RoundedRectangleGeometry^ CreateRoundedRectangleGeometry(RoundedRect rect);
 		TransformedGeometry^ CreateTransformedGeometry(Geometry^ sourceGeometry, Matrix3x2 transform);
 		GeometryGroup^ CreateGeometryGroup(FillMode fillMode, array<Geometry^>^ geometries);
+		PathGeometry^ CreatePathGeometry();
 
 		void ReloadSystemMetrics()
 		{

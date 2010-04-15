@@ -31,7 +31,7 @@ namespace DykBits.D2DSharp.Sample2
         void MainWindow_Paint(object sender, PaintEventArgs e)
         {
             this._renderTarget.BeginDraw();
-            this._renderTarget.Clear(Colors.Black);
+            this._renderTarget.Clear(Color.FromARGB(Colors.Black,1));
             if (this._cache != null)
             {
                 this._renderTarget.DrawBitmap(this._cache, new RectF(0, 0, ClientSize.Width, ClientSize.Height),
@@ -54,13 +54,13 @@ namespace DykBits.D2DSharp.Sample2
         {
             if (this._renderTarget != null)
             {
-                if (this._cache != null)
-                {
-                    this._cache.Dispose();
-                    this._cache = null;
-                }
+                //if (this._cache != null)
+                //{
+                //    this._cache.Dispose();
+                //    this._cache = null;
+                //}
                 this._renderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
-                timer1_Tick(null, EventArgs.Empty);
+                //timer1_Tick(null, EventArgs.Empty);
             }
         }
 
@@ -69,17 +69,20 @@ namespace DykBits.D2DSharp.Sample2
             this.timer1.Enabled = false;
             Random rand = new Random();
             this._renderTarget.BeginDraw();
-            for (int index = 0; index < 1000; ++index)
+            for (int index = 0; index < 20; ++index)
             {
                 Color color = Color.FromARGB(1, (float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
                 using (SolidColorBrush brush = this._renderTarget.CreateSolidColorBrush(color))
                 {
-                    this._renderTarget.DrawLine(brush, 1, this._strokeStyle,
-                        new PointF(rand.Next(0, ClientSize.Width), rand.Next(0, ClientSize.Height)),
-                        new PointF(rand.Next(0, ClientSize.Width), rand.Next(0, ClientSize.Height)));
+                    float strokeWidth = rand.Next(1, 5);
+                    float patch = strokeWidth / 2 - (int)(strokeWidth / 2);
+                    this._renderTarget.DrawRect(brush, strokeWidth, this._strokeStyle,
+                        new RectF(
+                        new PointF(rand.Next(0, ClientSize.Width) + patch, rand.Next(0, ClientSize.Height) + patch),
+                        new PointF(rand.Next(0, ClientSize.Width) + patch, rand.Next(0, ClientSize.Height) + patch)));
                 }
             }
-            this._cache = this._renderTarget.CreateBitmap(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height), IntPtr.Zero, 0, 
+            this._cache = this._renderTarget.CreateBitmap(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height), IntPtr.Zero, 0,
                 new BitmapProperties(new PixelFormat(DxgiFormat.B8G8R8A8_UNORM, AlphaMode.Ignore), 96, 96));
             this._cache.CopyFromRenderTarget(new PointU(0, 0), this._renderTarget, new RectU(0, 0, (uint)ClientSize.Width, (uint)ClientSize.Height));
             this._renderTarget.EndDraw();
