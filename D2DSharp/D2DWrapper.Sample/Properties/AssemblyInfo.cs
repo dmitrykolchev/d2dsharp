@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("D2DWrapper.Sample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Avicom Business Technologies")]
+[assembly: AssemblyCompany("Dmitry Kolchev")]
 [assembly: AssemblyProduct("D2DWrapper.Sample")]
-[assembly: AssemblyCopyright("Copyright © Avicom Business Technologies 2010")]
+[assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

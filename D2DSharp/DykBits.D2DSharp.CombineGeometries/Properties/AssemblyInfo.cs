@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DykBits.D2DSharp.Sample2")]
+[assembly: AssemblyTitle("DykBits.D2DSharp.CombineGeometries")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dmitry Kolchev")]
-[assembly: AssemblyProduct("DykBits.D2DSharp.Sample2")]
+[assembly: AssemblyProduct("DykBits.D2DSharp.CombineGeometries")]
 [assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1504c77b-a068-4623-9c34-93c6b83f2c6d")]
+[assembly: Guid("271c9ade-721d-4391-94cb-4cc56a57db42")]
 
 // Version information for an assembly consists of the following four values:
 //
