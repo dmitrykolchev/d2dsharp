@@ -23,6 +23,7 @@
 #pragma comment(lib, "Windowscodecs.lib")
 #pragma comment(lib, "Ole32.lib")
 
+#include "ComUtils.h"
 #include "WicCommon.h"
 #include "WicComponentInfo.h"
 #include "WicBitmap.h"
@@ -31,10 +32,12 @@
 using namespace System;
 using namespace System::IO;
 using namespace System::Runtime::InteropServices;
+//using namespace DykBits::Runtime::InteropServices;
 
 namespace DykBits { namespace Graphics { namespace Imaging
 {
 	ref class WicBitmapDecoder;
+	ref class WicStream;
 
 	public ref class WicImagingFactory: ComWrapper
 	{
@@ -64,15 +67,15 @@ namespace DykBits { namespace Graphics { namespace Imaging
 				Marshal::ThrowExceptionForHR(hr);
 			return gcnew WicBitmap(bitmap);
 		}
-		WicBitmapDecoder^ CreateDecoderFromFilename(String^ fileName, Guid vendor, FileAccess fileAccess, DecodeOptions options);
+		WicBitmapDecoder^ CreateDecoder(String^ fileName, Guid vendor, DesiredAccess desiredAccess, DecodeOptions options);
+		WicBitmapDecoder^ CreateDecoder(WicStream^ stream, Guid vendor, DecodeOptions options);
 		WicFormatConverter^ CreateFormatConverter()
 		{
 			IWICFormatConverter* converter;
-			HRESULT hr = GetNative()->CreateFormatConverter(&converter);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->CreateFormatConverter(&converter));
 			return gcnew WicFormatConverter(converter);
 		}
+		WicStream^ CreateStream();
 	internal:
 		IWICImagingFactory* GetNative() new
 		{

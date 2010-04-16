@@ -165,7 +165,7 @@ namespace DykBits.D2DShart.ImageViewer
 
         private void OnImagePathChanged(EventArgs e)
         {
-            using (WicBitmapDecoder decoder = this._imagingFactory.CreateDecoderFromFilename(ImagePath, Guid.Empty, System.IO.FileAccess.Read, DecodeOptions.MetadataCacheOnDemand))
+            using (WicBitmapDecoder decoder = this._imagingFactory.CreateDecoder(ImagePath, Guid.Empty, DesiredAccess.Read, DecodeOptions.MetadataCacheOnDemand))
             {
                 using (WicBitmapFrameDecode frame = decoder.GetFrame(0))
                 {

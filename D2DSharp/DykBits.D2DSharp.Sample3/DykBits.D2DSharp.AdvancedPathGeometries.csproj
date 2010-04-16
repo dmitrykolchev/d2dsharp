@@ -8,8 +8,8 @@
     <ProjectGuid>{A7328287-CF48-415F-BD89-3195DE4693E1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DykBits.D2DSharp.Sample3</RootNamespace>
-    <AssemblyName>DykBits.D2DSharp.Sample3</AssemblyName>
+    <RootNamespace>DykBits.D2DSharp.AdvancedPathGeometries</RootNamespace>
+    <AssemblyName>DykBits.D2DSharp.AdvancedPathGeometries</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -84,6 +85,10 @@
     <ProjectReference Include="..\D2DWrapper\D2DWrapper.vcxproj">
       <Project>{151AE681-22CC-404D-A759-8D80BF85E9F1}</Project>
       <Name>D2DWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DykBits.Graphics.Forms\DykBits.Graphics.Forms.csproj">
+      <Project>{350A3A81-BF89-4339-AF82-35F50E0B88FC}</Project>
+      <Name>DykBits.Graphics.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

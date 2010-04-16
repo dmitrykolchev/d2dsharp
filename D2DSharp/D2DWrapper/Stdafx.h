@@ -28,7 +28,9 @@
 #include <vcclr.h>
 #include <Wincodec.h>
 
+#include "ComUtils.h"
 #include "ComWrapper.h"
+#include "StreamWrapper.h"
 
 #include "D2DCommon.h"
 #include "Colors.h"
@@ -77,3 +79,4 @@
 #include "WicBitmap.h"
 #include "WicBitmapDecoder.h"
 #include "WicBitmapFrameDecode.h"
+#include "WicStream.h"

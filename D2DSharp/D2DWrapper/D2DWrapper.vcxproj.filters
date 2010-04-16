@@ -177,6 +177,15 @@
     <ClInclude Include="DCRenderTarget.h">
       <Filter>Header Files\Direct2D</Filter>
     </ClInclude>
+    <ClInclude Include="WicStream.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="ComUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -220,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="WicFormatConverter.cpp">
       <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicStream.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamWrapper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

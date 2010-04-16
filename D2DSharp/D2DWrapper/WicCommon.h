@@ -80,6 +80,11 @@ namespace DykBits { namespace Graphics { namespace Imaging
 		ErrorDiffusion   = 0x00000008 
 	};
 
+	public enum class DesiredAccess
+	{
+		Read = GENERIC_READ,
+		Write = GENERIC_WRITE
+	};
 
 	[StructLayout(LayoutKind::Sequential)]
 	public value struct WicRect

@@ -1,4 +1,25 @@
-﻿using System;
+﻿/* 
+* MainWindow.cs 
+* 
+* Authors: 
+*  Dmitry Kolchev <dmitrykolchev@msn.com>
+*  
+* Copyright (C) 2010 Dmitry Kolchev
+*
+* This sourcecode is licenced under The GNU Lesser General Public License
+* 
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+* NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+* DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+* OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+* USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,13 +27,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DykBits.Graphics.Direct2D;
+using DykBits.Graphics.Forms;
 
-namespace DykBits.D2DSharp.Sample3
+namespace DykBits.D2DSharp.AdvancedPathGeometries
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : Direct2DWindow
     {
-        private Direct2DFactory _factory;
-        private WindowRenderTarget _renderTarget;
         private PathGeometry _leftMountainGeometry;
         private PathGeometry _rightMountainGeometry;
         private PathGeometry _sunGeometry;
@@ -23,56 +43,42 @@ namespace DykBits.D2DSharp.Sample3
 
         public MainWindow()
         {
-            SetStyle(
-                ControlStyles.AllPaintingInWmPaint |
-                ControlStyles.Opaque |
-                ControlStyles.ResizeRedraw |
-                ControlStyles.UserPaint, true);
             InitializeComponent();
-            this.Load += new EventHandler(MainWindow_Load);
-            this.Paint += new PaintEventHandler(MainWindow_Paint);
         }
 
-        void MainWindow_Paint(object sender, PaintEventArgs e)
+        protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            this._renderTarget.BeginDraw();
-            RectF bounds = new RectF(new PointF(), _renderTarget.Size);
-            this._renderTarget.Clear(Color.FromARGB(Colors.White, 1));
-            this._renderTarget.FillRect(_gridPatternBrush, bounds);
+            RectF bounds = new RectF(new PointF(), renderTarget.Size);
+            renderTarget.FillRect(_gridPatternBrush, bounds);
 
-            this._renderTarget.FillGeometry(this._radialGradientBrush, this._sunGeometry);
+            renderTarget.FillGeometry(this._radialGradientBrush, this._sunGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
-            this._renderTarget.DrawGeometry(this._sceneBrush, 1, _sunGeometry);
+            renderTarget.DrawGeometry(this._sceneBrush, 1, _sunGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.OliveDrab, 1);
-            this._renderTarget.FillGeometry(this._sceneBrush, this._leftMountainGeometry);
+            renderTarget.FillGeometry(this._sceneBrush, this._leftMountainGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
-            this._renderTarget.DrawGeometry(this._sceneBrush, 1, this._leftMountainGeometry);
+            renderTarget.DrawGeometry(this._sceneBrush, 1, this._leftMountainGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.LightSkyBlue, 1);
-            this._renderTarget.FillGeometry(this._sceneBrush, this._riverGeometry);
+            renderTarget.FillGeometry(this._sceneBrush, this._riverGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
-            this._renderTarget.DrawGeometry(this._sceneBrush, 1, this._riverGeometry);
+            renderTarget.DrawGeometry(this._sceneBrush, 1, this._riverGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.YellowGreen, 1);
-            this._renderTarget.FillGeometry(this._sceneBrush, this._rightMountainGeometry);
+            renderTarget.FillGeometry(this._sceneBrush, this._rightMountainGeometry);
 
             this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
-            this._renderTarget.DrawGeometry(this._sceneBrush, 1, this._rightMountainGeometry);
-
-            this._renderTarget.EndDraw();
+            renderTarget.DrawGeometry(this._sceneBrush, 1, this._rightMountainGeometry);
         }
 
-        void MainWindow_Load(object sender, EventArgs e)
+        protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
-            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
-            StrokeStyleProperties ssp = new StrokeStyleProperties(LineCapStyle.Round, LineCapStyle.Round,
-                LineCapStyle.Round, LineJoin.Round, 10, DashStyle.Solid, 0);
-
-            this._leftMountainGeometry = this._factory.CreatePathGeometry();
+            base.OnCreateDeviceIndependentResources(factory);
+            this._leftMountainGeometry = factory.CreatePathGeometry();
             using (GeometrySink sink = this._leftMountainGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
@@ -89,7 +95,7 @@ namespace DykBits.D2DSharp.Sample3
                 sink.Close();
             }
 
-            this._rightMountainGeometry = this._factory.CreatePathGeometry();
+            this._rightMountainGeometry = factory.CreatePathGeometry();
             using (GeometrySink sink = this._rightMountainGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
@@ -108,7 +114,7 @@ namespace DykBits.D2DSharp.Sample3
                 sink.Close();
             }
 
-            this._sunGeometry = this._factory.CreatePathGeometry();
+            this._sunGeometry = factory.CreatePathGeometry();
             using (GeometrySink sink = this._sunGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
@@ -212,10 +218,7 @@ namespace DykBits.D2DSharp.Sample3
                 sink.EndFigure(FigureEnd.Open);
                 sink.Close();
             }
-
-            this._renderTarget = this._factory.CreateWindowRenderTarget(this);
-
-            this._riverGeometry = this._factory.CreatePathGeometry();
+            this._riverGeometry = factory.CreatePathGeometry();
             using (GeometrySink sink = this._riverGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
@@ -250,7 +253,20 @@ namespace DykBits.D2DSharp.Sample3
                 sink.EndFigure(FigureEnd.Open);
                 sink.Close();
             }
+        }
 
+        protected override void OnCleanUpDeviceIndependentResources()
+        {
+            base.OnCleanUpDeviceIndependentResources();
+            this._leftMountainGeometry.Dispose();
+            this._rightMountainGeometry.Dispose();
+            this._sunGeometry.Dispose();
+            this._riverGeometry.Dispose();
+        }
+
+        protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
+        {
+            base.OnCreateDeviceResources(renderTarget);
             // Create an array of gradient stops to put in the gradient stop
             // collection that will be used in the gradient brush.
             GradientStop[] stops = new GradientStop[] {
@@ -259,11 +275,11 @@ namespace DykBits.D2DSharp.Sample3
                 new GradientStop(1, Color.FromARGB(Colors.OrangeRed, 1))
             };
 
-            using (GradientStopCollection gradiendStops = this._renderTarget.CreateGradientStopCollection(stops, Gamma.Gamma10, ExtendMode.Clamp))
+            using (GradientStopCollection gradiendStops = renderTarget.CreateGradientStopCollection(stops, Gamma.Gamma22, ExtendMode.Clamp))
             {
                 // The center of the gradient is in the center of the box.
                 // The gradient origin offset was set to zero(0, 0) or center in this case.
-                this._radialGradientBrush = this._renderTarget.CreateRadialGradientBrush(
+                this._radialGradientBrush = renderTarget.CreateRadialGradientBrush(
                     new RadialGradientBrushProperties(
                         new PointF(330, 330),
                         new PointF(140, 140),
@@ -273,22 +289,16 @@ namespace DykBits.D2DSharp.Sample3
                         gradiendStops);
             }
 
-            this._sceneBrush = this._renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
-            this._gridPatternBrush = this._renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromARGB(1, 0.93f, 0.94f, 0.96f));
-
-            this.Resize += new EventHandler(MainWindow_Resize);
+            this._sceneBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
+            this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromARGB(1, 0.93f, 0.94f, 0.96f));
         }
 
-        void MainWindow_Resize(object sender, EventArgs e)
+        protected override void OnCleanUpDeviceResources()
         {
-            if (this._renderTarget != null)
-            {
-                this._renderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
+            base.OnCleanUpDeviceResources();
+            this._radialGradientBrush.Dispose();
+            this._sceneBrush.Dispose();
+            this._gridPatternBrush.Dispose();
         }
     }
 }

@@ -25,28 +25,33 @@
 
 namespace DykBits { namespace Graphics { namespace Imaging
 {
-	WicBitmapDecoder^ WicImagingFactory::CreateDecoderFromFilename(String^ fileName, Guid vendor, FileAccess fileAccess, DecodeOptions options)
+	WicBitmapDecoder^ WicImagingFactory::CreateDecoder(String^ fileName, Guid vendor, DesiredAccess desiredAccess, DecodeOptions options)
 	{
 		pin_ptr<const System::Char> pFileName = PtrToStringChars(fileName);
 		GUID *pGuid = vendor == Guid::Empty ? NULL : (GUID*)&vendor;
-		DWORD fa = GENERIC_READ;
-		switch(fileAccess)
-		{
-		case FileAccess::Read:
-			fa = GENERIC_READ;
-			break;
-		case FileAccess::Write:
-			fa = GENERIC_WRITE;
-			break;
-		case FileAccess::ReadWrite:
-			fa = GENERIC_READ | GENERIC_WRITE;
-			break;
-		}
 		IWICBitmapDecoder* decoder;
-		HRESULT hr = GetNative()->CreateDecoderFromFilename(pFileName, pGuid, fa, (WICDecodeOptions)options, &decoder);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateDecoderFromFilename(pFileName, pGuid, (DWORD)desiredAccess, (WICDecodeOptions)options, &decoder));
 		return gcnew WicBitmapDecoder(decoder);
+	}
+
+	WicBitmapDecoder^ WicImagingFactory::CreateDecoder(WicStream^ stream, Guid vendor, DecodeOptions options)
+	{
+		GUID *pGuid = vendor == Guid::Empty ? NULL : (GUID*)&vendor;
+		IWICBitmapDecoder* decoder;
+		ComUtils::CheckResult(GetNative()->CreateDecoderFromStream(
+			(IStream*)stream->GetNative(),
+			pGuid,
+			(WICDecodeOptions)options,
+			&decoder)
+			);
+		return gcnew WicBitmapDecoder(decoder);
+	}
+
+	WicStream^ WicImagingFactory::CreateStream()
+	{
+		IWICStream *stream;
+		ComUtils::CheckResult(GetNative()->CreateStream(&stream));
+		return gcnew WicStream(stream);
 	}
 
 }}}

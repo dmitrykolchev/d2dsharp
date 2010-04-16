@@ -1,5 +1,4 @@
-﻿/* 
-* MainWindow.cs 
+/* 
 * 
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>
@@ -19,24 +18,24 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+#pragma once
 
-namespace DykBits.D2DSharp.Sample2
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+namespace DykBits { namespace Runtime { namespace InteropServices
 {
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
-        }
-    }
-}
+	ref class ComUtils
+	{
+	private:
+		ComUtils()
+		{
+		}
+	public:
+		static void CheckResult(HRESULT hr)
+		{
+			if(FAILED(hr))
+				Marshal::ThrowExceptionForHR(hr);
+		}
+	};
+}}}

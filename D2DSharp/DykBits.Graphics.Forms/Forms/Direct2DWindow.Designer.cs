@@ -1,6 +1,6 @@
-﻿namespace DykBits.D2DSharp.Sample2
+﻿namespace DykBits.Graphics.Forms
 {
-    partial class MainWindow
+    partial class Direct2DWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,29 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // MainWindow
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(909, 579);
-            this.Name = "MainWindow";
-            this.Text = "Form1";
-            this.ResumeLayout(false);
-
+            this.Text = "Direct2DWindow";
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer1;
     }
 }
-
