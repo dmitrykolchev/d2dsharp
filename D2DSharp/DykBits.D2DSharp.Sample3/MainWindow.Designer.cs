@@ -43,7 +43,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 513);
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "Direct2D# Advanced Path Geometries Example";
             this.ResumeLayout(false);
 
         }
