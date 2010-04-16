@@ -38,6 +38,13 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 	public:
 		LayerParameters()
 		{
+			Bounds = RectF::Infinite;
+			Mask = nullptr;
+			MaskAntialiasMode = AntialiasMode::PerPrimitive;
+			MaskTransform = Matrix3x2::Identity;
+			Opacity = 1;
+			OpacityBrush = nullptr;
+			LayerOptions = DykBits::Graphics::Direct2D::LayerOptions::None;
 		}
 
 		property RectF Bounds

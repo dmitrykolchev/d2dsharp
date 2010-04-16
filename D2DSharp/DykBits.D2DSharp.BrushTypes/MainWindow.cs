@@ -63,25 +63,11 @@ namespace DykBits.D2DSharp.BrushTypes
                     collection);
             }
 
-            using (WicStream stream = this.ImagingFactory.CreateStream())
+            using (Bitmap bitmap = RenderTarget.CreateBitmap(this.GetType(), "fern.jpg"))
             {
-                stream.Initialize(this.GetType(), "fern.jpg");
-                using (WicBitmapDecoder decoder = this.ImagingFactory.CreateDecoder(stream, Guid.Empty, DecodeOptions.MetadataCacheOnDemand))
-                {
-                    using (WicBitmapFrameDecode frame = decoder.GetFrame(0))
-                    {
-                        using (WicFormatConverter converter = ImagingFactory.CreateFormatConverter())
-                        {
-                            converter.Convert(frame, WicPixelFormats.PixelFormat32bppPBGRA, BitmapDitherType.None, null, 0, BitmapPaletteType.Custom);
-                            using (Bitmap bitmap = RenderTarget.CreateBitmap(converter, new BitmapProperties()))
-                            {
-                                this._bitmapBrush = renderTarget.CreateBitmapBrush(bitmap,
-                                    new BitmapBrushProperties(ExtendMode.Wrap, ExtendMode.Wrap, BitmapInterpolationMode.Linear),
-                                    BrushProperties.Default);
-                            }
-                        }
-                    }
-                }
+                this._bitmapBrush = renderTarget.CreateBitmapBrush(bitmap,
+                    new BitmapBrushProperties(ExtendMode.Wrap, ExtendMode.Wrap, BitmapInterpolationMode.Linear),
+                    BrushProperties.Default);
             }
 
             this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromARGB(1, 0.93f, 0.94f, 0.96f));

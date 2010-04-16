@@ -233,6 +233,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		Bitmap^ CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties bitmapProperties);
 		Bitmap^ CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties bitmapProperties);
 		Bitmap^ CreateBitmap(WicBitmapSource^ source, BitmapProperties bitmapProperties);
+		Bitmap^ CreateBitmap(Type^ type, String^ resourceName);
 
 
 		BitmapRenderTarget^ CreateCompatibleRenderTarget();

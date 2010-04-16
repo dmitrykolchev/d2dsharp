@@ -137,6 +137,54 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		return gcnew Bitmap(bitmap);
 	}
 
+	Bitmap^ RenderTarget::CreateBitmap(Type^ type, String^ resourceName)
+	{
+		WicImagingFactory^ imagingFactory = WicImagingFactory::Create();
+		try
+		{
+			WicStream^ stream = imagingFactory->CreateStream();
+			try
+			{
+				stream->Initialize(type, resourceName);
+				WicBitmapDecoder^ decoder = imagingFactory->CreateDecoder(stream, Guid::Empty, DecodeOptions::MetadataCacheOnDemand);
+				try
+				{
+					WicBitmapFrameDecode^ frame = decoder->GetFrame(0);
+					try
+					{
+						WicFormatConverter^ converter = imagingFactory->CreateFormatConverter();
+						try 
+						{
+							converter->Convert(frame, WicPixelFormats::PixelFormat32bppPBGRA, BitmapDitherType::None, nullptr, 0, BitmapPaletteType::Custom);
+							BitmapProperties bitmapProperties = BitmapProperties();
+							return CreateBitmap(converter, bitmapProperties);
+						}
+						finally 
+						{
+							delete converter;
+						}
+					}
+					finally
+					{
+						delete frame;
+					}
+				}
+				finally
+				{
+					delete decoder;
+				}
+			}
+			finally
+			{
+				delete stream;
+			}
+		}
+		finally
+		{
+			delete imagingFactory;
+		}
+	}
+
 	BitmapRenderTarget^ RenderTarget::CreateCompatibleRenderTarget()
 	{
 		ID2D1BitmapRenderTarget *bitmapRenderTarget;

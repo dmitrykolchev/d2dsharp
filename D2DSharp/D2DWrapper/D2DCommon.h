@@ -20,6 +20,8 @@
 */
 #pragma once
 
+#include <d2d1helper.h>
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 
@@ -214,11 +216,24 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 	public value struct RectF
 	{
 	private:
+		static const FLOAT FloatMax = 3.402823466e+38F;
 	    FLOAT _left;
 	    FLOAT _top;
 	    FLOAT _right;
 	    FLOAT _bottom;
 	public:
+		static RectF FromLTBR(FLOAT left, FLOAT top, FLOAT right, FLOAT bottom)
+		{
+			RectF rect;
+			rect._left = left;
+			rect._top = top;
+			rect._right = right;
+			rect._bottom = bottom;
+			return rect;
+		}
+
+		initonly static RectF Infinite = FromLTBR(-FloatMax, -FloatMax, FloatMax,  FloatMax);
+
 		RectF(FLOAT x, FLOAT y, FLOAT width, FLOAT height)
 		{
 			_left = x;
