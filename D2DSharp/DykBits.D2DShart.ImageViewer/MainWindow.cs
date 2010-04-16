@@ -162,7 +162,7 @@ namespace DykBits.D2DShart.ImageViewer
         {
             this.timer1.Enabled = false;
             this.timer1.Tick -= new EventHandler(timer1_Tick);
-            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sampl Pictures"));
+            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sample Pictures"));
         }
     }
 }
