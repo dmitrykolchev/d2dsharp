@@ -43,7 +43,6 @@ namespace DykBits.Graphics.Forms
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.Opaque |
-                ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint, true);
 
             InitializeComponent();
@@ -52,7 +51,8 @@ namespace DykBits.Graphics.Forms
 
         void Direct2DWindow_Disposed(object sender, EventArgs e)
         {
-            CleanUpResources();
+            this.Disposed -= new EventHandler(Direct2DWindow_Disposed);
+            CleanUpDeviceIndependentResources();
         }
 
         protected Direct2DFactory Direct2DFactory
@@ -98,24 +98,18 @@ namespace DykBits.Graphics.Forms
         protected override void OnLoad(EventArgs e)
         {
             CreateDeviceIndependentResources();
-            CreateDeviceResources();
             base.OnLoad(e);
         }
 
         private void CreateDeviceIndependentResources()
         {
             this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
+            this._renderTarget = this._factory.CreateWindowRenderTarget(this);
             OnCreateDeviceIndependentResources(this._factory);
         }
 
-        private void CleanUpResources()
+        private void CleanUpDeviceIndependentResources()
         {
-            OnCleanUpDeviceResources();
-            if (this._renderTarget != null)
-            {
-                this._renderTarget.Dispose();
-                this._renderTarget = null;
-            }
             OnCleanUpDeviceIndependentResources();
             if (this._imagingFactory != null)
             {
@@ -127,6 +121,11 @@ namespace DykBits.Graphics.Forms
                 this._directWriteFactory.Dispose();
                 this._directWriteFactory = null;
             }
+            if (this._renderTarget != null)
+            {
+                this._renderTarget.Dispose();
+                this._renderTarget = null;
+            }
             if (this._factory != null)
             {
                 this._factory.Dispose();
@@ -134,17 +133,21 @@ namespace DykBits.Graphics.Forms
             }
         }
 
-        protected virtual void OnCleanUpDeviceResources()
+        protected virtual void OnCleanUpDeviceIndependentResources()
         {
         }
 
-        protected virtual void OnCleanUpDeviceIndependentResources()
+        private void CleanUpDeviceResources()
+        {
+            OnCleanUpDeviceResources();
+        }
+        
+        protected virtual void OnCleanUpDeviceResources()
         {
         }
 
         private void CreateDeviceResources()
         {
-            this._renderTarget = this._factory.CreateWindowRenderTarget(this);
             OnCreateDeviceResources(this._renderTarget);
         }
 
@@ -158,16 +161,24 @@ namespace DykBits.Graphics.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            this._renderTarget.BeginDraw();
+            CreateDeviceResources();
             try
             {
-                this._renderTarget.Transform = Matrix3x2.Identity;
-                this._renderTarget.Clear(Color.FromRGB(this.BackColor.R, this.BackColor.G, this.BackColor.B));
-                OnRender(RenderTarget);
+                this._renderTarget.BeginDraw();
+                try
+                {
+                    this._renderTarget.Transform = Matrix3x2.Identity;
+                    this._renderTarget.Clear(Color.FromRGB(this.BackColor.R, this.BackColor.G, this.BackColor.B));
+                    OnRender(RenderTarget);
+                }
+                finally
+                {
+                    this._renderTarget.EndDraw();
+                }
             }
             finally
             {
-                this._renderTarget.EndDraw();
+                CleanUpDeviceResources();
             }
         }
 
@@ -181,6 +192,7 @@ namespace DykBits.Graphics.Forms
             if (this.RenderTarget != null)
             {
                 this.RenderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
+                Invalidate();
             }
         }
     }

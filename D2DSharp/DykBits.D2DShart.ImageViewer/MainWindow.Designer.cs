@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@
             this.buttonRotateRight = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.direct2DSurface1 = new DykBits.D2DShart.ImageViewer.Direct2DSurface();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonNext
@@ -133,6 +135,10 @@
             this.direct2DSurface1.TabIndex = 0;
             this.direct2DSurface1.Text = "direct2DSurface1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,6 +172,7 @@
         private System.Windows.Forms.Button buttonRotateLeft;
         private System.Windows.Forms.Button buttonRotateRight;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

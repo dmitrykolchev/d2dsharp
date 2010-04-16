@@ -46,7 +46,7 @@ namespace DykBits.D2DShart.ImageViewer
 
         void MainWindow_Load(object sender, EventArgs e)
         {
-            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sampl Pictures"));
+            this.timer1.Enabled = true;
         }
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
@@ -156,6 +156,13 @@ namespace DykBits.D2DShart.ImageViewer
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             this.direct2DSurface1.ShowBorder = this.checkBox1.Checked;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = false;
+            this.timer1.Tick -= new EventHandler(timer1_Tick);
+            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sampl Pictures"));
         }
     }
 }

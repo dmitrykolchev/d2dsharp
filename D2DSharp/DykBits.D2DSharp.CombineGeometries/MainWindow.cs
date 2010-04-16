@@ -57,14 +57,14 @@ namespace DykBits.D2DSharp.CombineGeometries
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Verdana", null, FontWeight.Bold, FontStyle.Normal, FontStretch.Normal, 10.5f, "en-us");
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Verdana", null, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, 10.5f, "en-us");
+            this._textFormat.TextAlignment = TextAlignment.Center;
 
             float[] dashes = new float[] { 1, 1, 2, 3, 5 };
             this._strokeStyle = factory.CreateStrokeStyle(
                 new StrokeStyleProperties(LineCapStyle.Flat, LineCapStyle.Flat, LineCapStyle.Round, LineJoin.Round, 10, DashStyle.Custom, 0),
                 dashes);
             CreateGeometries(factory);
-
         }
 
         private void CreateGeometries(Direct2DFactory factory)
@@ -109,22 +109,31 @@ namespace DykBits.D2DSharp.CombineGeometries
             base.OnCleanUpDeviceIndependentResources();
             this._strokeStyle.Dispose();
             this._textFormat.Dispose();
+            this._circleGeometry1.Dispose();
+            this._circleGeometry2.Dispose();
+            this._geometryUnion.Dispose();
+            this._geometryIntersect.Dispose();
+            this._geometryXor.Dispose();
+            this._geometryExclude.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
             
-            this._outlineBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.DarkSlateBlue, 1), new BrushProperties(1, Matrix3x2.Identity));
-            this._shapeFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.CornflowerBlue, 1), new BrushProperties(0.5f, Matrix3x2.Identity));
-            this._textFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1), new BrushProperties(1, Matrix3x2.Identity));
-
+            this._outlineBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.DarkSlateBlue, 1), 1);
+            this._shapeFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.CornflowerBlue, 1), 0.5f);
+            this._textFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1), 1);
             this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromARGB(1, 0.93f, 0.94f, 0.96f));
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
+            this._outlineBrush.Dispose();
+            this._shapeFillBrush.Dispose();
+            this._textFillBrush.Dispose();
+            this._gridPatternBrush.Dispose();
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
@@ -141,7 +150,7 @@ namespace DykBits.D2DSharp.CombineGeometries
             renderTarget.DrawText(
                 "The circles before combining",
                 this._textFormat,
-                new RectF(25, 130, 175, 170),
+                new RectF(25, 130, 150, 170),
                 _textFillBrush,
                 DrawTextOptions.None, MeasuringMode.Natural);
   
@@ -154,7 +163,7 @@ namespace DykBits.D2DSharp.CombineGeometries
             renderTarget.DrawText(
                 "CombineMode.Union",
                 this._textFormat,
-                new RectF(25, 130, 175, 170),
+                new RectF(25, 130, 150, 170),
                 _textFillBrush,
                 DrawTextOptions.None, MeasuringMode.Natural);
 
@@ -167,7 +176,7 @@ namespace DykBits.D2DSharp.CombineGeometries
             renderTarget.DrawText(
                 "CombineMode.Intersect",
                 this._textFormat,
-                new RectF(25, 130, 175, 170),
+                new RectF(25, 130, 150, 170),
                 _textFillBrush,
                 DrawTextOptions.None, MeasuringMode.Natural);
 
@@ -180,7 +189,7 @@ namespace DykBits.D2DSharp.CombineGeometries
             renderTarget.DrawText(
                 "CombineMode.Xor",
                 this._textFormat,
-                new RectF(25, 130, 175, 170),
+                new RectF(25, 130, 150, 170),
                 _textFillBrush,
                 DrawTextOptions.None, MeasuringMode.Natural);
 
@@ -193,7 +202,7 @@ namespace DykBits.D2DSharp.CombineGeometries
             renderTarget.DrawText(
                 "CombineMode.Exclude",
                 this._textFormat,
-                new RectF(25, 130, 175, 170),
+                new RectF(25, 130, 150, 170),
                 _textFillBrush,
                 DrawTextOptions.None, MeasuringMode.Natural);
 

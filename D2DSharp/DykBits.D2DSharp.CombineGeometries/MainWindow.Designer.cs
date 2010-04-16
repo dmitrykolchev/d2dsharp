@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(647, 331);
+            this.ClientSize = new System.Drawing.Size(600, 331);
             this.Name = "MainWindow";
             this.Text = "Direct2D# Combines Gemetries";
             this.ResumeLayout(false);

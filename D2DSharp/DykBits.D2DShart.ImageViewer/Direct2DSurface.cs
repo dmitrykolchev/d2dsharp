@@ -46,6 +46,11 @@ namespace DykBits.D2DShart.ImageViewer
             InitializeComponent();
         }
 
+        protected override void OnCleanUpDeviceIndependentResources()
+        {
+            base.OnCleanUpDeviceIndependentResources();
+        }
+
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
@@ -56,10 +61,9 @@ namespace DykBits.D2DShart.ImageViewer
         {
             base.OnCleanUpDeviceResources();
             if (this._borderBrush != null)
+            {
                 this._borderBrush.Dispose();
-
-            if (this._image != null)
-                this._image.Dispose();
+            }
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
@@ -125,6 +129,19 @@ namespace DykBits.D2DShart.ImageViewer
 
         private void OnImagePathChanged(EventArgs e)
         {
+            if (this._image != null)
+            {
+                this._image.Dispose();
+                this._image = null;
+            }
+            if (this._image != null)
+                this._image.Dispose();
+            this._image = LoadBitmap(ImagePath);
+            Invalidate();
+        }
+
+        private Bitmap LoadBitmap(string path)
+        {
             using (WicBitmapDecoder decoder = ImagingFactory.CreateDecoder(ImagePath, Guid.Empty, DesiredAccess.Read, DecodeOptions.MetadataCacheOnDemand))
             {
                 using (WicBitmapFrameDecode frame = decoder.GetFrame(0))
@@ -132,11 +149,7 @@ namespace DykBits.D2DShart.ImageViewer
                     using (WicFormatConverter converter = ImagingFactory.CreateFormatConverter())
                     {
                         converter.Convert(frame, WicPixelFormats.PixelFormat32bppPBGRA, BitmapDitherType.None, null, 0, BitmapPaletteType.Custom);
-                        Bitmap bitmap = RenderTarget.CreateBitmap(converter, new BitmapProperties());
-                        if (this._image != null)
-                            this._image.Dispose();
-                        this._image = bitmap;
-                        Invalidate();
+                        return RenderTarget.CreateBitmap(converter, new BitmapProperties());
                     }
                 }
             }

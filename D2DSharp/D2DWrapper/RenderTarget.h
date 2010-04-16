@@ -240,6 +240,17 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		BitmapRenderTarget^ CreateCompatibleRenderTarget(SizeF desiredSize);
 
 		SolidColorBrush^ CreateSolidColorBrush(Color color, BrushProperties properties);
+		
+		SolidColorBrush^ CreateSolidColorBrush(Color color, FLOAT opacity, Matrix3x2 brushTransform)
+		{
+			return CreateSolidColorBrush(color, BrushProperties(opacity, brushTransform));
+		}
+
+		SolidColorBrush^ CreateSolidColorBrush(Color color, FLOAT opacity)
+		{
+			return CreateSolidColorBrush(color, BrushProperties(opacity, Matrix3x2::Identity));
+		}
+
 		SolidColorBrush^ CreateSolidColorBrush(Color color)
 		{
 			return CreateSolidColorBrush(color, BrushProperties::Default);
