@@ -29,14 +29,12 @@ using System.Windows.Forms;
 using DykBits.Graphics.Direct2D;
 using DykBits.Graphics.DirectWrite;
 using DykBits.Graphics.Imaging;
+using DykBits.Graphics.Forms;
 
 namespace DykBits.D2DShart.ImageViewer
 {
-    public partial class Direct2DSurface : Control
+    public partial class Direct2DSurface : Direct2DControl
     {
-        private Direct2DFactory _factory;
-        private WicImagingFactory _imagingFactory;
-        private WindowRenderTarget _renderTarget;
         private Bitmap _image;
         private SolidColorBrush _borderBrush;
         private string _imagePath;
@@ -45,76 +43,38 @@ namespace DykBits.D2DShart.ImageViewer
 
         public Direct2DSurface()
         {
-            SetStyle(
-                ControlStyles.AllPaintingInWmPaint |
-                ControlStyles.Opaque |
-                ControlStyles.ResizeRedraw |
-                ControlStyles.UserPaint, true);
             InitializeComponent();
-            this.Disposed += new EventHandler(Direct2DSurface_Disposed);
         }
 
-        void Direct2DSurface_Disposed(object sender, EventArgs e)
+        protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
-            // 
-            // CleanUp
+            base.OnCreateDeviceResources(renderTarget);
+            this._borderBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.White, 1));
+        }
+
+        protected override void OnCleanUpDeviceResources()
+        {
+            base.OnCleanUpDeviceResources();
             if (this._borderBrush != null)
                 this._borderBrush.Dispose();
 
             if (this._image != null)
                 this._image.Dispose();
-
-            if (this._imagingFactory != null)
-                this._imagingFactory.Dispose();
-            if (this._factory != null)
-                this._factory.Dispose();
-            if (this._renderTarget != null)
-                this._renderTarget.Dispose();
         }
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            base.OnHandleCreated(e);
-            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
-            this._renderTarget = this._factory.CreateWindowRenderTarget(this, PresentOptions.None, RenderTargetProperties.Default);
-            this._imagingFactory = WicImagingFactory.Create();
-            this._borderBrush = this._renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.White, 1));
-            this.Paint += new PaintEventHandler(Direct2DSurface_Paint);
-            this.Resize += new EventHandler(Direct2DSurface_Resize);
-        }
-
-        void Direct2DSurface_Resize(object sender, EventArgs e)
-        {
-            this._renderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-
-        }
-
-        void Direct2DSurface_Paint(object sender, PaintEventArgs e)
-        {
-            this._renderTarget.BeginDraw();
-            try
+            if (this._image != null)
             {
-                this._renderTarget.Clear(Color.FromARGB(Colors.Black, 1));
-                if (this._image != null)
-                {
-                    this._renderTarget.Transform = Matrix3x2.Rotation(this.RotationAngle, new PointF(ClientSize.Width / 2, ClientSize.Height /2));
-                    SizeU imageSize = this._image.PixelSize;
-                    double scale = Math.Min((double)(ClientSize.Width - 20) / imageSize.Width, (double)(ClientSize.Height - 20) / imageSize.Height);
-                    int imageWidth = (int)(imageSize.Width * scale);
-                    int imageHeight = (int)(imageSize.Height * scale);
-                    RectF imageBounds = new RectF((ClientSize.Width - imageWidth) / 2, (ClientSize.Height - imageHeight) / 2, imageWidth, imageHeight);
-                    this._renderTarget.DrawBitmap(this._image, imageBounds, 1, BitmapInterpolationMode.Linear);
-                    if(ShowBorder)
-                        this._renderTarget.DrawRect(this._borderBrush, 8, imageBounds);
-                }
-            }
-            finally
-            {
-                this._renderTarget.EndDraw();
+                renderTarget.Transform = Matrix3x2.Rotation(this.RotationAngle, new PointF(ClientSize.Width / 2, ClientSize.Height / 2));
+                SizeU imageSize = this._image.PixelSize;
+                double scale = Math.Min((double)(ClientSize.Width - 20) / imageSize.Width, (double)(ClientSize.Height - 20) / imageSize.Height);
+                int imageWidth = (int)(imageSize.Width * scale);
+                int imageHeight = (int)(imageSize.Height * scale);
+                RectF imageBounds = new RectF((ClientSize.Width - imageWidth) / 2, (ClientSize.Height - imageHeight) / 2, imageWidth, imageHeight);
+                renderTarget.DrawBitmap(this._image, imageBounds, 1, BitmapInterpolationMode.Linear);
+                if (ShowBorder)
+                    renderTarget.DrawRect(this._borderBrush, 8, imageBounds);
             }
         }
 
@@ -165,14 +125,14 @@ namespace DykBits.D2DShart.ImageViewer
 
         private void OnImagePathChanged(EventArgs e)
         {
-            using (WicBitmapDecoder decoder = this._imagingFactory.CreateDecoder(ImagePath, Guid.Empty, DesiredAccess.Read, DecodeOptions.MetadataCacheOnDemand))
+            using (WicBitmapDecoder decoder = ImagingFactory.CreateDecoder(ImagePath, Guid.Empty, DesiredAccess.Read, DecodeOptions.MetadataCacheOnDemand))
             {
                 using (WicBitmapFrameDecode frame = decoder.GetFrame(0))
                 {
-                    using (WicFormatConverter converter = this._imagingFactory.CreateFormatConverter())
+                    using (WicFormatConverter converter = ImagingFactory.CreateFormatConverter())
                     {
                         converter.Convert(frame, WicPixelFormats.PixelFormat32bppPBGRA, BitmapDitherType.None, null, 0, BitmapPaletteType.Custom);
-                        Bitmap bitmap = _renderTarget.CreateBitmap(converter, new BitmapProperties());
+                        Bitmap bitmap = RenderTarget.CreateBitmap(converter, new BitmapProperties());
                         if (this._image != null)
                             this._image.Dispose();
                         this._image = bitmap;

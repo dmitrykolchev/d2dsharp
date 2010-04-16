@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Direct2DControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Direct2DControl.Designer.cs">
+      <DependentUpon>Direct2DControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Direct2DWindow.cs">
       <SubType>Form</SubType>
     </Compile>

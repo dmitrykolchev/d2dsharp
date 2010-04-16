@@ -31,21 +31,20 @@ using DykBits.Graphics.Imaging;
 
 namespace DykBits.Graphics.Forms
 {
-    public partial class Direct2DWindow : Form
+    public partial class Direct2DControl : Control
     {
         private Direct2DFactory _factory;
         private DirectWriteFactory _directWriteFactory;
         private WicImagingFactory _imagingFactory;
         private WindowRenderTarget _renderTarget;
 
-        public Direct2DWindow()
+        public Direct2DControl()
         {
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.Opaque |
                 ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint, true);
-
             InitializeComponent();
             this.Disposed += new EventHandler(Direct2DWindow_Disposed);
         }
@@ -95,11 +94,11 @@ namespace DykBits.Graphics.Forms
             }
         }
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
             CreateDeviceIndependentResources();
             CreateDeviceResources();
-            base.OnLoad(e);
+            base.OnHandleCreated(e);
         }
 
         private void CreateDeviceIndependentResources()

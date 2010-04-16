@@ -64,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Direct2DSurface.resx">
+      <DependentUpon>Direct2DSurface.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +93,10 @@
     <ProjectReference Include="..\D2DWrapper\D2DWrapper.vcxproj">
       <Project>{151AE681-22CC-404D-A759-8D80BF85E9F1}</Project>
       <Name>D2DWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DykBits.Graphics.Forms\DykBits.Graphics.Forms.csproj">
+      <Project>{350A3A81-BF89-4339-AF82-35F50E0B88FC}</Project>
+      <Name>DykBits.Graphics.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

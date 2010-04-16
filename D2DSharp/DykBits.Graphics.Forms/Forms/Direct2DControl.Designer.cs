@@ -1,6 +1,6 @@
-﻿namespace DykBits.D2DShart.ImageViewer
+﻿namespace DykBits.Graphics.Forms
 {
-    partial class Direct2DSurface
+    partial class Direct2DControl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            this.ResumeLayout(false);
-
+            components = new System.ComponentModel.Container();
         }
 
         #endregion

@@ -46,10 +46,15 @@ namespace DykBits.D2DShart.ImageViewer
 
         void MainWindow_Load(object sender, EventArgs e)
         {
-            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sample Pictures"));
+            Initialize(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures), "Sampl Pictures"));
         }
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
+        {
+            OpenFolder();
+        }
+
+        private void OpenFolder()
         {
             if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -59,12 +64,20 @@ namespace DykBits.D2DShart.ImageViewer
 
         private void Initialize(string path)
         {
-            this._files = Directory.GetFiles(path);
-            if (this._files.Length > 0)
+            if (Directory.Exists(path))
             {
-                this._path = path;
-                this._currentImage = 0;
-                this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+                this._files = Directory.GetFiles(path);
+                if (this._files.Length > 0)
+                {
+                    this._path = path;
+                    this._currentImage = 0;
+                    this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+                }
+            }
+            else
+            {
+                OpenFolder();
+                this.Activate();
             }
         }
 
