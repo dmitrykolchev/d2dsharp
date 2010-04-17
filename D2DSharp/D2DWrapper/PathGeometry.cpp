@@ -8,24 +8,31 @@
 
 #include "PathGeometry.h"
 
-namespace Managed { namespace Graphics { namespace Direct2D 
+using namespace Managed::Graphics::Direct2D;
+
+GeometrySink^ PathGeometry::Open()
 {
-	GeometrySink^ PathGeometry::Open()
-	{
-		ID2D1GeometrySink *geometrySink;
+	ID2D1GeometrySink *geometrySink;
 		
-		HRESULT hr = GetNative()->Open(&geometrySink);
-		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+	ComUtils::CheckResult(GetNative()->Open(&geometrySink));
 
-		return gcnew GeometrySink(geometrySink);
-	}
+	return gcnew GeometrySink(geometrySink);
+}
 
-	void PathGeometry::Stream(GeometrySink^ geometrySink)
+void PathGeometry::Stream(GeometrySink^ geometrySink)
+{
+	ComUtils::CheckResult(GetNative()->Stream(geometrySink->GetNative()));
+}
+
+void PathGeometry::Stream(ICustomGeometrySink^ customGeometrySink)
+{
+	CustomGeometrySink *pSink = new CustomGeometrySink(customGeometrySink);
+	try
 	{
-		HRESULT hr = GetNative()->Stream(geometrySink->GetNative());
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->Stream(static_cast<ID2D1GeometrySink*>(pSink)));
 	}
-}}}
+	finally
+	{
+		pSink->Release();
+	}
+}

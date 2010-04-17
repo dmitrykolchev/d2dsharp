@@ -71,7 +71,7 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._textLayout.Dispose();
+            this._textFormat.Dispose();
             this._textLayout.Dispose();
         }
 

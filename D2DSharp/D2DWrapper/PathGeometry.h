@@ -15,6 +15,7 @@ using namespace System::Runtime::InteropServices;
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
 	ref class GeometrySink;
+	interface class ICustomGeometrySink;
 
 	public ref class PathGeometry: Geometry
 	{
@@ -50,6 +51,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		GeometrySink^ Open();
 		void Stream(GeometrySink^ geometrySink);
+		void Stream(ICustomGeometrySink^ customGeometrySink);
 
 	private:
 		ID2D1PathGeometry *GetNative()

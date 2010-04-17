@@ -29,6 +29,20 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			_point2 = point2;
 			_point3 = point3;
 		}
+		property PointF Point1
+		{
+			PointF get() { return _point1; }
+		}
+
+		property PointF Point2
+		{
+			PointF get() { return _point2; }
+		}
+
+		property PointF Point3
+		{
+			PointF get() { return _point3; }
+		}
 	};
 
 	public enum class FigureBegin 
@@ -50,6 +64,17 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		ForceRoundLineJoin   	= 0x00000002 
 	};
 
+	public interface class ICustomSimplifiedGeometrySink
+	{
+	public:
+		void AddBeziers(array<BezierSegment>^ beziers) = 0;
+		void AddLines(array<PointF>^ points) = 0;
+		void BeginFigure(PointF startPoint, FigureBegin figureBegin) = 0;
+		void Close() = 0;
+		void EndFigure(FigureEnd figureEnd) = 0;
+		void SetFillMode(FillMode fillMode) = 0;
+		void SetSegmentFlags(PathSegment vertexFlags) = 0;
+	};
 
 	public ref class SimplifiedGeometrySink: ComWrapper
 	{

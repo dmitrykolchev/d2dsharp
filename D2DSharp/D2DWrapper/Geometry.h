@@ -119,40 +119,33 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void Outline(Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
-			HRESULT hr = GetNative()->Outline(
+			ComUtils::CheckResult(GetNative()->Outline(
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative());
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				geometrySink->GetNative()));
 		}
 
 		void Simplify(
 			GeometrySimplificationOptions simplificationOptions, 
 			Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
-			HRESULT hr = GetNative()->Simplify(
+			ComUtils::CheckResult(GetNative()->Simplify(
 				(D2D1_GEOMETRY_SIMPLIFICATION_OPTION)simplificationOptions,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative());
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				geometrySink->GetNative()));
 		}
 
 		void Widen(FLOAT strokeWidth, StrokeStyle^ strokeStyle, Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
 			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
 
-			HRESULT hr = GetNative()->Widen(
+			ComUtils::CheckResult(GetNative()->Widen(
 				strokeWidth,
 				pStrokeStyle,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative());
-
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				geometrySink->GetNative()));
 		}
 	internal:
 		ID2D1Geometry* GetNative() new

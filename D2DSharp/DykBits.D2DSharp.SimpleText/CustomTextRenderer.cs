@@ -21,6 +21,7 @@ namespace Managed.D2DSharp.SimpleText
             _outlineBrush = outlineBrush;
             _fillBrush = fillBrush;
         }
+
         #region ITextRenderer Members
 
         public Matrix3x2 CurrentTransform
@@ -45,6 +46,12 @@ namespace Managed.D2DSharp.SimpleText
                         sink);
                     sink.Close();
                 }
+                
+                CustomGeometrySink customSink = new CustomGeometrySink();
+                pathGeometry.Stream(customSink);
+                customSink.Close();
+                System.Diagnostics.Debug.WriteLine(customSink.ToString());
+
                 Matrix3x2 matrix = new Matrix3x2(1, 0, 0, 1, baselineOriginX, baselineOriginY);
                 using (TransformedGeometry transformedGeometry = _factory.CreateTransformedGeometry(pathGeometry, matrix))
                 {

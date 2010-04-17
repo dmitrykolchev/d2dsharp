@@ -18,8 +18,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 {
 	interface class ITextRenderer;
 
-	class CustomTextRenderer: 
-		::IDWriteTextRenderer
+	class CustomTextRenderer: public IDWriteTextRenderer
 	{
 	public:
 		CustomTextRenderer(ITextRenderer^ managedRenderer): 

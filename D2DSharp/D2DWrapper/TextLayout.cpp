@@ -15,10 +15,9 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	void TextLayout::Draw(ITextRenderer^ renderer, Single originX, Single originY)
 	{
 		CustomTextRenderer* customRenderer = new CustomTextRenderer(renderer);
-		customRenderer->AddRef();
 		try
 		{
-			ComUtils::CheckResult(GetNative()->Draw(NULL, (IDWriteTextRenderer*)customRenderer, originX, originY));
+			ComUtils::CheckResult(GetNative()->Draw(NULL, static_cast<IDWriteTextRenderer*>(customRenderer), originX, originY));
 		}
 		finally
 		{
