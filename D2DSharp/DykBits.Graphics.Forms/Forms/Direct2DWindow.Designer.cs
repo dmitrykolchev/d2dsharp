@@ -1,4 +1,4 @@
-﻿namespace DykBits.Graphics.Forms
+﻿namespace Managed.Graphics.Forms
 {
     partial class Direct2DWindow
     {

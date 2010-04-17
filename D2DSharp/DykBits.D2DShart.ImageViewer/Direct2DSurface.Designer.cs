@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DShart.ImageViewer
+﻿namespace Managed.D2DShart.ImageViewer
 {
     partial class Direct2DSurface
     {

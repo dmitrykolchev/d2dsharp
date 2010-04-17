@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DShart.ImageViewer
+﻿namespace Managed.D2DShart.ImageViewer
 {
     partial class MainWindow
     {
@@ -37,7 +37,7 @@
             this.buttonRotateLeft = new System.Windows.Forms.Button();
             this.buttonRotateRight = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.direct2DSurface1 = new DykBits.D2DShart.ImageViewer.Direct2DSurface();
+            this.direct2DSurface1 = new Managed.D2DShart.ImageViewer.Direct2DSurface();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 

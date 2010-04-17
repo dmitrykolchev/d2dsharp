@@ -3,20 +3,6 @@
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>
 *  
-* Copyright (C) 2010 Dmitry Kolchev
-*
-* This sourcecode is licenced under The GNU Lesser General Public License
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-* NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-* DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-* OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-* USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #pragma once
 
@@ -26,9 +12,9 @@
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
-using namespace DykBits::Runtime::InteropServices;
+using namespace Managed::Runtime::InteropServices;
 
-namespace DykBits { namespace Graphics { namespace DirectWrite 
+namespace Managed { namespace Graphics { namespace DirectWrite 
 {
 	public value struct GlyphOffset
 	{
@@ -67,9 +53,9 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		}
 		!GlyphRun();
 	public:
-		property DykBits::Graphics::DirectWrite::FontFace^ FontFace
+		property Managed::Graphics::DirectWrite::FontFace^ FontFace
 		{
-			DykBits::Graphics::DirectWrite::FontFace^ get() { return _fontFace; }
+			Managed::Graphics::DirectWrite::FontFace^ get() { return _fontFace; }
 		}
 
 		property Single EmSize
@@ -118,7 +104,7 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		ReadingDirection _readingDirection;
 		FlowDirection _flowDirection;
 		String^ _localeName;
-		DykBits::Graphics::Direct2D::MeasuringMode _measuringMode;
+		Managed::Graphics::Direct2D::MeasuringMode _measuringMode;
 	public:
 		Underline(DWRITE_UNDERLINE const* underline);
 
@@ -138,21 +124,21 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		{
 			Single get() { return _runHeight; }
 		}
-		property DykBits::Graphics::DirectWrite::ReadingDirection ReadingDirection
+		property Managed::Graphics::DirectWrite::ReadingDirection ReadingDirection
 		{
-			DykBits::Graphics::DirectWrite::ReadingDirection get() { return _readingDirection; }
+			Managed::Graphics::DirectWrite::ReadingDirection get() { return _readingDirection; }
 		}
-		property DykBits::Graphics::DirectWrite::FlowDirection FlowDirection
+		property Managed::Graphics::DirectWrite::FlowDirection FlowDirection
 		{
-			DykBits::Graphics::DirectWrite::FlowDirection get() { return _flowDirection; }
+			Managed::Graphics::DirectWrite::FlowDirection get() { return _flowDirection; }
 		}
 		property String^ LocaleName
 		{
 			String^ get() { return _localeName; }
 		}
-		property DykBits::Graphics::Direct2D::MeasuringMode MeasuringMode
+		property Managed::Graphics::Direct2D::MeasuringMode MeasuringMode
 		{
-			DykBits::Graphics::Direct2D::MeasuringMode get() { return _measuringMode; }
+			Managed::Graphics::Direct2D::MeasuringMode get() { return _measuringMode; }
 		}
 	};
 
@@ -165,7 +151,7 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		ReadingDirection _readingDirection;
 		FlowDirection _flowDirection;
 		String^ _localeName;
-		DykBits::Graphics::Direct2D::MeasuringMode _measuringMode;
+		Managed::Graphics::Direct2D::MeasuringMode _measuringMode;
 	public:
 		Strikethrough(DWRITE_STRIKETHROUGH const* strikethrough);
 
@@ -181,21 +167,21 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		{
 			Single get() { return _offset; }
 		}
-		property DykBits::Graphics::DirectWrite::ReadingDirection ReadingDirection
+		property Managed::Graphics::DirectWrite::ReadingDirection ReadingDirection
 		{
-			DykBits::Graphics::DirectWrite::ReadingDirection get() { return _readingDirection; }
+			Managed::Graphics::DirectWrite::ReadingDirection get() { return _readingDirection; }
 		}
-		property DykBits::Graphics::DirectWrite::FlowDirection FlowDirection
+		property Managed::Graphics::DirectWrite::FlowDirection FlowDirection
 		{
-			DykBits::Graphics::DirectWrite::FlowDirection get() { return _flowDirection; }
+			Managed::Graphics::DirectWrite::FlowDirection get() { return _flowDirection; }
 		}
 		property String^ LocaleName
 		{
 			String^ get() { return _localeName; }
 		}
-		property DykBits::Graphics::Direct2D::MeasuringMode MeasuringMode
+		property Managed::Graphics::Direct2D::MeasuringMode MeasuringMode
 		{
-			DykBits::Graphics::Direct2D::MeasuringMode get() { return _measuringMode; }
+			Managed::Graphics::Direct2D::MeasuringMode get() { return _measuringMode; }
 		}
 	};
 

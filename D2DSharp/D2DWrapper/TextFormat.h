@@ -3,20 +3,6 @@
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>
 *  
-* Copyright (C) 2010 Dmitry Kolchev
-*
-* This sourcecode is licenced under The GNU Lesser General Public License
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-* NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-* DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-* OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-* USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #pragma once
 
@@ -25,9 +11,9 @@
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
-using namespace DykBits::Runtime::InteropServices;
+using namespace Managed::Runtime::InteropServices;
 
-namespace DykBits { namespace Graphics { namespace DirectWrite
+namespace Managed { namespace Graphics { namespace DirectWrite
 {
 
 
@@ -38,13 +24,13 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 		{
 		}
 	public:
-		property DykBits::Graphics::DirectWrite::FlowDirection FlowDirection
+		property Managed::Graphics::DirectWrite::FlowDirection FlowDirection
 		{
-			DykBits::Graphics::DirectWrite::FlowDirection get() 
+			Managed::Graphics::DirectWrite::FlowDirection get() 
 			{ 
-				return (DykBits::Graphics::DirectWrite::FlowDirection)GetNative()->GetFlowDirection(); 
+				return (Managed::Graphics::DirectWrite::FlowDirection)GetNative()->GetFlowDirection(); 
 			}
-			void set(DykBits::Graphics::DirectWrite::FlowDirection value) 
+			void set(Managed::Graphics::DirectWrite::FlowDirection value) 
 			{ 
 				GetNative()->SetFlowDirection((DWRITE_FLOW_DIRECTION) value); 
 			}
@@ -56,37 +42,37 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 			void set(FLOAT value) { GetNative()->SetIncrementalTabStop(value); }
 		}
 
-		property DykBits::Graphics::DirectWrite::ParagraphAlignment ParagraphAlignment
+		property Managed::Graphics::DirectWrite::ParagraphAlignment ParagraphAlignment
 		{
-			DykBits::Graphics::DirectWrite::ParagraphAlignment get() 
+			Managed::Graphics::DirectWrite::ParagraphAlignment get() 
 			{ 
-				return (DykBits::Graphics::DirectWrite::ParagraphAlignment)GetNative()->GetParagraphAlignment(); 
+				return (Managed::Graphics::DirectWrite::ParagraphAlignment)GetNative()->GetParagraphAlignment(); 
 			}
-			void set(DykBits::Graphics::DirectWrite::ParagraphAlignment value) 
+			void set(Managed::Graphics::DirectWrite::ParagraphAlignment value) 
 			{ 
 				GetNative()->SetParagraphAlignment((DWRITE_PARAGRAPH_ALIGNMENT) value); 
 			}
 		}
 
-		property DykBits::Graphics::DirectWrite::ReadingDirection ReadingDirection
+		property Managed::Graphics::DirectWrite::ReadingDirection ReadingDirection
 		{
-			DykBits::Graphics::DirectWrite::ReadingDirection get() 
+			Managed::Graphics::DirectWrite::ReadingDirection get() 
 			{ 
-				return (DykBits::Graphics::DirectWrite::ReadingDirection)GetNative()->GetReadingDirection(); 
+				return (Managed::Graphics::DirectWrite::ReadingDirection)GetNative()->GetReadingDirection(); 
 			}
-			void set(DykBits::Graphics::DirectWrite::ReadingDirection value) 
+			void set(Managed::Graphics::DirectWrite::ReadingDirection value) 
 			{ 
 				GetNative()->SetReadingDirection((DWRITE_READING_DIRECTION) value); 
 			}
 		}
 
-		property DykBits::Graphics::DirectWrite::TextAlignment TextAlignment
+		property Managed::Graphics::DirectWrite::TextAlignment TextAlignment
 		{
-			DykBits::Graphics::DirectWrite::TextAlignment get() 
+			Managed::Graphics::DirectWrite::TextAlignment get() 
 			{ 
-				return (DykBits::Graphics::DirectWrite::TextAlignment)GetNative()->GetTextAlignment(); 
+				return (Managed::Graphics::DirectWrite::TextAlignment)GetNative()->GetTextAlignment(); 
 			}
-			void set(DykBits::Graphics::DirectWrite::TextAlignment value) 
+			void set(Managed::Graphics::DirectWrite::TextAlignment value) 
 			{ 
 				GetNative()->SetTextAlignment((DWRITE_TEXT_ALIGNMENT) value); 
 			}

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DykBits.D2DSharp.AdvancedPathGeometries")]
+[assembly: AssemblyTitle("Managed.D2DSharp.AdvancedPathGeometries")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dmitry Kolchev")]
-[assembly: AssemblyProduct("DykBits.D2DSharp.AdvancedPathGeometries")]
+[assembly: AssemblyProduct("Managed.D2DSharp.AdvancedPathGeometries")]
 [assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

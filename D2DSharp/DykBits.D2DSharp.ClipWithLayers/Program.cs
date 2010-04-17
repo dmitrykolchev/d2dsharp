@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DykBits.D2DSharp.ClipWithLayers
+namespace Managed.D2DSharp.ClipWithLayers
 {
     static class Program
     {

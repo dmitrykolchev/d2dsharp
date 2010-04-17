@@ -8,8 +8,8 @@
     <ProjectGuid>{C9F64325-C1EB-4092-8D0B-7D76884336FB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DykBits.D2DSharp.SimpleText</RootNamespace>
-    <AssemblyName>DykBits.D2DSharp.SimpleText</AssemblyName>
+    <RootNamespace>Managed.D2DSharp.SimpleText</RootNamespace>
+    <AssemblyName>Managed.D2DSharp.SimpleText</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -81,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -97,9 +98,9 @@
       <Project>{151AE681-22CC-404D-A759-8D80BF85E9F1}</Project>
       <Name>D2DWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DykBits.Graphics.Forms\DykBits.Graphics.Forms.csproj">
+    <ProjectReference Include="..\DykBits.Graphics.Forms\Managed.Graphics.Forms.csproj">
       <Project>{350A3A81-BF89-4339-AF82-35F50E0B88FC}</Project>
-      <Name>DykBits.Graphics.Forms</Name>
+      <Name>Managed.Graphics.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

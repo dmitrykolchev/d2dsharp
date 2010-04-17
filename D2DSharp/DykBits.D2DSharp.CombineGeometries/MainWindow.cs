@@ -26,12 +26,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DykBits.Graphics.Forms;
-using DykBits.Graphics.Direct2D;
-using DykBits.Graphics.DirectWrite;
-using DykBits.Graphics.Imaging;
+using Managed.Graphics.Forms;
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.DirectWrite;
+using Managed.Graphics.Imaging;
 
-namespace DykBits.D2DSharp.CombineGeometries
+namespace Managed.D2DSharp.CombineGeometries
 {
     public partial class MainWindow : Direct2DWindow
     {

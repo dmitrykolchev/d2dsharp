@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A281A863-46CD-4E26-8443-9A083D12FCD8}</ProjectGuid>
+    <ProjectGuid>{99BBCD07-D169-4EC1-A47B-2AB467EF99D6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DykBits.D2DSharp.Sample2</RootNamespace>
-    <AssemblyName>DykBits.D2DSharp.Sample2</AssemblyName>
+    <RootNamespace>Managed.D2DSharp.Sample1</RootNamespace>
+    <AssemblyName>Managed.D2DSharp.Sample1</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

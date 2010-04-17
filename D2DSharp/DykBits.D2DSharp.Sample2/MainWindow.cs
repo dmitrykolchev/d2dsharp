@@ -26,9 +26,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DykBits.Graphics.Direct2D;
+using Managed.Graphics.Direct2D;
 
-namespace DykBits.D2DSharp.Sample2
+namespace Managed.D2DSharp.Sample2
 {
     public partial class MainWindow : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.BrushTypes
+﻿namespace Managed.D2DSharp.BrushTypes
 {
     partial class MainWindow
     {

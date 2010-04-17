@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.Sample2
+﻿namespace Managed.D2DSharp.Sample2
 {
     partial class MainWindow
     {

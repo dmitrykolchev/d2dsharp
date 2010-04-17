@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using DykBits.Graphics.Direct2D;
-using DykBits.Graphics.DirectWrite;
-using DykBits.Graphics.Imaging;
-using DykBits.Graphics.Forms;
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.DirectWrite;
+using Managed.Graphics.Imaging;
+using Managed.Graphics.Forms;
 
-namespace DykBits.D2DSharp.SimpleText
+namespace Managed.D2DSharp.SimpleText
 {
     public partial class MainWindow : Form
     {

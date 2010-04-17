@@ -27,9 +27,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using DykBits.Graphics.Direct2D;
+using Managed.Graphics.Direct2D;
 
-namespace DykBits.D2DShart.ImageViewer
+namespace Managed.D2DShart.ImageViewer
 {
     public partial class MainWindow : Form
     {

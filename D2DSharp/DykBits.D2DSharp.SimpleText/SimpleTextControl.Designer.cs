@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.SimpleText
+﻿namespace Managed.D2DSharp.SimpleText
 {
     partial class SimpleTextControl
     {

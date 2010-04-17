@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.SimpleText
+﻿namespace Managed.D2DSharp.SimpleText
 {
     partial class MainWindow
     {
@@ -30,9 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.simpleTextControl1 = new DykBits.D2DSharp.SimpleText.SimpleTextControl();
+            this.simpleTextControl1 = new Managed.D2DSharp.SimpleText.SimpleTextControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.multiformattedTextControl1 = new DykBits.D2DSharp.SimpleText.MultiformattedTextControl();
+            this.multiformattedTextControl1 = new Managed.D2DSharp.SimpleText.MultiformattedTextControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();

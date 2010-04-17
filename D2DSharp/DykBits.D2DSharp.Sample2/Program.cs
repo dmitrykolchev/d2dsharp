@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DykBits.D2DSharp.Sample2
+namespace Managed.D2DSharp.Sample2
 {
     static class Program
     {

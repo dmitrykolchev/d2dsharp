@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.AdvancedPathGeometries
+﻿namespace Managed.D2DSharp.AdvancedPathGeometries
 {
     partial class MainWindow
     {

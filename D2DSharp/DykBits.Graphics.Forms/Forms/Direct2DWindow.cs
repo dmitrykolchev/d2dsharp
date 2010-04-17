@@ -25,11 +25,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DykBits.Graphics.Direct2D;
-using DykBits.Graphics.DirectWrite;
-using DykBits.Graphics.Imaging;
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.DirectWrite;
+using Managed.Graphics.Imaging;
 
-namespace DykBits.Graphics.Forms
+namespace Managed.Graphics.Forms
 {
     public partial class Direct2DWindow : Form
     {

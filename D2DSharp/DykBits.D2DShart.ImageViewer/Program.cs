@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DykBits.D2DShart.ImageViewer
+namespace Managed.D2DShart.ImageViewer
 {
     static class Program
     {

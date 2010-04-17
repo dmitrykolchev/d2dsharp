@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DykBits.D2DSharp.SimpleText")]
+[assembly: AssemblyTitle("Managed.D2DSharp.SimpleText")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Avicom Business Technologies")]
-[assembly: AssemblyProduct("DykBits.D2DSharp.SimpleText")]
-[assembly: AssemblyCopyright("Copyright © Avicom Business Technologies 2010")]
+[assembly: AssemblyCompany("Dmitry Kolchev")]
+[assembly: AssemblyProduct("Managed.D2DSharp.SimpleText")]
+[assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

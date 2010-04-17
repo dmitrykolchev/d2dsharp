@@ -26,13 +26,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DykBits.Graphics.Direct2D;
-using DykBits.Graphics.DirectWrite;
-using DykBits.Graphics.Imaging;
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.DirectWrite;
+using Managed.Graphics.Imaging;
 
-namespace DykBits.D2DSharp.BrushTypes
+namespace Managed.D2DSharp.BrushTypes
 {
-    public partial class MainWindow : DykBits.Graphics.Forms.Direct2DWindow
+    public partial class MainWindow : Managed.Graphics.Forms.Direct2DWindow
     {
         private TextFormat _textFormat;
         private SolidColorBrush _blackBrush;

@@ -4,7 +4,7 @@
 
 #include "StreamWrapper.h"
 
-using namespace DykBits::Runtime::InteropServices;
+using namespace Managed::Runtime::InteropServices;
 
 StreamWrapper::StreamWrapper( Stream^ stream )
 {

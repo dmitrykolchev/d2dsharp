@@ -3,34 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DWrapper", "D2DWrapper\D2DWrapper.vcxproj", "{151AE681-22CC-404D-A759-8D80BF85E9F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.Sample1", "D2DWrapper.Sample\DykBits.D2DSharp.Sample1.csproj", "{99BBCD07-D169-4EC1-A47B-2AB467EF99D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Sample1", "D2DWrapper.Sample\Managed.D2DSharp.Sample1.csproj", "{99BBCD07-D169-4EC1-A47B-2AB467EF99D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{76278E1B-8FA4-4D5D-AD81-815BAC067D8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DShart.ImageViewer", "DykBits.D2DShart.ImageViewer\DykBits.D2DShart.ImageViewer.csproj", "{1210A1A4-8446-4D38-A8C4-19EE053518ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.ImageViewer", "DykBits.D2DShart.ImageViewer\Managed.D2DSharp.ImageViewer.csproj", "{1210A1A4-8446-4D38-A8C4-19EE053518ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8FC6064-A18E-4EB2-84A4-DC68FBB634C1}"
 	ProjectSection(SolutionItems) = preProject
 		license.txt = license.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.Sample2", "DykBits.D2DSharp.Sample2\DykBits.D2DSharp.Sample2.csproj", "{A281A863-46CD-4E26-8443-9A083D12FCD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Sample2", "DykBits.D2DSharp.Sample2\Managed.D2DSharp.Sample2.csproj", "{A281A863-46CD-4E26-8443-9A083D12FCD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.AdvancedPathGeometries", "DykBits.D2DSharp.Sample3\DykBits.D2DSharp.AdvancedPathGeometries.csproj", "{A7328287-CF48-415F-BD89-3195DE4693E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.AdvancedPathGeometries", "DykBits.D2DSharp.Sample3\Managed.D2DSharp.AdvancedPathGeometries.csproj", "{A7328287-CF48-415F-BD89-3195DE4693E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.BrushTypes", "DykBits.D2DSharp.BrushTypes\DykBits.D2DSharp.BrushTypes.csproj", "{40E46261-B669-428C-9AB9-622334850DDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.BrushTypes", "DykBits.D2DSharp.BrushTypes\Managed.D2DSharp.BrushTypes.csproj", "{40E46261-B669-428C-9AB9-622334850DDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SourceCode", "SourceCode", "{0128DA73-F695-40DD-AF41-6832E9B7187B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.Graphics.Forms", "DykBits.Graphics.Forms\DykBits.Graphics.Forms.csproj", "{350A3A81-BF89-4339-AF82-35F50E0B88FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.Graphics.Forms", "DykBits.Graphics.Forms\Managed.Graphics.Forms.csproj", "{350A3A81-BF89-4339-AF82-35F50E0B88FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.ClipWithLayers", "DykBits.D2DSharp.ClipWithLayers\DykBits.D2DSharp.ClipWithLayers.csproj", "{85000F39-5659-4F9F-BD62-F480B90BCEA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.ClipWithLayers", "DykBits.D2DSharp.ClipWithLayers\Managed.D2DSharp.ClipWithLayers.csproj", "{85000F39-5659-4F9F-BD62-F480B90BCEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.CombineGeometries", "DykBits.D2DSharp.CombineGeometries\DykBits.D2DSharp.CombineGeometries.csproj", "{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.CombineGeometries", "DykBits.D2DSharp.CombineGeometries\Managed.D2DSharp.CombineGeometries.csproj", "{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK Demos", "SDK Demos", "{FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.SimpleText", "DykBits.D2DSharp.SimpleText\DykBits.D2DSharp.SimpleText.csproj", "{C9F64325-C1EB-4092-8D0B-7D76884336FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.SimpleText", "DykBits.D2DSharp.SimpleText\Managed.D2DSharp.SimpleText.csproj", "{C9F64325-C1EB-4092-8D0B-7D76884336FB}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -42,42 +42,42 @@ Global
 		SccProjectTopLevelParentUniqueName1 = D2DSharp.sln
 		SccProjectName1 = D2DWrapper
 		SccLocalPath1 = D2DWrapper
-		SccProjectUniqueName2 = DykBits.D2DShart.ImageViewer\\DykBits.D2DShart.ImageViewer.csproj
+		SccProjectUniqueName2 = DykBits.Graphics.Forms\\Managed.Graphics.Forms.csproj
 		SccProjectTopLevelParentUniqueName2 = D2DSharp.sln
-		SccProjectName2 = DykBits.D2DShart.ImageViewer
-		SccLocalPath2 = DykBits.D2DShart.ImageViewer
-		SccProjectUniqueName3 = D2DWrapper.Sample\\DykBits.D2DSharp.Sample1.csproj
+		SccProjectName2 = DykBits.Graphics.Forms
+		SccLocalPath2 = DykBits.Graphics.Forms
+		SccProjectUniqueName3 = DykBits.D2DSharp.Sample3\\Managed.D2DSharp.AdvancedPathGeometries.csproj
 		SccProjectTopLevelParentUniqueName3 = D2DSharp.sln
-		SccProjectName3 = D2DWrapper.Sample
-		SccLocalPath3 = D2DWrapper.Sample
-		SccProjectUniqueName4 = DykBits.D2DSharp.Sample2\\DykBits.D2DSharp.Sample2.csproj
+		SccProjectName3 = DykBits.D2DSharp.Sample3
+		SccLocalPath3 = DykBits.D2DSharp.Sample3
+		SccProjectUniqueName4 = DykBits.D2DSharp.BrushTypes\\Managed.D2DSharp.BrushTypes.csproj
 		SccProjectTopLevelParentUniqueName4 = D2DSharp.sln
-		SccProjectName4 = DykBits.D2DSharp.Sample2
-		SccLocalPath4 = DykBits.D2DSharp.Sample2
-		SccProjectUniqueName5 = DykBits.D2DSharp.Sample3\\DykBits.D2DSharp.AdvancedPathGeometries.csproj
+		SccProjectName4 = DykBits.D2DSharp.BrushTypes
+		SccLocalPath4 = DykBits.D2DSharp.BrushTypes
+		SccProjectUniqueName5 = DykBits.D2DSharp.SimpleText\\Managed.D2DSharp.SimpleText.csproj
 		SccProjectTopLevelParentUniqueName5 = D2DSharp.sln
-		SccProjectName5 = DykBits.D2DSharp.Sample3
-		SccLocalPath5 = DykBits.D2DSharp.Sample3
-		SccProjectUniqueName6 = DykBits.D2DSharp.BrushTypes\\DykBits.D2DSharp.BrushTypes.csproj
+		SccProjectName5 = DykBits.D2DSharp.SimpleText
+		SccLocalPath5 = DykBits.D2DSharp.SimpleText
+		SccProjectUniqueName6 = DykBits.D2DSharp.CombineGeometries\\Managed.D2DSharp.CombineGeometries.csproj
 		SccProjectTopLevelParentUniqueName6 = D2DSharp.sln
-		SccProjectName6 = DykBits.D2DSharp.BrushTypes
-		SccLocalPath6 = DykBits.D2DSharp.BrushTypes
-		SccProjectUniqueName7 = DykBits.Graphics.Forms\\DykBits.Graphics.Forms.csproj
+		SccProjectName6 = DykBits.D2DSharp.CombineGeometries
+		SccLocalPath6 = DykBits.D2DSharp.CombineGeometries
+		SccProjectUniqueName7 = DykBits.D2DSharp.ClipWithLayers\\Managed.D2DSharp.ClipWithLayers.csproj
 		SccProjectTopLevelParentUniqueName7 = D2DSharp.sln
-		SccProjectName7 = DykBits.Graphics.Forms
-		SccLocalPath7 = DykBits.Graphics.Forms
-		SccProjectUniqueName8 = DykBits.D2DSharp.ClipWithLayers\\DykBits.D2DSharp.ClipWithLayers.csproj
+		SccProjectName7 = DykBits.D2DSharp.ClipWithLayers
+		SccLocalPath7 = DykBits.D2DSharp.ClipWithLayers
+		SccProjectUniqueName8 = DykBits.D2DShart.ImageViewer\\Managed.D2DSharp.ImageViewer.csproj
 		SccProjectTopLevelParentUniqueName8 = D2DSharp.sln
-		SccProjectName8 = DykBits.D2DSharp.ClipWithLayers
-		SccLocalPath8 = DykBits.D2DSharp.ClipWithLayers
-		SccProjectUniqueName9 = DykBits.D2DSharp.CombineGeometries\\DykBits.D2DSharp.CombineGeometries.csproj
+		SccProjectName8 = DykBits.D2DShart.ImageViewer
+		SccLocalPath8 = DykBits.D2DShart.ImageViewer
+		SccProjectUniqueName9 = D2DWrapper.Sample\\Managed.D2DSharp.Sample1.csproj
 		SccProjectTopLevelParentUniqueName9 = D2DSharp.sln
-		SccProjectName9 = DykBits.D2DSharp.CombineGeometries
-		SccLocalPath9 = DykBits.D2DSharp.CombineGeometries
-		SccProjectUniqueName10 = DykBits.D2DSharp.SimpleText\\DykBits.D2DSharp.SimpleText.csproj
+		SccProjectName9 = D2DWrapper.Sample
+		SccLocalPath9 = D2DWrapper.Sample
+		SccProjectUniqueName10 = DykBits.D2DSharp.Sample2\\Managed.D2DSharp.Sample2.csproj
 		SccProjectTopLevelParentUniqueName10 = D2DSharp.sln
-		SccProjectName10 = DykBits.D2DSharp.SimpleText
-		SccLocalPath10 = DykBits.D2DSharp.SimpleText
+		SccProjectName10 = DykBits.D2DSharp.Sample2
+		SccLocalPath10 = DykBits.D2DSharp.Sample2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

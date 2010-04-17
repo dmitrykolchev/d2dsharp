@@ -26,10 +26,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DykBits.Graphics.Direct2D;
-using DykBits.Graphics.Forms;
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.Forms;
 
-namespace DykBits.D2DSharp.AdvancedPathGeometries
+namespace Managed.D2DSharp.AdvancedPathGeometries
 {
     public partial class MainWindow : Direct2DWindow
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DykBits.Graphics.Forms")]
+[assembly: AssemblyTitle("Managed.Graphics.Forms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dmitry Kolchev")]
-[assembly: AssemblyProduct("DykBits.Graphics.Forms")]
+[assembly: AssemblyProduct("Managed.Graphics.Forms")]
 [assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

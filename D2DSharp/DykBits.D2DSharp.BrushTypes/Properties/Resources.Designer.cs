@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DykBits.D2DSharp.BrushTypes.Properties {
+namespace Managed.D2DSharp.BrushTypes.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DykBits.D2DSharp.BrushTypes.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DykBits.D2DSharp.BrushTypes.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Managed.D2DSharp.BrushTypes.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

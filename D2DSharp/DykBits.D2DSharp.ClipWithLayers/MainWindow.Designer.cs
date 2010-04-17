@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.ClipWithLayers
+﻿namespace Managed.D2DSharp.ClipWithLayers
 {
     partial class MainWindow
     {

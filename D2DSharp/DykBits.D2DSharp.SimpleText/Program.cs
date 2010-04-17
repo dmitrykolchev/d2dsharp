@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DykBits.D2DSharp.SimpleText
+namespace Managed.D2DSharp.SimpleText
 {
     static class Program
     {

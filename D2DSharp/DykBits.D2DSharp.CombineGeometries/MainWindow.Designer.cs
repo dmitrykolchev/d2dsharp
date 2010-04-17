@@ -1,4 +1,4 @@
-﻿namespace DykBits.D2DSharp.CombineGeometries
+﻿namespace Managed.D2DSharp.CombineGeometries
 {
     partial class MainWindow
     {

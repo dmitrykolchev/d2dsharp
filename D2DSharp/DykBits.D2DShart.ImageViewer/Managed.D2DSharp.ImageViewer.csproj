@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}</ProjectGuid>
+    <ProjectGuid>{1210A1A4-8446-4D38-A8C4-19EE053518ED}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DykBits.D2DSharp.CombineGeometries</RootNamespace>
-    <AssemblyName>DykBits.D2DSharp.CombineGeometries</AssemblyName>
+    <RootNamespace>Managed.D2DShart.ImageViewer</RootNamespace>
+    <AssemblyName>Managed.D2DShart.ImageViewer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Direct2DSurface.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Direct2DSurface.Designer.cs">
+      <DependentUpon>Direct2DSurface.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Direct2DSurface.resx">
+      <DependentUpon>Direct2DSurface.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -69,6 +78,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -85,9 +95,9 @@
       <Project>{151AE681-22CC-404D-A759-8D80BF85E9F1}</Project>
       <Name>D2DWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DykBits.Graphics.Forms\DykBits.Graphics.Forms.csproj">
+    <ProjectReference Include="..\DykBits.Graphics.Forms\Managed.Graphics.Forms.csproj">
       <Project>{350A3A81-BF89-4339-AF82-35F50E0B88FC}</Project>
-      <Name>DykBits.Graphics.Forms</Name>
+      <Name>Managed.Graphics.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

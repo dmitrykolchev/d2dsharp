@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DykBits.D2DSharp.AdvancedPathGeometries.Properties {
+namespace Managed.D2DSharp.AdvancedPathGeometries.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

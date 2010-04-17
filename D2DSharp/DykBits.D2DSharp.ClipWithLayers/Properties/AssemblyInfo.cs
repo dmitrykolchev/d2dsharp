@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DykBits.D2DSharp.ClipWithLayers")]
+[assembly: AssemblyTitle("Managed.D2DSharp.ClipWithLayers")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dmitry Kolchev")]
-[assembly: AssemblyProduct("DykBits.D2DSharp.ClipWithLayers")]
+[assembly: AssemblyProduct("Managed.D2DSharp.ClipWithLayers")]
 [assembly: AssemblyCopyright("Copyright © Dmitry Kolchev 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

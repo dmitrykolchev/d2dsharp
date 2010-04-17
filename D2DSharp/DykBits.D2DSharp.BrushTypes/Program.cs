@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DykBits.D2DSharp.BrushTypes
+namespace Managed.D2DSharp.BrushTypes
 {
     static class Program
     {

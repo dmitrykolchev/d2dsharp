@@ -3,20 +3,6 @@
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>
 *  
-* Copyright (C) 2010 Dmitry Kolchev
-*
-* This sourcecode is licenced under The GNU Lesser General Public License
-* 
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-* NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-* DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-* OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-* USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #pragma once
 
@@ -29,16 +15,16 @@
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
-using namespace DykBits::Graphics::DirectWrite;
-using namespace DykBits::Graphics::Imaging;
+using namespace Managed::Graphics::DirectWrite;
+using namespace Managed::Graphics::Imaging;
 
-namespace DykBits { namespace Graphics { namespace DirectWrite 
+namespace Managed { namespace Graphics { namespace DirectWrite 
 {
 	ref class TextFormat;
 	ref class TextLayout;
 }}}
 
-namespace DykBits { namespace Graphics { namespace Direct2D 
+namespace Managed { namespace Graphics { namespace Direct2D 
 {
 	ref class SolidColorBrush;
 	ref class StrokeStyle;
@@ -107,37 +93,37 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 		}
 
 	public:
-		property DykBits::Graphics::Direct2D::AntialiasMode AntialiasMode
+		property Managed::Graphics::Direct2D::AntialiasMode AntialiasMode
 		{
-			DykBits::Graphics::Direct2D::AntialiasMode get()
+			Managed::Graphics::Direct2D::AntialiasMode get()
 			{
 				D2D1_ANTIALIAS_MODE mode = GetNative()->GetAntialiasMode();
-				return (DykBits::Graphics::Direct2D::AntialiasMode)mode;
+				return (Managed::Graphics::Direct2D::AntialiasMode)mode;
 			}
-			void set(DykBits::Graphics::Direct2D::AntialiasMode value)
+			void set(Managed::Graphics::Direct2D::AntialiasMode value)
 			{
 				GetNative()->SetAntialiasMode((D2D1_ANTIALIAS_MODE)value);
 			}
 		}
 
-		property DykBits::Graphics::Direct2D::TextAntialiasMode TextAntialiasMode
+		property Managed::Graphics::Direct2D::TextAntialiasMode TextAntialiasMode
 		{
-			DykBits::Graphics::Direct2D::TextAntialiasMode get()
+			Managed::Graphics::Direct2D::TextAntialiasMode get()
 			{
 				D2D1_TEXT_ANTIALIAS_MODE mode = GetNative()->GetTextAntialiasMode();
-				return (DykBits::Graphics::Direct2D::TextAntialiasMode)mode;
+				return (Managed::Graphics::Direct2D::TextAntialiasMode)mode;
 			}
-			void set(DykBits::Graphics::Direct2D::TextAntialiasMode value)
+			void set(Managed::Graphics::Direct2D::TextAntialiasMode value)
 			{
 				GetNative()->SetTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE)value);
 			}
 		}
 
-		property DykBits::Graphics::Direct2D::PixelFormat PixelFormat
+		property Managed::Graphics::Direct2D::PixelFormat PixelFormat
 		{
-			DykBits::Graphics::Direct2D::PixelFormat get()
+			Managed::Graphics::Direct2D::PixelFormat get()
 			{
-				return DykBits::Graphics::Direct2D::PixelFormat(GetNative()->GetPixelFormat()); 
+				return Managed::Graphics::Direct2D::PixelFormat(GetNative()->GetPixelFormat()); 
 			}
 		}
 
@@ -283,7 +269,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			GetNative()->PopLayer();
 		}
 
-		void PushAxisAlignedClip(RectF clipRect, DykBits::Graphics::Direct2D::AntialiasMode antialiasMode)
+		void PushAxisAlignedClip(RectF clipRect, Managed::Graphics::Direct2D::AntialiasMode antialiasMode)
 		{
 			GetNative()->PushAxisAlignedClip((D2D1_RECT_F *)&clipRect, (D2D1_ANTIALIAS_MODE)antialiasMode);
 		}
