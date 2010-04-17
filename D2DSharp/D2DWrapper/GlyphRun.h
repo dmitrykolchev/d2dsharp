@@ -16,21 +16,6 @@ using namespace Managed::Runtime::InteropServices;
 
 namespace Managed { namespace Graphics { namespace DirectWrite 
 {
-	public value struct GlyphOffset
-	{
-	private:
-		Single _advanceOffset;
-		Single _ascenderOffset;
-	public:
-		GlyphOffset(Single advanceOffset, Single ascenderOffset)
-		{
-			_advanceOffset = advanceOffset;
-			_ascenderOffset = ascenderOffset;
-		}
-
-		property Single AdvanceOffset { Single get() { return _advanceOffset; } }
-		property Single AscenderOffset { Single get() { return _ascenderOffset; } }
-	};
 
 	ref class FontFace;
 

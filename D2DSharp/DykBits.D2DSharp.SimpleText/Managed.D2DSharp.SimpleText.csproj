@@ -50,6 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomTextControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomTextControl.Designer.cs">
+      <DependentUpon>CustomTextControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomTextRenderer.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +109,9 @@
       <Project>{350A3A81-BF89-4339-AF82-35F50E0B88FC}</Project>
       <Name>Managed.Graphics.Forms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="flowers.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

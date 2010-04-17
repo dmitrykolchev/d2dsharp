@@ -30,12 +30,15 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.simpleTextControl1 = new Managed.D2DSharp.SimpleText.SimpleTextControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.simpleTextControl1 = new Managed.D2DSharp.SimpleText.SimpleTextControl();
             this.multiformattedTextControl1 = new Managed.D2DSharp.SimpleText.MultiformattedTextControl();
+            this.customTextControl1 = new Managed.D2DSharp.SimpleText.CustomTextControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -45,6 +48,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -62,16 +66,6 @@
             this.tabPage1.Text = "Simple Text";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // simpleTextControl1
-            // 
-            this.simpleTextControl1.BackColor = System.Drawing.Color.White;
-            this.simpleTextControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.simpleTextControl1.Location = new System.Drawing.Point(3, 3);
-            this.simpleTextControl1.Name = "simpleTextControl1";
-            this.simpleTextControl1.Size = new System.Drawing.Size(759, 527);
-            this.simpleTextControl1.TabIndex = 0;
-            this.simpleTextControl1.Text = "simpleTextControl1";
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.multiformattedTextControl1);
@@ -83,6 +77,27 @@
             this.tabPage2.Text = "Multiformatted Text";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.customTextControl1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(765, 533);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Custom Text";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // simpleTextControl1
+            // 
+            this.simpleTextControl1.BackColor = System.Drawing.Color.White;
+            this.simpleTextControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.simpleTextControl1.Location = new System.Drawing.Point(3, 3);
+            this.simpleTextControl1.Name = "simpleTextControl1";
+            this.simpleTextControl1.Size = new System.Drawing.Size(759, 527);
+            this.simpleTextControl1.TabIndex = 0;
+            this.simpleTextControl1.Text = "simpleTextControl1";
+            // 
             // multiformattedTextControl1
             // 
             this.multiformattedTextControl1.BackColor = System.Drawing.Color.White;
@@ -92,6 +107,15 @@
             this.multiformattedTextControl1.Size = new System.Drawing.Size(759, 527);
             this.multiformattedTextControl1.TabIndex = 0;
             this.multiformattedTextControl1.Text = "multiformattedTextControl1";
+            // 
+            // customTextControl1
+            // 
+            this.customTextControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customTextControl1.Location = new System.Drawing.Point(3, 3);
+            this.customTextControl1.Name = "customTextControl1";
+            this.customTextControl1.Size = new System.Drawing.Size(759, 527);
+            this.customTextControl1.TabIndex = 0;
+            this.customTextControl1.Text = "customTextControl1";
             // 
             // MainWindow
             // 
@@ -105,6 +129,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -116,6 +141,8 @@
         private System.Windows.Forms.TabPage tabPage2;
         private SimpleTextControl simpleTextControl1;
         private MultiformattedTextControl multiformattedTextControl1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private CustomTextControl customTextControl1;
     }
 }
 

@@ -148,6 +148,7 @@
     <ClCompile Include="Direct2DFactory.cpp" />
     <ClCompile Include="D2DResource.cpp" />
     <ClCompile Include="DirectWriteFactory.cpp" />
+    <ClCompile Include="FontFace.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometrySink.cpp" />
     <ClCompile Include="GlyphRun.cpp" />
@@ -159,6 +160,7 @@
     </ClCompile>
     <ClCompile Include="StreamWrapper.cpp" />
     <ClCompile Include="TextLayout.cpp" />
+    <ClCompile Include="Typography.cpp" />
     <ClCompile Include="WicBitmap.cpp" />
     <ClCompile Include="WicBitmapSource.cpp" />
     <ClCompile Include="WicFormatConverter.cpp" />

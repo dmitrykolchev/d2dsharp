@@ -44,6 +44,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	ref class TextFormat;
 	ref class FontCollection;
 	ref class TextLayout;
+	ref class Typography;
 
 	public ref class DirectWriteFactory: ComWrapper
 	{
@@ -56,7 +57,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		static DirectWriteFactory^ Create(DirectWriteFactoryType factoryType);
 		TextFormat^ CreateTextFormat(String^ fontFamilyName, FontCollection^ fontCollection, FontWeight fontWeight, FontStyle fontStyle, FontStretch fontStretch, FLOAT fontSize, String^ localeName);
 		TextLayout^ CreateTextLayout(String^ string, TextFormat^ textFormat, FLOAT maxWidth, FLOAT maxHeight);
-		void GetDpiScale([Out]Single% dpiScaleX, [Out]Single% dpiScaleY);
+		Typography^ CreateTypography();
+		static void GetDpiScale([Out]Single% dpiScaleX, [Out]Single% dpiScaleY);
 	internal:
 		IDWriteFactory* GetNative() new
 		{

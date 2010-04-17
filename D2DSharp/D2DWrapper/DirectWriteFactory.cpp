@@ -30,13 +30,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	{
 		IDWriteFactory *writeFactory;
 
-		HRESULT hr = DWriteCreateFactory(
+		ComUtils::CheckResult(DWriteCreateFactory(
 			(DWRITE_FACTORY_TYPE)factoryType, 
 			__uuidof(IDWriteFactory),
-			reinterpret_cast<IUnknown**>(&writeFactory));
-
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			reinterpret_cast<IUnknown**>(&writeFactory)));
 
 		return gcnew DirectWriteFactory(writeFactory);
 	}
@@ -54,7 +51,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		
 		IDWriteTextFormat *textFormat;
 
-		HRESULT hr = GetNative()->CreateTextFormat(
+		ComUtils::CheckResult(GetNative()->CreateTextFormat(
 			pFontFamily, 
 			pFontCollection, 
 			(DWRITE_FONT_WEIGHT)fontWeight, 
@@ -62,11 +59,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			(DWRITE_FONT_STRETCH)fontStretch,
 			fontSize,
 			pLocaleName,
-			&textFormat);
+			&textFormat));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew TextFormat(textFormat);
 	}
 	
@@ -74,16 +68,21 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	{
 		pin_ptr<const System::Char> pString = PtrToStringChars(string);
 		IDWriteTextLayout* textLayout;
-		HRESULT hr = GetNative()->CreateTextLayout(
+		ComUtils::CheckResult(GetNative()->CreateTextLayout(
 			pString,
 			string->Length,
 			textFormat->GetNative(),
 			maxWidth,
 			maxHeight,
-			&textLayout);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
+			&textLayout));
 		return gcnew TextLayout(textLayout);
 	}
+
+	Typography^ DirectWriteFactory::CreateTypography()
+	{
+		IDWriteTypography* value;
+		ComUtils::CheckResult(GetNative()->CreateTypography(&value));
+		return gcnew Typography(value);
+	}
+
 }}}

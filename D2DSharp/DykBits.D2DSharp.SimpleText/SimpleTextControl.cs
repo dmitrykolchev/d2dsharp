@@ -26,7 +26,7 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Georgia",
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
                 null,
                 FontWeight.Normal,
                 FontStyle.Normal,

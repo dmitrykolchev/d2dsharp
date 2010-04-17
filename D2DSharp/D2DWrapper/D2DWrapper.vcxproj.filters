@@ -269,6 +269,12 @@
     <ClCompile Include="GlyphRun.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
+    <ClCompile Include="Typography.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFace.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
