@@ -69,6 +69,13 @@
 #include "FontCollection.h"
 #include "TextFormat.h"
 #include "TextLayout.h"
+#include "CustomTextRenderer.h"
+#include "TextRenderer.h"
+#include "InlineObject.h"
+#include "Typography.h"
+#include "GlyphRun.h"
+#include "FontFace.h"
+#include "CustomTextRenderer.h"
 
 #include "WicCommon.h"
 #include "WicComponentInfo.h"
@@ -80,3 +87,4 @@
 #include "WicBitmapDecoder.h"
 #include "WicBitmapFrameDecode.h"
 #include "WicStream.h"
+#include "WicBitmapLock.h"

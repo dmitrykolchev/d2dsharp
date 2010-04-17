@@ -305,7 +305,7 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 						BitmapBrushProperties bbp = BitmapBrushProperties(ExtendMode::Wrap, ExtendMode::Wrap, BitmapInterpolationMode::Linear);
 						hr = renderTarget->CreateBitmapBrush(
 							bitmap, 
-							D2D1::BitmapBrushProperties(D2D1_EXTEND_MODE::D2D1_EXTEND_MODE_WRAP,D2D1_EXTEND_MODE::D2D1_EXTEND_MODE_WRAP), 
+							D2D1::BitmapBrushProperties(D2D1_EXTEND_MODE_WRAP, D2D1_EXTEND_MODE_WRAP), 
 							&bitmapBrush);
 						bitmap->Release();
 					}

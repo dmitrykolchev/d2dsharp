@@ -30,9 +30,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.CombineGeo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK Demos", "SDK Demos", "{FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DykBits.D2DSharp.SimpleText", "DykBits.D2DSharp.SimpleText\DykBits.D2DSharp.SimpleText.csproj", "{C9F64325-C1EB-4092-8D0B-7D76884336FB}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -72,6 +74,10 @@ Global
 		SccProjectTopLevelParentUniqueName9 = D2DSharp.sln
 		SccProjectName9 = DykBits.D2DSharp.CombineGeometries
 		SccLocalPath9 = DykBits.D2DSharp.CombineGeometries
+		SccProjectUniqueName10 = DykBits.D2DSharp.SimpleText\\DykBits.D2DSharp.SimpleText.csproj
+		SccProjectTopLevelParentUniqueName10 = D2DSharp.sln
+		SccProjectName10 = DykBits.D2DSharp.SimpleText
+		SccLocalPath10 = DykBits.D2DSharp.SimpleText
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,6 +198,18 @@ Global
 		{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}.Release|Win32.ActiveCfg = Release|x86
 		{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}.Release|x86.ActiveCfg = Release|x86
 		{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F}.Release|x86.Build.0 = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|Win32.ActiveCfg = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|x86.ActiveCfg = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Debug|x86.Build.0 = Debug|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|Any CPU.ActiveCfg = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|Win32.ActiveCfg = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|x86.ActiveCfg = Release|x86
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,9 +221,10 @@ Global
 		{1210A1A4-8446-4D38-A8C4-19EE053518ED} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{A281A863-46CD-4E26-8443-9A083D12FCD8} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
-		{A7328287-CF48-415F-BD89-3195DE4693E1} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{40E46261-B669-428C-9AB9-622334850DDE} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{85000F39-5659-4F9F-BD62-F480B90BCEA1} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{4CFA0073-08FD-4B87-A03B-6B3AA2185C0F} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
+		{A7328287-CF48-415F-BD89-3195DE4693E1} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
+		{C9F64325-C1EB-4092-8D0B-7D76884336FB} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 	EndGlobalSection
 EndGlobal

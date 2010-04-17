@@ -27,6 +27,16 @@ using namespace System::Runtime::InteropServices;
 
 namespace DykBits { namespace Graphics { namespace Imaging
 {
+	ref class WicPalette;
+	ref class WicBitmapLock;
+
+	[FlagsAttribute()]
+	public enum class WicBitmapLockFlags
+	{
+		Read = WICBitmapLockRead,
+		Write = WICBitmapLockWrite
+	};
+
 	public ref class WicBitmap: WicBitmapSource
 	{
 	internal:
@@ -34,7 +44,9 @@ namespace DykBits { namespace Graphics { namespace Imaging
 		{
 		}
 	public:
-
+		WicBitmapLock^ Lock(DykBits::Graphics::Direct2D::RectU lockRect, WicBitmapLockFlags flags);
+		void SetPalette(WicPalette^ palette);
+		void SetResolution(Double dpiX, Double dpiY);
 	internal:
 		IWICBitmap* GetNative()
 		{

@@ -98,9 +98,12 @@
     <ClInclude Include="DirectWriteFactory.h" />
     <ClInclude Include="EllipseGeometry.h" />
     <ClInclude Include="FontCollection.h" />
+    <ClInclude Include="FontFace.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryGroup.h" />
     <ClInclude Include="GeometrySink.h" />
+    <ClInclude Include="GlyphRun.h" />
+    <ClInclude Include="InlineObject.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerParameters.h" />
     <ClInclude Include="Mesh.h" />
@@ -113,10 +116,14 @@
     <ClInclude Include="TessellationSink.h" />
     <ClInclude Include="TextFormat.h" />
     <ClInclude Include="TextLayout.h" />
+    <ClInclude Include="TextRenderer.h" />
+    <ClInclude Include="CustomTextRenderer.h" />
     <ClInclude Include="TransformedGeometry.h" />
+    <ClInclude Include="Typography.h" />
     <ClInclude Include="WicBitmap.h" />
     <ClInclude Include="WicBitmapDecoder.h" />
     <ClInclude Include="WicBitmapFrameDecode.h" />
+    <ClInclude Include="WicBitmapLock.h" />
     <ClInclude Include="WicBitmapSource.h" />
     <ClInclude Include="WicCommon.h" />
     <ClInclude Include="WicComponentInfo.h" />
@@ -137,11 +144,13 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="CustomTextRenderer.cpp" />
     <ClCompile Include="Direct2DFactory.cpp" />
     <ClCompile Include="D2DResource.cpp" />
     <ClCompile Include="DirectWriteFactory.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometrySink.cpp" />
+    <ClCompile Include="GlyphRun.cpp" />
     <ClCompile Include="PathGeometry.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Stdafx.cpp">
@@ -149,6 +158,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StreamWrapper.cpp" />
+    <ClCompile Include="TextLayout.cpp" />
+    <ClCompile Include="WicBitmap.cpp" />
     <ClCompile Include="WicBitmapSource.cpp" />
     <ClCompile Include="WicFormatConverter.cpp" />
     <ClCompile Include="WicImagingFactory.cpp" />

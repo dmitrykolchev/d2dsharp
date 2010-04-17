@@ -186,6 +186,27 @@
     <ClInclude Include="StreamWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WicBitmapLock.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="InlineObject.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="Typography.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomTextRenderer.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="GlyphRun.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFace.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -235,6 +256,18 @@
     </ClCompile>
     <ClCompile Include="StreamWrapper.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WicBitmap.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLayout.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomTextRenderer.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="GlyphRun.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

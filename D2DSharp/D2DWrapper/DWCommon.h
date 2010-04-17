@@ -256,4 +256,17 @@ namespace DykBits { namespace Graphics { namespace DirectWrite
 	    /// </summary>
 	    RightToLeft = DWRITE_READING_DIRECTION_RIGHT_TO_LEFT
 	};
+
+
+	/// <summary>
+	/// Direction for how lines of text are placed relative to one another.
+	/// </summary>
+	public enum class FlowDirection
+	{
+	    /// <summary>
+	    /// Text lines are placed from top to bottom.
+	    /// </summary>
+	    TopToBottom = DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM
+	};
+
 }}}

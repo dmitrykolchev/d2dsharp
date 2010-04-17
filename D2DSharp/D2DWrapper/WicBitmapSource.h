@@ -38,6 +38,32 @@ namespace DykBits { namespace Graphics { namespace Imaging
 	public:
 		void CopyPalette(WicPalette^ palette);
 		void CopyPixels(WicRect rect, int stride, array<Byte>^ buffer);
+		property Guid PixelFormat
+		{
+			Guid get()
+			{
+				Guid guid;
+				ComUtils::CheckResult(GetNative()->GetPixelFormat((WICPixelFormatGUID*)&guid));
+				return guid;
+			}
+		}
+		void GetResolution([OutAttribute()]Double% dpiX, [OutAttribute()]Double% dpiY)
+		{
+			double x, y;
+			ComUtils::CheckResult(GetNative()->GetResolution((double*)&x, (double*)&y));
+			dpiX = x;
+			dpiY = y;
+		}
+		property DykBits::Graphics::Direct2D::SizeU Size
+		{
+			DykBits::Graphics::Direct2D::SizeU get()
+			{
+				UINT32 width, height;
+				ComUtils::CheckResult(GetNative()->GetSize(&width, &height));
+				return DykBits::Graphics::Direct2D::SizeU(width, height);
+			}
+		}
+
 	internal:
 		IWICBitmapSource* GetNative()
 		{

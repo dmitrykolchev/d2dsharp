@@ -23,40 +23,19 @@
 using namespace System;
 using namespace System::Runtime::InteropServices;
 
-namespace DykBits { namespace Runtime { namespace InteropServices
+namespace DykBits { namespace Graphics { namespace Imaging
 {
-	public ref class ComWrapper
+	public ref class WicBitmapLock: ComWrapper
 	{
 	internal:
-		ComWrapper(IUnknown* native)
+		WicBitmapLock(IWICBitmapLock* native): ComWrapper(native)
 		{
-			_native = native;
-		}
-		ComWrapper(IUnknown* native, Boolean addRef)
-		{
-			_native = native;
-			if(addRef)
-				_native->AddRef();
 		}
 	public:
-		~ComWrapper()
-		{
-			this->!ComWrapper();
-		}
-		!ComWrapper()
-		{
-			if(_native != NULL)
-			{
-				_native->Release();
-				_native = NULL;
-			}
-		}
 	internal:
-		IUnknown* GetNative()
+		IWICBitmapLock* GetNative()
 		{
-			return _native;
+			return (IWICBitmapLock*)ComWrapper::GetNative();
 		}
-	private:
-		IUnknown* _native;
 	};
 }}}

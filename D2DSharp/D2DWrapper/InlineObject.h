@@ -20,43 +20,29 @@
 */
 #pragma once
 
+#include "ComWrapper.h"
+#include "ComUtils.h"
+#include "DWCommon.h"
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace DykBits::Runtime::InteropServices;
 
-namespace DykBits { namespace Runtime { namespace InteropServices
+namespace DykBits { namespace Graphics { namespace DirectWrite 
 {
-	public ref class ComWrapper
+	public ref class InlineObject: ComWrapper
 	{
 	internal:
-		ComWrapper(IUnknown* native)
+		InlineObject(IDWriteInlineObject* native): ComWrapper(native) 
 		{
-			_native = native;
 		}
-		ComWrapper(IUnknown* native, Boolean addRef)
+		InlineObject(IDWriteInlineObject* native, Boolean addRef): ComWrapper(native, addRef) 
 		{
-			_native = native;
-			if(addRef)
-				_native->AddRef();
-		}
-	public:
-		~ComWrapper()
-		{
-			this->!ComWrapper();
-		}
-		!ComWrapper()
-		{
-			if(_native != NULL)
-			{
-				_native->Release();
-				_native = NULL;
-			}
 		}
 	internal:
-		IUnknown* GetNative()
+		IDWriteInlineObject* GetNative() new
 		{
-			return _native;
+			return static_cast<IDWriteInlineObject*>(ComWrapper::GetNative());
 		}
-	private:
-		IUnknown* _native;
 	};
 }}}

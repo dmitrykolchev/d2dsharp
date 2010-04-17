@@ -209,6 +209,28 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 			_right = x + width;
 			_bottom = y + height;
 		}
+
+		property UINT32 X
+		{
+			UINT32 get() { return _left; }
+			void set(UINT32 value) { _left = value; }
+		}
+	    
+		property UINT32 Y
+		{
+			UINT32 get() { return _top; }
+			void set(UINT32 value) { _top = value; }
+		}
+
+	    property UINT32 Width
+		{
+			UINT32 get() { return _right - _left; }
+		}
+
+	    property UINT32 Height
+		{
+			UINT32 get() { return _bottom - _top; }
+		}
 	};
 
 
@@ -442,6 +464,13 @@ namespace DykBits { namespace Graphics { namespace Direct2D
 
 	        return rotation;
 	    }
+
+		property FLOAT M11 { FLOAT get() { return _11; } }
+		property FLOAT M12 { FLOAT get() { return _12; } }
+		property FLOAT M21 { FLOAT get() { return _21; } }
+		property FLOAT M22 { FLOAT get() { return _22; } }
+		property FLOAT M31 { FLOAT get() { return _31; } }
+		property FLOAT M32 { FLOAT get() { return _32; } }
 	};
 
 	[StructLayout(LayoutKind::Sequential)]

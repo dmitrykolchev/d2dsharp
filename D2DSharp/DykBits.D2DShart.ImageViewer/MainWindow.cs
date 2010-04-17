@@ -70,8 +70,8 @@ namespace DykBits.D2DShart.ImageViewer
                 if (this._files.Length > 0)
                 {
                     this._path = path;
-                    this._currentImage = 0;
-                    this.direct2DSurface1.ImagePath = this._files[this._currentImage];
+                    this._currentImage = -1;
+                    NextImage();
                 }
             }
             else

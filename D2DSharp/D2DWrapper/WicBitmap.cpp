@@ -18,45 +18,30 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#pragma once
+#include "Stdafx.h"
 
-using namespace System;
-using namespace System::Runtime::InteropServices;
+#include "WicBitmap.h"
 
-namespace DykBits { namespace Runtime { namespace InteropServices
+
+namespace DykBits { namespace Graphics { namespace Imaging
 {
-	public ref class ComWrapper
+	void WicBitmap::SetPalette(WicPalette^ palette)
 	{
-	internal:
-		ComWrapper(IUnknown* native)
-		{
-			_native = native;
-		}
-		ComWrapper(IUnknown* native, Boolean addRef)
-		{
-			_native = native;
-			if(addRef)
-				_native->AddRef();
-		}
-	public:
-		~ComWrapper()
-		{
-			this->!ComWrapper();
-		}
-		!ComWrapper()
-		{
-			if(_native != NULL)
-			{
-				_native->Release();
-				_native = NULL;
-			}
-		}
-	internal:
-		IUnknown* GetNative()
-		{
-			return _native;
-		}
-	private:
-		IUnknown* _native;
-	};
+		if(palette == nullptr)
+			throw gcnew ArgumentNullException("palette");
+		ComUtils::CheckResult(GetNative()->SetPalette(palette->GetNative()));
+	}
+
+	void WicBitmap::SetResolution(Double dpiX, Double dpiY)
+	{
+		ComUtils::CheckResult(GetNative()->SetResolution(dpiX, dpiY));
+	}
+
+	WicBitmapLock^ WicBitmap::Lock(DykBits::Graphics::Direct2D::RectU lockRect, WicBitmapLockFlags flags)
+	{
+		WICRect rect = { lockRect.X, lockRect.Y, lockRect.Width, lockRect.Height };
+		IWICBitmapLock* pLock;
+		ComUtils::CheckResult(GetNative()->Lock(&rect, (DWORD)flags, &pLock));
+		return gcnew WicBitmapLock(pLock);
+	}
 }}}

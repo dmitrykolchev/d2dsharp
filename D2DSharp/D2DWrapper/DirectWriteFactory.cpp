@@ -24,11 +24,22 @@
 #include "DirectWriteFactory.h"
 #include "TextFormat.h"
 
+#pragma comment(lib, "user32.lib")
+#pragma comment(lib, "gdi32.lib")
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace DykBits { namespace Graphics { namespace DirectWrite 
 {
+	void DirectWriteFactory::GetDpiScale([Out]Single% dpiScaleX, [Out]Single% dpiScaleY)
+	{
+		HDC screen = GetDC(0);
+		dpiScaleX = GetDeviceCaps(screen, LOGPIXELSX) / 96.0f;
+		dpiScaleY = GetDeviceCaps(screen, LOGPIXELSY) / 96.0f;
+		ReleaseDC(0, screen);
+	}
+
 	DirectWriteFactory^ DirectWriteFactory::Create(DirectWriteFactoryType factoryType)
 	{
 		IDWriteFactory *writeFactory;
