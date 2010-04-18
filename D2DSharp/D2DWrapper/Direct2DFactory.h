@@ -317,11 +317,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void ReloadSystemMetrics()
 		{
-			HRESULT hr = _factory->ReloadSystemMetrics();
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(_factory->ReloadSystemMetrics());
 		}
-		void GetDesktopDpi([OutAttribute()]System::Single% dpiX, [OutAttribute()]System::Single% dpiY)
+		void GetDesktopDpi([Out]Single% dpiX, [Out]Single% dpiY)
 		{
 			FLOAT x;
 			FLOAT y;

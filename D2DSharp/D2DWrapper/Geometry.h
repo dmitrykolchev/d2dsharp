@@ -40,6 +40,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 
 	ref class SimplifiedGeometrySink;
+	interface class ICustomSimplifiedGeometrySink;
 
 	public ref class Geometry: D2DResource
 	{
@@ -55,6 +56,14 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Matrix3x2 inputGeometryTransform, 
 			FLOAT flatteningTolerance, 
 			SimplifiedGeometrySink^ geometrySink); 
+
+		void CombineWithGeometry(
+			Geometry^ inputGeometry, 
+			CombineMode combineMode, 
+			Matrix3x2 inputGeometryTransform, 
+			FLOAT flatteningTolerance, 
+			ICustomSimplifiedGeometrySink^ customGeometrySink); 
+
 		GeometryRelation CompareWithGeometry(
 			Geometry^ inputGeometry,
 			Matrix3x2 inputGeometryTransform, 
@@ -63,13 +72,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		Boolean FillContainsPoint(PointF point, Matrix3x2 worldTransform, FLOAT flatteningTolerance)
 		{
 			BOOL contains;
-			HRESULT hr = GetNative()->FillContainsPoint(
+
+			ComUtils::CheckResult(GetNative()->FillContainsPoint(
 				*(D2D1_POINT_2F*)&point,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				&contains);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				&contains));
+
 			return contains ? true : false;
 		}
 
@@ -77,24 +86,24 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			BOOL contains;
 			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
-			HRESULT hr = GetNative()->StrokeContainsPoint(
+
+			ComUtils::CheckResult(GetNative()->StrokeContainsPoint(
 				*(D2D1_POINT_2F*)&point,
 				strokeWidth,
 				pStrokeStyle,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				&contains);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				&contains));
+
 			return contains ? true : false;
 		}
 
 		RectF GetBounds(Matrix3x2 worldTransform)
 		{
 			RectF bounds;
-			HRESULT hr = GetNative()->GetBounds((D2D1_MATRIX_3X2_F *)&worldTransform, (D2D1_RECT_F*)&bounds);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+
+			ComUtils::CheckResult(GetNative()->GetBounds((D2D1_MATRIX_3X2_F *)&worldTransform, (D2D1_RECT_F*)&bounds));
+
 			return bounds;
 		}
 
@@ -104,15 +113,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			
 			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
 
-			HRESULT hr = GetNative()->GetWidenedBounds(
+			ComUtils::CheckResult(GetNative()->GetWidenedBounds(
 				strokeWidth, 
 				pStrokeStyle, 
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				(D2D1_RECT_F*)&bounds);
-			
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				(D2D1_RECT_F*)&bounds));
 			
 			return bounds;
 		}
@@ -125,6 +131,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 				geometrySink->GetNative()));
 		}
 
+		void Outline(
+			Matrix3x2 worldTransform, 
+			FLOAT flatteningTolerance, 
+			ICustomSimplifiedGeometrySink^ customGeometrySink);
+
 		void Simplify(
 			GeometrySimplificationOptions simplificationOptions, 
 			Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
@@ -135,6 +146,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 				flatteningTolerance,
 				geometrySink->GetNative()));
 		}
+
+		void Simplify(
+			GeometrySimplificationOptions simplificationOptions, 
+			Matrix3x2 worldTransform, 
+			FLOAT flatteningTolerance, 
+			ICustomSimplifiedGeometrySink^ customGeometrySink);
 
 		void Widen(FLOAT strokeWidth, StrokeStyle^ strokeStyle, Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
@@ -147,6 +164,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 				flatteningTolerance,
 				geometrySink->GetNative()));
 		}
+
+		void Widen(
+			FLOAT strokeWidth, 
+			StrokeStyle^ strokeStyle, 
+			Matrix3x2 worldTransform, 
+			FLOAT flatteningTolerance, 
+			ICustomSimplifiedGeometrySink^ customGeometrySink);
 	internal:
 		ID2D1Geometry* GetNative() new
 		{

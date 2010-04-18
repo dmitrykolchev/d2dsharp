@@ -38,6 +38,16 @@ GlyphRun::GlyphRun(DWRITE_GLYPH_RUN const* glyphRun)
 	_bidiLevel = glyphRun->bidiLevel;
 }
 
+void GlyphRun::CopyTo(DWRITE_GLYPH_RUN* glyphRun)
+{
+	glyphRun->fontFace = _fontFace->GetNative();
+	glyphRun->fontEmSize = _fontEmSize;
+	glyphRun->glyphCount = _glyphIndices->Length;
+
+	glyphRun->isSideways = _isSideways;
+	glyphRun->bidiLevel = _bidiLevel;
+}
+
 GlyphRun::!GlyphRun()
 {
 	if(_fontFace != nullptr)

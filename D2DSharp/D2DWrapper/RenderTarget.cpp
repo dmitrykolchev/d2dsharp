@@ -14,9 +14,11 @@
 
 using namespace Managed::Graphics::DirectWrite;
 using namespace Managed::Graphics::Imaging;
+using namespace Managed::Graphics::Imaging;
 
-namespace Managed { namespace Graphics { namespace Direct2D 
+namespace Managed { namespace Graphics { namespace Direct2D
 {
+
 	void RenderTarget::FillRect(Brush^ brush, RectF rect)
 	{
 		GetNative()->FillRectangle(reinterpret_cast<D2D1_RECT_F*>(&rect), brush->GetNative());
@@ -391,6 +393,17 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			(D2D1_DRAW_TEXT_OPTIONS)options);
 	}
 
+	void RenderTarget::DrawGlyphRun(PointF baselineOrigin, GlyphRun^ glyphRun, Brush^ foregroundBrush, MeasuringMode measuringMode)
+	{
+		DWRITE_GLYPH_RUN gr = {0};
+		glyphRun->CopyTo(&gr);
+		GetNative()->DrawGlyphRun(
+			*(D2D1_POINT_2F*)&baselineOrigin,
+			&gr,
+			foregroundBrush->GetNative(),
+			(DWRITE_MEASURING_MODE)measuringMode);
+	}
+
 	void RenderTarget::DrawBitmap(Bitmap^ bitmap, RectF dstRect, Single opacity, BitmapInterpolationMode interpolationMode, RectF srcRect)
 	{
 		GetNative()->DrawBitmap(
@@ -410,5 +423,4 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			(D2D1_BITMAP_INTERPOLATION_MODE)interpolationMode,
 			NULL);
 	}
-
 }}}

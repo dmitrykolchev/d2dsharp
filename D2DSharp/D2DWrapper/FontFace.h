@@ -43,7 +43,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		void GetGlyphRunOutline(Single emSize, array<UInt16>^ glyphIndices, array<Single>^ glyphAdvances, 
 			array<GlyphOffset>^ glyphOffsets, Boolean isSideways, Boolean isRtl, GeometrySink^ geometrySink);
-
+		void GetGlyphRunOutline(Single emSize, array<UInt16>^ glyphIndices, array<Single>^ glyphAdvances, 
+			array<GlyphOffset>^ glyphOffsets, Boolean isSideways, Boolean isRtl, ICustomGeometrySink^ customGeometrySink);
 
 	internal:
 		IDWriteFontFace* GetNative() new

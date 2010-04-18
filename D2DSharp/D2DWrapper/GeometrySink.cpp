@@ -38,6 +38,103 @@ void GeometrySink::AddQuadraticBeziers(array<QuadraticBezierSegment>^ beziers)
 	GetNative()->AddQuadraticBeziers((D2D1_QUADRATIC_BEZIER_SEGMENT *)p, beziers->Length);
 }
 
+
+//
+// CustomSimplifiedGeometrySink
+//
+// ID2D1SimplifiedGeometrySink
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::SetFillMode(D2D1_FILL_MODE fillMode)
+{
+	_sink->SetFillMode((FillMode)fillMode);
+}
+    
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::SetSegmentFlags(D2D1_PATH_SEGMENT vertexFlags)
+{
+	_sink->SetSegmentFlags((PathSegment)vertexFlags);
+}
+    
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::BeginFigure(D2D1_POINT_2F startPoint, D2D1_FIGURE_BEGIN figureBegin)
+{
+	_sink->BeginFigure(*(PointF*)&startPoint, (FigureBegin)figureBegin);
+}
+    
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::AddLines(	
+	__in_ecount(pointsCount) CONST D2D1_POINT_2F *points,
+	UINT pointsCount 
+	)
+{
+	array<PointF>^ mpoints = gcnew array<PointF>(pointsCount);
+	pin_ptr<PointF> pPoints = &mpoints[0];
+	memcpy(pPoints, points, sizeof(D2D1_POINT_2F) * pointsCount);
+	_sink->AddLines(mpoints);
+}
+    
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::AddBeziers(
+	__in_ecount(beziersCount) CONST D2D1_BEZIER_SEGMENT *beziers,
+	UINT beziersCount 
+	)
+{
+	array<BezierSegment>^ msegments = gcnew array<BezierSegment>(beziersCount);
+	pin_ptr<BezierSegment> pSegments = &msegments[0];
+	memcpy(pSegments, beziers, sizeof(D2D1_BEZIER_SEGMENT) * beziersCount);
+	_sink->AddBeziers(msegments);
+}
+    
+void STDMETHODCALLTYPE CustomSimplifiedGeometrySink::EndFigure(D2D1_FIGURE_END figureEnd)
+{
+	_sink->EndFigure((FigureEnd)figureEnd);
+}
+    
+HRESULT STDMETHODCALLTYPE CustomSimplifiedGeometrySink::Close()
+{
+	try
+	{
+		_sink->Close();
+	}
+	catch(Exception^)
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+unsigned long STDMETHODCALLTYPE CustomSimplifiedGeometrySink::AddRef()
+{
+    return InterlockedIncrement(&_refCount);
+}
+
+unsigned long STDMETHODCALLTYPE CustomSimplifiedGeometrySink::Release()
+{
+    if (InterlockedDecrement(&_refCount) == 0)
+    {
+        delete this;
+        return 0;
+    }
+    return _refCount;
+}
+
+HRESULT STDMETHODCALLTYPE CustomSimplifiedGeometrySink::QueryInterface(IID const& riid, void** ppvObject)
+{
+	if(__uuidof(ID2D1SimplifiedGeometrySink) == riid)
+    {
+        *ppvObject = static_cast<ID2D1SimplifiedGeometrySink*>(this);
+    }
+    else if (__uuidof(IUnknown) == riid)
+    {
+        *ppvObject = static_cast<IUnknown*>(this);
+    }
+    else
+    {
+        *ppvObject = NULL;
+        return E_NOINTERFACE;
+    }
+    return S_OK;
+}
+
+//
+// CustomGeometrySink
+//
+
 // ID2D1SimplifiedGeometrySink
 void STDMETHODCALLTYPE CustomGeometrySink::SetFillMode(D2D1_FILL_MODE fillMode)
 {

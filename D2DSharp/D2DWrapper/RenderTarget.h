@@ -22,6 +22,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 {
 	ref class TextFormat;
 	ref class TextLayout;
+	ref class GlyphRun;
 }}}
 
 namespace Managed { namespace Graphics { namespace Direct2D 
@@ -35,7 +36,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	ref class Bitmap;
 	ref class BitmapBrush;
 	ref class BitmapRenderTarget;	
-
+	
 	public enum class AntialiasMode  
 	{
 		PerPrimitive   = 0,
@@ -303,7 +304,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void DrawText(String^ string, TextFormat^ textFormat, RectF layoutRect, Brush^ brush, DrawTextOptions options, MeasuringMode measuringMode); 
 		void DrawTextLayout(PointF origin, TextLayout^ textLayout, Brush^ brush, DrawTextOptions options);
-		//void DrawGlyphRun(PointF baselineOrigin, GlyphRun^ glyphRun, Brush^ foregroundBrush, MeasuringMode measuringMode);
+		void DrawGlyphRun(PointF baselineOrigin, GlyphRun^ glyphRun, Brush^ foregroundBrush, MeasuringMode measuringMode);
 
 		void DrawBitmap(Bitmap^ bitmap, RectF dstRect, Single opacity, BitmapInterpolationMode interpolationMode, RectF srcRect);
 		void DrawBitmap(Bitmap^ bitmap, RectF dstRect, Single opacity, BitmapInterpolationMode interpolationMode);

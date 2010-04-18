@@ -123,12 +123,57 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		}
 	};
 
+	class CustomSimplifiedGeometrySink: public ID2D1SimplifiedGeometrySink
+	{
+	public:
+		CustomSimplifiedGeometrySink(ICustomSimplifiedGeometrySink^ sink): _refCount(1), _sink(sink)
+		{
+		}
+
+
+		// ID2D1SimplifiedGeometrySink
+		STDMETHOD_(void, SetFillMode)(D2D1_FILL_MODE fillMode);
+    
+		STDMETHOD_(void, SetSegmentFlags)(D2D1_PATH_SEGMENT vertexFlags);
+    
+		STDMETHOD_(void, BeginFigure)(D2D1_POINT_2F startPoint,	D2D1_FIGURE_BEGIN figureBegin);
+    
+		STDMETHOD_(void, AddLines)(	
+			__in_ecount(pointsCount) CONST D2D1_POINT_2F *points,
+			UINT pointsCount 
+			);
+    
+		STDMETHOD_(void, AddBeziers)(
+			__in_ecount(beziersCount) CONST D2D1_BEZIER_SEGMENT *beziers,
+			UINT beziersCount 
+			);
+    
+		STDMETHOD_(void, EndFigure)(D2D1_FIGURE_END figureEnd);
+    
+		STDMETHOD(Close)();
+    public:
+        unsigned long STDMETHODCALLTYPE AddRef();
+        unsigned long STDMETHODCALLTYPE Release();
+        HRESULT STDMETHODCALLTYPE QueryInterface(
+            IID const& riid,
+            void** ppvObject
+        );
+
+    protected:
+        virtual ~CustomSimplifiedGeometrySink() { }
+
+	private:
+		gcroot<ICustomSimplifiedGeometrySink^> _sink;
+		LONG _refCount;
+	};
+
 	class CustomGeometrySink: public ID2D1GeometrySink
 	{
 	public:
 		CustomGeometrySink(ICustomGeometrySink^ sink): _refCount(1), _sink(sink)
 		{
 		}
+
 
 		// ID2D1SimplifiedGeometrySink
 		STDMETHOD_(void, SetFillMode)(D2D1_FILL_MODE fillMode);

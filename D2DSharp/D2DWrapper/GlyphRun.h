@@ -37,6 +37,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			this->!GlyphRun();
 		}
 		!GlyphRun();
+		void CopyTo(DWRITE_GLYPH_RUN* glyphRun);
 	public:
 		property Managed::Graphics::DirectWrite::FontFace^ FontFace
 		{
