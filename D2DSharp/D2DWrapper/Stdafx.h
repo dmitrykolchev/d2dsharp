@@ -60,8 +60,17 @@
 #include "InlineObject.h"
 #include "Typography.h"
 #include "GlyphRun.h"
+#include "GlyphRunAnalysis.h"
 #include "FontFace.h"
 #include "CustomTextRenderer.h"
+#include "FontCollectionLoader.h"
+#include "FontFileLoader.h"
+#include "FontFile.h"
+#include "RenderingParams.h"
+#include "NumberSubstitution.h"
+#include "TextAnalyzer.h"
+#include "GdiInterop.h"
+
 
 #include "WicCommon.h"
 #include "WicComponentInfo.h"

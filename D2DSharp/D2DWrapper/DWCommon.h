@@ -12,6 +12,30 @@ using namespace System::Runtime::InteropServices;
 namespace Managed { namespace Graphics { namespace DirectWrite
 {
 	/// <summary>
+	/// Specifies the type of DirectWrite factory object.
+	/// DirectWrite factory contains internal state such as font loader registration and cached font data.
+	/// In most cases it is recommended to use the shared factory object, because it allows multiple components
+	/// that use DirectWrite to share internal DirectWrite state and reduce memory usage.
+	/// However, there are cases when it is desirable to reduce the impact of a component,
+	/// such as a plug-in from an untrusted source, on the rest of the process by sandboxing and isolating it
+	/// from the rest of the process components. In such cases, it is recommended to use an isolated factory for the sandboxed
+	/// component.
+	/// </summary>
+	public enum class DirectWriteFactoryType
+	{
+	    /// <summary>
+	    /// Shared factory allow for re-use of cached font data across multiple in process components.
+	    /// Such factories also take advantage of cross process font caching components for better performance.
+	    /// </summary>
+	    Shared = DWRITE_FACTORY_TYPE_SHARED,
+
+	    /// <summary>
+	    /// Objects created from the isolated factory do not interact with internal DirectWrite state from other components.
+	    /// </summary>
+	    Isolated = DWRITE_FACTORY_TYPE_ISOLATED
+	};
+
+	/// <summary>
 	/// The font weight enumeration describes common values for degree of blackness or thickness of strokes of characters in a font.
 	/// Font weight values less than 1 or greater than 999 are considered to be invalid, and they are rejected by font API functions.
 	/// </summary>
@@ -341,6 +365,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		SlashedZero                        = 0x6f72657a, // 'zero'
 	};
 
+	[StructLayout(LayoutKind::Sequential)]
 	public value struct GlyphOffset
 	{
 	private:
@@ -355,6 +380,138 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		property Single AdvanceOffset { Single get() { return _advanceOffset; } }
 		property Single AscenderOffset { Single get() { return _ascenderOffset; } }
+	};
+
+	public enum class LineSpacingMethod 
+	{
+		Default = DWRITE_LINE_SPACING_METHOD_DEFAULT,
+		Uniform = DWRITE_LINE_SPACING_METHOD_UNIFORM 
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct LineSpacing
+	{
+	private:
+		LineSpacingMethod _lineSpacingMethod;
+		Single _height;
+		Single _baseLine;
+	public:
+		LineSpacing(LineSpacingMethod lineSpacingMethod, Single height, Single baseLine)
+		{
+			_lineSpacingMethod = lineSpacingMethod;
+			_height = height;
+			_baseLine = baseLine;
+		}
+
+		property LineSpacingMethod Method
+		{
+			LineSpacingMethod get() { return _lineSpacingMethod; }
+			void set(LineSpacingMethod value) { _lineSpacingMethod = value; }
+		}
+
+		property Single Height
+		{
+			Single get() { return _height; }
+			void set(Single value) { _height = value; }
+		}
+
+		property Single BaseLine
+		{
+			Single get() { return _baseLine; }
+			void set(Single value) { _baseLine = value; }
+		}
+	};
+
+	public enum class TrimmingGranularity 
+	{
+		None = DWRITE_TRIMMING_GRANULARITY_NONE,
+		Character = DWRITE_TRIMMING_GRANULARITY_CHARACTER,
+		Word = DWRITE_TRIMMING_GRANULARITY_WORD 
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct Trimming
+	{
+	private:
+		DWRITE_TRIMMING_GRANULARITY _granularity;
+		UINT32                      _delimiter;
+		UINT32                      _delimiterCount;
+	public:
+		Trimming(TrimmingGranularity granularity, UInt32 delimiter, UInt32 delimiterCount)
+		{
+			_granularity = (DWRITE_TRIMMING_GRANULARITY)granularity;
+			_delimiter = delimiter;
+			_delimiterCount = delimiterCount;
+		}
+
+		property TrimmingGranularity Granularity
+		{
+			TrimmingGranularity get() { return (TrimmingGranularity)_granularity; }
+			void set(TrimmingGranularity value) { _granularity = (DWRITE_TRIMMING_GRANULARITY)value; }
+		}
+
+		property UInt32 Delimiter
+		{
+			UInt32 get() { return _delimiter; }
+			void set(UInt32 value) { _delimiter = value; }
+		}
+
+		property UInt32 DelimiterCount
+		{
+			UInt32 get() { return _delimiterCount; }
+			void set(UInt32 value) { _delimiterCount = value; }
+		}
+	};
+
+	public enum class WordWrapping 
+	{
+		Wrap = DWRITE_WORD_WRAPPING_WRAP,
+		NoWrap = DWRITE_WORD_WRAPPING_NO_WRAP 
+	};
+
+	public enum class PixelGeometry
+	{
+		Flat = DWRITE_PIXEL_GEOMETRY_FLAT,
+		Rgb = DWRITE_PIXEL_GEOMETRY_RGB,
+		Brg = DWRITE_PIXEL_GEOMETRY_BGR 
+	};
+
+	public enum class RenderingMode 
+	{
+		Default = DWRITE_RENDERING_MODE_DEFAULT,
+		Aliased = DWRITE_RENDERING_MODE_ALIASED,
+		CleartypeGdiClassic = DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC,
+		CleartypeGdiNatural =  DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL,
+		CleartypeNatural = DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL,
+		CleartypeNaturalSymmetric = DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC,
+		Outline = DWRITE_RENDERING_MODE_OUTLINE 
+	};
+
+	public enum class FontFaceType
+	{
+		Cff = DWRITE_FONT_FACE_TYPE_CFF,
+		Truetype = DWRITE_FONT_FACE_TYPE_TRUETYPE,
+		TruetypeCollection = DWRITE_FONT_FACE_TYPE_TRUETYPE_COLLECTION,
+		Type1 = DWRITE_FONT_FACE_TYPE_TYPE1,
+		Vector = DWRITE_FONT_FACE_TYPE_VECTOR,
+		Bitmap = DWRITE_FONT_FACE_TYPE_BITMAP,
+		Unknown = DWRITE_FONT_FACE_TYPE_UNKNOWN 
+	};
+
+	public enum class FontSimulations 
+	{
+		None		= 0x0000,
+		Bold		= 0x0001,
+		Oblique		= 0x0002 
+	};
+
+	public enum class NumberSubstitutionMethod 
+	{
+		FromCulture = DWRITE_NUMBER_SUBSTITUTION_METHOD_FROM_CULTURE,
+		Contextual = DWRITE_NUMBER_SUBSTITUTION_METHOD_CONTEXTUAL,
+		None = DWRITE_NUMBER_SUBSTITUTION_METHOD_NONE,
+		National = DWRITE_NUMBER_SUBSTITUTION_METHOD_NATIONAL,
+		Traditional = DWRITE_NUMBER_SUBSTITUTION_METHOD_TRADITIONAL 
 	};
 
 }}}

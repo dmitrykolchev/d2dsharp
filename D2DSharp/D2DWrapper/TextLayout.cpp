@@ -37,19 +37,19 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		throw gcnew NotImplementedException();
 	}
 
-	FontCollection^ TextLayout::GetFontCollection(Int32 position)
+	Managed::Graphics::DirectWrite::FontCollection^ TextLayout::GetFontCollection(Int32 position)
 	{
 		IDWriteFontCollection* fontCollection;
 		ComUtils::CheckResult(GetNative()->GetFontCollection(position, &fontCollection, NULL));
-		return gcnew FontCollection(fontCollection);
+		return gcnew Managed::Graphics::DirectWrite::FontCollection(fontCollection);
 	}
 
-	FontCollection^ TextLayout::GetFontCollection(Int32 position, [Out]TextRange% textRange)
+	Managed::Graphics::DirectWrite::FontCollection^ TextLayout::GetFontCollection(Int32 position, [Out]TextRange% textRange)
 	{
 		IDWriteFontCollection* fontCollection;
 		pin_ptr<TextRange> pTextRange = &textRange;
 		ComUtils::CheckResult(GetNative()->GetFontCollection(position, &fontCollection, (DWRITE_TEXT_RANGE *)pTextRange));
-		return gcnew FontCollection(fontCollection);
+		return gcnew Managed::Graphics::DirectWrite::FontCollection(fontCollection);
 	}
 
 	String^ TextLayout::GetFontFamilyName(Int32 position)
@@ -106,7 +106,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	{
 		DWRITE_FONT_STRETCH value;
 		ComUtils::CheckResult(GetNative()->GetFontStretch(position, &value, NULL));
-		return (FontStretch)value;
+		return (Managed::Graphics::DirectWrite::FontStretch)value;
 	}
 
 	FontStretch TextLayout::GetFontStretch(Int32 position, [Out]TextRange% textRange)
@@ -114,14 +114,14 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		DWRITE_FONT_STRETCH value;
 		pin_ptr<TextRange> pTextRange = &textRange;
 		ComUtils::CheckResult(GetNative()->GetFontStretch(position, &value, (DWRITE_TEXT_RANGE *)pTextRange));
-		return (FontStretch)value;
+		return (Managed::Graphics::DirectWrite::FontStretch)value;
 	}
 
 	FontStyle TextLayout::GetFontStyle(Int32 position)
 	{
 		DWRITE_FONT_STYLE value;
 		ComUtils::CheckResult(GetNative()->GetFontStyle(position, &value, NULL));
-		return (FontStyle)value;
+		return (Managed::Graphics::DirectWrite::FontStyle)value;
 	}
 
 	FontStyle TextLayout::GetFontStyle(Int32 position, [Out]TextRange% textRange)
@@ -129,14 +129,14 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		DWRITE_FONT_STYLE value;
 		pin_ptr<TextRange> pTextRange = &textRange;
 		ComUtils::CheckResult(GetNative()->GetFontStyle(position, &value, (DWRITE_TEXT_RANGE *)pTextRange));
-		return (FontStyle)value;
+		return (Managed::Graphics::DirectWrite::FontStyle)value;
 	}
 
 	FontWeight TextLayout::GetFontWeight(Int32 position)
 	{
 		DWRITE_FONT_WEIGHT value;
 		ComUtils::CheckResult(GetNative()->GetFontWeight(position, &value, NULL));
-		return (FontWeight)value;
+		return (Managed::Graphics::DirectWrite::FontWeight)value;
 	}
 
 	FontWeight TextLayout::GetFontWeight(Int32 position, [Out]TextRange% textRange)
@@ -144,7 +144,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		DWRITE_FONT_WEIGHT value;
 		pin_ptr<TextRange> pTextRange = &textRange;
 		ComUtils::CheckResult(GetNative()->GetFontWeight(position, &value, (DWRITE_TEXT_RANGE *)pTextRange));
-		return (FontWeight)value;
+		return (Managed::Graphics::DirectWrite::FontWeight)value;
 	}
 
 	InlineObject^ TextLayout::GetInlineObject(Int32 position)
@@ -254,7 +254,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		throw gcnew NotImplementedException();
 	}
 
-	void TextLayout::SetFontCollection(FontCollection^ fontCollection, TextRange textRange)
+	void TextLayout::SetFontCollection(Managed::Graphics::DirectWrite::FontCollection^ fontCollection, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontCollection(fontCollection->GetNative(), *(DWRITE_TEXT_RANGE *)&textRange));
 	}
@@ -270,17 +270,17 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		ComUtils::CheckResult(GetNative()->SetFontSize(fontSize, *(DWRITE_TEXT_RANGE *)&textRange));
 	}
 
-	void TextLayout::SetFontStretch(FontStretch fontStretch, TextRange textRange)
+	void TextLayout::SetFontStretch(Managed::Graphics::DirectWrite::FontStretch fontStretch, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontStretch((DWRITE_FONT_STRETCH)fontStretch, *(DWRITE_TEXT_RANGE *)&textRange));
 	}
 
-	void TextLayout::SetFontStyle(FontStyle fontStyle, TextRange textRange)
+	void TextLayout::SetFontStyle(Managed::Graphics::DirectWrite::FontStyle fontStyle, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontStyle((DWRITE_FONT_STYLE)fontStyle, *(DWRITE_TEXT_RANGE *)&textRange));
 	}
 
-	void TextLayout::SetFontWeight(FontWeight fontWeight, TextRange textRange)
+	void TextLayout::SetFontWeight(Managed::Graphics::DirectWrite::FontWeight fontWeight, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontWeight((DWRITE_FONT_WEIGHT)fontWeight, *(DWRITE_TEXT_RANGE *)&textRange));
 	}

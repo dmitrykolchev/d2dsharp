@@ -32,9 +32,12 @@ namespace Managed.D2DSharp.SimpleText
                 FontStyle.Normal,
                 FontStretch.Normal,
                 72,
-                "");
+                "ru-ru");
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+
+            System.Globalization.CultureInfo ci = this._textFormat.Culture;
+            Trimming trimming = this._textFormat.Trimming;
         }
 
         protected override void OnCleanUpDeviceIndependentResources()

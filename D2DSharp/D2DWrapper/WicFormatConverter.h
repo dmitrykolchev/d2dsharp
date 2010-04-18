@@ -7,7 +7,6 @@
 #pragma once
 
 #include "WicCommon.h"
-#include "WicBitmapSource.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;

@@ -98,22 +98,30 @@
     <ClInclude Include="DirectWriteFactory.h" />
     <ClInclude Include="EllipseGeometry.h" />
     <ClInclude Include="FontCollection.h" />
+    <ClInclude Include="FontCollectionLoader.h" />
     <ClInclude Include="FontFace.h" />
+    <ClInclude Include="FontFile.h" />
+    <ClInclude Include="FontFileLoader.h" />
+    <ClInclude Include="GdiInterop.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryGroup.h" />
     <ClInclude Include="GeometrySink.h" />
     <ClInclude Include="GlyphRun.h" />
+    <ClInclude Include="GlyphRunAnalysis.h" />
     <ClInclude Include="InlineObject.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerParameters.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="NumberSubstitution.h" />
     <ClInclude Include="PathGeometry.h" />
     <ClInclude Include="RectangleGeometry.h" />
+    <ClInclude Include="RenderingParams.h" />
     <ClInclude Include="RoundedRectangleGeometry.h" />
     <ClInclude Include="SimplifiedGeometrySink.h" />
     <ClInclude Include="StreamWrapper.h" />
     <ClInclude Include="StrokeStyle.h" />
     <ClInclude Include="TessellationSink.h" />
+    <ClInclude Include="TextAnalyzer.h" />
     <ClInclude Include="TextFormat.h" />
     <ClInclude Include="TextLayout.h" />
     <ClInclude Include="TextRenderer.h" />
@@ -159,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StreamWrapper.cpp" />
+    <ClCompile Include="TextFormat.cpp" />
     <ClCompile Include="TextLayout.cpp" />
     <ClCompile Include="Typography.cpp" />
     <ClCompile Include="WicBitmap.cpp" />

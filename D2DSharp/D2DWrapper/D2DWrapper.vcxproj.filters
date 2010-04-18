@@ -207,6 +207,30 @@
     <ClInclude Include="FontFace.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="FontCollectionLoader.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFileLoader.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFile.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingParams.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberSubstitution.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="TextAnalyzer.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="GdiInterop.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="GlyphRunAnalysis.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -273,6 +297,9 @@
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
     <ClCompile Include="FontFace.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFormat.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>

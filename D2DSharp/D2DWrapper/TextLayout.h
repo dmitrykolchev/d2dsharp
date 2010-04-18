@@ -9,7 +9,6 @@
 #include "ComWrapper.h"
 #include "ComUtils.h"
 #include "DWCommon.h"
-#include "TextFormat.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
@@ -21,6 +20,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	ref class FontCollection;
 	ref class InlineObject;
 	ref class Typography;
+
 
 	[StructLayout(LayoutKind::Sequential)]
 	public value struct TextRange
@@ -94,18 +94,18 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		Object^ GetDrawingEffect(Int32 position);
 		Object^ GetDrawingEffect(Int32 position, [Out]TextRange% textRange);
-		FontCollection^ GetFontCollection(Int32 position);
-		FontCollection^ GetFontCollection(Int32 position, [Out]TextRange% textRange);
+		Managed::Graphics::DirectWrite::FontCollection^ GetFontCollection(Int32 position);
+		Managed::Graphics::DirectWrite::FontCollection^ GetFontCollection(Int32 position, [Out]TextRange% textRange);
 		String^ GetFontFamilyName(Int32 position);
 		String^ GetFontFamilyName(Int32 position, [Out]TextRange% textRange);
 		Single GetFontSize(Int32 position);
 		Single GetFontSize(Int32 position, [Out]TextRange% textRange);
-		FontStretch GetFontStretch(Int32 position);
-		FontStretch GetFontStretch(Int32 position, [Out]TextRange% textRange);
-		FontStyle GetFontStyle(Int32 position);
-		FontStyle GetFontStyle(Int32 position, [Out]TextRange% textRange);
-		FontWeight GetFontWeight(Int32 position);
-		FontWeight GetFontWeight(Int32 position, [Out]TextRange% textRange);
+		Managed::Graphics::DirectWrite::FontStretch GetFontStretch(Int32 position);
+		Managed::Graphics::DirectWrite::FontStretch GetFontStretch(Int32 position, [Out]TextRange% textRange);
+		Managed::Graphics::DirectWrite::FontStyle GetFontStyle(Int32 position);
+		Managed::Graphics::DirectWrite::FontStyle GetFontStyle(Int32 position, [Out]TextRange% textRange);
+		Managed::Graphics::DirectWrite::FontWeight GetFontWeight(Int32 position);
+		Managed::Graphics::DirectWrite::FontWeight GetFontWeight(Int32 position, [Out]TextRange% textRange);
 		InlineObject^ GetInlineObject(Int32 position);
 		InlineObject^ GetInlineObject(Int32 position, [Out]TextRange% textRange);
 		//array<LineMetrics>^ GetLineMetrics();
@@ -123,12 +123,12 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		//HitTestMetrics HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY);
 		//array<HitTestMetrics>^ HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY);
 		void SetDrawingEffect(Object^ drawingEffect, TextRange textRange);
-		void SetFontCollection(FontCollection^ fontCollection, TextRange textRange);
+		void SetFontCollection(Managed::Graphics::DirectWrite::FontCollection^ fontCollection, TextRange textRange);
 		void SetFontFamilyName(String^ fontFamilyName, TextRange textRange);
 		void SetFontSize(Single fontSize, TextRange textRange);
-		void SetFontStretch(FontStretch fontStretch, TextRange textRange);
-		void SetFontStyle(FontStyle fontStyle, TextRange textRange);
-		void SetFontWeight(FontWeight fontWeight, TextRange textRange);
+		void SetFontStretch(Managed::Graphics::DirectWrite::FontStretch fontStretch, TextRange textRange);
+		void SetFontStyle(Managed::Graphics::DirectWrite::FontStyle fontStyle, TextRange textRange);
+		void SetFontWeight(Managed::Graphics::DirectWrite::FontWeight fontWeight, TextRange textRange);
 		void SetInlineObject(InlineObject^ inlineObject, TextRange textRange);
 		void SetCultureInfo(System::Globalization::CultureInfo^ cultureInfo, TextRange textRange);
 		void SetStrikethrough(Boolean hasStrikethrough, TextRange textRange);

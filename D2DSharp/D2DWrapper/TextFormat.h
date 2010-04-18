@@ -16,6 +16,7 @@ using namespace Managed::Runtime::InteropServices;
 namespace Managed { namespace Graphics { namespace DirectWrite
 {
 
+	ref class FontCollection;
 
 	public ref class TextFormat: ComWrapper
 	{
@@ -76,6 +77,59 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			{ 
 				GetNative()->SetTextAlignment((DWRITE_TEXT_ALIGNMENT) value); 
 			}
+		}
+
+		property Managed::Graphics::DirectWrite::FontCollection^ FontCollection
+		{
+			Managed::Graphics::DirectWrite::FontCollection^ get();
+		}
+
+		property String^ FontFamilyName
+		{
+			String^ get();
+		}
+
+		property Single FontSize
+		{
+			Single get();
+		}
+
+		property Managed::Graphics::DirectWrite::FontStretch FontStretch
+		{
+			Managed::Graphics::DirectWrite::FontStretch get();
+		}
+
+		property Managed::Graphics::DirectWrite::FontStyle FontStyle
+		{
+			Managed::Graphics::DirectWrite::FontStyle get();
+		}
+
+		property Managed::Graphics::DirectWrite::FontWeight FontWeight
+		{
+			Managed::Graphics::DirectWrite::FontWeight get();
+		}
+
+		property Managed::Graphics::DirectWrite::LineSpacing LineSpacing
+		{
+			Managed::Graphics::DirectWrite::LineSpacing get();
+			void set(Managed::Graphics::DirectWrite::LineSpacing value);
+		}
+
+		property System::Globalization::CultureInfo^ Culture
+		{
+			System::Globalization::CultureInfo^ get();
+		}
+
+		property Managed::Graphics::DirectWrite::Trimming Trimming
+		{
+			Managed::Graphics::DirectWrite::Trimming get();
+			void set(Managed::Graphics::DirectWrite::Trimming value);
+		}
+
+		property Managed::Graphics::DirectWrite::WordWrapping WordWrapping
+		{
+			Managed::Graphics::DirectWrite::WordWrapping get();
+			void set(Managed::Graphics::DirectWrite::WordWrapping value);
 		}
 
 	internal:
