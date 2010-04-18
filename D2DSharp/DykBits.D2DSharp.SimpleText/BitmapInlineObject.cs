@@ -37,7 +37,7 @@ namespace Managed.D2DSharp.SimpleText
         public override void Draw(ITextRenderer renderer, float originX, float originY, bool isSideways, bool isRtl, ClientDrawingEffect clientDrawingEffect)
         {
             SizeF size = this._bitmap.Size;
-            this._renderer.DrawBitmap(this._bitmap, new RectF(originX, originY, this._bitmap.Size.Width, this._bitmap.Size.Height), 1, BitmapInterpolationMode.Linear);
+            this._renderer.DrawBitmap(this._bitmap, new RectF(originX, originY, size.Width, size.Height), 1, BitmapInterpolationMode.Linear);
         }
 
         public override InlineObjectMetrics Metrics
@@ -50,7 +50,7 @@ namespace Managed.D2DSharp.SimpleText
 
         public override OverhangMetrics OverhangMetrics
         {
-            get { return new OverhangMetrics(0, 0, 0, 0); }
+            get { return new OverhangMetrics(); }
         }
     }
 }
