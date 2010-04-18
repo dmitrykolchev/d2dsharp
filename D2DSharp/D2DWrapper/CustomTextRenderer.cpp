@@ -79,13 +79,19 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawGlyphRun(
 	{
 		GlyphRun^ mglyphRun = gcnew GlyphRun(glyphRun);
 		GlyphRunDescription^ mglyphRunDescription = gcnew GlyphRunDescription(glyphRunDescription);
-		ComWrapper^ drawingEffect = clientDrawingEffect ? gcnew ComWrapper(clientDrawingEffect, true) : nullptr;
+		ClientDrawingEffect^ drawingEffect = nullptr;
+		if(clientDrawingEffect)
+		{
+			ClientDrawingEffectNative* native = NULL;
+			ComUtils::CheckResult(clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+			drawingEffect = native->GetObject();
+		}
 		try
 		{
 			_managedRenderer->DrawGlyphRun(baselineOriginX, baselineOriginY, (MeasuringMode)measuringMode, 
 				mglyphRun,
 				mglyphRunDescription,
-				(Object^)drawingEffect);
+				drawingEffect);
 		}
 		finally
 		{
@@ -114,7 +120,13 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawUnderline(
 	try
 	{
 		Underline^ mUnderline = gcnew Underline(underline);
-		ComWrapper^ drawingEffect = clientDrawingEffect ? gcnew ComWrapper(clientDrawingEffect, true) : nullptr;
+		ClientDrawingEffect^ drawingEffect = nullptr;
+		if(clientDrawingEffect)
+		{
+			ClientDrawingEffectNative* native = NULL;
+			ComUtils::CheckResult(clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+			drawingEffect = native->GetObject();
+		}
 		try
 		{
 			_managedRenderer->DrawUnderline(baselineOriginX, baselineOriginY, mUnderline, drawingEffect);
@@ -144,7 +156,13 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawStrikethrough(
 	try
 	{
 		Strikethrough^ mStrikethrough = gcnew Strikethrough(strikethrough);
-		ComWrapper^ drawingEffect = clientDrawingEffect ? gcnew ComWrapper(clientDrawingEffect, true) : nullptr;
+		ClientDrawingEffect^ drawingEffect = nullptr;
+		if(clientDrawingEffect)
+		{
+			ClientDrawingEffectNative* native = NULL;
+			ComUtils::CheckResult(clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+			drawingEffect = native->GetObject();
+		}
 		try
 		{
 			_managedRenderer->DrawStrikethrough(baselineOriginX, baselineOriginY, mStrikethrough, drawingEffect);
@@ -176,10 +194,22 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawInlineObject(
 	try
 	{
 		InlineObject ^mInlineObject = gcnew InlineObject(inlineObject, true);
-		ComWrapper^ drawingEffect = clientDrawingEffect ? gcnew ComWrapper(clientDrawingEffect, true) : nullptr;
+		ClientDrawingEffect^ drawingEffect = nullptr;
+		if(clientDrawingEffect)
+		{
+			ClientDrawingEffectNative* native = NULL;
+			ComUtils::CheckResult(clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+			drawingEffect = native->GetObject();
+		}
 		try
 		{
-			_managedRenderer->DrawInlineObject(originX, originY, mInlineObject, isSideways != 0, isRightToLeft != 0, drawingEffect);
+			_managedRenderer->DrawInlineObject(
+				originX, 
+				originY, 
+				mInlineObject, 
+				isSideways != 0, 
+				isRightToLeft != 0, 
+				drawingEffect);
 		}
 		finally
 		{

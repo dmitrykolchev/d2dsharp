@@ -11,10 +11,9 @@ using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Imaging;
 using Managed.Graphics.Forms;
 
-
 namespace Managed.D2DSharp.SimpleText
 {
-    public partial class CustomTextControl : Direct2DControl
+    public partial class ClientDrawingEffectsControl : Direct2DControl
     {
         private static string _text = "Hello World using   DirectWrite!";
         private static float _dpiScaleX;
@@ -23,15 +22,15 @@ namespace Managed.D2DSharp.SimpleText
         private TextFormat _textFormat;
         private TextLayout _textLayout;
         private SolidColorBrush _blackBrush;
-        private BitmapBrush _bitmapBrush;
-        private CustomTextRenderer _customRenderer;
+        private ColorDrawingEffect _redColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Red, 1));
+        private CustomTextRendererWithEffects _customRenderer;
 
-        static CustomTextControl()
+        static ClientDrawingEffectsControl()
         {
             DirectWriteFactory.GetDpiScale(out _dpiScaleX, out _dpiScaleY);
         }
 
-        public CustomTextControl()
+        public ClientDrawingEffectsControl()
         {
             InitializeComponent();
         }
@@ -61,6 +60,11 @@ namespace Managed.D2DSharp.SimpleText
                 height);
 
             this._textLayout.SetFontSize(100, new TextRange(20, 6));
+            this._textLayout.SetDrawingEffect(_redColorDrawingEffect, new TextRange(20, 6));
+
+            TextRange textRange;
+            ClientDrawingEffect effect = this._textLayout.GetDrawingEffect(21, out textRange);
+
             this._textLayout.SetUnderline(true, new TextRange(20, 11));
             this._textLayout.SetFontWeight(FontWeight.Bold, new TextRange(20, 11));
 
@@ -69,32 +73,27 @@ namespace Managed.D2DSharp.SimpleText
                 typography.AddFontFeature(FontFeatureTag.StylisticSet7, 1);
                 this._textLayout.SetTypography(typography, new TextRange(0, _text.Length));
             }
-
         }
 
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._textLayout.Dispose();
+            this._textFormat.Dispose();
             this._textLayout.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
+
             this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
-            using (Bitmap bitmap = renderTarget.CreateBitmap(this.GetType(), "flowers.jpg"))
-            {
-                this._bitmapBrush = renderTarget.CreateBitmapBrush(bitmap, new BitmapBrushProperties(ExtendMode.Wrap, ExtendMode.Wrap, BitmapInterpolationMode.NearestNeighbor), BrushProperties.Default);
-            }
-            _customRenderer = new CustomTextRenderer(this.Direct2DFactory, renderTarget, this._blackBrush, this._bitmapBrush);
+            this._customRenderer = new CustomTextRendererWithEffects(this.Direct2DFactory, renderTarget, this._blackBrush);
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
             this._blackBrush.Dispose();
-            this._bitmapBrush.Dispose();
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
@@ -112,6 +111,5 @@ namespace Managed.D2DSharp.SimpleText
                 this._textLayout.MaxHeight = ClientSize.Height / _dpiScaleY;
             }
         }
-
     }
 }

@@ -37,6 +37,7 @@ namespace Managed.Graphics.Forms
         private DirectWriteFactory _directWriteFactory;
         private WicImagingFactory _imagingFactory;
         private WindowRenderTarget _renderTarget;
+        private bool _deviceIndependedResourcesCreated;
 
         public Direct2DControl()
         {
@@ -105,11 +106,13 @@ namespace Managed.Graphics.Forms
             this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
             this._renderTarget = this._factory.CreateWindowRenderTarget(this);
             OnCreateDeviceIndependentResources(this._factory);
+            this._deviceIndependedResourcesCreated = true;
         }
 
         private void CleanUpDeviceIndependentResources()
         {
-            OnCleanUpDeviceIndependentResources();
+            if(this._deviceIndependedResourcesCreated)
+                OnCleanUpDeviceIndependentResources();
             if (this._imagingFactory != null)
             {
                 this._imagingFactory.Dispose();

@@ -50,6 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientDrawingEffectsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ClientDrawingEffectsControl.Designer.cs">
+      <DependentUpon>ClientDrawingEffectsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorDrawingEffect.cs" />
+    <Compile Include="CustomTextRendererWithEffects.cs" />
     <Compile Include="CustomGeometrySink.cs" />
     <Compile Include="CustomTextControl.cs">
       <SubType>Component</SubType>

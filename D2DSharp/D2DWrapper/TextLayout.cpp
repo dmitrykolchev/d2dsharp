@@ -27,14 +27,67 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 	//WriteClusterMetrics[] GetClusterMetrics()
 
-	Object^ TextLayout::GetDrawingEffect(Int32 position)
+	ClientDrawingEffect^ TextLayout::GetDrawingEffect(Int32 position)
 	{
-		throw gcnew NotImplementedException();
+		IUnknown* drawingEffect;
+		ComUtils::CheckResult(GetNative()->GetDrawingEffect(position, &drawingEffect, NULL));
+
+		if(drawingEffect)
+		{
+			try
+			{
+				ClientDrawingEffectNative* native;
+
+				ComUtils::CheckResult(drawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+
+				return native->GetObject();
+			}
+			finally
+			{
+				if(drawingEffect)
+					drawingEffect->Release();
+			}
+		}
+		return nullptr;
 	}
 
-	Object^ TextLayout::GetDrawingEffect(Int32 position, [Out]TextRange% textRange)
+	ClientDrawingEffect^ TextLayout::GetDrawingEffect(Int32 position, [Out]TextRange% textRange)
 	{
-		throw gcnew NotImplementedException();
+		IUnknown* drawingEffect;
+
+		pin_ptr<TextRange> pTextRange = &textRange;
+
+		ComUtils::CheckResult(GetNative()->GetDrawingEffect(position, &drawingEffect, (DWRITE_TEXT_RANGE *)pTextRange));
+
+		if(drawingEffect)
+		{
+			try
+			{
+				ClientDrawingEffectNative* native;
+
+				ComUtils::CheckResult(drawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
+
+				return native->GetObject();
+			}
+			finally
+			{
+				if(drawingEffect)
+					drawingEffect->Release();
+			}
+		}
+		return nullptr;
+	}
+
+	void TextLayout::SetDrawingEffect(ClientDrawingEffect^ drawingEffect, TextRange textRange)
+	{
+		if(drawingEffect == nullptr)
+		{
+			ComUtils::CheckResult(GetNative()->SetDrawingEffect(NULL, *(DWRITE_TEXT_RANGE *)&textRange));
+		}
+		else
+		{
+			ComUtils::CheckResult(GetNative()->SetDrawingEffect(drawingEffect->GetNative(), *(DWRITE_TEXT_RANGE *)&textRange));
+		}
 	}
 
 	Managed::Graphics::DirectWrite::FontCollection^ TextLayout::GetFontCollection(Int32 position)
@@ -249,11 +302,6 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	//HitTestMetrics TextLayout::HitTestPoint(Single x, Single y, [Out]Boolean% isTrailingHit, [Out]Boolean isInside)
 	//HitTestMetrics TextLayout::HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY)
 	//array<HitTestMetrics>^ TextLayout::HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY)
-	void TextLayout::SetDrawingEffect(Object^ drawingEffect, TextRange textRange)
-	{
-		throw gcnew NotImplementedException();
-	}
-
 	void TextLayout::SetFontCollection(Managed::Graphics::DirectWrite::FontCollection^ fontCollection, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontCollection(fontCollection->GetNative(), *(DWRITE_TEXT_RANGE *)&textRange));

@@ -231,6 +231,9 @@
     <ClInclude Include="GlyphRunAnalysis.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="ClientDrawingEffect.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -300,6 +303,9 @@
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
     <ClCompile Include="TextFormat.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientDrawingEffect.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>

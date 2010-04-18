@@ -40,12 +40,16 @@ GlyphRun::GlyphRun(DWRITE_GLYPH_RUN const* glyphRun)
 
 void GlyphRun::CopyTo(DWRITE_GLYPH_RUN* glyphRun)
 {
+	// TODO: complete method
+
 	glyphRun->fontFace = _fontFace->GetNative();
 	glyphRun->fontEmSize = _fontEmSize;
 	glyphRun->glyphCount = _glyphIndices->Length;
 
 	glyphRun->isSideways = _isSideways;
 	glyphRun->bidiLevel = _bidiLevel;
+	
+	throw gcnew NotImplementedException();
 }
 
 GlyphRun::!GlyphRun()

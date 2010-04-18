@@ -7,19 +7,17 @@ using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.SimpleText
 {
-    class CustomTextRenderer : ITextRenderer
+    class CustomTextRendererWithEffects : ITextRenderer
     {
         private Direct2DFactory _factory;
         private WindowRenderTarget _renderTarget;
-        private SolidColorBrush _outlineBrush;
-        private BitmapBrush _fillBrush;
+        private SolidColorBrush _defaultBrush;
 
-        public CustomTextRenderer(Direct2DFactory factory, WindowRenderTarget renderTarget, SolidColorBrush outlineBrush, BitmapBrush fillBrush)
+        public CustomTextRendererWithEffects(Direct2DFactory factory, WindowRenderTarget renderTarget, SolidColorBrush defaultBrush)
         {
             _factory = factory;
             _renderTarget = renderTarget;
-            _outlineBrush = outlineBrush;
-            _fillBrush = fillBrush;
+            _defaultBrush = defaultBrush;
         }
 
         #region ITextRenderer Members
@@ -52,12 +50,23 @@ namespace Managed.D2DSharp.SimpleText
                 customSink.Close();
                 System.Diagnostics.Debug.WriteLine(customSink.ToString());
 
+                SolidColorBrush brush = null;
+                if (clientDrawingEffect != null)
+                {
+                    ColorDrawingEffect drawingEffect = clientDrawingEffect as ColorDrawingEffect;
+                    if (drawingEffect != null)
+                    {
+                        brush = _renderTarget.CreateSolidColorBrush(drawingEffect.Color);
+                    }
+                }
+
                 Matrix3x2 matrix = new Matrix3x2(1, 0, 0, 1, baselineOriginX, baselineOriginY);
                 using (TransformedGeometry transformedGeometry = _factory.CreateTransformedGeometry(pathGeometry, matrix))
                 {
-                    _renderTarget.DrawGeometry(_outlineBrush, 5, transformedGeometry);
-                    _renderTarget.FillGeometry(_fillBrush, transformedGeometry);
+                    _renderTarget.FillGeometry(brush == null ? _defaultBrush : brush, transformedGeometry);
                 }
+                if (brush != null)
+                    brush.Dispose();
             }
         }
 
@@ -79,8 +88,7 @@ namespace Managed.D2DSharp.SimpleText
                 Matrix3x2 matrix = new Matrix3x2(1, 0, 0, 1, baselineOriginX, baselineOriginY);
                 using (TransformedGeometry transformedGeometry = _factory.CreateTransformedGeometry(rectangleGeometry, matrix))
                 {
-                    _renderTarget.DrawGeometry(_outlineBrush, 5, transformedGeometry);
-                    _renderTarget.FillGeometry(_fillBrush, transformedGeometry);
+                    _renderTarget.DrawGeometry(_defaultBrush, 5, transformedGeometry);
                 }
             }
         }

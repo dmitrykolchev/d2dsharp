@@ -70,7 +70,7 @@
 #include "NumberSubstitution.h"
 #include "TextAnalyzer.h"
 #include "GdiInterop.h"
-
+#include "ClientDrawingEffect.h"
 
 #include "WicCommon.h"
 #include "WicComponentInfo.h"

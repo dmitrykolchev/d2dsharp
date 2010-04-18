@@ -108,6 +108,7 @@
     <ClInclude Include="GeometrySink.h" />
     <ClInclude Include="GlyphRun.h" />
     <ClInclude Include="GlyphRunAnalysis.h" />
+    <ClInclude Include="ClientDrawingEffect.h" />
     <ClInclude Include="InlineObject.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerParameters.h" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="ClientDrawingEffect.cpp" />
     <ClCompile Include="CustomTextRenderer.cpp" />
     <ClCompile Include="Direct2DFactory.cpp" />
     <ClCompile Include="D2DResource.cpp" />

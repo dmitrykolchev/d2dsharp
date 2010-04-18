@@ -21,6 +21,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	ref class GlyphRunDescription;
 	ref class Underline;
 	ref class Strikethrough;
+	ref class ClientDrawingEffect;
 
 	public interface class ITextRenderer
 	{
@@ -32,15 +33,15 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		property Single PixelsPerDip { Single get() = 0; }
 		
 		void DrawGlyphRun(Single baselineOriginX, Single baselineOriginY, MeasuringMode measuringMode, 
-			GlyphRun^ glyphRun, GlyphRunDescription^ glyphRunDescription, Object^ clientDrawingEffect);
+			GlyphRun^ glyphRun, GlyphRunDescription^ glyphRunDescription, ClientDrawingEffect^ clientDrawingEffect);
 		
 		void DrawUnderline(Single baselineOriginX, Single baselineOriginY, 
-			Underline^ underline, Object^ clientDrawingEffect);
+			Underline^ underline, ClientDrawingEffect^ clientDrawingEffect);
 
 		void DrawStrikethrough(Single baselineOriginX, Single baselineOriginY, 
-			Strikethrough^ strikethrough, Object^ clientDrawingEffect);
+			Strikethrough^ strikethrough, ClientDrawingEffect^ clientDrawingEffect);
 
 		void DrawInlineObject(Single originX, Single originY, InlineObject^ inlineObject, 
-			Boolean isSideways, Boolean isRightToLeft, Object^ clientDrawingEffect);
+			Boolean isSideways, Boolean isRightToLeft, ClientDrawingEffect^ clientDrawingEffect);
 	};
 }}}
