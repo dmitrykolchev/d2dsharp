@@ -234,6 +234,9 @@
     <ClInclude Include="ClientDrawingEffect.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="ITextAnalysisSource.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

@@ -110,6 +110,7 @@
     <ClInclude Include="GlyphRunAnalysis.h" />
     <ClInclude Include="ClientDrawingEffect.h" />
     <ClInclude Include="InlineObject.h" />
+    <ClInclude Include="ITextAnalysisSource.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerParameters.h" />
     <ClInclude Include="Mesh.h" />
