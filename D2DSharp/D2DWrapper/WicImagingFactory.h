@@ -35,22 +35,18 @@ namespace Managed { namespace Graphics { namespace Imaging
 		static WicImagingFactory^ Create()
 		{
 			IWICImagingFactory* factory;
-			HRESULT hr = CoCreateInstance(
+			ComUtils::CheckResult(CoCreateInstance(
 				CLSID_WICImagingFactory, 
 				NULL, 
 				CLSCTX_INPROC_SERVER,
 				IID_IWICImagingFactory,
-				(LPVOID*)&factory);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+				(LPVOID*)&factory));
 			return gcnew WicImagingFactory(factory);
 		}
 		WicBitmap^ CreateBitmap(int width, int height, Guid pixelFormat, BitmapCreateCacheOption option)
 		{
 			IWICBitmap *bitmap;
-			HRESULT hr = GetNative()->CreateBitmap(width, height, *(GUID*)&pixelFormat, (WICBitmapCreateCacheOption)option, &bitmap);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->CreateBitmap(width, height, *(GUID*)&pixelFormat, (WICBitmapCreateCacheOption)option, &bitmap));
 			return gcnew WicBitmap(bitmap);
 		}
 		WicBitmapDecoder^ CreateDecoder(String^ fileName, Guid vendor, DesiredAccess desiredAccess, DecodeOptions options);

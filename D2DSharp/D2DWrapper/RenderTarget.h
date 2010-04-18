@@ -207,9 +207,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void EndDraw()
 		{
-			HRESULT hr = GetNative()->EndDraw();
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->EndDraw());
 		}
 
 		void Clear(Color color)

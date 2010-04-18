@@ -26,14 +26,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RenderTarget *renderTarget;
 
-		HRESULT hr = GetNative()->CreateWicBitmapRenderTarget(
+		ComUtils::CheckResult(GetNative()->CreateWicBitmapRenderTarget(
 			bitmap->GetNative(),
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
-			&renderTarget);
+			&renderTarget));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew RenderTarget(renderTarget);
 	}
 
@@ -41,13 +38,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1DCRenderTarget *renderTarget;
 
-		HRESULT hr = GetNative()->CreateDCRenderTarget(
+		ComUtils::CheckResult(GetNative()->CreateDCRenderTarget(
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
-			&renderTarget);
+			&renderTarget));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew DCRenderTarget(renderTarget);
 
 	}
@@ -70,13 +64,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		ID2D1HwndRenderTarget *renderTarget;
 
-		HRESULT hr = GetNative()->CreateHwndRenderTarget(
+		ComUtils::CheckResult(GetNative()->CreateHwndRenderTarget(
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
 			(D2D1_HWND_RENDER_TARGET_PROPERTIES *)&windowRenderTargetProperties,
-			&renderTarget);
-
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&renderTarget));
 
 		return gcnew WindowRenderTarget(renderTarget);
 	}
@@ -87,13 +78,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		UINT count = dashes != nullptr ? dashes->Length : 0;
 		pin_ptr<FLOAT> p = dashes != nullptr ? &dashes[0] : nullptr;
 		ID2D1StrokeStyle *native;
-		HRESULT hr = GetNative()->CreateStrokeStyle(
+		ComUtils::CheckResult(GetNative()->CreateStrokeStyle(
 			(D2D1_STROKE_STYLE_PROPERTIES *)&properties,
 			p,
 			count,
-			&native);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&native));
 		return gcnew StrokeStyle(native);
 	}
 
@@ -101,11 +90,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1PathGeometry *geometry;
 		
-		HRESULT hr = GetNative()->CreatePathGeometry(&geometry);
+		ComUtils::CheckResult(GetNative()->CreatePathGeometry(&geometry));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew PathGeometry(geometry);
 	}
 
@@ -113,10 +99,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1EllipseGeometry *ellipseGeometry;
 		
-		HRESULT hr = GetNative()->CreateEllipseGeometry((D2D1_ELLIPSE *)&ellipse, &ellipseGeometry);
-		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateEllipseGeometry((D2D1_ELLIPSE *)&ellipse, &ellipseGeometry));
 
 		return gcnew EllipseGeometry(ellipseGeometry);
 	}
@@ -125,11 +108,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RectangleGeometry *geometry;
 		
-		HRESULT hr = GetNative()->CreateRectangleGeometry((D2D1_RECT_F *)&rect, &geometry);
+		ComUtils::CheckResult(GetNative()->CreateRectangleGeometry((D2D1_RECT_F *)&rect, &geometry));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew RectangleGeometry(geometry);
 	}
 
@@ -137,10 +117,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RoundedRectangleGeometry *geometry;
 		
-		HRESULT hr = GetNative()->CreateRoundedRectangleGeometry((D2D1_ROUNDED_RECT *)&rect, &geometry);
-		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateRoundedRectangleGeometry((D2D1_ROUNDED_RECT *)&rect, &geometry));
 
 		return gcnew RoundedRectangleGeometry(geometry);
 	}
@@ -149,13 +126,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1TransformedGeometry *geometry;
 
-		HRESULT hr = GetNative()->CreateTransformedGeometry(
+		ComUtils::CheckResult(GetNative()->CreateTransformedGeometry(
 			sourceGeometry->GetNative(),
 			(D2D1_MATRIX_3X2_F*)&transform, 
-			&geometry);
-
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&geometry));
 
 		return gcnew TransformedGeometry(geometry);
 	}
@@ -169,14 +143,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		pin_ptr<Geometry^> p = &geometries[0];
 
-		HRESULT hr = GetNative()->CreateGeometryGroup(
+		ComUtils::CheckResult(GetNative()->CreateGeometryGroup(
 			(D2D1_FILL_MODE)fillMode,
 			(ID2D1Geometry **)p,
 			geometries->Length,
-			&geometry);
-
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&geometry));
 
 		return gcnew GeometryGroup(geometry);
 	}

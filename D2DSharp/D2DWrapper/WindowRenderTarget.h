@@ -52,9 +52,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void Resize(SizeU size)
 		{
-			HRESULT hr = GetNative()->Resize(reinterpret_cast<D2D1_SIZE_U*>(&size));
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->Resize(reinterpret_cast<D2D1_SIZE_U*>(&size)));
 		}
 
 	internal:

@@ -26,9 +26,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		TessellationSink^ Open()
 		{
 			ID2D1TessellationSink *tessellationSink;
-			HRESULT hr = GetNative()->Open(&tessellationSink);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->Open(&tessellationSink));
 			return gcnew TessellationSink(tessellationSink);
 		}
 	internal:

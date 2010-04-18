@@ -27,10 +27,8 @@ namespace Managed { namespace Graphics { namespace Imaging
 		Boolean CanConvert(Guid srcPixelFormat, Guid dstPixelFormat)
 		{
 			BOOL value;
-			HRESULT hr = GetNative()->CanConvert(*(GUID*)&srcPixelFormat, *(GUID*)&dstPixelFormat, &value);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
-			return value ? true : false;
+			ComUtils::CheckResult(GetNative()->CanConvert(*(GUID*)&srcPixelFormat, *(GUID*)&dstPixelFormat, &value));
+			return value != 0;
 		}
 		void Convert(WicBitmapSource^ source, Guid dstPixelFormat, BitmapDitherType dither, WicPalette^ palette, Double alphaThresholdPercent, BitmapPaletteType paletteType);
 	internal:

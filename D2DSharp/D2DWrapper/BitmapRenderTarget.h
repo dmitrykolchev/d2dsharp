@@ -29,9 +29,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Managed::Graphics::Direct2D::Bitmap^ get()
 			{
 				ID2D1Bitmap *bitmap;
-				HRESULT hr = GetNative()->GetBitmap(&bitmap);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
+				ComUtils::CheckResult(GetNative()->GetBitmap(&bitmap));
 				return gcnew Managed::Graphics::Direct2D::Bitmap(bitmap);
 			}
 		}

@@ -78,16 +78,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1Bitmap *bitmap;
 
-		HRESULT hr = GetNative()->CreateBitmap(
+		ComUtils::CheckResult(GetNative()->CreateBitmap(
 			*(D2D1_SIZE_U*)&size, 
 			srcData.ToPointer(), 
 			pitch, 
 			(D2D1_BITMAP_PROPERTIES *)&bitmapProperties,
-			&bitmap);
+			&bitmap));
 		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
-
 		return gcnew Bitmap(bitmap);
 	}
 
@@ -97,15 +94,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		ID2D1Bitmap *bitmap;
 
-		HRESULT hr = GetNative()->CreateBitmap(
+		ComUtils::CheckResult(GetNative()->CreateBitmap(
 			*(D2D1_SIZE_U*)&size, 
 			p, 
 			pitch, 
 			(D2D1_BITMAP_PROPERTIES *)&bitmapProperties,
-			&bitmap);
-		
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&bitmap));
 
 		return gcnew Bitmap(bitmap);
 	}
@@ -114,13 +108,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1Bitmap *bitmap;
 
-		HRESULT hr = GetNative()->CreateBitmapFromWicBitmap(
+		ComUtils::CheckResult(GetNative()->CreateBitmapFromWicBitmap(
 			source->GetNative(),
 			(D2D1_BITMAP_PROPERTIES *)&bitmapProperties,
-			&bitmap);
-
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&bitmap));
 
 		return gcnew Bitmap(bitmap);
 	}
@@ -176,27 +167,21 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	BitmapRenderTarget^ RenderTarget::CreateCompatibleRenderTarget()
 	{
 		ID2D1BitmapRenderTarget *bitmapRenderTarget;
-		HRESULT hr = GetNative()->CreateCompatibleRenderTarget(&bitmapRenderTarget);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateCompatibleRenderTarget(&bitmapRenderTarget));
 		return gcnew BitmapRenderTarget(bitmapRenderTarget);
 	}
 
 	BitmapRenderTarget^ RenderTarget::CreateCompatibleRenderTarget(SizeF desiredSize)
 	{
 		ID2D1BitmapRenderTarget *bitmapRenderTarget;
-		HRESULT hr = GetNative()->CreateCompatibleRenderTarget(*(D2D1_SIZE_F*)&desiredSize, &bitmapRenderTarget);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateCompatibleRenderTarget(*(D2D1_SIZE_F*)&desiredSize, &bitmapRenderTarget));
 		return gcnew BitmapRenderTarget(bitmapRenderTarget);
 	}
 
 	SolidColorBrush^ RenderTarget::CreateSolidColorBrush(Color color, BrushProperties properties)
 	{
 		ID2D1SolidColorBrush *solidColorBrush;
-		HRESULT hr = GetNative()->CreateSolidColorBrush((D2D1_COLOR_F*)&color, (D2D1_BRUSH_PROPERTIES*)&properties, &solidColorBrush);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateSolidColorBrush((D2D1_COLOR_F*)&color, (D2D1_BRUSH_PROPERTIES*)&properties, &solidColorBrush));
 		return gcnew SolidColorBrush(solidColorBrush);
 	}
 
@@ -206,9 +191,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		pin_ptr<GradientStop> p = &gradientStops[0];
 		D2D1_GRADIENT_STOP* gs = (D2D1_GRADIENT_STOP*)p;
 		ID2D1GradientStopCollection *gradientStopCollection;
-		HRESULT hr = GetNative()->CreateGradientStopCollection(gs, count, &gradientStopCollection);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateGradientStopCollection(gs, count, &gradientStopCollection));
 		return gcnew GradientStopCollection(gradientStopCollection);
 	}
 
@@ -218,9 +201,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		pin_ptr<GradientStop> p = &gradientStops[0];
 		D2D1_GRADIENT_STOP* gs = (D2D1_GRADIENT_STOP*)p;
 		ID2D1GradientStopCollection *gradientStopCollection;
-		HRESULT hr = GetNative()->CreateGradientStopCollection(gs, count, (D2D1_GAMMA)colorInterpolationGamma, (D2D1_EXTEND_MODE)extendMode, &gradientStopCollection);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateGradientStopCollection(gs, count, (D2D1_GAMMA)colorInterpolationGamma, (D2D1_EXTEND_MODE)extendMode, &gradientStopCollection));
 		return gcnew GradientStopCollection(gradientStopCollection);
 	}
 
@@ -229,13 +210,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			GradientStopCollection^ gradientStopCollection)
 	{
 		ID2D1LinearGradientBrush *brush;
-		HRESULT hr = GetNative()->CreateLinearGradientBrush(
+
+		ComUtils::CheckResult(GetNative()->CreateLinearGradientBrush(
 			(D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES *)&linearGradientBrushProperties,
 			(D2D1_BRUSH_PROPERTIES *)&brushProperties,
 			gradientStopCollection->GetNative(),
-			&brush);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&brush));
+
 		return gcnew LinearGradientBrush(brush);
 	}
 
@@ -245,34 +226,35 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			GradientStopCollection^ gradientStopCollection)
 	{
 		ID2D1RadialGradientBrush *brush;
-		HRESULT hr = GetNative()->CreateRadialGradientBrush(
+
+		ComUtils::CheckResult(GetNative()->CreateRadialGradientBrush(
 			(D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES *)&radialGradientBrushProperties,
 			(D2D1_BRUSH_PROPERTIES *)&brushProperties,
 			gradientStopCollection->GetNative(),
-			&brush);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&brush));
+
 		return gcnew RadialGradientBrush(brush);
 	}
 
 	BitmapBrush^ RenderTarget::CreateBitmapBrush(Bitmap^ bitmap, BitmapBrushProperties bitmapBrushProperties, BrushProperties brushProperties)
 	{
 		ID2D1BitmapBrush* brush;
-		HRESULT hr = GetNative()->CreateBitmapBrush(
+
+		ComUtils::CheckResult(GetNative()->CreateBitmapBrush(
 			bitmap->GetNative(),
 			(D2D1_BITMAP_BRUSH_PROPERTIES *)&bitmapBrushProperties,
 			(D2D1_BRUSH_PROPERTIES *)&brushProperties,
-			&brush);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			&brush));
+
 		return gcnew BitmapBrush(brush);
 	}
 
 	BitmapBrush^ RenderTarget::CreateGridPatternBrush(SizeF cellSize, Color gridColor)
 	{
-		ID2D1BitmapBrush* bitmapBrush = NULL;
 		ID2D1RenderTarget* renderTarget = GetNative();
+		ID2D1BitmapBrush* bitmapBrush;
 		ID2D1BitmapRenderTarget* compatibleRenderTarget;
+		
 		HRESULT hr = renderTarget->CreateCompatibleRenderTarget(*(D2D1_SIZE_F*)&cellSize, &compatibleRenderTarget);
 		if(SUCCEEDED(hr))
 		{
@@ -302,26 +284,23 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			}
 			compatibleRenderTarget->Release();
 		}
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		
+		ComUtils::CheckResult(hr);
+		
 		return gcnew BitmapBrush(bitmapBrush);
 	}
 
 	Layer^ RenderTarget::CreateLayer()
 	{
 		ID2D1Layer* layer;
-		HRESULT hr = GetNative()->CreateLayer(&layer);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateLayer(&layer));
 		return gcnew Layer(layer);
 	}
 
 	Layer^ RenderTarget::CreateLayer(SizeF size)
 	{
 		ID2D1Layer* layer;
-		HRESULT hr = GetNative()->CreateLayer(*(D2D1_SIZE_F*)&size, &layer);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+		ComUtils::CheckResult(GetNative()->CreateLayer(*(D2D1_SIZE_F*)&size, &layer));
 		return gcnew Layer(layer);
 	}
 

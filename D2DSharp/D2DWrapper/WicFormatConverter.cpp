@@ -14,14 +14,12 @@ namespace Managed { namespace Graphics { namespace Imaging
 	{
 		IWICPalette *p = palette == nullptr ? NULL : palette->GetNative();
 
-		HRESULT hr = GetNative()->Initialize(
+		ComUtils::CheckResult(GetNative()->Initialize(
 			source->GetNative(), 
 			*(GUID*)&dstPixelFormat,
 			(WICBitmapDitherType)dither,
 			p,
 			alphaThresholdPercent,
-			(WICBitmapPaletteType)paletteType);
-		if(FAILED(hr))
-			Marshal::ThrowExceptionForHR(hr);
+			(WICBitmapPaletteType)paletteType));
 	}
 }}}

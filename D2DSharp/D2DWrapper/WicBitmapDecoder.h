@@ -25,9 +25,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 			int get()
 			{
 				UINT count;
-				HRESULT hr = GetNative()->GetFrameCount(&count);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
+				ComUtils::CheckResult(GetNative()->GetFrameCount(&count));
 				return (int)count;
 			}
 		}
@@ -35,9 +33,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 		WicBitmapFrameDecode^ GetFrame(int index)
 		{
 			IWICBitmapFrameDecode* frame;
-			HRESULT hr = GetNative()->GetFrame((UINT)index, &frame);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->GetFrame((UINT)index, &frame));
 			return gcnew WicBitmapFrameDecode(frame);
 		}
 	internal:

@@ -30,9 +30,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			int get()
 			{
 				UINT32 count;
-				HRESULT hr = GetNative()->GetFigureCount(&count);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
+				ComUtils::CheckResult(GetNative()->GetFigureCount(&count));
 				return (int)count;
 			}
 		}
@@ -42,9 +40,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			int get()
 			{
 				UINT32 count;
-				HRESULT hr = GetNative()->GetSegmentCount(&count);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
+				ComUtils::CheckResult(GetNative()->GetSegmentCount(&count));
 				return (int)count;
 			}
 		}

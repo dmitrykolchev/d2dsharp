@@ -29,9 +29,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 			BitmapPaletteType get()
 			{
 				WICBitmapPaletteType value;
-				HRESULT hr = GetNative()->GetType(&value);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
+				ComUtils::CheckResult(GetNative()->GetType(&value));
 				return (BitmapPaletteType)value;
 			}
 		}
@@ -40,10 +38,8 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Boolean get()
 			{
 				BOOL value;
-				HRESULT hr = GetNative()->HasAlpha(&value);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
-				return value ? true : false;
+				ComUtils::CheckResult(GetNative()->HasAlpha(&value));
+				return value != 0;
 			}
 		}
 		void Initialize(array<WicColor>^ colors);
@@ -51,19 +47,15 @@ namespace Managed { namespace Graphics { namespace Imaging
 		void Initialize(WicPalette^ source);
 		void Initialize(BitmapPaletteType paletteType, Boolean addTransparentColor)
 		{
-			HRESULT hr = GetNative()->InitializePredefined((WICBitmapPaletteType)paletteType, (BOOL)addTransparentColor);
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->InitializePredefined((WICBitmapPaletteType)paletteType, (BOOL)addTransparentColor));
 		}
 		property Boolean IsBlackWhite
 		{
 			Boolean get()
 			{
 				BOOL value;
-				HRESULT hr = GetNative()->IsBlackWhite(&value);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
-				return value ? true : false;
+				ComUtils::CheckResult(GetNative()->IsBlackWhite(&value));
+				return value != 0;
 			}
 		}
 		property Boolean IsGrayscale
@@ -71,10 +63,8 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Boolean get()
 			{
 				BOOL value;
-				HRESULT hr = GetNative()->IsGrayscale(&value);
-				if(FAILED(hr))
-					Marshal::ThrowExceptionForHR(hr);
-				return value ? true : false;
+				ComUtils::CheckResult(GetNative()->IsGrayscale(&value));
+				return value != 0;
 			}
 		}
 	internal:

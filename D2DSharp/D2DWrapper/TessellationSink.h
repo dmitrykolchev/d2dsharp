@@ -31,9 +31,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void Close()
 		{
-			HRESULT hr = GetNative()->Close();
-			if(FAILED(hr))
-				Marshal::ThrowExceptionForHR(hr);
+			ComUtils::CheckResult(GetNative()->Close());
 		}
 
 	internal:
