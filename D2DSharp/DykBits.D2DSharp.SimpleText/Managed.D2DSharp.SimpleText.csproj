@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapInlineObject.cs" />
     <Compile Include="ClientDrawingEffectsControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -66,6 +67,12 @@
       <DependentUpon>CustomTextControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomTextRenderer.cs" />
+    <Compile Include="InlineObjectControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InlineObjectControl.Designer.cs">
+      <DependentUpon>InlineObjectControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="flowers.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="heart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
