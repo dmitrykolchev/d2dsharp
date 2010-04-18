@@ -22,7 +22,11 @@ namespace Managed.D2DSharp.SimpleText
         private TextFormat _textFormat;
         private TextLayout _textLayout;
         private SolidColorBrush _blackBrush;
-        private ColorDrawingEffect _redColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Red, 1));
+        
+        private ColorDrawingEffect _redColorDrawingEffect;
+        private ColorDrawingEffect _greenColorDrawingEffect;
+        private ColorDrawingEffect _blueColorDrawingEffect;
+
         private CustomTextRendererWithEffects _customRenderer;
 
         static ClientDrawingEffectsControl()
@@ -38,6 +42,10 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
+
+            this._redColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Red, 1));
+            this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Green, 1));
+            this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Blue, 1));
 
             this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
                 null,
@@ -60,10 +68,12 @@ namespace Managed.D2DSharp.SimpleText
                 height);
 
             this._textLayout.SetFontSize(100, new TextRange(20, 6));
-            this._textLayout.SetDrawingEffect(_redColorDrawingEffect, new TextRange(20, 6));
 
-            TextRange textRange;
-            ClientDrawingEffect effect = this._textLayout.GetDrawingEffect(21, out textRange);
+            this._textLayout.SetDrawingEffect(_blueColorDrawingEffect, new TextRange(6, 5));
+            this._textLayout.SetDrawingEffect(_redColorDrawingEffect, new TextRange(20, 6));
+            this._textLayout.SetDrawingEffect(_greenColorDrawingEffect, new TextRange(26, 5));
+
+            ClientDrawingEffect effect = this._textLayout.GetDrawingEffect(7);
 
             this._textLayout.SetUnderline(true, new TextRange(20, 11));
             this._textLayout.SetFontWeight(FontWeight.Bold, new TextRange(20, 11));
@@ -80,6 +90,9 @@ namespace Managed.D2DSharp.SimpleText
             base.OnCleanUpDeviceIndependentResources();
             this._textFormat.Dispose();
             this._textLayout.Dispose();
+            this._blueColorDrawingEffect.Dispose();
+            this._redColorDrawingEffect.Dispose();
+            this._greenColorDrawingEffect.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)

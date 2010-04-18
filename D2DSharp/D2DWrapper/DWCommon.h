@@ -514,4 +514,88 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Traditional = DWRITE_NUMBER_SUBSTITUTION_METHOD_TRADITIONAL 
 	};
 
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct InlineObjectMetrics
+	{
+	private:
+		FLOAT _width;
+		FLOAT _height;
+		FLOAT _baseline;
+		BOOL _supportsSideways;
+	public:
+		InlineObjectMetrics(Single width, Single height, Single baseline, Boolean supportsSideways)
+		{
+			_width = width;
+			_height = height;
+			_baseline = baseline;
+			_supportsSideways = supportsSideways;
+		}
+
+		property Single Width
+		{
+			Single get() { return _width; }
+		}
+
+		property Single Height
+		{
+			Single get() { return _height; }
+		}
+
+		property Single Baseline
+		{
+			Single get() { return _baseline; }
+		}
+
+		property Boolean SupportsSideways
+		{
+			Boolean get() { return _supportsSideways != 0; }
+		}
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct OverhangMetrics
+	{
+	private:
+		FLOAT _left;
+		FLOAT _top;
+		FLOAT _right;
+		FLOAT _bottom;
+	public:
+		OverhangMetrics(Single left, Single top, Single right, Single bottom)
+		{
+			_left = left;
+			_top = top;
+			_right = right;
+			_bottom = bottom;
+		}
+		property Single Left
+		{
+			Single get() { return _left; }
+		}
+
+		property Single Top
+		{
+			Single get() { return _top; }
+		}
+
+		property Single Right
+		{
+			Single get() { return _right; }
+		}
+
+		property Single Bottom
+		{
+			Single get() { return _bottom; }
+		}
+	};
+
+	public enum class BreakCondition 
+	{
+		Neutral         = 0,
+		CanBreak        = 1,
+		MayNotBreak     = 2,
+		MustBreak       = 3 
+	};
+
+
 }}}

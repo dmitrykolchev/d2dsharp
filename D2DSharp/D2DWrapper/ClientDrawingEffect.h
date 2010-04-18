@@ -47,10 +47,12 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
         unsigned long STDMETHODCALLTYPE AddRef();
         unsigned long STDMETHODCALLTYPE Release();
-        HRESULT STDMETHODCALLTYPE QueryInterface(
-            IID const& riid,
-            void** ppvObject
-        );
+        HRESULT STDMETHODCALLTYPE QueryInterface(IID const& riid, void** ppvObject);
+	protected:
+		~ClientDrawingEffectNative()
+		{
+			_managed = nullptr;
+		}
 
 		gcroot<ClientDrawingEffect^> _managed;
 		LONG _refCount;

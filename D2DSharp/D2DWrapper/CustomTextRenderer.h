@@ -80,7 +80,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
         );
 
     protected:
-        virtual ~CustomTextRenderer() { }
+        virtual ~CustomTextRenderer() { _managedRenderer = nullptr; }
 
 	private:
 		gcroot<ITextRenderer^> _managedRenderer;

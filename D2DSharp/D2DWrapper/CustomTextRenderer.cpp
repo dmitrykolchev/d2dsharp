@@ -95,8 +95,6 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawGlyphRun(
 		}
 		finally
 		{
-			if(drawingEffect != nullptr)
-				delete drawingEffect;
 			delete mglyphRunDescription;
 			delete mglyphRun;
 		}
@@ -133,8 +131,6 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawUnderline(
 		}
 		finally
 		{
-			if(drawingEffect != nullptr)
-				delete drawingEffect;
 			delete mUnderline;
 		}
 	}
@@ -169,8 +165,6 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawStrikethrough(
 		}
 		finally
 		{
-			if(drawingEffect != nullptr)
-				delete drawingEffect;
 			delete mStrikethrough;
 		}
 	}
@@ -193,30 +187,40 @@ HRESULT STDMETHODCALLTYPE CustomTextRenderer::DrawInlineObject(
 {
 	try
 	{
-		InlineObject ^mInlineObject = gcnew InlineObject(inlineObject, true);
+		bool deleteInlineObject = false;
+		InlineObjectNative* inlineObjectNative = NULL;
+		InlineObject^ inlineObjectManaged = nullptr;
+
+		if(SUCCEEDED(inlineObject->QueryInterface(__uuidof(InlineObjectNative), (void**)&inlineObjectNative)))
+		{
+			inlineObjectManaged = inlineObjectNative->GetObject();
+		}
+		else
+		{
+			inlineObjectManaged = gcnew InlineObjectWrapper(inlineObject, true);
+			deleteInlineObject = true;
+		}
+
 		ClientDrawingEffect^ drawingEffect = nullptr;
+
 		if(clientDrawingEffect)
 		{
 			ClientDrawingEffectNative* native = NULL;
-			ComUtils::CheckResult(clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native));
-			drawingEffect = native->GetObject();
+			clientDrawingEffect->QueryInterface(__uuidof(ClientDrawingEffectNative), (void**)&native);
+			if(native)
+				drawingEffect = native->GetObject();
 		}
-		try
-		{
-			_managedRenderer->DrawInlineObject(
-				originX, 
-				originY, 
-				mInlineObject, 
-				isSideways != 0, 
-				isRightToLeft != 0, 
-				drawingEffect);
-		}
-		finally
-		{
-			if(drawingEffect != nullptr)
-				delete drawingEffect;
-			delete mInlineObject;
-		}
+
+		_managedRenderer->DrawInlineObject(
+			originX, 
+			originY, 
+			inlineObjectManaged, 
+			isSideways != 0, 
+			isRightToLeft != 0, 
+			drawingEffect);
+
+		if(deleteInlineObject)
+			delete inlineObjectManaged;
 	}
 	catch(Exception^)
 	{

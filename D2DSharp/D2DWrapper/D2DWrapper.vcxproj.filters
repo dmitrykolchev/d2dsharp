@@ -308,6 +308,9 @@
     <ClCompile Include="ClientDrawingEffect.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
+    <ClCompile Include="InlineObject.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />

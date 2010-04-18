@@ -170,7 +170,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 				textFormat->GetNative(),
 				&inlineObject));
 
-		return gcnew InlineObject(inlineObject);
+		return gcnew InlineObjectWrapper(inlineObject, false);
 	}
 
 	typedef IDWriteFontFile* PIDWriteFontFile;

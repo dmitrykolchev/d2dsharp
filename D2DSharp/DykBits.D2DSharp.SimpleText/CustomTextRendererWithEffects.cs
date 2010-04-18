@@ -85,11 +85,23 @@ namespace Managed.D2DSharp.SimpleText
             RectF rect = new RectF(0, underline.Offset, underline.Width, underline.Thickness);
             using (RectangleGeometry rectangleGeometry = _factory.CreateRectangleGeometry(rect))
             {
+                SolidColorBrush brush = null;
+                if (clientDrawingEffect != null)
+                {
+                    ColorDrawingEffect drawingEffect = clientDrawingEffect as ColorDrawingEffect;
+                    if (drawingEffect != null)
+                    {
+                        brush = _renderTarget.CreateSolidColorBrush(drawingEffect.Color);
+                    }
+                }
+
                 Matrix3x2 matrix = new Matrix3x2(1, 0, 0, 1, baselineOriginX, baselineOriginY);
                 using (TransformedGeometry transformedGeometry = _factory.CreateTransformedGeometry(rectangleGeometry, matrix))
                 {
-                    _renderTarget.DrawGeometry(_defaultBrush, 5, transformedGeometry);
+                    _renderTarget.FillGeometry(brush == null ? _defaultBrush : brush, transformedGeometry);
                 }
+                if (brush != null)
+                    brush.Dispose();
             }
         }
 

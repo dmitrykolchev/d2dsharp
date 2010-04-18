@@ -43,6 +43,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 		}
 	public:
+
 		static DirectWriteFactory^ Create(DirectWriteFactoryType factoryType);
 
 		FontCollection^ CreateCustomFontCollection(FontCollectionLoader^ collectionLoader, array<Byte>^ collectionKey);

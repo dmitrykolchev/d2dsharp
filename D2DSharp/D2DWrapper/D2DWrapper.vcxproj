@@ -162,6 +162,7 @@
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometrySink.cpp" />
     <ClCompile Include="GlyphRun.cpp" />
+    <ClCompile Include="InlineObject.cpp" />
     <ClCompile Include="PathGeometry.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Stdafx.cpp">

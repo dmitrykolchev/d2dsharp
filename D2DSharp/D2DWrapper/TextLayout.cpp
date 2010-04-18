@@ -204,7 +204,12 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	{
 		IDWriteInlineObject * value;
 		ComUtils::CheckResult(GetNative()->GetInlineObject(position, &value, NULL));
-		return gcnew InlineObject(value);
+		InlineObjectNative* inlineObjectNative;
+		if(SUCCEEDED(value->QueryInterface(__uuidof(InlineObjectNative), (void**)&inlineObjectNative)))
+		{
+			return inlineObjectNative->GetObject();
+		}
+		return gcnew InlineObjectWrapper(value, false);
 	}
 
 	InlineObject^ TextLayout::GetInlineObject(Int32 position, [Out]TextRange% textRange)
@@ -212,7 +217,12 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteInlineObject * value;
 		pin_ptr<TextRange> pTextRange = &textRange;
 		ComUtils::CheckResult(GetNative()->GetInlineObject(position, &value, (DWRITE_TEXT_RANGE *)pTextRange));
-		return gcnew InlineObject(value);
+		InlineObjectNative* inlineObjectNative;
+		if(SUCCEEDED(value->QueryInterface(__uuidof(InlineObjectNative), (void**)&inlineObjectNative)))
+		{
+			return inlineObjectNative->GetObject();
+		}
+		return gcnew InlineObjectWrapper(value, false);
 	}
 
 	//array<LineMetrics>^ TextLayout::GetLineMetrics()
