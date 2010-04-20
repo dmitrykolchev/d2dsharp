@@ -23,6 +23,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			throw new NotImplementedException();
 		}
+
 		NumberSubstitution^ GetNumberSubstitution(UInt32 testPosition, [Out]UInt32% textLength)
 		{
 			throw new NotImplementedException();

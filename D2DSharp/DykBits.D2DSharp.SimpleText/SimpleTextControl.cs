@@ -26,13 +26,11 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
-                null,
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
                 FontWeight.Normal,
                 FontStyle.Normal,
                 FontStretch.Normal,
-                72,
-                "ru-ru");
+                72);
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
 

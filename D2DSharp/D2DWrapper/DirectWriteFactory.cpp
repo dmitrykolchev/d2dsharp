@@ -38,13 +38,56 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		return gcnew DirectWriteFactory(writeFactory);
 	}
 
-	TextFormat^ DirectWriteFactory::CreateTextFormat(String^ fontFamilyName, FontCollection^ fontCollection, FontWeight fontWeight, FontStyle fontStyle, FontStretch fontStretch, FLOAT fontSize, String^ localeName)
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName, 
+		Single fontSize)
+	{
+		return CreateTextFormat(fontFamilyName, nullptr, FontWeight::Normal, FontStyle::Normal, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName, 
+		FontWeight fontWeight, 
+		Single fontSize)
+	{
+		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, FontStyle::Normal, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName, 
+		FontWeight fontWeight, 
+		FontStyle fontStyle, 
+		Single fontSize)
+	{
+		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, fontStyle, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName, 
+		FontWeight fontWeight, 
+		FontStyle fontStyle, 
+		FontStretch fontStretch, 
+		Single fontSize)
+	{
+		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, fontStyle, fontStretch, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName, 
+		FontCollection^ fontCollection, 
+		FontWeight fontWeight, 
+		FontStyle fontStyle, 
+		FontStretch fontStretch, 
+		Single fontSize, 
+		System::Globalization::CultureInfo^ culture)
 	{
 		if(fontFamilyName == nullptr)
 			throw gcnew ArgumentNullException("fontFamilyName");
 
 		pin_ptr<const System::Char> pFontFamily = PtrToStringChars(fontFamilyName);
 		
+		String^ localeName = culture == nullptr ? String::Empty : culture->Name;
+
 		pin_ptr<const System::Char> pLocaleName = localeName == nullptr ? L"" : PtrToStringChars(localeName);
 		
 		IDWriteFontCollection* pFontCollection = fontCollection == nullptr ? NULL : fontCollection->GetNative();

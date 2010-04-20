@@ -47,13 +47,11 @@ namespace Managed.D2DSharp.SimpleText
             this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Green, 1));
             this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Blue, 1));
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
-                null,
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
                 FontWeight.Normal,
                 FontStyle.Normal,
                 FontStretch.Normal,
-                72,
-                "en-us");
+                72);
 
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;

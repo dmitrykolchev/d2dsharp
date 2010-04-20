@@ -38,13 +38,11 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceIndependentResources(factory);
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
-                null,
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
                 FontWeight.Normal,
                 FontStyle.Normal,
                 FontStretch.Normal,
-                72,
-                "en-us");
+                72);
 
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
@@ -57,6 +55,12 @@ namespace Managed.D2DSharp.SimpleText
                 this._textFormat,
                 width,
                 height);
+            
+            using (Typography typography = DirectWriteFactory.CreateTypography())
+            {
+                typography.AddFontFeature(FontFeatureTag.StylisticSet7, 1);
+                this._textLayout.SetTypography(typography, new TextRange(0, _text.Length));
+            }
 
             Bitmap bitmap = RenderTarget.CreateBitmap(this.GetType(), "heart.png");
 

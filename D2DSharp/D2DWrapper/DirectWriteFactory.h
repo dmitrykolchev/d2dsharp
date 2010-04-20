@@ -90,7 +90,31 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		void UnregisterFontFileLoader(FontFileLoader^ fontFileLoader);
 
-		TextFormat^ CreateTextFormat(String^ fontFamilyName, FontCollection^ fontCollection, FontWeight fontWeight, FontStyle fontStyle, FontStretch fontStretch, FLOAT fontSize, String^ localeName);
+		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+			Single fontSize);
+
+		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+			FontWeight fontWeight, 
+			Single fontSize);
+
+		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+			FontWeight fontWeight, 
+			FontStyle fontStyle, 
+			Single fontSize);
+
+		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+			FontWeight fontWeight, 
+			FontStyle fontStyle, 
+			FontStretch fontStretch, 
+			Single fontSize);
+
+		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+			FontCollection^ fontCollection, 
+			FontWeight fontWeight, 
+			FontStyle fontStyle, 
+			FontStretch fontStretch, 
+			Single fontSize, 
+			System::Globalization::CultureInfo^ culture);
 		
 		TextLayout^ CreateTextLayout(String^ string, TextFormat^ textFormat, FLOAT maxWidth, FLOAT maxHeight);
 		

@@ -159,7 +159,7 @@ namespace Managed.Graphics.Forms
         {
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected sealed override void OnPaint(PaintEventArgs e)
         {
             CreateDeviceResources();
             try
@@ -180,6 +180,11 @@ namespace Managed.Graphics.Forms
             {
                 CleanUpDeviceResources();
             }
+        }
+
+        public void Render()
+        {
+            OnPaint(null);
         }
 
         protected virtual void OnRender(WindowRenderTarget renderTarget)

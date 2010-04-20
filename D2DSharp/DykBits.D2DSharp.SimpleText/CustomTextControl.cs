@@ -40,13 +40,11 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceIndependentResources(factory);
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Magneto",
-                null,
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
                 FontWeight.Normal,
                 FontStyle.Normal,
                 FontStretch.Normal,
-                72,
-                "en-us");
+                72);
 
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
