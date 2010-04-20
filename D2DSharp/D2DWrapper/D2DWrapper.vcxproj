@@ -110,7 +110,6 @@
     <ClInclude Include="GlyphRunAnalysis.h" />
     <ClInclude Include="ClientDrawingEffect.h" />
     <ClInclude Include="InlineObject.h" />
-    <ClInclude Include="ITextAnalysisSource.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerParameters.h" />
     <ClInclude Include="Mesh.h" />
@@ -123,6 +122,7 @@
     <ClInclude Include="StreamWrapper.h" />
     <ClInclude Include="StrokeStyle.h" />
     <ClInclude Include="TessellationSink.h" />
+    <ClInclude Include="TextAnalysisSource.h" />
     <ClInclude Include="TextAnalyzer.h" />
     <ClInclude Include="TextFormat.h" />
     <ClInclude Include="TextLayout.h" />

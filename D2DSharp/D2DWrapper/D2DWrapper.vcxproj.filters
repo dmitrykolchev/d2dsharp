@@ -234,7 +234,7 @@
     <ClInclude Include="ClientDrawingEffect.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
-    <ClInclude Include="ITextAnalysisSource.h">
+    <ClInclude Include="TextAnalysisSource.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
   </ItemGroup>

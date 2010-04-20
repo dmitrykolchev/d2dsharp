@@ -597,5 +597,229 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		MustBreak       = 3 
 	};
 
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct TextMetrics 
+	{
+	private:
+		FLOAT  _left;
+		FLOAT  _top;
+		FLOAT  _width;
+		FLOAT  _widthIncludingTrailingWhitespace;
+		FLOAT  _height;
+		FLOAT  _layoutWidth;
+		FLOAT  _layoutHeight;
+		UINT32 _maxBidiReorderingDepth;
+	public:
+		property Single Left 
+		{
+			Single get() { return _left; }
+			void set(Single value) { _left = value; }
+		}
+		property Single Top
+		{
+			Single get() { return _top; }
+			void set(Single value) { _top = value; }
+		}
+		property Single Width 
+		{
+			Single get() { return _width; }
+			void set(Single value) { _width = value; }
+		}
+		property Single WidthIncludingTrailingWhitespace
+		{
+			Single get() { return _widthIncludingTrailingWhitespace; }
+			void set(Single value) { _widthIncludingTrailingWhitespace = value; }
+		}
+		property Single Height
+		{
+			Single get() { return _height; }
+			void set(Single value) { _height = value; }
+		}
+		property Single LayoutWidth 
+		{
+			Single get() { return _layoutWidth; }
+			void set(Single value) { _layoutWidth = value; }
+		}
+		property Single LayoutHeight
+		{
+			Single get() { return _layoutHeight; }
+			void set(Single value) { _layoutHeight = value; }
+		}
+		property UInt32 MaxBidiReorderingDepth
+		{
+			UInt32 get() { return _maxBidiReorderingDepth; }
+			void set(UInt32 value) { _maxBidiReorderingDepth = value; }
+		}
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct ClusterMetrics
+	{
+	private:
+		FLOAT _width;
+		UINT16 _length;
+		UINT16 _flags;
+		static const UInt16 CAN_WRAP_LINE_AFTER = 1;
+		static const UInt16 IS_WHITESPACE = 2;
+		static const UInt16 IS_NEWLINE = 4;
+		static const UInt16 IS_SOFT_HYPHEN = 8;
+		static const UInt16 IS_RIGHT_TO_LEFT = 16;
+	public:
+		property Single Width
+		{
+			Single get() { return _width; }
+			void set(Single value) { _width = value; }
+		}
+		property UInt16 Length
+		{
+			UInt16 get() { return _length; }
+			void set(UInt16 value) { _length = value; }
+		}
+
+		property Boolean CanWrapLineAfter
+		{
+			Boolean get() { return (_flags & CAN_WRAP_LINE_AFTER) != 0; }
+			void set(Boolean value) 
+			{
+				if(value)
+					_flags |= CAN_WRAP_LINE_AFTER;
+				else
+					_flags &= ~CAN_WRAP_LINE_AFTER;
+			}
+		}
+
+		property Boolean IsWhitespace
+		{
+			Boolean get() { return (_flags & IS_WHITESPACE) != 0; }
+			void set(Boolean value) 
+			{
+				if(value)
+					_flags |= IS_WHITESPACE;
+				else
+					_flags &= ~IS_WHITESPACE;
+			}
+		}
+
+		property Boolean IsNewline
+		{
+			Boolean get() { return (_flags & IS_NEWLINE) != 0; }
+			void set(Boolean value) 
+			{
+				if(value)
+					_flags |= IS_NEWLINE;
+				else
+					_flags &= ~IS_NEWLINE;
+			}
+		}
+
+		property Boolean IsSoftHyphen
+		{
+			Boolean get() { return (_flags & IS_SOFT_HYPHEN) != 0; }
+			void set(Boolean value) 
+			{
+				if(value)
+					_flags |= IS_SOFT_HYPHEN;
+				else
+					_flags &= ~IS_SOFT_HYPHEN;
+			}
+		}
+
+		property Boolean IsRightToLeft
+		{
+			Boolean get() { return (_flags & IS_RIGHT_TO_LEFT) != 0; }
+			void set(Boolean value) 
+			{
+				if(value)
+					_flags |= IS_RIGHT_TO_LEFT;
+				else
+					_flags &= ~IS_RIGHT_TO_LEFT;
+			}
+		}
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct LineMetrics 
+	{
+	private:
+		UINT32 _length;
+		UINT32 _trailingWhitespaceLength;
+		UINT32 _newlineLength;
+		FLOAT  _height;
+		FLOAT  _baseline;
+	public:
+		property UInt32 Length
+		{
+			UInt32 get() { return _length; }
+			void set(UInt32 value) { _length = value; }
+		}
+		property UInt32 TrailingWhitespaceLength
+		{
+			UInt32 get() { return _trailingWhitespaceLength; }
+			void set(UInt32 value) { _trailingWhitespaceLength = value; }
+		}
+		property UInt32 NewlineLength
+		{
+			UInt32 get() { return _newlineLength; }
+			void set(UInt32 value) { _newlineLength = value; }
+		}
+		property Single Height
+		{
+			Single get() { return _height; }
+			void set(Single value) { _height = value; }
+		}
+		property Single Baseline
+		{
+			Single get() { return _baseline; }
+			void set(Single value) { _baseline = value; }
+		}
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct HitTestMetrics 
+	{
+	private:
+		UINT32 _textPosition;
+		UINT32 _length;
+		FLOAT  _left;
+		FLOAT  _top;
+		FLOAT  _width;
+		FLOAT  _height;
+		UINT32 _bidiLevel;
+		BOOL   _isText;
+	public:
+		property UInt32 TextPosition
+		{
+			UInt32 get() { return _textPosition; }
+		}
+		property UInt32 Length
+		{
+			UInt32 get() { return _length; }
+		}
+		property Single Left
+		{
+			Single get() { return _left; }
+		}
+		property Single Top
+		{
+			Single get() { return _top; }
+		}
+		property Single Width
+		{
+			Single get() { return _width; }
+		}
+		property Single Height
+		{
+			Single get() { return _height; }
+		}
+		property UInt32 BidiLevel
+		{
+			UInt32 get() { return _bidiLevel; }
+		}
+		property Boolean IsText
+		{
+			Boolean get() { return _isText != 0; }
+		}
+	};
+
 
 }}}

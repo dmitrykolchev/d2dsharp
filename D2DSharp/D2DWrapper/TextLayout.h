@@ -58,7 +58,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	public:
 		void Draw(ITextRenderer^ renderer, Single originX, Single originY);
-		//array<WriteClusterMetrics>^ GetClusterMetrics();
+		property array<Managed::Graphics::DirectWrite::ClusterMetrics>^ ClusterMetrics
+		{
+			array<Managed::Graphics::DirectWrite::ClusterMetrics>^ get();
+		}
 		property Single MinWidth
 		{
 			Single get()
@@ -117,13 +120,32 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		InlineObject^ GetInlineObject(Int32 position);
 		InlineObject^ GetInlineObject(Int32 position, [Out]TextRange% textRange);
 		
-		//array<LineMetrics>^ GetLineMetrics();
+		property array<Managed::Graphics::DirectWrite::LineMetrics>^ LineMetrics
+		{
+			array<Managed::Graphics::DirectWrite::LineMetrics>^ get();
+		}
 		
-		System::Globalization::CultureInfo^ TextLayout::GetCultureInfo(Int32 position);
-		System::Globalization::CultureInfo^ TextLayout::GetCultureInfo(Int32 position, [Out]TextRange% textRange);
+		System::Globalization::CultureInfo^ TextLayout::GetCulture(Int32 position);
+		System::Globalization::CultureInfo^ TextLayout::GetCulture(Int32 position, [Out]TextRange% textRange);
 		
-		//TextMetrics GetMetrics();
-		//OverhangMetrics GetOverhangMetrics();
+		property TextMetrics Metrics
+		{
+			TextMetrics get()
+			{
+				TextMetrics value;
+				ComUtils::CheckResult(GetNative()->GetMetrics((DWRITE_TEXT_METRICS*)&value));
+				return value;
+			}
+		}
+		property Managed::Graphics::DirectWrite::OverhangMetrics OverhangMetrics
+		{
+			Managed::Graphics::DirectWrite::OverhangMetrics get()
+			{
+				Managed::Graphics::DirectWrite::OverhangMetrics value;
+				ComUtils::CheckResult(GetNative()->GetOverhangMetrics((DWRITE_OVERHANG_METRICS *)&value));
+				return value;
+			}
+		}
 		
 		Boolean GetStrikethrough(Int32 position);
 		Boolean GetStrikethrough(Int32 position, [Out]TextRange% textRange);
@@ -134,9 +156,9 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Boolean GetUnderline(Int32 position);
 		Boolean GetUnderline(Int32 position, [Out]TextRange% textRange);
 		
-		//HitTestMetrics HitTestPoint(Single x, Single y, [Out]Boolean% isTrailingHit, [Out]Boolean isInside);
-		//HitTestMetrics HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY);
-		//array<HitTestMetrics>^ HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY);
+		HitTestMetrics HitTestPoint(Single x, Single y, [Out]Boolean% isTrailingHit, [Out]Boolean% isInside);
+		HitTestMetrics HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY);
+		array<HitTestMetrics>^ HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY);
 		
 		void SetDrawingEffect(ClientDrawingEffect^ drawingEffect, TextRange textRange);
 		
@@ -154,7 +176,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		
 		void SetInlineObject(InlineObject^ inlineObject, TextRange textRange);
 		
-		void SetCultureInfo(System::Globalization::CultureInfo^ cultureInfo, TextRange textRange);
+		void SetCulture(System::Globalization::CultureInfo^ cultureInfo, TextRange textRange);
 		
 		void SetStrikethrough(Boolean hasStrikethrough, TextRange textRange);
 		

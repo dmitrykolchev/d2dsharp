@@ -25,7 +25,17 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	}
 
-	//WriteClusterMetrics[] GetClusterMetrics()
+	array<Managed::Graphics::DirectWrite::ClusterMetrics>^ TextLayout::ClusterMetrics::get()
+	{
+		UINT32 count;
+		HRESULT hr = GetNative()->GetClusterMetrics(NULL, 0, &count);
+		if(FAILED(hr) && hr != E_NOT_SUFFICIENT_BUFFER)
+			Marshal::ThrowExceptionForHR(hr);
+		array<Managed::Graphics::DirectWrite::ClusterMetrics>^ metrics = gcnew array<Managed::Graphics::DirectWrite::ClusterMetrics>(count);
+		pin_ptr<Managed::Graphics::DirectWrite::ClusterMetrics> pMetrics = &metrics[0];
+		ComUtils::CheckResult(GetNative()->GetClusterMetrics((DWRITE_CLUSTER_METRICS *)pMetrics, count, &count));
+		return metrics;
+	}
 
 	ClientDrawingEffect^ TextLayout::GetDrawingEffect(Int32 position)
 	{
@@ -200,6 +210,18 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		return (Managed::Graphics::DirectWrite::FontWeight)value;
 	}
 
+	array<Managed::Graphics::DirectWrite::LineMetrics>^ TextLayout::LineMetrics::get()
+	{
+		UINT32 count;
+		HRESULT hr = GetNative()->GetLineMetrics(NULL, 0, &count);
+		if(FAILED(hr) && hr != E_NOT_SUFFICIENT_BUFFER)
+			Marshal::ThrowExceptionForHR(hr);
+		array<Managed::Graphics::DirectWrite::LineMetrics>^ metrics = gcnew array<Managed::Graphics::DirectWrite::LineMetrics>(count);
+		pin_ptr<Managed::Graphics::DirectWrite::LineMetrics> pMetrics = &metrics[0];
+		ComUtils::CheckResult(GetNative()->GetLineMetrics((DWRITE_LINE_METRICS *)pMetrics, count, &count));
+		return metrics;
+	}
+
 	InlineObject^ TextLayout::GetInlineObject(Int32 position)
 	{
 		IDWriteInlineObject * value;
@@ -225,9 +247,56 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		return gcnew InlineObjectWrapper(value, false);
 	}
 
-	//array<LineMetrics>^ TextLayout::GetLineMetrics()
+	HitTestMetrics TextLayout::HitTestPoint(Single x, Single y, [Out]Boolean% isTrailingHit, [Out]Boolean% isInside)
+	{
+		HitTestMetrics metrics;
+		BOOL b1, b2;
+		ComUtils::CheckResult(GetNative()->HitTestPoint(x, y, &b1, &b2, (DWRITE_HIT_TEST_METRICS*)&metrics));
+		isTrailingHit = b1 != 0;
+		isInside = b2 != 0;
+		return metrics;
+	}
 
-	System::Globalization::CultureInfo^ TextLayout::GetCultureInfo(Int32 position)
+	HitTestMetrics TextLayout::HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY)
+	{
+		HitTestMetrics metrics;
+		FLOAT x, y;
+		ComUtils::CheckResult(
+			GetNative()->HitTestTextPosition(
+				textPosition, 
+				isTrailingHit, 
+				&x, 
+				&y, 
+				(DWRITE_HIT_TEST_METRICS*)&metrics));
+		pointX = x;
+		pointY = y;
+		return metrics;
+	}
+
+	array<HitTestMetrics>^ TextLayout::HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY)
+	{
+		UINT32 count;
+		HRESULT hr = GetNative()->HitTestTextRange(textPosition, textLength, originX, originY, NULL, 0, &count);
+		if(hr != E_NOT_SUFFICIENT_BUFFER)
+			ComUtils::CheckResult(hr);
+		
+		array<HitTestMetrics>^ metrics = gcnew array<HitTestMetrics>(count);
+		pin_ptr<HitTestMetrics> pMetrics = &metrics[0];
+		
+		ComUtils::CheckResult(
+			GetNative()->HitTestTextRange(
+				textPosition, 
+				textLength, 
+				originX, 
+				originY, 
+				(DWRITE_HIT_TEST_METRICS *)pMetrics, 
+				count, 
+				&count));
+		
+		return metrics;
+	}
+
+	System::Globalization::CultureInfo^ TextLayout::GetCulture(Int32 position)
 	{
 		UINT32 len;
 		ComUtils::CheckResult(GetNative()->GetLocaleNameLength(position, &len));
@@ -243,7 +312,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	}
 
-	System::Globalization::CultureInfo^ TextLayout::GetCultureInfo(Int32 position, [Out]TextRange% textRange)
+	System::Globalization::CultureInfo^ TextLayout::GetCulture(Int32 position, [Out]TextRange% textRange)
 	{
 		UINT32 len;
 		ComUtils::CheckResult(GetNative()->GetLocaleNameLength(position, &len));
@@ -259,10 +328,6 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			delete [] name;
 		}
 	}
-
-	//TextMetrics TextLayout::GetMetrics()
-
-	//OverhangMetrics TextLayout::GetOverhangMetrics()
 
 	Boolean TextLayout::GetStrikethrough(Int32 position)
 	{
@@ -309,9 +374,6 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		return value != 0;
 	}
 
-	//HitTestMetrics TextLayout::HitTestPoint(Single x, Single y, [Out]Boolean% isTrailingHit, [Out]Boolean isInside)
-	//HitTestMetrics TextLayout::HitTestTextPosition(Int32 textPosition, Boolean isTrailingHit, [Out]Single% pointX, [Out]Single% pointY)
-	//array<HitTestMetrics>^ TextLayout::HitTestTextRange(Int32 textPosition, Int32 textLength, Single originX, Single originY)
 	void TextLayout::SetFontCollection(Managed::Graphics::DirectWrite::FontCollection^ fontCollection, TextRange textRange)
 	{
 		ComUtils::CheckResult(GetNative()->SetFontCollection(fontCollection->GetNative(), *(DWRITE_TEXT_RANGE *)&textRange));
@@ -348,7 +410,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		ComUtils::CheckResult(GetNative()->SetInlineObject(inlineObject->GetNative(), *(DWRITE_TEXT_RANGE *)&textRange));
 	}
 
-	void TextLayout::SetCultureInfo(System::Globalization::CultureInfo^ cultureInfo, TextRange textRange)
+	void TextLayout::SetCulture(System::Globalization::CultureInfo^ cultureInfo, TextRange textRange)
 	{
 		pin_ptr<const wchar_t> name = PtrToStringChars(cultureInfo->Name);
 		ComUtils::CheckResult(GetNative()->SetLocaleName(name, *(DWRITE_TEXT_RANGE *)&textRange));

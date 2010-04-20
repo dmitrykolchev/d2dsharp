@@ -10,9 +10,6 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed { namespace Graphics { namespace DirectWrite 
 {
-	interface class ITextAnalysisSource;
-	interface class ITextAnalysisSink;
-
 	public ref class TextAnalyzer: ComWrapper
 	{
 	internal:
