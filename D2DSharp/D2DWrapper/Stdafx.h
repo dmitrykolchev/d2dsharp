@@ -72,7 +72,10 @@
 #include "GdiInterop.h"
 #include "ClientDrawingEffect.h"
 #include "TextAnalysisSource.h"
-#include "TextAnalysisSink.h"
+#include "FontFamily.h"
+#include "Font.h"
+#include "LocalizedStrings.h"
+#include "FontList.h"
 
 #include "WicCommon.h"
 #include "WicComponentInfo.h"

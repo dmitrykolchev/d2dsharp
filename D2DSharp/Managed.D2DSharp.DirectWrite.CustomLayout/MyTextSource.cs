@@ -26,5 +26,25 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
         {
             throw new NotImplementedException();
         }
+
+        protected override void OnSetBidiLevel(uint textPosition, uint textLength, byte explicitLevel, byte resolvedLevel)
+        {
+            base.OnSetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel);
+        }
+
+        protected override void OnSetLineBreakpoints(uint textPosition, uint textLength, LineBreakpoint lineBreakPoints)
+        {
+            base.OnSetLineBreakpoints(textPosition, textLength, lineBreakPoints);
+        }
+
+        protected override void OnSetNumberSubstitution(uint textPosition, uint textLength, NumberSubstitution numberSubstitution)
+        {
+            base.OnSetNumberSubstitution(textPosition, textLength, numberSubstitution);
+        }
+
+        protected override void OnSetScriptAnalysis(uint textPosition, uint textLength, ScriptAnalysis scriptAnalysis)
+        {
+            base.OnSetScriptAnalysis(textPosition, textLength, scriptAnalysis);
+        }
     }
 }

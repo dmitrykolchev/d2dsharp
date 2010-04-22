@@ -237,7 +237,16 @@
     <ClInclude Include="TextAnalysisSource.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
-    <ClInclude Include="TextAnalysisSink.h">
+    <ClInclude Include="FontFamily.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalizedStrings.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="FontList.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
   </ItemGroup>
@@ -320,10 +329,22 @@
     <ClCompile Include="TextAnalysisSource.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
-    <ClCompile Include="TextAnalysisSink.cpp">
+    <ClCompile Include="TextAnalyzer.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
-    <ClCompile Include="TextAnalyzer.cpp">
+    <ClCompile Include="FontCollection.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFamily.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="LocalizedStrings.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="FontList.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>

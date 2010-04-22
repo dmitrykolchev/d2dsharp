@@ -10,20 +10,25 @@
 using namespace Managed::Graphics::DirectWrite;
 
 
-void TextAnalyzer::AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink)
+void TextAnalyzer::AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength)
 {
+	IDWriteTextAnalysisSource* source = analysisSource->GetNative();
+	IDWriteTextAnalysisSink* sink;
+	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
+
 	ComUtils::CheckResult(
 		GetNative()->AnalyzeBidi(
-			analysisSource->GetNative(),
+			source,
 			textPosition, 
 			textLength,
-			analysisSink->GetNative()));
+			sink));
 }
 
-void TextAnalyzer::AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink)
+void TextAnalyzer::AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength)
 {
-	IDWriteTextAnalysisSource * source = analysisSource->GetNative();
-	IDWriteTextAnalysisSink * sink = analysisSink->GetNative();
+	IDWriteTextAnalysisSource *source = analysisSource->GetNative();
+	IDWriteTextAnalysisSink *sink;
+	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
 
 	ComUtils::CheckResult(
 		GetNative()->AnalyzeLineBreakpoints(
@@ -34,24 +39,32 @@ void TextAnalyzer::AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UI
 			
 }
 
-void TextAnalyzer::AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink)
+void TextAnalyzer::AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength)
 {
+	IDWriteTextAnalysisSource *source = analysisSource->GetNative();
+	IDWriteTextAnalysisSink *sink;
+	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
+
 	ComUtils::CheckResult(
 		GetNative()->AnalyzeNumberSubstitution(
-			analysisSource->GetNative(),
+			source,
 			textPosition, 
 			textLength,
-			analysisSink->GetNative()));
+			sink));
 }
 
-void TextAnalyzer::AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink)
+void TextAnalyzer::AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength)
 {
+	IDWriteTextAnalysisSource *source = analysisSource->GetNative();
+	IDWriteTextAnalysisSink *sink;
+	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
+
 	ComUtils::CheckResult(
 		GetNative()->AnalyzeScript(
-			analysisSource->GetNative(),
+			source,
 			textPosition, 
 			textLength,
-			analysisSink->GetNative()));
+			sink));
 }
 
 

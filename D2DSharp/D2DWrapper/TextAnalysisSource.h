@@ -39,6 +39,54 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			String^ get() { return _text; }
 		}
+	protected:
+		
+		virtual void OnSetBidiLevel(UInt32 textPosition, UInt32 textLength, Byte explicitLevel, Byte resolvedLevel)
+		{
+			if(SetBidiLevelCallback != nullptr)
+				SetBidiLevelCallback(textPosition, textLength, explicitLevel, resolvedLevel);
+		}
+		
+		virtual void OnSetLineBreakpoints(UInt32 textPosition, UInt32 textLength, LineBreakpoint lineBreakPoints)
+		{
+			if(SetLineBreakpointsCallback != nullptr)
+			{
+				SetLineBreakpointsCallback(textPosition, textLength, lineBreakPoints);
+			}
+		}
+
+		virtual void OnSetNumberSubstitution(UInt32 textPosition, UInt32 textLength, NumberSubstitution^ numberSubstitution)
+		{
+			if(SetNumberSubstitutionCallback != nullptr)
+			{
+				SetNumberSubstitutionCallback(textPosition, textLength, numberSubstitution);
+			}
+		}
+
+		virtual void OnSetScriptAnalysis(UInt32 textPosition, UInt32 textLength, ScriptAnalysis scriptAnalysis)
+		{
+			if(SetScriptAnalysisCallback != nullptr)
+			{
+				SetScriptAnalysisCallback(textPosition, textLength, scriptAnalysis);
+			}
+		}
+	internal:
+		void SetBidiLevel(UInt32 textPosition, UInt32 textLength, Byte explicitLevel, Byte resolvedLevel)
+		{
+			OnSetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel);
+		}
+		void SetLineBreakpoints(UInt32 textPosition, UInt32 textLength, LineBreakpoint lineBreakPoints)
+		{
+			OnSetLineBreakpoints(textPosition, textLength, lineBreakPoints);
+		}
+		void SetNumberSubstitution(UInt32 textPosition, UInt32 textLength, NumberSubstitution^ numberSubstitution)
+		{
+			OnSetNumberSubstitution(textPosition, textLength, numberSubstitution);
+		}
+		void SetScriptAnalysis(UInt32 textPosition, UInt32 textLength, ScriptAnalysis scriptAnalysis)
+		{
+			OnSetScriptAnalysis(textPosition, textLength, scriptAnalysis);
+		}
 	internal:
 		IDWriteTextAnalysisSource* GetNative()
 		{
@@ -47,10 +95,17 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	private:
 		String^ _text;
 		IDWriteTextAnalysisSource* _native;
+	public:
+		Action<UInt32, UInt32, Byte, Byte>^ SetBidiLevelCallback;
+		Action<UInt32, UInt32, LineBreakpoint>^ SetLineBreakpointsCallback;
+		Action<UInt32, UInt32, NumberSubstitution^>^ SetNumberSubstitutionCallback;
+		Action<UInt32, UInt32, ScriptAnalysis>^ SetScriptAnalysisCallback;
 	};
 
 
-	class TextAnalysisSourceNative: public IDWriteTextAnalysisSource
+	class TextAnalysisSourceNative: 
+		public IDWriteTextAnalysisSource,
+		public IDWriteTextAnalysisSink
 	{
 	public:
 		TextAnalysisSourceNative(TextAnalysisSource^ managed, String^ text):
@@ -62,6 +117,9 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			_length = text->Length;
 		}
 	public:
+		//
+		// IDWriteTextAnalysisSource
+		//
 		STDMETHOD(GetTextAtPosition)(
 			UINT32 textPosition,
 			__out WCHAR const** textString,
@@ -87,6 +145,34 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			__out UINT32* textLength,
 			__out IDWriteNumberSubstitution** numberSubstitution
 			);
+		//
+		// IDWriteTextAnalysisSink
+		//
+		STDMETHOD(SetScriptAnalysis)(
+			UINT32 textPosition,
+			UINT32 textLength,
+			__in DWRITE_SCRIPT_ANALYSIS const* scriptAnalysis
+			);
+
+		STDMETHOD(SetLineBreakpoints)(
+			UINT32 textPosition,
+			UINT32 textLength,
+			__in_ecount(textLength) DWRITE_LINE_BREAKPOINT const* lineBreakpoints
+			);
+
+		STDMETHOD(SetBidiLevel)(
+			UINT32 textPosition,
+			UINT32 textLength,
+			UINT8 explicitLevel,
+			UINT8 resolvedLevel
+			);
+
+		STDMETHOD(SetNumberSubstitution)(
+			UINT32 textPosition,
+			UINT32 textLength,
+			__notnull IDWriteNumberSubstitution* numberSubstitution
+			);
+
 		unsigned long STDMETHODCALLTYPE AddRef();
         unsigned long STDMETHODCALLTYPE Release();
         HRESULT STDMETHODCALLTYPE QueryInterface(IID const& riid, void** ppvObject);

@@ -940,4 +940,40 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	};
 
+	public enum class InformationalStringId 
+	{
+		None,
+		CopyrightNotice,
+		VersionStrings,
+		Trademark,
+		Manufacturer,
+		Designer,
+		DesignerUrl,
+		Description,
+		FontVendorUrl,
+		LicenseDescription,
+		LicenseInfoUrl,
+		Win32FamilyNames,
+		Win32SubfamilyNames,
+		PreferredFamilyNames,
+		PreferredSubfamilyNames,
+		SampleText 
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct FontMetrics 
+	{
+		UINT16 designUnitsPerEm;
+		UINT16 ascent;
+		UINT16 descent;
+		INT16  lineGap;
+		UINT16 capHeight;
+		UINT16 xHeight;
+		INT16  underlinePosition;
+		UINT16 underlineThickness;
+		INT16  strikethroughPosition;
+		UINT16 strikethroughThickness;
+	};
+
+
 }}}

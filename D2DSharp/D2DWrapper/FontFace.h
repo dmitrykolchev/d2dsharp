@@ -34,7 +34,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			}
 		}
 
-		//array<GlyphMetrics>^ GetGlyphMetrics(array<UInt16>^ glyphIndices, Boolean isSideways);
+		//array<GlyphMetrics>^ GetDesignGlyphMetrics(array<UInt16>^ glyphIndices, Boolean isSideways);
 		//array<FontFile^>^ GetFiles();
 		//FontMetrics GetGdiCompatibleMetrics(Single emSize, Single pixelsPerDip);
 		//FontMetrics GetGdiCompatibleMetrics(Single emSize, Single pixelsPerDip, Managed::Graphics::Direct2D::Matrix3x2 transform);

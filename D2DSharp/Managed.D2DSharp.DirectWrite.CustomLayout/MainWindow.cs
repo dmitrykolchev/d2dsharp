@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
+
 using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.Forms;
@@ -20,7 +22,6 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
         private SolidColorBrush _blackBrush;
         private TextAnalyzer _textAnalyzer;
         private MyTextSource _source;
-        private MyTextSink _sink;
 
         static MainWindow()
         {
@@ -43,9 +44,27 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
             this._textLayout = DirectWriteFactory.CreateTextLayout("Click on this text Click on this text", this._textFormat, width, height);
             this._textAnalyzer = DirectWriteFactory.CreateTextAnalyzer();
             this._source = new MyTextSource("Click on this text Click on this text");
-            this._sink = new MyTextSink();
-            this._textAnalyzer.AnalyzeLineBreakpoints(_source, 0, (uint)_source.Text.Length, _sink);
-            this._textAnalyzer.AnalyzeScript(_source, 0, (uint)_source.Text.Length, _sink);
+            using (FontCollection coll = this._textFormat.FontCollection)
+            {
+                int count = coll.Count;
+                for (int index = 0; index < count; ++index)
+                {
+                    using (FontFamily ff = coll[index])
+                    {
+                        using (Font font = ff.GetFirstMatchingFont(FontWeight.Normal, FontStretch.Normal, FontStyle.Normal))
+                        {
+                            LocalizedStrings ls = font.FaceNames;
+                            LocalizedStrings desc = font.GetInformationalStrings(InformationalStringId.Designer);
+                            
+                            int cultureIndex = ls.FindCulture(CultureInfo.CurrentCulture);
+                            string faceName = ls[cultureIndex];
+                            FontMetrics metrics = font.Metrics;
+                        }
+                    }
+                }
+            }
+            this._textAnalyzer.AnalyzeLineBreakpoints(_source, 0, (uint)_source.Text.Length);
+            this._textAnalyzer.AnalyzeScript(_source, 0, (uint)_source.Text.Length);
         }
 
         protected override void OnCleanUpDeviceIndependentResources()

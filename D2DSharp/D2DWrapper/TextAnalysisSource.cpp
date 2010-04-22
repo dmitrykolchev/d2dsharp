@@ -30,6 +30,9 @@ TextAnalysisSource::!TextAnalysisSource()
 }
 
 
+//
+// IDWriteTextAnalysisSource
+//
 HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::GetTextAtPosition(
 	UINT32 textPosition,
 	__out WCHAR const** textString,
@@ -122,6 +125,79 @@ HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::GetNumberSubstitution(
 	return S_OK;
 }
 
+//
+// IDWriteTextAnalysisSink
+//
+HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::SetScriptAnalysis(
+	UINT32 textPosition,
+	UINT32 textLength,
+	__in DWRITE_SCRIPT_ANALYSIS const* scriptAnalysis
+	)
+{
+	try
+	{
+		_managed->SetScriptAnalysis(textPosition, textLength, *(ScriptAnalysis*)scriptAnalysis);
+	}
+	catch(Exception^)
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::SetLineBreakpoints(
+	UINT32 textPosition,
+	UINT32 textLength,
+	__in_ecount(textLength) DWRITE_LINE_BREAKPOINT const* lineBreakpoints
+	)
+{
+	try
+	{
+		_managed->SetLineBreakpoints(textPosition, textLength, *(LineBreakpoint*)lineBreakpoints);
+	}
+	catch(Exception^)
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::SetBidiLevel(
+	UINT32 textPosition,
+	UINT32 textLength,
+	UINT8 explicitLevel,
+	UINT8 resolvedLevel
+	)
+{
+	try
+	{
+		_managed->SetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel);
+	}
+	catch(Exception^)
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::SetNumberSubstitution(
+	UINT32 textPosition,
+	UINT32 textLength,
+	__notnull IDWriteNumberSubstitution* numberSubstitution
+	)
+{
+	try
+	{
+		NumberSubstitution^ numberSubstitutionManaged = gcnew NumberSubstitution(numberSubstitution);
+		_managed->SetNumberSubstitution(textPosition, textLength, numberSubstitutionManaged);
+	}
+	catch(Exception^)
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
 
 unsigned long STDMETHODCALLTYPE TextAnalysisSourceNative::AddRef()
 {
@@ -144,9 +220,13 @@ HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::QueryInterface(IID const& ri
 	{
 		*ppvObject = static_cast<IDWriteTextAnalysisSource*>(this);
 	}
+	else if(__uuidof(IDWriteTextAnalysisSink) == riid)
+	{
+		*ppvObject = static_cast<IDWriteTextAnalysisSink*>(this);
+	}
 	else if (__uuidof(IUnknown) == riid)
     {
-        *ppvObject = static_cast<IUnknown*>(this);
+        *ppvObject = static_cast<IUnknown*>(static_cast<IDWriteTextAnalysisSource*>(this));
     }
     else
     {

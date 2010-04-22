@@ -20,10 +20,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 		}
 	public:
-		void AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
-		void AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
-		void AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
-		void AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
+		void AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength);
+		void AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength);
+		void AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength);
+		void AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength);
 		//void GetGdiCompatibleGlyphPlacements
 		//void GetGlyphPlacements
 		UInt32 GetGlyphs(
