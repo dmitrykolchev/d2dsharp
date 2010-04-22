@@ -12,7 +12,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 {
 	ref class TextAnalysisSource;
 	ref class TextAnalysisSink;
-
+	
 	public ref class TextAnalyzer: ComWrapper
 	{
 	internal:
@@ -26,7 +26,20 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		void AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
 		//void GetGdiCompatibleGlyphPlacements
 		//void GetGlyphPlacements
-		//void GetGlyphs
+		UInt32 GetGlyphs(
+			String^ textString, 
+			FontFace^ fontFace, 
+			Boolean isSideways, 
+			Boolean isRightToLeft, 
+			ScriptAnalysis scriptAnalysis, 
+			System::Globalization::CultureInfo^ culture, 
+			NumberSubstitution^ numberSubstitution, 
+			array<array<FontFeature>^>^ features,
+			array<UInt16>^ clusterMap,
+			array<ShapingTextProperties>^ textProps, 
+			array<UInt16>^ glyphIndices, 
+			array<ShapingGlyphProperties>^ glyphProps);
+
 	internal:
 		IDWriteTextAnalyzer* GetNative() new 
 		{

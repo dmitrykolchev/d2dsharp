@@ -876,5 +876,68 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	};
 
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct ShapingTextProperties 
+	{
+	private:
+		UINT16 _flags;
+		//UINT16 isShapedAlone  :1;
+		//UINT16 reserved  :15;
+	public:
+		property Boolean IsShapedAlone 
+		{
+			Boolean get() { return (_flags & 1) != 0; }
+		}
+	};
+
+	public enum class ScriptJustify  
+	{
+	  None				= 0,
+	  ArabicBlank		= 1,
+	  Character			= 2,
+	  Reserved1			= 3,
+	  Blank				= 4,
+	  Reserved2			= 5,
+	  Reserved3			= 6,
+	  ArabicNormal		= 7,
+	  ArabicKashida		= 8,
+	  ArabicAlef		= 9,
+	  ArabicHa			= 10,
+	  ArabicRa			= 11,
+	  ArabicBa			= 12,
+	  ArabicBara		= 13,
+	  ArabicSeen		= 14,
+	  ArabicSeenM		= 15 
+	};
+
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct ShapingGlyphProperties 
+	{
+	private:
+		UINT16 _flags;
+		//UINT16 justification  :4;
+		//UINT16 isClusterStart  :1;
+		//UINT16 isDiacritic  :1;
+		//UINT16 isZeroWidthSpace  :1;
+		//UINT16 reserved  :9;
+	public:
+		property ScriptJustify Justification
+		{
+			ScriptJustify get() { return (ScriptJustify)(_flags & 0x0F); }
+		}
+		property Boolean IsClusterStart
+		{
+			Boolean get() { return (_flags & 0x10) != 0; }
+		}
+		property Boolean IsDiacritic
+		{
+			Boolean get() { return (_flags & 0x20) != 0; }
+		}
+		property Boolean IsZeroWidthSpace
+		{
+			Boolean get() { return (_flags & 0x40) != 0; }
+		}
+	};
 
 }}}
