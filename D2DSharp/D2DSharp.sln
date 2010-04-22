@@ -34,9 +34,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.SimpleText
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DirectWrite.HitTesting", "Managed.D2DSharp.DirectWrite.HitTesting\Managed.D2DSharp.DirectWrite.HitTesting.csproj", "{E3AF1316-FD3A-4A46-BB2E-EAD130873A36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DirectWrite.CustomLayout", "Managed.D2DSharp.DirectWrite.CustomLayout\Managed.D2DSharp.DirectWrite.CustomLayout.csproj", "{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -84,6 +86,10 @@ Global
 		SccProjectTopLevelParentUniqueName11 = D2DSharp.sln
 		SccProjectName11 = Managed.D2DSharp.DirectWrite.HitTesting
 		SccLocalPath11 = Managed.D2DSharp.DirectWrite.HitTesting
+		SccProjectUniqueName12 = Managed.D2DSharp.DirectWrite.CustomLayout\\Managed.D2DSharp.DirectWrite.CustomLayout.csproj
+		SccProjectTopLevelParentUniqueName12 = D2DSharp.sln
+		SccProjectName12 = Managed.D2DSharp.DirectWrite.CustomLayout
+		SccLocalPath12 = Managed.D2DSharp.DirectWrite.CustomLayout
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,6 +234,18 @@ Global
 		{E3AF1316-FD3A-4A46-BB2E-EAD130873A36}.Release|Win32.ActiveCfg = Release|x86
 		{E3AF1316-FD3A-4A46-BB2E-EAD130873A36}.Release|x86.ActiveCfg = Release|x86
 		{E3AF1316-FD3A-4A46-BB2E-EAD130873A36}.Release|x86.Build.0 = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|Win32.ActiveCfg = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|x86.ActiveCfg = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Debug|x86.Build.0 = Debug|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|Any CPU.ActiveCfg = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|Win32.ActiveCfg = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|x86.ActiveCfg = Release|x86
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -245,5 +263,6 @@ Global
 		{A7328287-CF48-415F-BD89-3195DE4693E1} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{C9F64325-C1EB-4092-8D0B-7D76884336FB} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{E3AF1316-FD3A-4A46-BB2E-EAD130873A36} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
+		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 	EndGlobalSection
 EndGlobal

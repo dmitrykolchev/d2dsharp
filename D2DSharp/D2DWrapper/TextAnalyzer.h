@@ -10,6 +10,9 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed { namespace Graphics { namespace DirectWrite 
 {
+	ref class TextAnalysisSource;
+	ref class TextAnalysisSink;
+
 	public ref class TextAnalyzer: ComWrapper
 	{
 	internal:
@@ -17,10 +20,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 		}
 	public:
-		//void AnalyzeBidi(ITextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, ITextAnalysisSink^ analysisSink);
-		//void AnalyzeBreakpoints(ITextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, ITextAnalysisSink^ analysisSink);
-		//void AnalyzeNumberSubstitution(ITextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, ITextAnalysisSink^ analysisSink);
-		//void AnalyzeScript(ITextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, ITextAnalysisSink^ analysisSink);
+		void AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
+		void AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
+		void AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
+		void AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 textPosition, UInt32 textLength, TextAnalysisSink^ analysisSink);
 		//void GetGdiCompatibleGlyphPlacements
 		//void GetGlyphPlacements
 		//void GetGlyphs

@@ -9,7 +9,7 @@ using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.Forms;
 
-namespace Managed.D2DSharp.DirectWrite.HitTesting
+namespace Managed.D2DSharp.DirectWrite.CustomLayout
 {
     public partial class MainWindow : Direct2DWindow
     {
@@ -18,6 +18,9 @@ namespace Managed.D2DSharp.DirectWrite.HitTesting
         private static float dpiScaleX;
         private static float dpiScaleY;
         private SolidColorBrush _blackBrush;
+        private TextAnalyzer _textAnalyzer;
+        private MyTextSource _source;
+        private MyTextSink _sink;
 
         static MainWindow()
         {
@@ -37,12 +40,18 @@ namespace Managed.D2DSharp.DirectWrite.HitTesting
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
             float width = ClientSize.Width / dpiScaleX;
             float height = ClientSize.Height / dpiScaleY;
-            this._textLayout = DirectWriteFactory.CreateTextLayout("Click on this text", this._textFormat, width, height);
+            this._textLayout = DirectWriteFactory.CreateTextLayout("Click on this text Click on this text", this._textFormat, width, height);
+            this._textAnalyzer = DirectWriteFactory.CreateTextAnalyzer();
+            this._source = new MyTextSource("Click on this text Click on this text");
+            this._sink = new MyTextSink();
+            this._textAnalyzer.AnalyzeLineBreakpoints(_source, 0, (uint)_source.Text.Length, _sink);
+            this._textAnalyzer.AnalyzeScript(_source, 0, (uint)_source.Text.Length, _sink);
         }
 
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
+            this._textAnalyzer.Dispose();
             this._textLayout.Dispose();
             this._textFormat.Dispose();
         }
@@ -72,22 +81,6 @@ namespace Managed.D2DSharp.DirectWrite.HitTesting
             {
                 this._textLayout.MaxWidth = ClientSize.Width / dpiScaleX;
                 this._textLayout.MaxHeight = ClientSize.Height / dpiScaleY;
-            }
-        }
-
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            base.OnMouseClick(e);
-            bool isTrailingHit;
-            bool isInside;
-            HitTestMetrics hitTestMetrics = this._textLayout.HitTestPoint(e.X, e.Y, out isTrailingHit, out isInside);
-            if (isInside)
-            {
-                bool underline = _textLayout.GetUnderline((int)hitTestMetrics.TextPosition);
-
-                _textLayout.SetUnderline(!underline, new TextRange((int)hitTestMetrics.TextPosition, 1));
-
-                Render();
             }
         }
     }

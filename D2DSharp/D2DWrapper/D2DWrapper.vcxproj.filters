@@ -237,6 +237,9 @@
     <ClInclude Include="TextAnalysisSource.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="TextAnalysisSink.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -312,6 +315,15 @@
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
     <ClCompile Include="InlineObject.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextAnalysisSource.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextAnalysisSink.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextAnalyzer.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>

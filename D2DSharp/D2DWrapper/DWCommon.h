@@ -821,5 +821,60 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	};
 
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct LineBreakpoint 
+	{
+	private:
+		UINT8 _flags;
+		//UINT8 breakConditionBefore  :2;
+		//UINT8 breakConditionAfter  :2;
+		//UINT8 isWhitespace  :1;
+		//UINT8 isSoftHyphen  :1;
+		//UINT8 padding  :2;
+	public:
+		property BreakCondition Before
+		{
+			BreakCondition get() { return (BreakCondition)(_flags & 3); }
+		}
+		property BreakCondition After
+		{
+			BreakCondition get() { return (BreakCondition)((_flags >> 2) & 3); }
+		}
+
+		property Boolean IsWhitespace
+		{
+			Boolean get() { return (_flags & 0x10) != 0; }
+		}
+
+		property Boolean IsSoftHyphen
+		{
+			Boolean get() { return (_flags & 0x10) != 0; }
+		}
+	};
+
+	public enum class ScriptShapes 
+	{
+		DWRITE_SCRIPT_SHAPES_DEFAULT     = 0,
+		DWRITE_SCRIPT_SHAPES_NO_VISUAL   = 1 
+	};
+
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct ScriptAnalysis 
+	{
+	private:
+		UINT16                _script;
+		DWRITE_SCRIPT_SHAPES  _shapes;
+	public:
+		property UInt16 Script 
+		{
+			UInt16 get() { return _script; }
+		}
+		property ScriptShapes Shapes
+		{
+			ScriptShapes get() { return (ScriptShapes)_shapes; }
+		}
+	};
+
 
 }}}

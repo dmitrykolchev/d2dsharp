@@ -71,6 +71,8 @@
 #include "TextAnalyzer.h"
 #include "GdiInterop.h"
 #include "ClientDrawingEffect.h"
+#include "TextAnalysisSource.h"
+#include "TextAnalysisSink.h"
 
 #include "WicCommon.h"
 #include "WicComponentInfo.h"
