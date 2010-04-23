@@ -184,6 +184,11 @@ namespace Managed.Graphics.Forms
             }
         }
 
+        public void Render()
+        {
+            OnPaint(null);
+        }
+
         protected virtual void OnRender(WindowRenderTarget renderTarget)
         {
         }

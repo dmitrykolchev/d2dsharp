@@ -34,12 +34,56 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			}
 		}
 
-		//array<GlyphMetrics>^ GetDesignGlyphMetrics(array<UInt16>^ glyphIndices, Boolean isSideways);
+		property UInt32 Index
+		{
+			UInt32 get()
+			{
+				return GetNative()->GetIndex();
+			}
+		}
+
+		property FontMetrics Metrics
+		{
+			FontMetrics get()
+			{
+				FontMetrics metrics;
+				GetNative()->GetMetrics(
+					(DWRITE_FONT_METRICS*)&metrics);
+				return metrics;
+			}
+		}
+
+		property FontSimulations Simulations
+		{
+			FontSimulations get()
+			{
+				return (FontSimulations)GetNative()->GetSimulations();
+			}
+		}
+
+		property Boolean IsSymbolFont
+		{
+			Boolean get()
+			{
+				return GetNative()->IsSymbolFont() != 0;
+			}
+		}
+
+		property Managed::Graphics::DirectWrite::FontFaceType FontFaceType
+		{
+			Managed::Graphics::DirectWrite::FontFaceType get()
+			{
+				return (Managed::Graphics::DirectWrite::FontFaceType)GetNative()->GetType();
+			}
+		}
+
+
+		array<GlyphMetrics>^ GetDesignGlyphMetrics(array<UInt16>^ glyphIndices, Boolean isSideways);
 		//array<FontFile^>^ GetFiles();
 		//FontMetrics GetGdiCompatibleMetrics(Single emSize, Single pixelsPerDip);
 		//FontMetrics GetGdiCompatibleMetrics(Single emSize, Single pixelsPerDip, Managed::Graphics::Direct2D::Matrix3x2 transform);
 
-		//array<UInt16>^ GetGlyphIndices();
+		array<UInt16>^ GetGlyphIndices(array<UInt32>^ codePoints);
 
 		void GetGlyphRunOutline(Single emSize, array<UInt16>^ glyphIndices, array<Single>^ glyphAdvances, 
 			array<GlyphOffset>^ glyphOffsets, Boolean isSideways, Boolean isRtl, GeometrySink^ geometrySink);

@@ -62,7 +62,10 @@ namespace Managed.D2DSharp.DirectWrite.HitTesting
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             PointF origin = new PointF();
-            renderTarget.DrawTextLayout(origin, this._textLayout, _blackBrush, DrawTextOptions.None);
+            if (this._textLayout != null)
+            {
+                renderTarget.DrawTextLayout(origin, this._textLayout, _blackBrush, DrawTextOptions.None);
+            }
         }
 
         protected override void OnResize(EventArgs e)

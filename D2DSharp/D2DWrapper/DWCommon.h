@@ -487,6 +487,18 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Outline = DWRITE_RENDERING_MODE_OUTLINE 
 	};
 
+	public enum class FontFileType
+	{
+		Unknown = DWRITE_FONT_FILE_TYPE_UNKNOWN,
+		Cff = DWRITE_FONT_FILE_TYPE_CFF,
+		Truetype = DWRITE_FONT_FILE_TYPE_TRUETYPE,
+		TruetypeCollection = DWRITE_FONT_FILE_TYPE_TRUETYPE_COLLECTION,
+		Type1Pfm = DWRITE_FONT_FILE_TYPE_TYPE1_PFM,
+		Type1Pfb = DWRITE_FONT_FILE_TYPE_TYPE1_PFB,
+		Vector = DWRITE_FONT_FILE_TYPE_VECTOR,
+		Bitmap = DWRITE_FONT_FILE_TYPE_BITMAP 
+	};
+
 	public enum class FontFaceType
 	{
 		Cff = DWRITE_FONT_FACE_TYPE_CFF,
@@ -854,8 +866,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 	public enum class ScriptShapes 
 	{
-		DWRITE_SCRIPT_SHAPES_DEFAULT     = 0,
-		DWRITE_SCRIPT_SHAPES_NO_VISUAL   = 1 
+		Default     = 0,
+		NoVisual	= 1 
 	};
 
 
@@ -973,6 +985,18 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		UINT16 underlineThickness;
 		INT16  strikethroughPosition;
 		UINT16 strikethroughThickness;
+	};
+
+	[StructLayout(LayoutKind::Sequential)]
+	public value struct GlyphMetrics 
+	{
+		INT32  leftSideBearing;
+		UINT32 advanceWidth;
+		INT32  rightSideBearing;
+		INT32  topSideBearing;
+		UINT32 advanceHeight;
+		INT32  bottomSideBearing;
+		INT32  verticalOriginY;
 	};
 
 

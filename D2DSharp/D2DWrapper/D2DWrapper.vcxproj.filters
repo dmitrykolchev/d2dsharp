@@ -249,6 +249,9 @@
     <ClInclude Include="FontList.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="FontFileStream.h">
+      <Filter>Header Files\DirectWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -345,6 +348,12 @@
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
     <ClCompile Include="FontList.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFile.cpp">
+      <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFileLoader.cpp">
       <Filter>Source Files\DirectWrite</Filter>
     </ClCompile>
   </ItemGroup>

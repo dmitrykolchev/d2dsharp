@@ -66,6 +66,7 @@
 #include "FontCollectionLoader.h"
 #include "FontFileLoader.h"
 #include "FontFile.h"
+#include "FontFileStream.h"
 #include "RenderingParams.h"
 #include "NumberSubstitution.h"
 #include "TextAnalyzer.h"

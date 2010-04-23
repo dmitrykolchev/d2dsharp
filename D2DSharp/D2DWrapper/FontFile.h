@@ -16,7 +16,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		FontFile(IDWriteFontFile* native): ComWrapper(native)
 		{
 		}
-
+	public:
+		Boolean Analyze([Out]FontFileType% fontFileType, [Out]FontFaceType% fontFaceType, [Out]UInt32% numberOfFaces);
+		FontFileLoader^ GetLoader();
+		array<Byte>^ GetReferenceKey();
 	internal:
 		IDWriteFontFile* GetNative() new 
 		{

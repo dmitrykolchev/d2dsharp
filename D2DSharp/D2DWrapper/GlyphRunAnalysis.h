@@ -16,7 +16,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		GlyphRunAnalysis(IDWriteGlyphRunAnalysis* native): ComWrapper(native)
 		{
 		}
-
+	public:
+		//TODO: CreateAlphaTexture
+		//TODO: GetAlphaBlendParams
+		//TODO: GetAlphaTextureBounds
 	internal:
 		IDWriteGlyphRunAnalysis* GetNative() new 
 		{

@@ -16,7 +16,12 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		GdiInterop(IDWriteGdiInterop* native): ComWrapper(native)
 		{
 		}
-
+	public:
+		// TODO: ConvertFontFaceToLOGFONT
+		// TODO: ConvertFontToLOGFONT
+		// TODO: CreateBitmapRenderTarget
+		// TODO: CreateFontFaceFromHdc
+		// TODO: CreateFontFromLOGFONT
 	internal:
 		IDWriteGdiInterop* GetNative() new 
 		{

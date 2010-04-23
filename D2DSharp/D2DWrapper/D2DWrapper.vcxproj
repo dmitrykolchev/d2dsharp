@@ -104,6 +104,7 @@
     <ClInclude Include="FontFamily.h" />
     <ClInclude Include="FontFile.h" />
     <ClInclude Include="FontFileLoader.h" />
+    <ClInclude Include="FontFileStream.h" />
     <ClInclude Include="FontList.h" />
     <ClInclude Include="GdiInterop.h" />
     <ClInclude Include="Geometry.h" />
@@ -167,6 +168,8 @@
     <ClCompile Include="FontCollection.cpp" />
     <ClCompile Include="FontFace.cpp" />
     <ClCompile Include="FontFamily.cpp" />
+    <ClCompile Include="FontFile.cpp" />
+    <ClCompile Include="FontFileLoader.cpp" />
     <ClCompile Include="FontList.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometrySink.cpp" />
