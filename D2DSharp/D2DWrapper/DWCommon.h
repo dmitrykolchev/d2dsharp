@@ -396,11 +396,20 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Single _height;
 		Single _baseLine;
 	public:
+		initonly static LineSpacing Default = LineSpacing(LineSpacingMethod::Default, 0, 0);
+		
 		LineSpacing(LineSpacingMethod lineSpacingMethod, Single height, Single baseLine)
 		{
 			_lineSpacingMethod = lineSpacingMethod;
 			_height = height;
 			_baseLine = baseLine;
+		}
+
+		LineSpacing(Single height)
+		{
+			_lineSpacingMethod = LineSpacingMethod::Uniform;
+			_height = height;
+			_baseLine = height * 0.8f;
 		}
 
 		property LineSpacingMethod Method

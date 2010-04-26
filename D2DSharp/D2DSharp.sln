@@ -40,9 +40,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DirectWrit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DirectWrite.TextDialog", "Managed.D2DSharp.DirectWrite.TextDialog\Managed.D2DSharp.DirectWrite.TextDialog.csproj", "{E137B7C3-5DC7-43B9-B970-E2F6B3A15805}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DirectWrite.CustomFont", "Managed.D2DSharp.DirectWrite.CustomFont\Managed.D2DSharp.DirectWrite.CustomFont.csproj", "{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -102,6 +104,10 @@ Global
 		SccProjectTopLevelParentUniqueName14 = D2DSharp.sln
 		SccProjectName14 = Managed.D2DSharp.DirectWrite.TextDialog
 		SccLocalPath14 = Managed.D2DSharp.DirectWrite.TextDialog
+		SccProjectUniqueName15 = Managed.D2DSharp.DirectWrite.CustomFont\\Managed.D2DSharp.DirectWrite.CustomFont.csproj
+		SccProjectTopLevelParentUniqueName15 = D2DSharp.sln
+		SccProjectName15 = Managed.D2DSharp.DirectWrite.CustomFont
+		SccLocalPath15 = Managed.D2DSharp.DirectWrite.CustomFont
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -282,6 +288,18 @@ Global
 		{E137B7C3-5DC7-43B9-B970-E2F6B3A15805}.Release|Win32.ActiveCfg = Release|x86
 		{E137B7C3-5DC7-43B9-B970-E2F6B3A15805}.Release|x86.ActiveCfg = Release|x86
 		{E137B7C3-5DC7-43B9-B970-E2F6B3A15805}.Release|x86.Build.0 = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|Win32.ActiveCfg = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|x86.ActiveCfg = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Debug|x86.Build.0 = Debug|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|Any CPU.ActiveCfg = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|Win32.ActiveCfg = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|x86.ActiveCfg = Release|x86
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,5 +320,6 @@ Global
 		{B7EE3549-C2E4-4A87-AFAF-B0593CE6F0E3} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{69C8FECE-C2A7-4521-9E3C-523ADA672C44} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 		{E137B7C3-5DC7-43B9-B970-E2F6B3A15805} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
+		{B2FFD123-6E0C-4FA9-A1BE-7BED73D0C7BE} = {FA743D56-B1D7-4CA4-A4CD-60DCE2C8A184}
 	EndGlobalSection
 EndGlobal
