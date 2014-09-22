@@ -25,7 +25,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 			int get()
 			{
 				UINT count;
-				ComUtils::CheckResult(GetNative()->GetFrameCount(&count));
+				ComUtils::CheckResult(GetNative<IWICBitmapDecoder>()->GetFrameCount(&count));
 				return (int)count;
 			}
 		}
@@ -33,13 +33,8 @@ namespace Managed { namespace Graphics { namespace Imaging
 		WicBitmapFrameDecode^ GetFrame(int index)
 		{
 			IWICBitmapFrameDecode* frame;
-			ComUtils::CheckResult(GetNative()->GetFrame((UINT)index, &frame));
+			ComUtils::CheckResult(GetNative<IWICBitmapDecoder>()->GetFrame((UINT) index, &frame));
 			return gcnew WicBitmapFrameDecode(frame);
-		}
-	internal:
-		IWICBitmapDecoder* GetNative()
-		{
-			return (IWICBitmapDecoder*)ComWrapper::GetNative();
 		}
 	};
 }}}

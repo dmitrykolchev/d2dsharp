@@ -21,6 +21,13 @@ namespace Managed { namespace Graphics { namespace Imaging
 		Byte A;
 	};
 
+	public enum class BitmapEncoderCacheOption 
+	{
+		InMemory		= 0x00000000,
+		TempFile		= 0x00000001,
+		NoCache			= 0x00000002 
+	};
+
 	public enum class BitmapCreateCacheOption 
 	{
 		NoCache         = 0x00000000,

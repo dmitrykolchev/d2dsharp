@@ -74,11 +74,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			FLOAT get()
 			{
-				return GetNative()->GetOpacity();
+				return GetNative<ID2D1Brush>()->GetOpacity();
 			}
 			void set(FLOAT value)
 			{
-				GetNative()->SetOpacity(value);
+				GetNative<ID2D1Brush>()->SetOpacity(value);
 			}
 		}
 
@@ -87,18 +87,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Matrix3x2 get()
 			{
 				Matrix3x2 m;
-				GetNative()->GetTransform(reinterpret_cast<D2D1_MATRIX_3X2_F*>(&m));
+				GetNative<ID2D1Brush>()->GetTransform(reinterpret_cast<D2D1_MATRIX_3X2_F*>(&m));
 				return m;
 			}
 			void set(Matrix3x2 value)
 			{
-				GetNative()->SetTransform((D2D1_MATRIX_3X2_F*)&value);
+				GetNative<ID2D1Brush>()->SetTransform((D2D1_MATRIX_3X2_F*) &value);
 			}
-		}
-	internal:
-		ID2D1Brush* GetNative() new
-		{
-			return (ID2D1Brush*)D2DResource::GetNative();
 		}
 	};
 }}}

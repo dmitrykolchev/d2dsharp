@@ -9,7 +9,7 @@ FontFileStream^ FontFileLoader::CreateStreamFromKey(array<Byte>^ fontFileReferen
 	pin_ptr<Byte> pKey = &fontFileReferenceKey[0];
 
 	ComUtils::CheckResult(
-		GetNative()->CreateStreamFromKey(
+		GetNative<IDWriteFontFileLoader>()->CreateStreamFromKey(
 			pKey,
 			fontFileReferenceKey->Length,
 			&stream));

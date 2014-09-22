@@ -15,7 +15,7 @@ LocalizedStrings^ FontFamily::FamilyNames::get()
 	IDWriteLocalizedStrings* names;
 
 	ComUtils::CheckResult(
-		GetNative()->GetFamilyNames(
+		GetNative<IDWriteFontFamily>()->GetFamilyNames(
 			&names));
 	return gcnew LocalizedStrings(names);
 }
@@ -25,7 +25,7 @@ Font^ FontFamily::GetFirstMatchingFont(FontWeight weight, FontStretch stretch, F
 	IDWriteFont* font;
 
 	ComUtils::CheckResult(
-		GetNative()->GetFirstMatchingFont(
+		GetNative<IDWriteFontFamily>()->GetFirstMatchingFont(
 			(DWRITE_FONT_WEIGHT)weight,
 			(DWRITE_FONT_STRETCH)stretch,
 			(DWRITE_FONT_STYLE)style,
@@ -39,7 +39,7 @@ FontList^ FontFamily::GetMatchingFonts(FontWeight weight, FontStretch stretch, F
 	IDWriteFontList* fonts;
 
 	ComUtils::CheckResult(
-		GetNative()->GetMatchingFonts(
+		GetNative<IDWriteFontFamily>()->GetMatchingFonts(
 			(DWRITE_FONT_WEIGHT)weight,
 			(DWRITE_FONT_STRETCH)stretch,
 			(DWRITE_FONT_STYLE)style,

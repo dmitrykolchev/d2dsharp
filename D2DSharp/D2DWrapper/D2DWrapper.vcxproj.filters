@@ -252,6 +252,30 @@
     <ClInclude Include="FontFileStream.h">
       <Filter>Header Files\DirectWrite</Filter>
     </ClInclude>
+    <ClInclude Include="WicGuids.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapEncoder.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapFrameEncode.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicColorContext.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapEncoderInfo.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicBitmapCodecInfo.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicMetadataQueryReader.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WicMetadataQueryWriter.h">
+      <Filter>Header Files\Imaging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -355,6 +379,18 @@
     </ClCompile>
     <ClCompile Include="FontFileLoader.cpp">
       <Filter>Source Files\DirectWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="WicMetadataQueryReader.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicColorContext.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicBitmapCodecInfo.cpp">
+      <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="WicBitmapEncoder.cpp">
+      <Filter>Source Files\Imaging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

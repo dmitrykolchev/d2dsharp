@@ -98,12 +98,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			Managed::Graphics::Direct2D::AntialiasMode get()
 			{
-				D2D1_ANTIALIAS_MODE mode = GetNative()->GetAntialiasMode();
+				D2D1_ANTIALIAS_MODE mode = GetNative<ID2D1RenderTarget>()->GetAntialiasMode();
 				return (Managed::Graphics::Direct2D::AntialiasMode)mode;
 			}
 			void set(Managed::Graphics::Direct2D::AntialiasMode value)
 			{
-				GetNative()->SetAntialiasMode((D2D1_ANTIALIAS_MODE)value);
+				GetNative<ID2D1RenderTarget>()->SetAntialiasMode((D2D1_ANTIALIAS_MODE) value);
 			}
 		}
 
@@ -111,12 +111,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			Managed::Graphics::Direct2D::TextAntialiasMode get()
 			{
-				D2D1_TEXT_ANTIALIAS_MODE mode = GetNative()->GetTextAntialiasMode();
+				D2D1_TEXT_ANTIALIAS_MODE mode = GetNative<ID2D1RenderTarget>()->GetTextAntialiasMode();
 				return (Managed::Graphics::Direct2D::TextAntialiasMode)mode;
 			}
 			void set(Managed::Graphics::Direct2D::TextAntialiasMode value)
 			{
-				GetNative()->SetTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE)value);
+				GetNative<ID2D1RenderTarget>()->SetTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE) value);
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			Managed::Graphics::Direct2D::PixelFormat get()
 			{
-				return Managed::Graphics::Direct2D::PixelFormat(GetNative()->GetPixelFormat()); 
+				return Managed::Graphics::Direct2D::PixelFormat(GetNative<ID2D1RenderTarget>()->GetPixelFormat());
 			}
 		}
 
@@ -132,7 +132,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			SizeU get()
 			{
-				return SizeU(GetNative()->GetPixelSize());
+				return SizeU(GetNative<ID2D1RenderTarget>()->GetPixelSize());
 			}
 		}
 
@@ -140,13 +140,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			SizeF get()
 			{
-				return SizeF(GetNative()->GetSize());
+				return SizeF(GetNative<ID2D1RenderTarget>()->GetSize());
 			}
 		}
 
 		Boolean IsSupported(RenderTargetProperties renderTargetProperties)
 		{
-			return GetNative()->IsSupported((D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties) ? true : false;
+			return GetNative<ID2D1RenderTarget>()->IsSupported((D2D1_RENDER_TARGET_PROPERTIES *) &renderTargetProperties) ? true : false;
 		}
 
 		property Matrix3x2 Transform
@@ -154,12 +154,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Matrix3x2 get()
 			{
 				Matrix3x2 transform;
-				GetNative()->GetTransform((D2D1_MATRIX_3X2_F*)&transform);
+				GetNative<ID2D1RenderTarget>()->GetTransform((D2D1_MATRIX_3X2_F*) &transform);
 				return transform;
 			}
 			void set(Matrix3x2 value)
 			{
-				GetNative()->SetTransform((D2D1_MATRIX_3X2_F*)&value);
+				GetNative<ID2D1RenderTarget>()->SetTransform((D2D1_MATRIX_3X2_F*) &value);
 			}
 		}
 
@@ -169,12 +169,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			{
 				FLOAT dpiX;
 				FLOAT dpiY;
-				GetNative()->GetDpi(&dpiX, &dpiY);
+				GetNative<ID2D1RenderTarget>()->GetDpi(&dpiX, &dpiY);
 				return dpiX;
 			}
 			void set(FLOAT value)
 			{
-				GetNative()->SetDpi(value, DpiY);
+				GetNative<ID2D1RenderTarget>()->SetDpi(value, DpiY);
 			}
 		}
 		property FLOAT DpiY
@@ -183,12 +183,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			{
 				FLOAT dpiX;
 				FLOAT dpiY;
-				GetNative()->GetDpi(&dpiX, &dpiY);
+				GetNative<ID2D1RenderTarget>()->GetDpi(&dpiX, &dpiY);
 				return dpiY;
 			}
 			void set(FLOAT value)
 			{
-				GetNative()->SetDpi(DpiX, value);
+				GetNative<ID2D1RenderTarget>()->SetDpi(DpiX, value);
 			}
 		}
 
@@ -196,23 +196,27 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			UInt32 get()
 			{
-				return (UInt32)GetNative()->GetMaximumBitmapSize();
+				return (UInt32) GetNative<ID2D1RenderTarget>()->GetMaximumBitmapSize();
 			}
 		}
 
 		void BeginDraw()
 		{
-			GetNative()->BeginDraw();
+			GetNative<ID2D1RenderTarget>()->BeginDraw();
 		}
 
-		void EndDraw()
+		Boolean EndDraw()
 		{
-			ComUtils::CheckResult(GetNative()->EndDraw());
+			HRESULT hr = GetNative<ID2D1RenderTarget>()->EndDraw();
+			if (hr == D2DERR_RECREATE_TARGET)
+				return false;
+			ComUtils::CheckResult(hr);
+			return true;
 		}
 
 		void Clear(Color color)
 		{
-			GetNative()->Clear(reinterpret_cast<D2D_COLOR_F*>(&color));
+			GetNative<ID2D1RenderTarget>()->Clear(reinterpret_cast<D2D_COLOR_F*>(&color));
 		}
 
 		Bitmap^ CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties bitmapProperties);
@@ -265,17 +269,17 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		
 		void PopLayer()
 		{
-			GetNative()->PopLayer();
+			GetNative<ID2D1RenderTarget>()->PopLayer();
 		}
 
 		void PushAxisAlignedClip(RectF clipRect, Managed::Graphics::Direct2D::AntialiasMode antialiasMode)
 		{
-			GetNative()->PushAxisAlignedClip((D2D1_RECT_F *)&clipRect, (D2D1_ANTIALIAS_MODE)antialiasMode);
+			GetNative<ID2D1RenderTarget>()->PushAxisAlignedClip((D2D1_RECT_F *) &clipRect, (D2D1_ANTIALIAS_MODE) antialiasMode);
 		}
 
 		void PopAxisAlignedClip()
 		{
-			GetNative()->PopAxisAlignedClip();
+			GetNative<ID2D1RenderTarget>()->PopAxisAlignedClip();
 		}
 
 		void DrawLine(Brush^ brush, FLOAT strokeWidth, StrokeStyle^ style, PointF p0, PointF p1);
@@ -306,10 +310,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void DrawBitmap(Bitmap^ bitmap, RectF dstRect, Single opacity, BitmapInterpolationMode interpolationMode, RectF srcRect);
 		void DrawBitmap(Bitmap^ bitmap, RectF dstRect, Single opacity, BitmapInterpolationMode interpolationMode);
-	internal:
-		ID2D1RenderTarget* GetNative() new
-		{
-			return (ID2D1RenderTarget*)D2DResource::GetNative();
-		}
 	};
 }}}

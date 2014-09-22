@@ -26,18 +26,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		void AddTriangles(array<Triangle>^ triangles)
 		{
 			pin_ptr<Triangle> p = &triangles[0];
-			GetNative()->AddTriangles((D2D1_TRIANGLE *)p, triangles->Length);
+			GetNative<ID2D1TessellationSink>()->AddTriangles((D2D1_TRIANGLE *) p, triangles->Length);
 		}
 
 		void Close()
 		{
-			ComUtils::CheckResult(GetNative()->Close());
-		}
-
-	internal:
-		ID2D1TessellationSink *GetNative() new 
-		{
-			return (ID2D1TessellationSink *)ComWrapper::GetNative();
+			ComUtils::CheckResult(GetNative<ID2D1TessellationSink>()->Close());
 		}
 	};
 }}}

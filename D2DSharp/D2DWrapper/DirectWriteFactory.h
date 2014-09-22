@@ -121,10 +121,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Typography^ CreateTypography();
 
 		static void GetDpiScale([Out]Single% dpiScaleX, [Out]Single% dpiScaleY);
-	internal:
-		IDWriteFactory* GetNative() new
-		{
-			return (IDWriteFactory*)ComWrapper::GetNative();
-		}
 	};
 }}}

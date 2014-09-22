@@ -29,29 +29,29 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Managed::Graphics::DirectWrite::FlowDirection get() 
 			{ 
-				return (Managed::Graphics::DirectWrite::FlowDirection)GetNative()->GetFlowDirection(); 
+				return (Managed::Graphics::DirectWrite::FlowDirection)GetNative<IDWriteTextFormat>()->GetFlowDirection();
 			}
 			void set(Managed::Graphics::DirectWrite::FlowDirection value) 
 			{ 
-				GetNative()->SetFlowDirection((DWRITE_FLOW_DIRECTION) value); 
+				GetNative<IDWriteTextFormat>()->SetFlowDirection((DWRITE_FLOW_DIRECTION) value);
 			}
 		}
 
 		property FLOAT IncrementalTabStop
 		{
-			FLOAT get() { return GetNative()->GetIncrementalTabStop(); }
-			void set(FLOAT value) { GetNative()->SetIncrementalTabStop(value); }
+			FLOAT get() { return GetNative<IDWriteTextFormat>()->GetIncrementalTabStop(); }
+			void set(FLOAT value) { GetNative<IDWriteTextFormat>()->SetIncrementalTabStop(value); }
 		}
 
 		property Managed::Graphics::DirectWrite::ParagraphAlignment ParagraphAlignment
 		{
 			Managed::Graphics::DirectWrite::ParagraphAlignment get() 
 			{ 
-				return (Managed::Graphics::DirectWrite::ParagraphAlignment)GetNative()->GetParagraphAlignment(); 
+				return (Managed::Graphics::DirectWrite::ParagraphAlignment)GetNative<IDWriteTextFormat>()->GetParagraphAlignment();
 			}
 			void set(Managed::Graphics::DirectWrite::ParagraphAlignment value) 
 			{ 
-				GetNative()->SetParagraphAlignment((DWRITE_PARAGRAPH_ALIGNMENT) value); 
+				GetNative<IDWriteTextFormat>()->SetParagraphAlignment((DWRITE_PARAGRAPH_ALIGNMENT) value);
 			}
 		}
 
@@ -59,11 +59,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Managed::Graphics::DirectWrite::ReadingDirection get() 
 			{ 
-				return (Managed::Graphics::DirectWrite::ReadingDirection)GetNative()->GetReadingDirection(); 
+				return (Managed::Graphics::DirectWrite::ReadingDirection)GetNative<IDWriteTextFormat>()->GetReadingDirection();
 			}
 			void set(Managed::Graphics::DirectWrite::ReadingDirection value) 
 			{ 
-				GetNative()->SetReadingDirection((DWRITE_READING_DIRECTION) value); 
+				GetNative<IDWriteTextFormat>()->SetReadingDirection((DWRITE_READING_DIRECTION) value);
 			}
 		}
 
@@ -71,11 +71,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Managed::Graphics::DirectWrite::TextAlignment get() 
 			{ 
-				return (Managed::Graphics::DirectWrite::TextAlignment)GetNative()->GetTextAlignment(); 
+				return (Managed::Graphics::DirectWrite::TextAlignment)GetNative<IDWriteTextFormat>()->GetTextAlignment();
 			}
 			void set(Managed::Graphics::DirectWrite::TextAlignment value) 
 			{ 
-				GetNative()->SetTextAlignment((DWRITE_TEXT_ALIGNMENT) value); 
+				GetNative<IDWriteTextFormat>()->SetTextAlignment((DWRITE_TEXT_ALIGNMENT) value);
 			}
 		}
 
@@ -130,12 +130,6 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Managed::Graphics::DirectWrite::WordWrapping get();
 			void set(Managed::Graphics::DirectWrite::WordWrapping value);
-		}
-
-	internal:
-		IDWriteTextFormat* GetNative() new
-		{
-			return (IDWriteTextFormat*)ComWrapper::GetNative();
 		}
 	};
 }}}

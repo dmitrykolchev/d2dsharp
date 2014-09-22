@@ -15,10 +15,6 @@ namespace Managed { namespace Graphics { namespace Imaging
 		WicComponentInfo(IWICComponentInfo* native): ComWrapper(native)
 		{
 		}
-	internal:
-		IWICComponentInfo* GetNative()
-		{
-			return (IWICComponentInfo*)ComWrapper::GetNative();
-		}
+	public:
 	};
 }}}

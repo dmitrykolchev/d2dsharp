@@ -20,10 +20,5 @@ namespace Managed { namespace Graphics { namespace Imaging
 		{
 		}
 	public:
-	internal:
-		IWICBitmapFrameDecode* GetNative()
-		{
-			return (IWICBitmapFrameDecode*)WicBitmapSource::GetNative();
-		}
 	};
 }}}

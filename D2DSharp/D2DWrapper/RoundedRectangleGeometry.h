@@ -24,14 +24,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Managed::Graphics::Direct2D::RoundedRect get()
 			{
 				Managed::Graphics::Direct2D::RoundedRect rect;
-				GetNative()->GetRoundedRect((D2D1_ROUNDED_RECT *)&rect);
+				GetNative<ID2D1RoundedRectangleGeometry>()->GetRoundedRect((D2D1_ROUNDED_RECT *) &rect);
 				return rect;
 			}
-		}
-	private:
-		ID2D1RoundedRectangleGeometry *GetNative()
-		{
-			return (ID2D1RoundedRectangleGeometry *)Geometry::GetNative();
 		}
 	};
 }}}

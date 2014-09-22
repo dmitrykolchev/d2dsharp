@@ -23,6 +23,7 @@ using namespace System::Runtime::InteropServices;
 namespace Managed { namespace Graphics { namespace Imaging
 {
 	ref class WicBitmapDecoder;
+	ref class WicBitmapEncoder;
 	ref class WicStream;
 
 	public ref class WicImagingFactory: ComWrapper
@@ -46,22 +47,22 @@ namespace Managed { namespace Graphics { namespace Imaging
 		WicBitmap^ CreateBitmap(int width, int height, Guid pixelFormat, BitmapCreateCacheOption option)
 		{
 			IWICBitmap *bitmap;
-			ComUtils::CheckResult(GetNative()->CreateBitmap(width, height, *(GUID*)&pixelFormat, (WICBitmapCreateCacheOption)option, &bitmap));
+			ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateBitmap(width, height, *(GUID*)&pixelFormat, (WICBitmapCreateCacheOption)option, &bitmap));
 			return gcnew WicBitmap(bitmap);
 		}
+		
 		WicBitmapDecoder^ CreateDecoder(String^ fileName, Guid vendor, DesiredAccess desiredAccess, DecodeOptions options);
 		WicBitmapDecoder^ CreateDecoder(WicStream^ stream, Guid vendor, DecodeOptions options);
+
+		WicBitmapEncoder^ CreateEncoder(Guid containerFormat);
+		WicBitmapEncoder^ CreateEncoder(Guid containerFormat, Guid vendor);
+
 		WicFormatConverter^ CreateFormatConverter()
 		{
 			IWICFormatConverter* converter;
-			ComUtils::CheckResult(GetNative()->CreateFormatConverter(&converter));
+			ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateFormatConverter(&converter));
 			return gcnew WicFormatConverter(converter);
 		}
 		WicStream^ CreateStream();
-	internal:
-		IWICImagingFactory* GetNative() new
-		{
-			return (IWICImagingFactory*)ComWrapper::GetNative();
-		}
 	};
 }}}

@@ -35,10 +35,5 @@ namespace Managed { namespace Graphics { namespace Imaging
 		WicBitmapLock^ Lock(D2D::RectU lockRect, WicBitmapLockFlags flags);
 		void SetPalette(WicPalette^ palette);
 		void SetResolution(Double dpiX, Double dpiY);
-	internal:
-		IWICBitmap* GetNative()
-		{
-			return (IWICBitmap*)WicBitmapSource::GetNative();
-		}
 	};
 }}}

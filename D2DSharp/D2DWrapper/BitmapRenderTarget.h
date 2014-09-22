@@ -29,14 +29,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Managed::Graphics::Direct2D::Bitmap^ get()
 			{
 				ID2D1Bitmap *bitmap;
-				ComUtils::CheckResult(GetNative()->GetBitmap(&bitmap));
+				ComUtils::CheckResult(GetNative<ID2D1BitmapRenderTarget>()->GetBitmap(&bitmap));
 				return gcnew Managed::Graphics::Direct2D::Bitmap(bitmap);
 			}
-		}
-	internal:
-		ID2D1BitmapRenderTarget *GetNative() new
-		{
-			return (ID2D1BitmapRenderTarget *)RenderTarget::GetNative();
 		}
 	};
 }}}

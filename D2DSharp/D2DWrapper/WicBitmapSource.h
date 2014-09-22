@@ -29,14 +29,14 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Guid get()
 			{
 				Guid guid;
-				ComUtils::CheckResult(GetNative()->GetPixelFormat((WICPixelFormatGUID*)&guid));
+				ComUtils::CheckResult(GetNative<IWICBitmapSource>()->GetPixelFormat((WICPixelFormatGUID*) &guid));
 				return guid;
 			}
 		}
 		void GetResolution([OutAttribute()]Double% dpiX, [OutAttribute()]Double% dpiY)
 		{
 			double x, y;
-			ComUtils::CheckResult(GetNative()->GetResolution((double*)&x, (double*)&y));
+			ComUtils::CheckResult(GetNative<IWICBitmapSource>()->GetResolution((double*) &x, (double*) &y));
 			dpiX = x;
 			dpiY = y;
 		}
@@ -45,15 +45,10 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Managed::Graphics::Direct2D::SizeU get()
 			{
 				UINT32 width, height;
-				ComUtils::CheckResult(GetNative()->GetSize(&width, &height));
+				ComUtils::CheckResult(GetNative<IWICBitmapSource>()->GetSize(&width, &height));
 				return Managed::Graphics::Direct2D::SizeU(width, height);
 			}
 		}
 
-	internal:
-		IWICBitmapSource* GetNative()
-		{
-			return (IWICBitmapSource*)ComWrapper::GetNative();
-		}
 	};
 }}}

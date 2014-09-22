@@ -18,12 +18,12 @@ void Geometry::CombineWithGeometry(
 		FLOAT flatteningTolerance, 
 		SimplifiedGeometrySink^ geometrySink)
 {
-	ComUtils::CheckResult(GetNative()->CombineWithGeometry(
-		inputGeometry->GetNative(),
+	ComUtils::CheckResult(GetNative<ID2D1Geometry>()->CombineWithGeometry(
+		inputGeometry->GetNative<ID2D1Geometry>(),
 		(D2D1_COMBINE_MODE)combineMode,
 		(D2D1_MATRIX_3X2_F *)&inputGeometryTransform,
 		flatteningTolerance,
-		geometrySink->GetNative()));
+		geometrySink->GetNative<ID2D1SimplifiedGeometrySink>()));
 }
 
 void Geometry::CombineWithGeometry(
@@ -36,8 +36,8 @@ void Geometry::CombineWithGeometry(
 	CustomSimplifiedGeometrySink *pSink = new CustomSimplifiedGeometrySink(customGeometrySink);
 	try
 	{
-		ComUtils::CheckResult(GetNative()->CombineWithGeometry(
-			inputGeometry->GetNative(),
+		ComUtils::CheckResult(GetNative<ID2D1Geometry>()->CombineWithGeometry(
+			inputGeometry->GetNative<ID2D1Geometry>(),
 			(D2D1_COMBINE_MODE)combineMode,
 			(D2D1_MATRIX_3X2_F *)&inputGeometryTransform,
 			flatteningTolerance,
@@ -55,8 +55,8 @@ GeometryRelation Geometry::CompareWithGeometry(
 		FLOAT flatteningTolerance)
 {
 	D2D1_GEOMETRY_RELATION relation;
-	ComUtils::CheckResult(GetNative()->CompareWithGeometry(
-		inputGeometry->GetNative(),
+	ComUtils::CheckResult(GetNative<ID2D1Geometry>()->CompareWithGeometry(
+		inputGeometry->GetNative<ID2D1Geometry>(),
 		(D2D1_MATRIX_3X2_F *)&inputGeometryTransform,
 		flatteningTolerance,
 		&relation));
@@ -71,7 +71,7 @@ void Geometry::Outline(
 	CustomSimplifiedGeometrySink *pSink = new CustomSimplifiedGeometrySink(customGeometrySink);
 	try
 	{
-		ComUtils::CheckResult(GetNative()->Outline(
+		ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Outline(
 			(D2D1_MATRIX_3X2_F *)&worldTransform,
 			flatteningTolerance,
 			static_cast<ID2D1SimplifiedGeometrySink*>(pSink)));
@@ -91,7 +91,7 @@ void Geometry::Simplify(
 	CustomSimplifiedGeometrySink *pSink = new CustomSimplifiedGeometrySink(customGeometrySink);
 	try
 	{
-		ComUtils::CheckResult(GetNative()->Simplify(
+		ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Simplify(
 			(D2D1_GEOMETRY_SIMPLIFICATION_OPTION)simplificationOptions,
 			(D2D1_MATRIX_3X2_F *)&worldTransform,
 			flatteningTolerance,
@@ -113,9 +113,9 @@ void Geometry::Widen(
 	CustomSimplifiedGeometrySink *pSink = new CustomSimplifiedGeometrySink(customGeometrySink);
 	try
 	{
-		ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
+		ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative<ID2D1StrokeStyle>();
 
-		ComUtils::CheckResult(GetNative()->Widen(
+		ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Widen(
 			strokeWidth,
 			pStrokeStyle,
 			(D2D1_MATRIX_3X2_F *)&worldTransform,

@@ -274,28 +274,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	};
 
 
-	public ref class Direct2DFactory
+	public ref class Direct2DFactory: ComWrapper
 	{
 	internal:
-		Direct2DFactory(ID2D1Factory* factory)
+		Direct2DFactory(ID2D1Factory* factory) : ComWrapper(factory)
 		{
-			_factory = factory;
 		}
 
-	public:
-		~Direct2DFactory()
-		{
-			this->!Direct2DFactory();
-		}
-
-		!Direct2DFactory()
-		{
-			if(_factory)
-			{
-				_factory->Release();
-				_factory = NULL;
-			}
-		}
 	public:
 		static Direct2DFactory^ CreateFactory(FactoryType factoryType, DebugLevel debugLevel);
 
@@ -305,6 +290,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			RenderTargetProperties renderTargetProperties);
 		
 		RenderTarget^ CreateWicBitmapRenderTarget(WicBitmap^ bitmap, RenderTargetProperties renderTargetProperties);
+
 		DCRenderTarget^ CreateDCRenderTarget(RenderTargetProperties renderTargetProperties);
 
 		StrokeStyle^ CreateStrokeStyle(StrokeStyleProperties properties, array<FLOAT>^ dashes);
@@ -317,22 +303,15 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void ReloadSystemMetrics()
 		{
-			ComUtils::CheckResult(_factory->ReloadSystemMetrics());
+			ComUtils::CheckResult(GetNative<ID2D1Factory>()->ReloadSystemMetrics());
 		}
 		void GetDesktopDpi([Out]Single% dpiX, [Out]Single% dpiY)
 		{
 			FLOAT x;
 			FLOAT y;
-			_factory->GetDesktopDpi(&x, &y);
+			GetNative<ID2D1Factory>()->GetDesktopDpi(&x, &y);
 			dpiX = x;
 			dpiY = y;
 		}
-	internal:
-		inline ID2D1Factory* GetNative()
-		{
-			return _factory;
-		}
-	private: 
-		ID2D1Factory* _factory;
 	};
 }}}

@@ -17,10 +17,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 		}
 
-	internal:
-		IDWriteFontCollectionLoader* GetNative() new 
-		{
-			return (IDWriteFontCollectionLoader*)ComWrapper::GetNative();
-		}
 	};
 }}}

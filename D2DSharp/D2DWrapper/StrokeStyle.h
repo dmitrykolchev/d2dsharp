@@ -72,11 +72,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			D2DResource(native)
 		{
 		}
-
-	internal:
-		ID2D1StrokeStyle* GetNative() new
-		{
-			return (ID2D1StrokeStyle*)D2DResource::GetNative();
-		}
 	};
 }}}

@@ -16,23 +16,23 @@ namespace Managed { namespace Graphics { namespace Direct2D
 {
 	void Bitmap::CopyFromBitmap(PointU destPoint, Bitmap^ bitmap, RectU srcRect)
 	{
-		ComUtils::CheckResult(GetNative()->CopyFromBitmap(
+		ComUtils::CheckResult(GetNative<ID2D1Bitmap>()->CopyFromBitmap(
 			(D2D1_POINT_2U *)&destPoint,
-			bitmap->GetNative(),
+			bitmap->GetNative<ID2D1Bitmap>(),
 			(D2D1_RECT_U *)&srcRect));
 	}
 
 	void Bitmap::CopyFromRenderTarget(PointU destPoint, RenderTarget^ renderTarget, RectU srcRect)
 	{
-		ComUtils::CheckResult(GetNative()->CopyFromRenderTarget(
+		ComUtils::CheckResult(GetNative<ID2D1Bitmap>()->CopyFromRenderTarget(
 			(D2D1_POINT_2U *)&destPoint,
-			renderTarget->GetNative(),
+			renderTarget->GetNative<ID2D1RenderTarget>(),
 			(D2D1_RECT_U *)&srcRect));
 	}
 
 	void Bitmap::CopyFromMemory(RectU dstRect, IntPtr srcData, UInt32 pitch)
 	{
-		ComUtils::CheckResult(GetNative()->CopyFromMemory(
+		ComUtils::CheckResult(GetNative<ID2D1Bitmap>()->CopyFromMemory(
 			(D2D1_RECT_U *)&dstRect,
 			srcData.ToPointer(),
 			pitch));
@@ -41,7 +41,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	void Bitmap::CopyFromMemory(RectU dstRect, array<Byte>^ srcData, UInt32 pitch)
 	{
 		pin_ptr<Byte> p = &srcData[0];
-		ComUtils::CheckResult(GetNative()->CopyFromMemory(
+		ComUtils::CheckResult(GetNative<ID2D1Bitmap>()->CopyFromMemory(
 			(D2D1_RECT_U *)&dstRect,
 			p,
 			pitch));

@@ -20,10 +20,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		}
 	public:
 		FontFileStream^ CreateStreamFromKey(array<Byte>^ fontFileReferenceKey);
-	internal:
-		IDWriteFontFileLoader* GetNative() new 
-		{
-			return (IDWriteFontFileLoader*)ComWrapper::GetNative();
-		}
 	};
 }}}

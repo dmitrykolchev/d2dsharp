@@ -23,14 +23,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Managed::Graphics::Direct2D::Ellipse get()
 			{
 				Managed::Graphics::Direct2D::Ellipse ellipse;
-				GetNative()->GetEllipse((D2D1_ELLIPSE *)&ellipse);
+				GetNative<ID2D1EllipseGeometry>()->GetEllipse((D2D1_ELLIPSE *) &ellipse);
 				return ellipse;
 			}
-		}
-	private:
-		ID2D1EllipseGeometry *GetNative()
-		{
-			return (ID2D1EllipseGeometry *)Geometry::GetNative();
 		}
 	};
 }}}

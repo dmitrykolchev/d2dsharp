@@ -12,10 +12,10 @@ namespace Managed { namespace Graphics { namespace Imaging
 {
 	void WicFormatConverter::Convert(WicBitmapSource^ source, Guid dstPixelFormat, BitmapDitherType dither, WicPalette^ palette, Double alphaThresholdPercent, BitmapPaletteType paletteType)
 	{
-		IWICPalette *p = palette == nullptr ? NULL : palette->GetNative();
+		IWICPalette *p = palette == nullptr ? NULL : palette->GetNative<IWICPalette>();
 
-		ComUtils::CheckResult(GetNative()->Initialize(
-			source->GetNative(), 
+		ComUtils::CheckResult(GetNative<IWICFormatConverter>()->Initialize(
+			source->GetNative<IWICBitmapSource>(), 
 			*(GUID*)&dstPixelFormat,
 			(WICBitmapDitherType)dither,
 			p,

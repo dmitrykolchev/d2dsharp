@@ -29,7 +29,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 			BitmapPaletteType get()
 			{
 				WICBitmapPaletteType value;
-				ComUtils::CheckResult(GetNative()->GetType(&value));
+				ComUtils::CheckResult(GetNative<IWICPalette>()->GetType(&value));
 				return (BitmapPaletteType)value;
 			}
 		}
@@ -38,7 +38,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Boolean get()
 			{
 				BOOL value;
-				ComUtils::CheckResult(GetNative()->HasAlpha(&value));
+				ComUtils::CheckResult(GetNative<IWICPalette>()->HasAlpha(&value));
 				return value != 0;
 			}
 		}
@@ -47,14 +47,14 @@ namespace Managed { namespace Graphics { namespace Imaging
 		void Initialize(WicPalette^ source);
 		void Initialize(BitmapPaletteType paletteType, Boolean addTransparentColor)
 		{
-			ComUtils::CheckResult(GetNative()->InitializePredefined((WICBitmapPaletteType)paletteType, (BOOL)addTransparentColor));
+			ComUtils::CheckResult(GetNative<IWICPalette>()->InitializePredefined((WICBitmapPaletteType) paletteType, (BOOL) addTransparentColor));
 		}
 		property Boolean IsBlackWhite
 		{
 			Boolean get()
 			{
 				BOOL value;
-				ComUtils::CheckResult(GetNative()->IsBlackWhite(&value));
+				ComUtils::CheckResult(GetNative<IWICPalette>()->IsBlackWhite(&value));
 				return value != 0;
 			}
 		}
@@ -63,14 +63,9 @@ namespace Managed { namespace Graphics { namespace Imaging
 			Boolean get()
 			{
 				BOOL value;
-				ComUtils::CheckResult(GetNative()->IsGrayscale(&value));
+				ComUtils::CheckResult(GetNative<IWICPalette>()->IsGrayscale(&value));
 				return value != 0;
 			}
-		}
-	internal:
-		IWICPalette* GetNative()
-		{
-			return (IWICPalette*)ComWrapper::GetNative();
 		}
 	};
 }}}

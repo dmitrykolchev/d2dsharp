@@ -20,7 +20,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 	void WicStream::Initialize(String^ fileName, DesiredAccess desiredAccess)
 	{
 		pin_ptr<const System::Char> pFileName = PtrToStringChars(fileName);
-		ComUtils::CheckResult(GetNative()->InitializeFromFilename(pFileName, (DWORD)desiredAccess));
+		ComUtils::CheckResult(GetNative<IWICStream>()->InitializeFromFilename(pFileName, (DWORD)desiredAccess));
 	}
 
 	void WicStream::Initialize(Stream^ stream)
@@ -28,7 +28,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 		StreamWrapper ^wrapper = gcnew StreamWrapper(stream);
 		IntPtr pStream = Marshal::GetComInterfaceForObject( wrapper, System::Runtime::InteropServices::ComTypes::IStream::typeid );
 
-		ComUtils::CheckResult(GetNative()->InitializeFromIStream((IStream*)pStream.ToPointer()));
+		ComUtils::CheckResult(GetNative<IWICStream>()->InitializeFromIStream((IStream*) pStream.ToPointer()));
 	}
 
 	void WicStream::Initialize(Stream^ stream, UInt64 offset, UInt64 maxSize)
@@ -37,7 +37,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 		IntPtr pStream = Marshal::GetComInterfaceForObject( wrapper, System::Runtime::InteropServices::ComTypes::IStream::typeid );
 		try
 		{
-			ComUtils::CheckResult(GetNative()->InitializeFromIStreamRegion(
+			ComUtils::CheckResult(GetNative<IWICStream>()->InitializeFromIStreamRegion(
 				(IStream*)pStream.ToPointer(), 
 				*(ULARGE_INTEGER *)&offset, 
 				*(ULARGE_INTEGER *)&maxSize));
@@ -55,6 +55,6 @@ namespace Managed { namespace Graphics { namespace Imaging
 
 		pin_ptr<Byte> pBuffer = &buffer[0];
 
-		ComUtils::CheckResult(GetNative()->InitializeFromMemory((BYTE*)pBuffer, buffer->Length));
+		ComUtils::CheckResult(GetNative<IWICStream>()->InitializeFromMemory((BYTE*) pBuffer, buffer->Length));
 	}
 }}}

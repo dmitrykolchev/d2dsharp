@@ -20,10 +20,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		//TODO: CreateAlphaTexture
 		//TODO: GetAlphaBlendParams
 		//TODO: GetAlphaTextureBounds
-	internal:
-		IDWriteGlyphRunAnalysis* GetNative() new 
-		{
-			return (IDWriteGlyphRunAnalysis*)ComWrapper::GetNative();
-		}
 	};
 }}}

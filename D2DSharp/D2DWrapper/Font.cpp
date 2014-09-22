@@ -15,7 +15,7 @@ FontFace^ Font::CreateFontFace()
 	IDWriteFontFace* fontFace;
 
 	ComUtils::CheckResult(
-		GetNative()->CreateFontFace(&fontFace));
+		GetNative<IDWriteFont>()->CreateFontFace(&fontFace));
 
 	return gcnew FontFace(fontFace);
 }
@@ -25,7 +25,7 @@ LocalizedStrings^ Font::FaceNames::get()
 	IDWriteLocalizedStrings* names;
 
 	ComUtils::CheckResult(
-		GetNative()->GetFaceNames(&names));
+		GetNative<IDWriteFont>()->GetFaceNames(&names));
 	
 	return gcnew LocalizedStrings(names);
 }
@@ -35,7 +35,7 @@ FontFamily^ Font::Family::get()
 	IDWriteFontFamily* fontFamily;
 
 	ComUtils::CheckResult(
-		GetNative()->GetFontFamily(&fontFamily));
+		GetNative<IDWriteFont>()->GetFontFamily(&fontFamily));
 
 	return gcnew FontFamily(fontFamily);
 }
@@ -46,7 +46,7 @@ LocalizedStrings^ Font::GetInformationalStrings(InformationalStringId id, [Out]B
 	BOOL bExists;
 
 	ComUtils::CheckResult(
-		GetNative()->GetInformationalStrings(
+		GetNative<IDWriteFont>()->GetInformationalStrings(
 			(DWRITE_INFORMATIONAL_STRING_ID)id,
 			&strings,
 			&bExists));
@@ -62,7 +62,7 @@ LocalizedStrings^ Font::GetInformationalStrings(InformationalStringId id)
 	BOOL bExists;
 
 	ComUtils::CheckResult(
-		GetNative()->GetInformationalStrings(
+		GetNative<IDWriteFont>()->GetInformationalStrings(
 			(DWRITE_INFORMATIONAL_STRING_ID)id,
 			&strings,
 			&bExists));
@@ -75,38 +75,38 @@ LocalizedStrings^ Font::GetInformationalStrings(InformationalStringId id)
 FontMetrics Font::Metrics::get()
 {
 	FontMetrics metrics;
-	GetNative()->GetMetrics((DWRITE_FONT_METRICS*)&metrics);
+	GetNative<IDWriteFont>()->GetMetrics((DWRITE_FONT_METRICS*) &metrics);
 	return metrics;
 }
 
 FontSimulations Font::Simulations::get()
 {
-	return (FontSimulations)GetNative()->GetSimulations();
+	return (FontSimulations) GetNative<IDWriteFont>()->GetSimulations();
 }
 
 FontStretch Font::Stretch::get()
 {
-	return (FontStretch)GetNative()->GetStretch();
+	return (FontStretch) GetNative<IDWriteFont>()->GetStretch();
 }
 
 FontStyle Font::Style::get()
 {
-	return (FontStyle)GetNative()->GetStyle();
+	return (FontStyle) GetNative<IDWriteFont>()->GetStyle();
 }
 
 FontWeight Font::Weight::get()
 {
-	return (FontWeight)GetNative()->GetWeight();
+	return (FontWeight) GetNative<IDWriteFont>()->GetWeight();
 }
 
 Boolean Font::HasCharacter(UInt32 unicodeValue)
 {
 	BOOL exists;
-	ComUtils::CheckResult(GetNative()->HasCharacter(unicodeValue, &exists));
+	ComUtils::CheckResult(GetNative<IDWriteFont>()->HasCharacter(unicodeValue, &exists));
 	return exists != 0;
 }
 
 Boolean Font::IsSymbolFont::get()
 {
-	return GetNative()->IsSymbolFont() != 0;
+	return GetNative<IDWriteFont>()->IsSymbolFont() != 0;
 }

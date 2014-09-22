@@ -23,7 +23,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Geometry^ get()
 			{
 				ID2D1Geometry *geometry;
-				GetNative()->GetSourceGeometry(&geometry);
+				GetNative<ID2D1TransformedGeometry>()->GetSourceGeometry(&geometry);
 				return gcnew Geometry(geometry);
 			}
 		}
@@ -33,15 +33,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Matrix3x2 get()
 			{
 				Matrix3x2 transform;
-				GetNative()->GetTransform((D2D1_MATRIX_3X2_F *)&transform);
+				GetNative<ID2D1TransformedGeometry>()->GetTransform((D2D1_MATRIX_3X2_F *) &transform);
 				return transform;
 			}
-		}
-
-	private:
-		ID2D1TransformedGeometry *GetNative()
-		{
-			return (ID2D1TransformedGeometry *)Geometry::GetNative();
 		}
 	};
 }}}

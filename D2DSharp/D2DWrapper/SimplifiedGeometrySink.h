@@ -83,17 +83,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			ComWrapper(native)
 		{
 		}
-		ID2D1SimplifiedGeometrySink* GetNative() new
-		{
-			return (ID2D1SimplifiedGeometrySink*)ComWrapper::GetNative();
-		}
 	public:
 		void AddBeziers(array<BezierSegment>^ beziers)
 		{
 			if(beziers == nullptr)
 				throw gcnew ArgumentNullException("beziers");
 			pin_ptr<BezierSegment> p = &beziers[0];
-			GetNative()->AddBeziers((D2D1_BEZIER_SEGMENT *)p, beziers->Length);
+			GetNative<ID2D1SimplifiedGeometrySink>()->AddBeziers((D2D1_BEZIER_SEGMENT *) p, beziers->Length);
 		}
 
 		void AddLines(array<PointF>^ points)
@@ -101,32 +97,32 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			if(points == nullptr)
 				throw gcnew ArgumentNullException("points");
 			pin_ptr<PointF> p = &points[0];
-			GetNative()->AddLines((D2D1_POINT_2F *)p, points->Length);
+			GetNative<ID2D1SimplifiedGeometrySink>()->AddLines((D2D1_POINT_2F *) p, points->Length);
 		}
 
 		void BeginFigure(PointF startPoint, FigureBegin figureBegin)
 		{
-			GetNative()->BeginFigure(*(D2D1_POINT_2F*)&startPoint, (D2D1_FIGURE_BEGIN)figureBegin);
+			GetNative<ID2D1SimplifiedGeometrySink>()->BeginFigure(*(D2D1_POINT_2F*) &startPoint, (D2D1_FIGURE_BEGIN) figureBegin);
 		}
 
 		void Close()
 		{
-			GetNative()->Close();
+			GetNative<ID2D1SimplifiedGeometrySink>()->Close();
 		}
 
 		void EndFigure(FigureEnd figureEnd)
 		{
-			GetNative()->EndFigure((D2D1_FIGURE_END)figureEnd);
+			GetNative<ID2D1SimplifiedGeometrySink>()->EndFigure((D2D1_FIGURE_END) figureEnd);
 		}
 
 		void SetFillMode(FillMode fillMode)
 		{
-			GetNative()->SetFillMode((D2D1_FILL_MODE)fillMode);
+			GetNative<ID2D1SimplifiedGeometrySink>()->SetFillMode((D2D1_FILL_MODE) fillMode);
 		}
 
 		void SetSegmentFlags(PathSegment vertexFlags)
 		{
-			GetNative()->SetSegmentFlags((D2D1_PATH_SEGMENT)vertexFlags);
+			GetNative<ID2D1SimplifiedGeometrySink>()->SetSegmentFlags((D2D1_PATH_SEGMENT) vertexFlags);
 		}
 	};
 }}}

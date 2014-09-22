@@ -108,7 +108,7 @@ HRESULT STDMETHODCALLTYPE TextAnalysisSourceNative::GetNumberSubstitution(
 
 		if(numberSubstitutionManaged != nullptr)
 		{
-			IDWriteNumberSubstitution* native = numberSubstitutionManaged->GetNative();
+			IDWriteNumberSubstitution* native = numberSubstitutionManaged->GetNative<IDWriteNumberSubstitution>();
 			if(native)
 				native->AddRef();
 			*numberSubstitution = native;

@@ -20,10 +20,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Boolean Analyze([Out]FontFileType% fontFileType, [Out]FontFaceType% fontFaceType, [Out]UInt32% numberOfFaces);
 		FontFileLoader^ GetLoader();
 		array<Byte>^ GetReferenceKey();
-	internal:
-		IDWriteFontFile* GetNative() new 
-		{
-			return (IDWriteFontFile*)ComWrapper::GetNative();
-		}
 	};
 }}}

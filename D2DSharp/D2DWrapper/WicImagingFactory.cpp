@@ -8,6 +8,7 @@
 
 #include "WicImagingFactory.h"
 #include "WicBitmapDecoder.h"
+#include "WicBitmapEncoder.h"
 
 namespace Managed { namespace Graphics { namespace Imaging
 {
@@ -16,7 +17,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 		pin_ptr<const System::Char> pFileName = PtrToStringChars(fileName);
 		GUID *pGuid = vendor == Guid::Empty ? NULL : (GUID*)&vendor;
 		IWICBitmapDecoder* decoder;
-		ComUtils::CheckResult(GetNative()->CreateDecoderFromFilename(pFileName, pGuid, (DWORD)desiredAccess, (WICDecodeOptions)options, &decoder));
+		ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateDecoderFromFilename(pFileName, pGuid, (DWORD)desiredAccess, (WICDecodeOptions)options, &decoder));
 		return gcnew WicBitmapDecoder(decoder);
 	}
 
@@ -24,8 +25,8 @@ namespace Managed { namespace Graphics { namespace Imaging
 	{
 		GUID *pGuid = vendor == Guid::Empty ? NULL : (GUID*)&vendor;
 		IWICBitmapDecoder* decoder;
-		ComUtils::CheckResult(GetNative()->CreateDecoderFromStream(
-			(IStream*)stream->GetNative(),
+		ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateDecoderFromStream(
+			(IStream*)stream->GetNative<IWICStream>(),
 			pGuid,
 			(WICDecodeOptions)options,
 			&decoder)
@@ -33,10 +34,33 @@ namespace Managed { namespace Graphics { namespace Imaging
 		return gcnew WicBitmapDecoder(decoder);
 	}
 
+	WicBitmapEncoder^ WicImagingFactory::CreateEncoder(Guid container)
+	{
+		IWICBitmapEncoder* encoder;
+		ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateEncoder(
+			*(GUID*)&container,
+			nullptr,
+			&encoder)
+			);
+		return gcnew WicBitmapEncoder(encoder);
+	}
+
+	WicBitmapEncoder^ WicImagingFactory::CreateEncoder(Guid container, Guid vendor)
+	{
+		GUID *pGuid = vendor == Guid::Empty ? NULL : (GUID*)&vendor;
+		IWICBitmapEncoder* encoder;
+		ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateEncoder(
+			*(GUID*)&container,
+			pGuid,
+			&encoder)
+			);
+		return gcnew WicBitmapEncoder(encoder);
+	}
+
 	WicStream^ WicImagingFactory::CreateStream()
 	{
 		IWICStream *stream;
-		ComUtils::CheckResult(GetNative()->CreateStream(&stream));
+		ComUtils::CheckResult(GetNative<IWICImagingFactory>()->CreateStream(&stream));
 		return gcnew WicStream(stream);
 	}
 

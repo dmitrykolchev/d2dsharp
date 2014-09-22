@@ -42,7 +42,7 @@ void GlyphRun::CopyTo(DWRITE_GLYPH_RUN* glyphRun)
 {
 	// TODO: complete method
 
-	glyphRun->fontFace = _fontFace->GetNative();
+	glyphRun->fontFace = _fontFace->GetNative<IDWriteFontFace>();
 	glyphRun->fontEmSize = _fontEmSize;
 	glyphRun->glyphCount = _glyphIndices->Length;
 

@@ -14,14 +14,14 @@ GeometrySink^ PathGeometry::Open()
 {
 	ID2D1GeometrySink *geometrySink;
 		
-	ComUtils::CheckResult(GetNative()->Open(&geometrySink));
+	ComUtils::CheckResult(GetNative<ID2D1PathGeometry>()->Open(&geometrySink));
 
 	return gcnew GeometrySink(geometrySink);
 }
 
 void PathGeometry::Stream(GeometrySink^ geometrySink)
 {
-	ComUtils::CheckResult(GetNative()->Stream(geometrySink->GetNative()));
+	ComUtils::CheckResult(GetNative<ID2D1PathGeometry>()->Stream(geometrySink->GetNative<ID2D1GeometrySink>()));
 }
 
 void PathGeometry::Stream(ICustomGeometrySink^ customGeometrySink)
@@ -29,7 +29,7 @@ void PathGeometry::Stream(ICustomGeometrySink^ customGeometrySink)
 	CustomGeometrySink *pSink = new CustomGeometrySink(customGeometrySink);
 	try
 	{
-		ComUtils::CheckResult(GetNative()->Stream(static_cast<ID2D1GeometrySink*>(pSink)));
+		ComUtils::CheckResult(GetNative<ID2D1PathGeometry>()->Stream(static_cast<ID2D1GeometrySink*>(pSink)));
 	}
 	finally
 	{

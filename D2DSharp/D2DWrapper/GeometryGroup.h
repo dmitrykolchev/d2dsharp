@@ -19,10 +19,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 		}
 	public:
-	private:
-		ID2D1GeometryGroup *GetNative() new 
-		{
-			return (ID2D1GeometryGroup *)Geometry::GetNative();
-		}
 	};
 }}}

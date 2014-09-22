@@ -26,13 +26,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		TessellationSink^ Open()
 		{
 			ID2D1TessellationSink *tessellationSink;
-			ComUtils::CheckResult(GetNative()->Open(&tessellationSink));
+			ComUtils::CheckResult(GetNative<ID2D1Mesh>()->Open(&tessellationSink));
 			return gcnew TessellationSink(tessellationSink);
-		}
-	internal:
-		ID2D1Mesh *GetNative() new 
-		{
-			return (ID2D1Mesh *)D2DResource::GetNative();
 		}
 	};
 }}}

@@ -26,12 +26,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		void BindDC(IntPtr hDC, int left, int top, int right, int bottom)
 		{
 			RECT rect = { left, top, right, bottom };
-			ComUtils::CheckResult(GetNative()->BindDC((HDC)hDC.ToPointer(), &rect));
-		}
-	internal:
-		ID2D1DCRenderTarget *GetNative() new
-		{
-			return (ID2D1DCRenderTarget *)RenderTarget::GetNative();
+			ComUtils::CheckResult(GetNative<ID2D1DCRenderTarget>()->BindDC((HDC) hDC.ToPointer(), &rect));
 		}
 	};
 }}}

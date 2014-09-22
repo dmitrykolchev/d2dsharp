@@ -18,11 +18,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 		}
 	public:
-
-	internal:
-		ID2D1Layer *GetNative() new 
-		{
-			return (ID2D1Layer *)D2DResource::GetNative();
-		}
 	};
 }}}

@@ -67,7 +67,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			Single get()
 			{
 				FLOAT minWidth;
-				ComUtils::CheckResult(GetNative()->DetermineMinWidth(&minWidth));
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->DetermineMinWidth(&minWidth));
 				return minWidth;
 			}
 		}
@@ -76,11 +76,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Single get()
 			{
-				return GetNative()->GetMaxHeight();
+				return GetNative<IDWriteTextLayout>()->GetMaxHeight();
 			}
 			void set(Single value)
 			{
-				ComUtils::CheckResult(GetNative()->SetMaxHeight(value));
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->SetMaxHeight(value));
 			}
 		}
 
@@ -88,11 +88,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Single get()
 			{
-				return GetNative()->GetMaxWidth();
+				return GetNative<IDWriteTextLayout>()->GetMaxWidth();
 			}
 			void set(Single value)
 			{
-				ComUtils::CheckResult(GetNative()->SetMaxWidth(value));
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->SetMaxWidth(value));
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			TextMetrics get()
 			{
 				TextMetrics value;
-				ComUtils::CheckResult(GetNative()->GetMetrics((DWRITE_TEXT_METRICS*)&value));
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->GetMetrics((DWRITE_TEXT_METRICS*) &value));
 				return value;
 			}
 		}
@@ -142,7 +142,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			Managed::Graphics::DirectWrite::OverhangMetrics get()
 			{
 				Managed::Graphics::DirectWrite::OverhangMetrics value;
-				ComUtils::CheckResult(GetNative()->GetOverhangMetrics((DWRITE_OVERHANG_METRICS *)&value));
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->GetOverhangMetrics((DWRITE_OVERHANG_METRICS *) &value));
 				return value;
 			}
 		}
@@ -183,10 +183,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		void SetTypography(Typography^ typography, TextRange textRange);
 		
 		void SetUnderline(Boolean hasUnderline, TextRange textRange);
-	internal:
-		IDWriteTextLayout* GetNative() new
-		{
-			return (IDWriteTextLayout*)TextFormat::GetNative();
-		}
 	};
 }}}

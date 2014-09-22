@@ -30,7 +30,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			UInt32 get()
 			{
-				return GetNative()->GetGlyphCount();
+				return GetNative<IDWriteFontFace>()->GetGlyphCount();
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			UInt32 get()
 			{
-				return GetNative()->GetIndex();
+				return GetNative<IDWriteFontFace>()->GetIndex();
 			}
 		}
 
@@ -47,8 +47,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			FontMetrics get()
 			{
 				FontMetrics metrics;
-				GetNative()->GetMetrics(
-					(DWRITE_FONT_METRICS*)&metrics);
+				GetNative<IDWriteFontFace>()->GetMetrics((DWRITE_FONT_METRICS*)&metrics);
 				return metrics;
 			}
 		}
@@ -57,7 +56,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			FontSimulations get()
 			{
-				return (FontSimulations)GetNative()->GetSimulations();
+				return (FontSimulations) GetNative<IDWriteFontFace>()->GetSimulations();
 			}
 		}
 
@@ -65,7 +64,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Boolean get()
 			{
-				return GetNative()->IsSymbolFont() != 0;
+				return GetNative<IDWriteFontFace>()->IsSymbolFont() != 0;
 			}
 		}
 
@@ -73,7 +72,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			Managed::Graphics::DirectWrite::FontFaceType get()
 			{
-				return (Managed::Graphics::DirectWrite::FontFaceType)GetNative()->GetType();
+				return (Managed::Graphics::DirectWrite::FontFaceType)GetNative<IDWriteFontFace>()->GetType();
 			}
 		}
 
@@ -89,11 +88,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			array<GlyphOffset>^ glyphOffsets, Boolean isSideways, Boolean isRtl, GeometrySink^ geometrySink);
 		void GetGlyphRunOutline(Single emSize, array<UInt16>^ glyphIndices, array<Single>^ glyphAdvances, 
 			array<GlyphOffset>^ glyphOffsets, Boolean isSideways, Boolean isRtl, ICustomGeometrySink^ customGeometrySink);
-
-	internal:
-		IDWriteFontFace* GetNative() new
-		{
-			return static_cast<IDWriteFontFace*>(ComWrapper::GetNative());
-		}
 	};
 }}}

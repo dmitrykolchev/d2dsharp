@@ -30,12 +30,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Managed::Graphics::Direct2D::Bitmap^ get()
 			{
 				ID2D1Bitmap *bitmap;
-				GetNative()->GetBitmap(&bitmap);
+				GetNative<ID2D1BitmapBrush>()->GetBitmap(&bitmap);
 				return gcnew Managed::Graphics::Direct2D::Bitmap(bitmap);
 			}
 			void set(Managed::Graphics::Direct2D::Bitmap^ value)
 			{
-				GetNative()->SetBitmap(value->GetNative());
+				GetNative<ID2D1BitmapBrush>()->SetBitmap(value->GetNative<ID2D1Bitmap>());
 			}
 		}
 
@@ -43,11 +43,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			ExtendMode get()
 			{
-				return (ExtendMode)GetNative()->GetExtendModeX();
+				return (ExtendMode) GetNative<ID2D1BitmapBrush>()->GetExtendModeX();
 			}
 			void set(ExtendMode value)
 			{
-				GetNative()->SetExtendModeX((D2D1_EXTEND_MODE)value);
+				GetNative<ID2D1BitmapBrush>()->SetExtendModeX((D2D1_EXTEND_MODE) value);
 			}
 		}
 
@@ -55,11 +55,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			ExtendMode get()
 			{
-				return (ExtendMode)GetNative()->GetExtendModeY();
+				return (ExtendMode) GetNative<ID2D1BitmapBrush>()->GetExtendModeY();
 			}
 			void set(ExtendMode value)
 			{
-				GetNative()->SetExtendModeY((D2D1_EXTEND_MODE)value);
+				GetNative<ID2D1BitmapBrush>()->SetExtendModeY((D2D1_EXTEND_MODE) value);
 			}
 		}
 
@@ -67,20 +67,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			BitmapInterpolationMode get()
 			{
-				return (BitmapInterpolationMode)GetNative()->GetInterpolationMode();
+				return (BitmapInterpolationMode) GetNative<ID2D1BitmapBrush>()->GetInterpolationMode();
 			}
 			void set(BitmapInterpolationMode value)
 			{
-				GetNative()->SetInterpolationMode((D2D1_BITMAP_INTERPOLATION_MODE)value);
+				GetNative<ID2D1BitmapBrush>()->SetInterpolationMode((D2D1_BITMAP_INTERPOLATION_MODE) value);
 			}
-		}
-
-
-
-	internal:
-		ID2D1BitmapBrush* GetNative()
-		{
-			return (ID2D1BitmapBrush*)Brush::GetNative();
 		}
 	};
 }}}

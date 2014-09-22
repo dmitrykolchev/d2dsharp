@@ -24,10 +24,5 @@ namespace Managed { namespace Graphics { namespace Imaging
 		void Initialize(Stream^ stream);
 		void Initialize(Stream^ stream, UInt64 offset, UInt64 maxSize);
 		void Initialize(array<Byte>^ buffer);
-	internal:
-		IWICStream* GetNative()
-		{
-			return (IWICStream*)ComWrapper::GetNative();
-		}
 	};
 }}}

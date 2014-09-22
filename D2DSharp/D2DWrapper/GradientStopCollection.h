@@ -21,10 +21,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			D2DResource(native)
 		{
 		}
-
-		ID2D1GradientStopCollection *GetNative()
-		{
-			return (ID2D1GradientStopCollection *)D2DResource::GetNative();
-		}
 	};
 }}}

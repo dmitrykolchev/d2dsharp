@@ -27,11 +27,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 	public:
 		Direct2DFactory^ GetFactory();
-
-	internal:
-		inline ID2D1Resource* GetNative()
-		{
-			return (ID2D1Resource*)ComWrapper::GetNative();
-		}
 	};
 }}}

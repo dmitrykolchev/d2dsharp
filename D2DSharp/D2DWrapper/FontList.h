@@ -29,10 +29,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		property Int32 Count { Int32 get(); }
 		property Font^ default[Int32] { Font^ get(Int32 index); }
 		property FontCollection^ Parent { FontCollection^ get(); }
-	internal:
-		IDWriteFontList* GetNative() new
-		{
-			return static_cast<IDWriteFontList*>(ComWrapper::GetNative());
-		}
 	};
 }}}

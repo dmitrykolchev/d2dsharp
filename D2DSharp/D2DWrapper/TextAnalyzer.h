@@ -39,11 +39,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			array<ShapingTextProperties>^ textProps, 
 			array<UInt16>^ glyphIndices, 
 			array<ShapingGlyphProperties>^ glyphProps);
-
-	internal:
-		IDWriteTextAnalyzer* GetNative() new 
-		{
-			return (IDWriteTextAnalyzer*)ComWrapper::GetNative();
-		}
 	};
 }}}

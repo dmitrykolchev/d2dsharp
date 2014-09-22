@@ -73,7 +73,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			BOOL contains;
 
-			ComUtils::CheckResult(GetNative()->FillContainsPoint(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->FillContainsPoint(
 				*(D2D1_POINT_2F*)&point,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
@@ -85,9 +85,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		Boolean StrokeContainsPoint(PointF point, FLOAT strokeWidth, StrokeStyle^ strokeStyle, Matrix3x2 worldTransform, FLOAT flatteningTolerance)
 		{
 			BOOL contains;
-			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
+			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative<ID2D1StrokeStyle>();
 
-			ComUtils::CheckResult(GetNative()->StrokeContainsPoint(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->StrokeContainsPoint(
 				*(D2D1_POINT_2F*)&point,
 				strokeWidth,
 				pStrokeStyle,
@@ -102,7 +102,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			RectF bounds;
 
-			ComUtils::CheckResult(GetNative()->GetBounds((D2D1_MATRIX_3X2_F *)&worldTransform, (D2D1_RECT_F*)&bounds));
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->GetBounds((D2D1_MATRIX_3X2_F *) &worldTransform, (D2D1_RECT_F*) &bounds));
 
 			return bounds;
 		}
@@ -111,9 +111,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			RectF bounds;
 			
-			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
+			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative<ID2D1StrokeStyle>();
 
-			ComUtils::CheckResult(GetNative()->GetWidenedBounds(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->GetWidenedBounds(
 				strokeWidth, 
 				pStrokeStyle, 
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
@@ -125,10 +125,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void Outline(Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
-			ComUtils::CheckResult(GetNative()->Outline(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Outline(
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative()));
+				geometrySink->GetNative<ID2D1SimplifiedGeometrySink>()));
 		}
 
 		void Outline(
@@ -140,11 +140,11 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			GeometrySimplificationOptions simplificationOptions, 
 			Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
-			ComUtils::CheckResult(GetNative()->Simplify(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Simplify(
 				(D2D1_GEOMETRY_SIMPLIFICATION_OPTION)simplificationOptions,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative()));
+				geometrySink->GetNative<ID2D1SimplifiedGeometrySink>()));
 		}
 
 		void Simplify(
@@ -155,14 +155,14 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		void Widen(FLOAT strokeWidth, StrokeStyle^ strokeStyle, Matrix3x2 worldTransform, FLOAT flatteningTolerance, SimplifiedGeometrySink^ geometrySink)
 		{
-			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative();
+			ID2D1StrokeStyle *pStrokeStyle = strokeStyle == nullptr ? NULL : strokeStyle->GetNative<ID2D1StrokeStyle>();
 
-			ComUtils::CheckResult(GetNative()->Widen(
+			ComUtils::CheckResult(GetNative<ID2D1Geometry>()->Widen(
 				strokeWidth,
 				pStrokeStyle,
 				(D2D1_MATRIX_3X2_F *)&worldTransform,
 				flatteningTolerance,
-				geometrySink->GetNative()));
+				geometrySink->GetNative<ID2D1SimplifiedGeometrySink>()));
 		}
 
 		void Widen(
@@ -171,10 +171,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Matrix3x2 worldTransform, 
 			FLOAT flatteningTolerance, 
 			ICustomSimplifiedGeometrySink^ customGeometrySink);
-	internal:
-		ID2D1Geometry* GetNative() new
-		{
-			return (ID2D1Geometry*)D2DResource::GetNative();
-		}
 	};
 }}}

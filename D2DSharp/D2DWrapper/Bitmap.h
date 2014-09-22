@@ -50,7 +50,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		void GetDpi([OutAttribute()]Single% dpiX, [OutAttribute()]Single% dpiY)
 		{
 			FLOAT x, y;
-			GetNative()->GetDpi(&x, &y);
+			GetNative<ID2D1Bitmap>()->GetDpi(&x, &y);
 			dpiX = x;
 			dpiY = y;
 		}
@@ -59,7 +59,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{ 
 			Managed::Graphics::Direct2D::PixelFormat get()
 			{
-				return Managed::Graphics::Direct2D::PixelFormat(GetNative()->GetPixelFormat());
+				return Managed::Graphics::Direct2D::PixelFormat(GetNative<ID2D1Bitmap>()->GetPixelFormat());
 			} 
 		}
 
@@ -67,7 +67,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{ 
 			SizeU get()
 			{
-				return SizeU(GetNative()->GetPixelSize());
+				return SizeU(GetNative<ID2D1Bitmap>()->GetPixelSize());
 			}
 		}
 
@@ -75,13 +75,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			SizeF get()
 			{
-				return SizeF(GetNative()->GetSize());
+				return SizeF(GetNative<ID2D1Bitmap>()->GetSize());
 			}
-		}
-	internal:
-		ID2D1Bitmap *GetNative() new
-		{
-			return (ID2D1Bitmap *)D2DResource::GetNative();
 		}
 	};
 }}}

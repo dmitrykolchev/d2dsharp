@@ -26,17 +26,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			Managed::Graphics::Direct2D::Color get()
 			{
-				return Managed::Graphics::Direct2D::Color(GetNative()->GetColor());
+				return Managed::Graphics::Direct2D::Color(GetNative<ID2D1SolidColorBrush>()->GetColor());
 			}
 			void set(Managed::Graphics::Direct2D::Color color)
 			{
-				GetNative()->SetColor((D2D1_COLOR_F*)&color);
+				GetNative<ID2D1SolidColorBrush>()->SetColor((D2D1_COLOR_F*) &color);
 			}
-		}
-	private:
-		ID2D1SolidColorBrush* GetNative() new
-		{
-			return (ID2D1SolidColorBrush*)Brush::GetNative();
 		}
 	};
 }}}

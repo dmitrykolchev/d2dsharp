@@ -22,10 +22,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		// TODO: CreateBitmapRenderTarget
 		// TODO: CreateFontFaceFromHdc
 		// TODO: CreateFontFromLOGFONT
-	internal:
-		IDWriteGdiInterop* GetNative() new 
-		{
-			return (IDWriteGdiInterop*)ComWrapper::GetNative();
-		}
 	};
 }}}

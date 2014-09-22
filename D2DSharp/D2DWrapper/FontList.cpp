@@ -11,7 +11,7 @@ using namespace Managed::Graphics::DirectWrite;
 
 Int32 FontList::Count::get()
 {
-	return (Int32)GetNative()->GetFontCount();
+	return (Int32) GetNative<IDWriteFontList>()->GetFontCount();
 }
 
 Font^ FontList::default::get(Int32 index)
@@ -19,7 +19,7 @@ Font^ FontList::default::get(Int32 index)
 	IDWriteFont* font;
 	
 	ComUtils::CheckResult(
-		GetNative()->GetFont(
+		GetNative<IDWriteFontList>()->GetFont(
 			index,
 			&font));
 
@@ -31,7 +31,7 @@ FontCollection^ FontList::Parent::get()
 	IDWriteFontCollection* fontCollection;
 
 	ComUtils::CheckResult(
-		GetNative()->GetFontCollection(
+		GetNative<IDWriteFontList>()->GetFontCollection(
 			&fontCollection));
 
 	return gcnew FontCollection(fontCollection);

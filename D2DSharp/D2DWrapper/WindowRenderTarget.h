@@ -36,7 +36,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			WindowState get()
 			{
-				int state = GetNative()->CheckWindowState();
+				int state = GetNative<ID2D1HwndRenderTarget>()->CheckWindowState();
 				return (WindowState)state;
 			}
 		}
@@ -45,21 +45,14 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		{
 			IntPtr get()
 			{
-				HWND hwnd = GetNative()->GetHwnd();
+				HWND hwnd = GetNative<ID2D1HwndRenderTarget>()->GetHwnd();
 				return IntPtr((void*)hwnd);
 			}
 		}
 
 		void Resize(SizeU size)
 		{
-			ComUtils::CheckResult(GetNative()->Resize(reinterpret_cast<D2D1_SIZE_U*>(&size)));
+			ComUtils::CheckResult(GetNative<ID2D1HwndRenderTarget>()->Resize(reinterpret_cast<D2D1_SIZE_U*>(&size)));
 		}
-
-	internal:
-		ID2D1HwndRenderTarget *GetNative() new
-		{
-			return reinterpret_cast<ID2D1HwndRenderTarget *>(RenderTarget::GetNative());
-		}
-
 	};
 }}}

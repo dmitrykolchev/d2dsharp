@@ -90,11 +90,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		pin_ptr<const System::Char> pLocaleName = localeName == nullptr ? L"" : PtrToStringChars(localeName);
 		
-		IDWriteFontCollection* pFontCollection = fontCollection == nullptr ? NULL : fontCollection->GetNative();
+		IDWriteFontCollection* pFontCollection = fontCollection == nullptr ? NULL : fontCollection->GetNative<IDWriteFontCollection>();
 		
 		IDWriteTextFormat *textFormat;
 
-		ComUtils::CheckResult(GetNative()->CreateTextFormat(
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->CreateTextFormat(
 			pFontFamily, 
 			pFontCollection, 
 			(DWRITE_FONT_WEIGHT)fontWeight, 
@@ -111,10 +111,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	{
 		pin_ptr<const System::Char> pString = PtrToStringChars(string);
 		IDWriteTextLayout* textLayout;
-		ComUtils::CheckResult(GetNative()->CreateTextLayout(
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->CreateTextLayout(
 			pString,
 			string->Length,
-			textFormat->GetNative(),
+			textFormat->GetNative<IDWriteTextFormat>(),
 			maxWidth,
 			maxHeight,
 			&textLayout));
@@ -124,7 +124,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 	Typography^ DirectWriteFactory::CreateTypography()
 	{
 		IDWriteTypography* value;
-		ComUtils::CheckResult(GetNative()->CreateTypography(&value));
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->CreateTypography(&value));
 		return gcnew Typography(value);
 	}
 
@@ -135,8 +135,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		pin_ptr<Byte> pCollectionKey = &collectionKey[0];
 		
 		ComUtils::CheckResult(
-			GetNative()->CreateCustomFontCollection(
-				collectionLoader->GetNative(),
+			GetNative<IDWriteFactory>()->CreateCustomFontCollection(
+				collectionLoader->GetNative<IDWriteFontCollectionLoader>(),
 				pCollectionKey,
 				collectionKey->Length,
 				&fontCollection));
@@ -150,10 +150,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		pin_ptr<Byte> pFontFileReferenceKey = &fontFileReferenceKey[0];
 
 		ComUtils::CheckResult(
-			GetNative()->CreateCustomFontFileReference(
+			GetNative<IDWriteFactory>()->CreateCustomFontFileReference(
 				pFontFileReferenceKey,
 				fontFileReferenceKey->Length,
-				fontFileLoader->GetNative(),
+				fontFileLoader->GetNative<IDWriteFontFileLoader>(),
 				&fontFile));
 
 		return gcnew FontFile(fontFile);
@@ -165,7 +165,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteRenderingParams* renderingParams;
 
 		ComUtils::CheckResult(
-			GetNative()->CreateCustomRenderingParams(
+			GetNative<IDWriteFactory>()->CreateCustomRenderingParams(
 				gamma,
 				enchancedContrast,
 				clearTypeLevel,
@@ -190,10 +190,10 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		};
 
 		ComUtils::CheckResult(
-			GetNative()->CreateGdiCompatibleTextLayout(
+			GetNative<IDWriteFactory>()->CreateGdiCompatibleTextLayout(
 				pString,
 				string->Length,
-				textFormat->GetNative(),
+				textFormat->GetNative<IDWriteTextFormat>(),
 				layoutWidth,
 				layoutHeight,
 				pixelsPerDip,
@@ -209,8 +209,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteInlineObject *inlineObject;
 
 		ComUtils::CheckResult(
-			GetNative()->CreateEllipsisTrimmingSign(
-				textFormat->GetNative(),
+			GetNative<IDWriteFactory>()->CreateEllipsisTrimmingSign(
+				textFormat->GetNative<IDWriteTextFormat>(),
 				&inlineObject));
 
 		return gcnew InlineObjectWrapper(inlineObject, false);
@@ -230,11 +230,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		{
 			for(int index = 0; index < count; ++index)
 			{
-				pFontFiles[index] = fontFiles[index]->GetNative();
+				pFontFiles[index] = fontFiles[index]->GetNative<IDWriteFontFile>();
 			}
 
 			ComUtils::CheckResult(
-				GetNative()->CreateFontFace(
+				GetNative<IDWriteFactory>()->CreateFontFace(
 					(DWRITE_FONT_FACE_TYPE)fontFaceType,
 					fontFiles->Length,
 					pFontFiles,
@@ -259,7 +259,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		::FILETIME ft = *(::FILETIME*)&ift;
 
 		ComUtils::CheckResult(
-			GetNative()->CreateFontFileReference(pFilePath, &ft, &fontFile));
+			GetNative<IDWriteFactory>()->CreateFontFileReference(pFilePath, &ft, &fontFile));
 
 		return gcnew FontFile(fontFile);
 	}
@@ -281,7 +281,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		glyphRun->CopyTo(&gr);
 
 		ComUtils::CheckResult(
-			GetNative()->CreateGlyphRunAnalysis(
+			GetNative<IDWriteFactory>()->CreateGlyphRunAnalysis(
 				&gr,
 				pixelsPerDip,
 				&matrix,
@@ -299,7 +299,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteRenderingParams* renderingParams;
 
 		ComUtils::CheckResult(
-			GetNative()->CreateMonitorRenderingParams(
+			GetNative<IDWriteFactory>()->CreateMonitorRenderingParams(
 				(HMONITOR)monitor.ToPointer(),
 				&renderingParams));
 
@@ -314,7 +314,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		pin_ptr<const wchar_t> pLocaleName = PtrToStringChars(localeName);
 
 		ComUtils::CheckResult(
-			GetNative()->CreateNumberSubstitution(
+			GetNative<IDWriteFactory>()->CreateNumberSubstitution(
 				(DWRITE_NUMBER_SUBSTITUTION_METHOD)substitutionMethod,
 				pLocaleName,
 				ignoreUserOverride,
@@ -328,7 +328,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteRenderingParams* renderingParams;
 		
 		ComUtils::CheckResult(
-			GetNative()->CreateRenderingParams(&renderingParams));
+			GetNative<IDWriteFactory>()->CreateRenderingParams(&renderingParams));
 
 		return gcnew RenderingParams(renderingParams);
 	}
@@ -338,7 +338,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteTextAnalyzer* textAnalyzer;
 
 		ComUtils::CheckResult(
-			GetNative()->CreateTextAnalyzer(&textAnalyzer));
+			GetNative<IDWriteFactory>()->CreateTextAnalyzer(&textAnalyzer));
 
 		return gcnew TextAnalyzer(textAnalyzer);
 	}
@@ -348,7 +348,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteGdiInterop* gdiInterop;
 
 		ComUtils::CheckResult(
-			GetNative()->GetGdiInterop(&gdiInterop));
+			GetNative<IDWriteFactory>()->GetGdiInterop(&gdiInterop));
 
 		return gcnew GdiInterop(gdiInterop);
 	}
@@ -358,29 +358,29 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		IDWriteFontCollection* fontCollection;
 
 		ComUtils::CheckResult(
-			GetNative()->GetSystemFontCollection(&fontCollection, checkForUpdates));
+			GetNative<IDWriteFactory>()->GetSystemFontCollection(&fontCollection, checkForUpdates));
 
 		return gcnew FontCollection(fontCollection);
 	}
 
 	void DirectWriteFactory::RegisterFontCollectionLoader(FontCollectionLoader^ fontCollectionLoader)
 	{
-		ComUtils::CheckResult(GetNative()->RegisterFontCollectionLoader(fontCollectionLoader->GetNative()));
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->RegisterFontCollectionLoader(fontCollectionLoader->GetNative<IDWriteFontCollectionLoader>()));
 	}
 
 	void DirectWriteFactory::RegisterFontFileLoader(FontFileLoader^ fontFileLoader)
 	{
-		ComUtils::CheckResult(GetNative()->RegisterFontFileLoader(fontFileLoader->GetNative()));
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->RegisterFontFileLoader(fontFileLoader->GetNative<IDWriteFontFileLoader>()));
 	}
 
 	void DirectWriteFactory::UnregisterFontCollectionLoader(FontCollectionLoader^ fontCollectionLoader)
 	{
-		ComUtils::CheckResult(GetNative()->UnregisterFontCollectionLoader(fontCollectionLoader->GetNative()));
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->UnregisterFontCollectionLoader(fontCollectionLoader->GetNative<IDWriteFontCollectionLoader>()));
 	}
 
 	void DirectWriteFactory::UnregisterFontFileLoader(FontFileLoader^ fontFileLoader)
 	{
-		ComUtils::CheckResult(GetNative()->UnregisterFontFileLoader(fontFileLoader->GetNative()));
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->UnregisterFontFileLoader(fontFileLoader->GetNative<IDWriteFontFileLoader>()));
 	}
 
 }}}

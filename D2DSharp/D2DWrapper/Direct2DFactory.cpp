@@ -26,8 +26,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RenderTarget *renderTarget;
 
-		ComUtils::CheckResult(GetNative()->CreateWicBitmapRenderTarget(
-			bitmap->GetNative(),
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateWicBitmapRenderTarget(
+			bitmap->GetNative<IWICBitmap>(),
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
 			&renderTarget));
 		
@@ -38,7 +38,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1DCRenderTarget *renderTarget;
 
-		ComUtils::CheckResult(GetNative()->CreateDCRenderTarget(
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateDCRenderTarget(
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
 			&renderTarget));
 		
@@ -64,7 +64,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		ID2D1HwndRenderTarget *renderTarget;
 
-		ComUtils::CheckResult(GetNative()->CreateHwndRenderTarget(
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateHwndRenderTarget(
 			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
 			(D2D1_HWND_RENDER_TARGET_PROPERTIES *)&windowRenderTargetProperties,
 			&renderTarget));
@@ -78,7 +78,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		UINT count = dashes != nullptr ? dashes->Length : 0;
 		pin_ptr<FLOAT> p = dashes != nullptr ? &dashes[0] : nullptr;
 		ID2D1StrokeStyle *native;
-		ComUtils::CheckResult(GetNative()->CreateStrokeStyle(
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateStrokeStyle(
 			(D2D1_STROKE_STYLE_PROPERTIES *)&properties,
 			p,
 			count,
@@ -90,7 +90,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1PathGeometry *geometry;
 		
-		ComUtils::CheckResult(GetNative()->CreatePathGeometry(&geometry));
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreatePathGeometry(&geometry));
 		
 		return gcnew PathGeometry(geometry);
 	}
@@ -99,7 +99,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1EllipseGeometry *ellipseGeometry;
 		
-		ComUtils::CheckResult(GetNative()->CreateEllipseGeometry((D2D1_ELLIPSE *)&ellipse, &ellipseGeometry));
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateEllipseGeometry((D2D1_ELLIPSE *) &ellipse, &ellipseGeometry));
 
 		return gcnew EllipseGeometry(ellipseGeometry);
 	}
@@ -108,7 +108,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RectangleGeometry *geometry;
 		
-		ComUtils::CheckResult(GetNative()->CreateRectangleGeometry((D2D1_RECT_F *)&rect, &geometry));
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateRectangleGeometry((D2D1_RECT_F *) &rect, &geometry));
 		
 		return gcnew RectangleGeometry(geometry);
 	}
@@ -117,7 +117,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1RoundedRectangleGeometry *geometry;
 		
-		ComUtils::CheckResult(GetNative()->CreateRoundedRectangleGeometry((D2D1_ROUNDED_RECT *)&rect, &geometry));
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateRoundedRectangleGeometry((D2D1_ROUNDED_RECT *) &rect, &geometry));
 
 		return gcnew RoundedRectangleGeometry(geometry);
 	}
@@ -126,8 +126,8 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	{
 		ID2D1TransformedGeometry *geometry;
 
-		ComUtils::CheckResult(GetNative()->CreateTransformedGeometry(
-			sourceGeometry->GetNative(),
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateTransformedGeometry(
+			sourceGeometry->GetNative<ID2D1Geometry>(),
 			(D2D1_MATRIX_3X2_F*)&transform, 
 			&geometry));
 
@@ -140,12 +140,16 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			throw gcnew ArgumentNullException("geometries");
 
 		ID2D1GeometryGroup *geometry;
+		
+		array<ID2D1Geometry*>^ temp = gcnew array<ID2D1Geometry*>(geometries->Length);
 
-		pin_ptr<Geometry^> p = &geometries[0];
+		for (int index = 0; index < geometries->Length; ++index)
+			temp[index] = geometries[index]->GetNative<ID2D1Geometry>();
+		pin_ptr<ID2D1Geometry*> p = &temp[0];
 
-		ComUtils::CheckResult(GetNative()->CreateGeometryGroup(
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateGeometryGroup(
 			(D2D1_FILL_MODE)fillMode,
-			(ID2D1Geometry **)p,
+			p,
 			geometries->Length,
 			&geometry));
 

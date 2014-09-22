@@ -116,11 +116,6 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		void AddLine(PointF point);
 		void AddQuadraticBezier(QuadraticBezierSegment bezier);
 		void AddQuadraticBeziers(array<QuadraticBezierSegment>^ beziers);
-	internal:
-		ID2D1GeometrySink *GetNative() new
-		{
-			return (ID2D1GeometrySink *)SimplifiedGeometrySink::GetNative();
-		}
 	};
 
 	class CustomSimplifiedGeometrySink: public ID2D1SimplifiedGeometrySink

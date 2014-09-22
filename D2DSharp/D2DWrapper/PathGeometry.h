@@ -30,7 +30,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			int get()
 			{
 				UINT32 count;
-				ComUtils::CheckResult(GetNative()->GetFigureCount(&count));
+				ComUtils::CheckResult(GetNative<ID2D1PathGeometry>()->GetFigureCount(&count));
 				return (int)count;
 			}
 		}
@@ -40,7 +40,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			int get()
 			{
 				UINT32 count;
-				ComUtils::CheckResult(GetNative()->GetSegmentCount(&count));
+				ComUtils::CheckResult(GetNative<ID2D1PathGeometry>()->GetSegmentCount(&count));
 				return (int)count;
 			}
 		}
@@ -48,11 +48,5 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		GeometrySink^ Open();
 		void Stream(GeometrySink^ geometrySink);
 		void Stream(ICustomGeometrySink^ customGeometrySink);
-
-	private:
-		ID2D1PathGeometry *GetNative()
-		{
-			return (ID2D1PathGeometry *)Geometry::GetNative();
-		}
 	};
 }}}

@@ -26,14 +26,9 @@ namespace Managed { namespace Graphics { namespace Imaging
 		Boolean CanConvert(Guid srcPixelFormat, Guid dstPixelFormat)
 		{
 			BOOL value;
-			ComUtils::CheckResult(GetNative()->CanConvert(*(GUID*)&srcPixelFormat, *(GUID*)&dstPixelFormat, &value));
+			ComUtils::CheckResult(GetNative<IWICFormatConverter>()->CanConvert(*(GUID*) &srcPixelFormat, *(GUID*) &dstPixelFormat, &value));
 			return value != 0;
 		}
 		void Convert(WicBitmapSource^ source, Guid dstPixelFormat, BitmapDitherType dither, WicPalette^ palette, Double alphaThresholdPercent, BitmapPaletteType paletteType);
-	internal:
-		IWICFormatConverter* GetNative() new 
-		{
-			return (IWICFormatConverter*)WicBitmapSource::GetNative();
-		}
 	};
 }}}

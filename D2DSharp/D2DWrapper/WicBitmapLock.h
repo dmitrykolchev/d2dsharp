@@ -18,10 +18,5 @@ namespace Managed { namespace Graphics { namespace Imaging
 		{
 		}
 	public:
-	internal:
-		IWICBitmapLock* GetNative()
-		{
-			return (IWICBitmapLock*)ComWrapper::GetNative();
-		}
 	};
 }}}

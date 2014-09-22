@@ -39,10 +39,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		property FontWeight Weight { FontWeight get(); }
 		Boolean HasCharacter(UInt32 unicodeValue);
 		property Boolean IsSymbolFont { Boolean get(); }
-	internal:
-		IDWriteFont* GetNative() new
-		{
-			return static_cast<IDWriteFont*>(ComWrapper::GetNative());
-		}
 	};
 }}}

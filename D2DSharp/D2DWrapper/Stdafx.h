@@ -12,12 +12,10 @@
 #include <dwrite.h>
 #include <wincodec.h>
 #include <vcclr.h>
-#include <Wincodec.h>
 
 #include "ComUtils.h"
 #include "ComWrapper.h"
 #include "StreamWrapper.h"
-
 #include "D2DCommon.h"
 #include "Colors.h"
 #include "Direct2DFactory.h"
@@ -87,5 +85,13 @@
 #include "WicBitmap.h"
 #include "WicBitmapDecoder.h"
 #include "WicBitmapFrameDecode.h"
+#include "WicBitmapEncoder.h"
+#include "WicBitmapEncoderInfo.h"
+#include "WicBitmapCodecInfo.h"
+#include "WicBitmapFrameEncode.h"
 #include "WicStream.h"
 #include "WicBitmapLock.h"
+#include "WicGuids.h"
+#include "WicColorContext.h"
+#include "WicMetadataQueryReader.h"
+#include "WicMetadataQueryWriter.h"

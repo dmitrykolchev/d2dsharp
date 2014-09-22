@@ -17,7 +17,7 @@ void TextAnalyzer::AnalyzeBidi(TextAnalysisSource^ analysisSource, UInt32 textPo
 	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
 
 	ComUtils::CheckResult(
-		GetNative()->AnalyzeBidi(
+		GetNative<IDWriteTextAnalyzer>()->AnalyzeBidi(
 			source,
 			textPosition, 
 			textLength,
@@ -31,7 +31,7 @@ void TextAnalyzer::AnalyzeLineBreakpoints(TextAnalysisSource^ analysisSource, UI
 	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
 
 	ComUtils::CheckResult(
-		GetNative()->AnalyzeLineBreakpoints(
+		GetNative<IDWriteTextAnalyzer>()->AnalyzeLineBreakpoints(
 			source,
 			textPosition, 
 			textLength,
@@ -46,7 +46,7 @@ void TextAnalyzer::AnalyzeNumberSubstitution(TextAnalysisSource^ analysisSource,
 	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
 
 	ComUtils::CheckResult(
-		GetNative()->AnalyzeNumberSubstitution(
+		GetNative<IDWriteTextAnalyzer>()->AnalyzeNumberSubstitution(
 			source,
 			textPosition, 
 			textLength,
@@ -60,7 +60,7 @@ void TextAnalyzer::AnalyzeScript(TextAnalysisSource^ analysisSource, UInt32 text
 	source->QueryInterface(__uuidof(IDWriteTextAnalysisSink), (void**)&sink);
 
 	ComUtils::CheckResult(
-		GetNative()->AnalyzeScript(
+		GetNative<IDWriteTextAnalyzer>()->AnalyzeScript(
 			source,
 			textPosition, 
 			textLength,
@@ -85,9 +85,9 @@ UInt32 TextAnalyzer::GetGlyphs(
 	pin_ptr<const wchar_t> pTextString = PtrToStringChars(textString);
 	pin_ptr<const wchar_t> pLocaleName = PtrToStringChars(culture->Name);
 
-	IDWriteTextAnalyzer *native = GetNative();
-	IDWriteFontFace *pFontFace = fontFace->GetNative();
-	IDWriteNumberSubstitution* pNumberSubstitution = numberSubstitution->GetNative();
+	IDWriteTextAnalyzer *native = GetNative<IDWriteTextAnalyzer>();
+	IDWriteFontFace *pFontFace = fontFace->GetNative<IDWriteFontFace>();
+	IDWriteNumberSubstitution* pNumberSubstitution = numberSubstitution->GetNative<IDWriteNumberSubstitution>();
 
 	UINT32 featureRanges = features->Length;
 	UINT32* featureRangeLengths = new UINT32[featureRanges];

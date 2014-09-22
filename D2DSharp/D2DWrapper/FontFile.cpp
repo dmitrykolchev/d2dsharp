@@ -10,7 +10,7 @@ Boolean FontFile::Analyze([Out]FontFileType% fontFileType, [Out]FontFaceType% fo
 	DWRITE_FONT_FACE_TYPE fontFaceType_;
 	UINT32 numberOfFaces_;
 	ComUtils::CheckResult(
-		GetNative()->Analyze(
+		GetNative<IDWriteFontFile>()->Analyze(
 			&isSupportedFontType,
 			&fontFileType_,
 			&fontFaceType_,
@@ -27,7 +27,7 @@ FontFileLoader^ FontFile::GetLoader()
 	IDWriteFontFileLoader* fontFileLoader;
 
 	ComUtils::CheckResult(
-		GetNative()->GetLoader(
+		GetNative<IDWriteFontFile>()->GetLoader(
 			&fontFileLoader));
 	return gcnew FontFileLoader(fontFileLoader);
 }
@@ -38,7 +38,7 @@ array<Byte>^ FontFile::GetReferenceKey()
 	UINT32 fontFileReferenceKeySize;
 
 	ComUtils::CheckResult(
-		GetNative()->GetReferenceKey(
+		GetNative<IDWriteFontFile>()->GetReferenceKey(
 			(const void**)&fontFileReferenceKey,
 			&fontFileReferenceKeySize));
 

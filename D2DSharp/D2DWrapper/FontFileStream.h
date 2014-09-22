@@ -22,7 +22,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			UInt64 get()
 			{
 				UINT64 value;
-				ComUtils::CheckResult(GetNative()->GetFileSize(&value));
+				ComUtils::CheckResult(GetNative<IDWriteFontFileStream>()->GetFileSize(&value));
 				return value;
 			}
 		}
@@ -31,16 +31,11 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			UInt64 get()
 			{
 				UINT64 value;
-				ComUtils::CheckResult(GetNative()->GetLastWriteTime(&value));
+				ComUtils::CheckResult(GetNative<IDWriteFontFileStream>()->GetLastWriteTime(&value));
 				return value;
 			}
 		}
 		//TODO: ReadFileFragment
 		//TODO: ReleaseFileFragment
-	internal:
-		IDWriteFontFileStream* GetNative() new 
-		{
-			return (IDWriteFontFileStream*)ComWrapper::GetNative();
-		}
 	};
 }}}

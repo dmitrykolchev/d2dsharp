@@ -16,7 +16,7 @@ Int32 LocalizedStrings::FindCulture(System::Globalization::CultureInfo^ culture)
 	BOOL exists;
 
 	ComUtils::CheckResult(
-		GetNative()->FindLocaleName(
+		GetNative<IDWriteLocalizedStrings>()->FindLocaleName(
 			localeName,
 			&index,
 			&exists));
@@ -28,18 +28,18 @@ Int32 LocalizedStrings::FindCulture(System::Globalization::CultureInfo^ culture)
 
 Int32 LocalizedStrings::Count::get()
 {
-	return (Int32)GetNative()->GetCount();
+	return (Int32) GetNative<IDWriteLocalizedStrings>()->GetCount();
 }
 
 System::Globalization::CultureInfo^ LocalizedStrings::GetCulture(Int32 index)
 {
 	UINT32 length;
-	ComUtils::CheckResult(GetNative()->GetLocaleNameLength(index, &length));
+	ComUtils::CheckResult(GetNative<IDWriteLocalizedStrings>()->GetLocaleNameLength(index, &length));
 
 	wchar_t *localeName = new wchar_t[length + 1];
 	try
 	{
-		ComUtils::CheckResult(GetNative()->GetLocaleName(index, localeName, length + 1));
+		ComUtils::CheckResult(GetNative<IDWriteLocalizedStrings>()->GetLocaleName(index, localeName, length + 1));
 		return gcnew System::Globalization::CultureInfo(gcnew String(localeName));
 	}
 	finally
@@ -51,12 +51,12 @@ System::Globalization::CultureInfo^ LocalizedStrings::GetCulture(Int32 index)
 String^ LocalizedStrings::default::get(Int32 index)
 {
 	UINT32 length;
-	ComUtils::CheckResult(GetNative()->GetStringLength(index, &length));
+	ComUtils::CheckResult(GetNative<IDWriteLocalizedStrings>()->GetStringLength(index, &length));
 
 	wchar_t *text = new wchar_t[length + 1];
 	try
 	{
-		ComUtils::CheckResult(GetNative()->GetString(index, text, length + 1));
+		ComUtils::CheckResult(GetNative<IDWriteLocalizedStrings>()->GetString(index, text, length + 1));
 		return gcnew String(text);
 	}
 	finally

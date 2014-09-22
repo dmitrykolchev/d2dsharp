@@ -34,11 +34,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		property Int32 Count { Int32 get(); }
 		Int32 FindFamilyName(String^ familyName);
 		Font^ GetFontFromFontFace(FontFace^ fontFace);
-	internal:
-		IDWriteFontCollection* GetNative() new
-		{
-			return (IDWriteFontCollection*)ComWrapper::GetNative();
-		}
-
 	};
 }}}

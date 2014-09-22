@@ -27,10 +27,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		Int32 FindCulture(System::Globalization::CultureInfo^ culture);
 		property Int32 Count { Int32 get(); }
 		property String^ default[Int32] { String^ get(Int32 index); }
-	internal:
-		IDWriteLocalizedStrings* GetNative() new
-		{
-			return static_cast<IDWriteLocalizedStrings*>(ComWrapper::GetNative());
-		}
 	};
 }}}

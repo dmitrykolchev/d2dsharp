@@ -16,11 +16,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		NumberSubstitution(IDWriteNumberSubstitution* native): ComWrapper(native)
 		{
 		}
-
-	internal:
-		IDWriteNumberSubstitution* GetNative() new 
-		{
-			return (IDWriteNumberSubstitution*)ComWrapper::GetNative();
-		}
 	};
 }}}

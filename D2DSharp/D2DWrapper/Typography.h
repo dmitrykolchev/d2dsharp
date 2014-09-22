@@ -52,10 +52,5 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		void AddFontFeature(FontFeature fontFeature);
 		void AddFontFeature(FontFeatureTag nameTag, UInt32 value);
 		array<FontFeature>^ GetFontFeatures();
-	internal:
-		IDWriteTypography* GetNative() new
-		{
-			return (IDWriteTypography*)ComWrapper::GetNative();
-		}
 	};
 }}}

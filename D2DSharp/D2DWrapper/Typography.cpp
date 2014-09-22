@@ -4,7 +4,7 @@ using namespace Managed::Graphics::DirectWrite;
 
 void Typography::AddFontFeature(FontFeature fontFeature)
 {
-	ComUtils::CheckResult(GetNative()->AddFontFeature(*(DWRITE_FONT_FEATURE*)&fontFeature));
+	ComUtils::CheckResult(GetNative<IDWriteTypography>()->AddFontFeature(*(DWRITE_FONT_FEATURE*)&fontFeature));
 }
 
 void Typography::AddFontFeature(FontFeatureTag nameTag, UInt32 value)
@@ -14,7 +14,7 @@ void Typography::AddFontFeature(FontFeatureTag nameTag, UInt32 value)
 
 array<FontFeature>^ Typography::GetFontFeatures()
 {
-	IDWriteTypography* native = GetNative();
+	IDWriteTypography* native = GetNative<IDWriteTypography>();
 	UINT32 count = native->GetFontFeatureCount();
 	array<FontFeature>^ features = gcnew array<FontFeature>(count);
 	pin_ptr<FontFeature> pFeatures = &features[0];

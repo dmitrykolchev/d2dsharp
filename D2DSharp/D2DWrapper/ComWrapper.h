@@ -21,8 +21,8 @@ namespace Managed { namespace Runtime { namespace InteropServices
 		ComWrapper(IUnknown* native, Boolean addRef)
 		{
 			_native = native;
-			if(addRef)
-				_native->AddRef();
+			if (addRef)
+				native->AddRef();
 		}
 	public:
 		~ComWrapper()
@@ -33,16 +33,17 @@ namespace Managed { namespace Runtime { namespace InteropServices
 		{
 			if(_native != NULL)
 			{
-				_native->Release();
+				reinterpret_cast<IUnknown*>(_native)->Release();
 				_native = NULL;
 			}
 		}
 	internal:
-		IUnknown* GetNative()
+		template<class Interface> 
+		inline Interface* GetNative()
 		{
-			return _native;
+			return reinterpret_cast<Interface*>(_native);
 		}
 	private:
-		IUnknown* _native;
+		void* _native;
 	};
 }}}
