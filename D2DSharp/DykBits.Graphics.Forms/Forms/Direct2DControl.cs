@@ -37,7 +37,7 @@ namespace Managed.Graphics.Forms
         private DirectWriteFactory _directWriteFactory;
         private WicImagingFactory _imagingFactory;
         private WindowRenderTarget _renderTarget;
-        private bool _deviceIndependedResourcesCreated;
+        private bool _clearBackground = true;
 
         public Direct2DControl()
         {
@@ -46,12 +46,14 @@ namespace Managed.Graphics.Forms
                 ControlStyles.Opaque |
                 ControlStyles.UserPaint, true);
             InitializeComponent();
+            CreateDeviceIndependentResources();
             this.Disposed += new EventHandler(Direct2DControl_Disposed);
         }
 
         void Direct2DControl_Disposed(object sender, EventArgs e)
         {
             this.Disposed -= new EventHandler(Direct2DControl_Disposed);
+            CleanUpDeviceResources();
             CleanUpDeviceIndependentResources();
         }
 
@@ -87,6 +89,20 @@ namespace Managed.Graphics.Forms
             }
         }
 
+        [DefaultValue(true)]
+        public bool ClearBackground
+        {
+            get { return this._clearBackground; }
+            set
+            {
+                if (this._clearBackground != value)
+                {
+                    this._clearBackground = value;
+                    Invalidate();
+                }
+            }
+        }
+
         protected WindowRenderTarget RenderTarget
         {
             get
@@ -94,25 +110,14 @@ namespace Managed.Graphics.Forms
                 return this._renderTarget;
             }
         }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            CreateDeviceIndependentResources();
-            base.OnHandleCreated(e);
-        }
-
         private void CreateDeviceIndependentResources()
         {
             this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
-            this._renderTarget = this._factory.CreateWindowRenderTarget(this);
             OnCreateDeviceIndependentResources(this._factory);
-            this._deviceIndependedResourcesCreated = true;
         }
-
         private void CleanUpDeviceIndependentResources()
         {
-            if(this._deviceIndependedResourcesCreated)
-                OnCleanUpDeviceIndependentResources();
+            OnCleanUpDeviceIndependentResources();
             if (this._imagingFactory != null)
             {
                 this._imagingFactory.Dispose();
@@ -122,11 +127,6 @@ namespace Managed.Graphics.Forms
             {
                 this._directWriteFactory.Dispose();
                 this._directWriteFactory = null;
-            }
-            if (this._renderTarget != null)
-            {
-                this._renderTarget.Dispose();
-                this._renderTarget = null;
             }
             if (this._factory != null)
             {
@@ -141,7 +141,12 @@ namespace Managed.Graphics.Forms
 
         private void CleanUpDeviceResources()
         {
-            OnCleanUpDeviceResources();
+            if (this._renderTarget != null)
+            {
+                OnCleanUpDeviceResources();
+                this._renderTarget.Dispose();
+                this._renderTarget = null;
+            }
         }
 
         protected virtual void OnCleanUpDeviceResources()
@@ -150,7 +155,11 @@ namespace Managed.Graphics.Forms
 
         private void CreateDeviceResources()
         {
-            OnCreateDeviceResources(this._renderTarget);
+            if (this._renderTarget == null)
+            {
+                this._renderTarget = this._factory.CreateWindowRenderTarget(this);
+                OnCreateDeviceResources(this._renderTarget);
+            }
         }
 
         protected virtual void OnCreateDeviceResources(WindowRenderTarget renderTarget)
@@ -164,23 +173,23 @@ namespace Managed.Graphics.Forms
         protected override void OnPaint(PaintEventArgs e)
         {
             CreateDeviceResources();
+            RenderInternal(this._renderTarget);
+        }
+
+        private void RenderInternal(WindowRenderTarget renderTarget)
+        {
+            renderTarget.BeginDraw();
             try
             {
-                this._renderTarget.BeginDraw();
-                try
-                {
-                    this._renderTarget.Transform = Matrix3x2.Identity;
+                renderTarget.Transform = Matrix3x2.Identity;
+                if(this.ClearBackground)
                     this._renderTarget.Clear(Color.FromRGB(this.BackColor.R, this.BackColor.G, this.BackColor.B));
-                    OnRender(RenderTarget);
-                }
-                finally
-                {
-                    this._renderTarget.EndDraw();
-                }
+                OnRender(renderTarget);
             }
             finally
             {
-                CleanUpDeviceResources();
+                if (!renderTarget.EndDraw())
+                    CleanUpDeviceResources();
             }
         }
 
