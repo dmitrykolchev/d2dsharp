@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Imaging">
       <UniqueIdentifier>{db3601a2-dcc7-4d41-bd15-412426c660c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Native">
+      <UniqueIdentifier>{623517e7-6ae4-46ea-a3a1-4fdb8699b66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Native">
+      <UniqueIdentifier>{43116038-e096-4b37-8cb7-8315b7795c2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -276,6 +282,9 @@
     <ClInclude Include="WicMetadataQueryWriter.h">
       <Filter>Header Files\Imaging</Filter>
     </ClInclude>
+    <ClInclude Include="XMath.h">
+      <Filter>Header Files\Native</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -391,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="WicBitmapEncoder.cpp">
       <Filter>Source Files\Imaging</Filter>
+    </ClCompile>
+    <ClCompile Include="XMath.cpp">
+      <Filter>Source Files\Native</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
