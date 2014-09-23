@@ -74,8 +74,8 @@ namespace Managed.D2DSharp.Bezier
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            //if (this._time == 0.1f)
-            //    renderTarget.Clear(Color.FromARGB(Colors.Black, 1f));
+            if (this._time == 0.1f)
+                renderTarget.Clear(Color.FromARGB(Colors.Black, 1f));
             using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.25f)))
             {
                 renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
