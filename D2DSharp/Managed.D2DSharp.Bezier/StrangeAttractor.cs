@@ -1,5 +1,5 @@
 ﻿/* 
-* Program.cs 
+* StrangeAttractor.cs
 * 
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>

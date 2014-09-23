@@ -1,5 +1,5 @@
 ﻿/* 
-* Program.cs 
+* ControlPointArray.cs
 * 
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>
