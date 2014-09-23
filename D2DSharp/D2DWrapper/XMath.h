@@ -27,7 +27,7 @@ using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace Managed {
-	namespace DirectXMath {
+	namespace Graphics {
 
 		[StructLayout(LayoutKind::Sequential)]
 		public value struct Vector4
@@ -57,41 +57,41 @@ namespace Managed {
 			static Vector4 ColorRgbToHsl(Vector4 rgb);
 			static Vector4 ColorHslToRgb(Vector4 hsl);
 
-			Vector4 ColorRgbToHsv(Vector4 rgb)
+			static Vector4 ColorRgbToHsv(Vector4 rgb)
 			{
 				Vector4 result;
 				DxColorRgbToHsv((const FLOAT*) &rgb, (FLOAT*) &result);
 				return result;
 			}
 
-			Vector4 ColorHsvToRgb(Vector4 hsv)
+			static Vector4 ColorHsvToRgb(Vector4 hsv)
 			{
 				Vector4 result;
 				DxColorHsvToRgb((const FLOAT*) &hsv, (FLOAT*) &result);
 				return result;
 			}
 
-			Vector4 ColorRgbToXyz(Vector4 rgb)
+			static Vector4 ColorRgbToXyz(Vector4 rgb)
 			{
 				Vector4 result;
 				DxColorRgbToHsv((const FLOAT*) &rgb, (FLOAT*) &result);
 				return result;
 			}
 
-			Vector4 ColorXyzToRgb(Vector4 xyz)
+			static Vector4 ColorXyzToRgb(Vector4 xyz)
 			{
 				Vector4 result;
 				DxColorHsvToRgb((const FLOAT*) &xyz, (FLOAT*) &result);
 				return result;
 			}
-			Vector4 ColorRgbToYuv(Vector4 rgb)
+			static Vector4 ColorRgbToYuv(Vector4 rgb)
 			{
 				Vector4 result;
 				DxColorRgbToYuv((const FLOAT*) &rgb, (FLOAT*) &result);
 				return result;
 			}
 
-			Vector4 ColorYuvToRgb(Vector4 yuv)
+			static Vector4 ColorYuvToRgb(Vector4 yuv)
 			{
 				Vector4 result;
 				DxColorYuvToRgb((const FLOAT*) &yuv, (FLOAT*) &result);

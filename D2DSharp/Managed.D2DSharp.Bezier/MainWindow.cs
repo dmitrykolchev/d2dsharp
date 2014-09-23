@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Managed.Graphics;
 using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.Bezier
@@ -87,8 +88,8 @@ namespace Managed.D2DSharp.Bezier
                 using (Geometry geometry = array.CreateGeometry(this.Direct2DFactory))
                 {
                     float hue = (this._baseHue + (float)(index + 1) / (float)(count + 1)) % 1;
-                    Managed.DirectXMath.Vector4 hsla = new DirectXMath.Vector4(hue, 1.0f, 0.5f, 1);
-                    Managed.DirectXMath.Vector4 rgba = Managed.DirectXMath.XMath.ColorHslToRgb(hsla);
+                    Vector4 hsv = new Vector4(hue, 1.0f, 1f, 1);
+                    Vector4 rgba = XMath.ColorHsvToRgb(hsv);
                     using (SolidColorBrush brush = renderTarget.CreateSolidColorBrush((Color)rgba))
                     {
                         renderTarget.DrawGeometry(brush, 0.1f, geometry);

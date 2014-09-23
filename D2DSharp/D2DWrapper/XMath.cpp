@@ -25,7 +25,7 @@
 #pragma comment(lib, "D2DNativeLib.lib")
 
 namespace Managed {
-	namespace DirectXMath {
+	namespace Graphics {
 		Vector4 XMath::ColorRgbToHsl(Vector4 rgb)
 		{
 			Vector4 result;
