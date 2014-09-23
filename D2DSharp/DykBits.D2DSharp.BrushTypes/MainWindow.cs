@@ -91,7 +91,7 @@ namespace Managed.D2DSharp.BrushTypes
                     BrushProperties.Default);
             }
 
-            this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromARGB(1, 0.93f, 0.94f, 0.96f));
+            this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }
 
         protected override void OnCleanUpDeviceResources()

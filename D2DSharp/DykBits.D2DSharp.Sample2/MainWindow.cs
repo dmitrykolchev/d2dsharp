@@ -92,7 +92,7 @@ namespace Managed.D2DSharp.Sample2
             this._renderTarget.BeginDraw();
             for (int index = 0; index < 20; ++index)
             {
-                Color color = Color.FromARGB(1, (float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
+                Color color = Color.FromRGB((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
                 using (SolidColorBrush brush = this._renderTarget.CreateSolidColorBrush(color))
                 {
                     float strokeWidth = rand.Next(1, 5);

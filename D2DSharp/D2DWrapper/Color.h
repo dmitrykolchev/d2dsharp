@@ -28,15 +28,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			a = color.a;
 		}
 	private:
-		Color(FLOAT red, FLOAT green, FLOAT blue)
-		{
-			r = red;
-			g = green;
-			b = blue;
-			a = 1;
-		}
-
-		Color(FLOAT alpha, FLOAT red, FLOAT green, FLOAT blue)
+		Color(FLOAT red, FLOAT green, FLOAT blue, FLOAT alpha)
 		{
 			r = red;
 			g = green;
@@ -47,24 +39,31 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		static Color FromARGB(int color, FLOAT alpha)
 		{
 			return Color(
-				alpha,
 				(float)((color & 0xFF0000) >> 16) / 255,
 				(float)((color & 0x00FF00) >> 8) / 255,
-				(float)(color & 0x0000FF) / 255);
+				(float)(color & 0x0000FF) / 255,
+				alpha);
+		}
+		static Color FromRGB(FLOAT red, FLOAT green, FLOAT blue, FLOAT alpha)
+		{
+			return Color(red, green, blue, alpha);
 		}
 		static Color FromRGB(FLOAT red, FLOAT green, FLOAT blue)
 		{
-			return Color(red, green, blue);
+			return Color(red, green, blue, 1);
 		}
-
+		static Color FromRGB(byte r, byte g, byte b, byte a)
+		{
+			return Color((float)r / 255, (float)g / 255, (float)g / 255, (float)a / 255);
+		}
 		static Color FromRGB(byte r, byte g, byte b)
 		{
-			return FromRGB((float)r / 255, (float)g / 255, (float)g / 255);
+			return Color((float) r / 255, (float) g / 255, (float) g / 255, 1);
 		}
-
+		[ObsoleteAttribute("Use FromRGB method")]
 		static Color FromARGB(FLOAT alpha, FLOAT red, FLOAT green, FLOAT blue)
 		{
-			return Color(alpha, red, green, blue);
+			return Color(red, green, blue, alpha);
 		}
 
 		property FLOAT A 

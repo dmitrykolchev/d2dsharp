@@ -45,7 +45,7 @@ namespace Managed {
 			}
 			static operator Managed::Graphics::Direct2D::Color(Vector4 v)
 			{
-				return Managed::Graphics::Direct2D::Color::FromARGB(v.w, v.x, v.y, v.z);
+				return Managed::Graphics::Direct2D::Color::FromRGB(v.x, v.y, v.z, v.w);
 			}
 		};
 

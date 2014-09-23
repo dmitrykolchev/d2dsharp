@@ -21,7 +21,6 @@
 */
 #include <Windows.h>
 #include <DirectXMath.h>
-#include "D2DNative.h"
 
 using namespace DirectX;
 

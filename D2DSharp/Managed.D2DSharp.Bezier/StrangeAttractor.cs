@@ -34,7 +34,6 @@ namespace Managed.D2DSharp.Bezier
         private double y;
         private double z;
 
-        private double[] a;
         PointF[] _points;
         public StrangeAttractor()
         {

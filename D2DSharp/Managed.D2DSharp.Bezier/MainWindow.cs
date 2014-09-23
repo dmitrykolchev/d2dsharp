@@ -70,14 +70,20 @@ namespace Managed.D2DSharp.Bezier
             base.OnKeyDown(e);
         }
 
+        float angle = 0;
+
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            if (this._time == 0.1f)
-                renderTarget.Clear(Color.FromARGB(Colors.Black, 1f));
+            //if (this._time == 0.1f)
+            //    renderTarget.Clear(Color.FromARGB(Colors.Black, 1f));
             using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.25f)))
             {
                 renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             }
+
+            Matrix3x2 rotation = Matrix3x2.Rotation(angle, new PointF(ClientSize.Width / 2, ClientSize.Height / 2));
+            angle -= 0.1f;
+            renderTarget.Transform = rotation;
 
             ControlPointArray temp = Points;
             int count = Points.Count;
