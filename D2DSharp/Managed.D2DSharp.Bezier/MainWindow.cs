@@ -46,14 +46,18 @@ namespace Managed.D2DSharp.Bezier
 
         }
 
-        private ControlPointArrayDx _points;
-        public ControlPointArrayDx Points
+        private ControlPointArray _points;
+        public ControlPointArray Points
         {
             get
             {
                 if (this._points == null)
                 {
-                    this._points = ControlPointArrayDx.Generate(100, 0, ClientSize.Width + 0, 0, ClientSize.Height + 0, this._pointOfView);
+                    //float halfWidth = ClientSize.Width / 2;
+                    //float halfHeight = ClientSize.Height / 2;
+                    //this._points = ControlPointArrayDx.Generate(100, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 1024, -512, new SizeF(1920, 1080));
+                    this._points = ControlPointArray.Generate(65, 0, ClientSize.Width, 0, ClientSize.Height);
+                    //this._points.Transform = Matrix4x4.Identity;
                 }
                 return this._points;
             }
@@ -131,18 +135,15 @@ namespace Managed.D2DSharp.Bezier
             }
         }
 
-        double t = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //this._time += 0.003f;
+            this._time += 0.003f;
             if (this._time > 0.9f)
             {
                 Reset();
             }
             else
             {
-                Vector4 pv = this._points.PointOfView;
-                this._points.PointOfView = new Vector4(pv.X, pv.Y, pv.Z + 1, 0);
                 Invalidate();
             }
         }

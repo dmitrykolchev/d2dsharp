@@ -37,11 +37,12 @@ namespace Managed.D2DSharp.Bezier
         {
             this._points = new Vector4[count];
         }
-        public static ControlPointArrayDx Generate(int count, float minX, float maxX, float minY, float maxY, Vector4 pointOfView)
+        public static ControlPointArrayDx Generate(int count, float minX, float maxX, float minY, float maxY, float minZ, float maxZ, float pointOfView, SizeF viewPortSize)
         {
             ControlPointArrayDx p = new ControlPointArrayDx(count);
             p.PointOfView = pointOfView;
-            p.Generate(minX, maxX, minY, maxY, minY, maxY);
+            p.ViewPortSize = viewPortSize;
+            p.Generate(minX, maxX, minY, maxY, minZ, maxZ);
             return p;
         }
         public IEnumerable<Vector4> Points
@@ -68,6 +69,8 @@ namespace Managed.D2DSharp.Bezier
         {
             ControlPointArrayDx result = new ControlPointArrayDx(this.Count - 1);
             result.PointOfView = this.PointOfView;
+            result.ViewPortSize = this.ViewPortSize;
+            result.Transform = this.Transform;
             int count = this.Count;
             for (var index = 0; index < count - 1; ++index)
             {
@@ -76,32 +79,35 @@ namespace Managed.D2DSharp.Bezier
             return result;
         }
 
-        public Vector4 PointOfView { get; set; }
+        public float PointOfView { get; set; }
+        public SizeF ViewPortSize { get; set; }
+        public Matrix4x4 Transform { get; set; }
 
         PointF Project(Vector4 p)
         {
-            Vector4 pv = PointOfView;
-            double t = - pv.Z / (p.Z - pv.Z);
-            double x = pv.X + (p.X - pv.X) * t;
-            double y = pv.Y + (p.Y - pv.Y) * t;
+            Vector4 s = p;
+            p = p * Transform;
+            double t = - PointOfView / (p.Z - PointOfView);
+            double x = p.X * t + ViewPortSize.Width / 2;
+            double y = p.Y * t + ViewPortSize.Height / 2;
             return new PointF((float)x, (float)y);
         }
         public Geometry CreateGeometry(Direct2DFactory factory)
         {
             PathGeometry geometry = factory.CreatePathGeometry();
 
-            using (GeometrySink sink = geometry.Open())
-            {
-                sink.BeginFigure(Project(this._points[0]), FigureBegin.Hollow);
-                for (int index = 1; index < this._points.Length; ++index)
-                {
-                    sink.AddLine(Project(this._points[index]));
-                }
-                sink.EndFigure(FigureEnd.Open);
-                sink.Close();
-            }
+            //using (GeometrySink sink = geometry.Open())
+            //{
+            //    sink.BeginFigure(Project(this._points[0]), FigureBegin.Hollow);
+            //    for (int index = 1; index < this._points.Length; ++index)
+            //    {
+            //        sink.AddLine(Project(this._points[index]));
+            //    }
+            //    sink.EndFigure(FigureEnd.Open);
+            //    sink.Close();
+            //}
             List<Geometry> list = new List<Geometry>();
-            list.Add(geometry);
+            //list.Add(geometry);
 
             for (int index = 0; index < this._points.Length; ++index)
             {
