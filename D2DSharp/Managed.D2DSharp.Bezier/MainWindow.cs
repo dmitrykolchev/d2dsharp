@@ -35,7 +35,6 @@ namespace Managed.D2DSharp.Bezier
     public partial class MainWindow : Managed.Graphics.Forms.Direct2DWindow
     {
         private SolidColorBrush _brush;
-        private ControlPointArray _points;
         private StrangeAttractor _attractor = new StrangeAttractor();
         private float _time;
         private float _baseHue;
@@ -44,20 +43,24 @@ namespace Managed.D2DSharp.Bezier
             InitializeComponent();
         }
 
-        public ControlPointArray Points
+        private ControlPointArrayDx _points;
+        public ControlPointArrayDx Points
         {
             get
             {
                 if (this._points == null)
-                    this._points = ControlPointArray.Generate(65, -200, ClientSize.Width + 200, -200, ClientSize.Height + 200);
+                    this._points = ControlPointArrayDx.Generate(100, 0, ClientSize.Width + 0, 0, ClientSize.Height + 0);
                 return this._points;
             }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                this.timer1.Enabled = !this.timer1.Enabled;
+            else
+                this.Close();
             base.OnMouseDown(e);
-            this.Close();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -71,26 +74,33 @@ namespace Managed.D2DSharp.Bezier
         }
 
         float angle = 0;
-
+        float step = 0.01f;
+        float scale = 1;
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             if (this._time == 0.1f)
                 renderTarget.Clear(Color.FromARGB(Colors.Black, 1f));
-            using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.25f)))
+            using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.2f)))
             {
                 renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             }
 
-            Matrix3x2 rotation = Matrix3x2.Rotation(angle, new PointF(ClientSize.Width / 2, ClientSize.Height / 2));
-            angle -= 0.1f;
-            renderTarget.Transform = rotation;
+            //Matrix3x2 rotation = Matrix3x2.Rotation(angle, new PointF(ClientSize.Width / 2, ClientSize.Height / 2));
+            //Matrix3x2 mscale = Matrix3x2.Scale(scale, scale, new PointF(ClientSize.Width / 2, ClientSize.Height / 2));
+            //scale += step;
+            //if (scale > 2f)
+            //    step = -step;
+            //else if (scale < 0.5f)
+            //    step = -step;
+            //angle -= 0.1f;
+            //renderTarget.Transform = rotation;
 
-            ControlPointArray temp = Points;
+            var temp = Points;
             int count = Points.Count;
 
             for (int index = 0; index < count - 1; ++index)
             {
-                ControlPointArray array = temp.Reduce(this._time);
+                var array = temp.Reduce(this._time);
                 using (Geometry geometry = array.CreateGeometry(this.Direct2DFactory))
                 {
                     float hue = (this._baseHue + (float)(index + 1) / (float)(count + 1)) % 1;
@@ -139,7 +149,7 @@ namespace Managed.D2DSharp.Bezier
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this._time += 0.005f;
+            this._time += 0.003f;
             if (this._time > 0.9f)
             {
                 Reset();

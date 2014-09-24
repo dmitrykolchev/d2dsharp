@@ -230,7 +230,9 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="ClientDrawingEffect.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="CustomTextRenderer.cpp" />
+    <ClCompile Include="D2DCommon.cpp" />
     <ClCompile Include="Direct2DFactory.cpp" />
     <ClCompile Include="D2DResource.cpp" />
     <ClCompile Include="DirectWriteFactory.cpp" />

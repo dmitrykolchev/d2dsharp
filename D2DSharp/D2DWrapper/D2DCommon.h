@@ -13,6 +13,9 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed {
 	namespace Graphics {
+		
+		value struct Vector4;
+
 		namespace Direct2D
 		{
 			public enum class FillMode
@@ -539,6 +542,310 @@ namespace Managed {
 					pin_ptr<Matrix3x2> p = &matrix;
 					return D2D1InvertMatrix((D2D1_MATRIX_3X2_F*) p) != 0;
 				}
+			};
+
+			[StructLayout(LayoutKind::Sequential)]
+			public value struct Matrix4x4 {
+			private:
+				FLOAT _11, _12, _13, _14;
+				FLOAT _21, _22, _23, _24;
+				FLOAT _31, _32, _33, _34;
+				FLOAT _41, _42, _43, _44;
+			private:
+				Matrix4x4(bool identity)
+				{
+					_11 = 1;
+					_12 = 0;
+					_13 = 0;
+					_14 = 0;
+
+					_21 = 0;
+					_22 = 1;
+					_23 = 0;
+					_24 = 0;
+
+					_31 = 0;
+					_32 = 0;
+					_33 = 1;
+					_34 = 0;
+
+					_41 = 0;
+					_42 = 0;
+					_43 = 0;
+					_44 = 1;
+				}
+			public:
+				initonly static Matrix4x4 Identity = Matrix4x4(true);
+
+				Matrix4x4(
+					FLOAT m11, FLOAT m12, FLOAT m13, FLOAT m14,
+					FLOAT m21, FLOAT m22, FLOAT m23, FLOAT m24,
+					FLOAT m31, FLOAT m32, FLOAT m33, FLOAT m34,
+					FLOAT m41, FLOAT m42, FLOAT m43, FLOAT m44)
+				{
+					_11 = m11;
+					_12 = m12;
+					_13 = m13;
+					_14 = m14;
+
+					_21 = m21;
+					_22 = m22;
+					_23 = m23;
+					_24 = m24;
+
+					_31 = m31;
+					_32 = m32;
+					_33 = m33;
+					_34 = m34;
+
+					_41 = m41;
+					_42 = m42;
+					_43 = m43;
+					_44 = m44;
+				}
+
+				static bool Equals(Matrix4x4 l, Matrix4x4 r)
+				{
+					return l._11 == r._11 && l._12 == r._12 && l._13 == r._13 && l._14 == r._14 &&
+						l._21 == r._21 && l._22 == r._22 && l._23 == r._23 && l._24 == r._24 &&
+						l._31 == r._31 && l._32 == r._32 && l._33 == r._33 && l._34 == r._34 &&
+						l._41 == r._41 && l._42 == r._42 && l._43 == r._43 && l._44 == r._44;
+
+				}
+
+				static bool operator == (Matrix4x4 l, Matrix4x4 r)
+				{
+					return Equals(l, r);
+				}
+
+				static bool operator != (Matrix4x4 l, Matrix4x4 r)
+				{
+					return !Equals(l, r);
+				}
+
+				static Matrix4x4 Translation(FLOAT x, FLOAT y, FLOAT z)
+				{
+					Matrix4x4 translation;
+
+					translation._11 = 1.0; translation._12 = 0.0; translation._13 = 0.0; translation._14 = 0.0;
+					translation._21 = 0.0; translation._22 = 1.0; translation._23 = 0.0; translation._24 = 0.0;
+					translation._31 = 0.0; translation._32 = 0.0; translation._33 = 1.0; translation._34 = 0.0;
+					translation._41 = x;   translation._42 = y;   translation._43 = z;   translation._44 = 1.0;
+
+					return translation;
+				}
+
+				static Matrix4x4 Scale(FLOAT x, FLOAT y, FLOAT z)
+				{
+					Matrix4x4 scale;
+
+					scale._11 = x;   scale._12 = 0.0; scale._13 = 0.0; scale._14 = 0.0;
+					scale._21 = 0.0; scale._22 = y;   scale._23 = 0.0; scale._24 = 0.0;
+					scale._31 = 0.0; scale._32 = 0.0; scale._33 = z;   scale._34 = 0.0;
+					scale._41 = 0.0; scale._42 = 0.0; scale._43 = 0.0; scale._44 = 1.0;
+
+					return scale;
+				}
+
+				static Matrix4x4 RotationX(FLOAT degreeX)
+				{
+					FLOAT angleInRadian = degreeX * (3.141592654f / 180.0f);
+
+					FLOAT sinAngle = 0.0;
+					FLOAT cosAngle = 0.0;
+					D2D1SinCos(angleInRadian, &sinAngle, &cosAngle);
+
+					return Matrix4x4(
+						1, 0, 0, 0,
+						0, cosAngle, sinAngle, 0,
+						0, -sinAngle, cosAngle, 0,
+						0, 0, 0, 1
+						);
+				}
+
+				static Matrix4x4 RotationY(FLOAT degreeY)
+				{
+					FLOAT angleInRadian = degreeY * (3.141592654f / 180.0f);
+
+					FLOAT sinAngle = 0.0;
+					FLOAT cosAngle = 0.0;
+					D2D1SinCos(angleInRadian, &sinAngle, &cosAngle);
+
+					return Matrix4x4(
+						cosAngle, 0, -sinAngle, 0,
+						0, 1, 0, 0,
+						sinAngle, 0, cosAngle, 0,
+						0, 0, 0, 1
+						);
+				}
+				static Matrix4x4 RotationZ(FLOAT degreeZ)
+				{
+					FLOAT angleInRadian = degreeZ * (3.141592654f / 180.0f);
+
+					FLOAT sinAngle = 0.0;
+					FLOAT cosAngle = 0.0;
+					D2D1SinCos(angleInRadian, &sinAngle, &cosAngle);
+
+					return Matrix4x4(
+						cosAngle, sinAngle, 0, 0,
+						-sinAngle, cosAngle, 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1
+						);
+				}
+
+				static Matrix4x4 RotationArbitraryAxis(FLOAT x, FLOAT y, FLOAT z, FLOAT degree)
+				{
+					// Normalize the vector represented by x, y, and z
+					FLOAT magnitude = D2D1Vec3Length(x, y, z);
+					x /= magnitude;
+					y /= magnitude;
+					z /= magnitude;
+
+					FLOAT angleInRadian = degree * (3.141592654f / 180.0f);
+
+					FLOAT sinAngle = 0.0;
+					FLOAT cosAngle = 0.0;
+					D2D1SinCos(angleInRadian, &sinAngle, &cosAngle);
+
+					FLOAT oneMinusCosAngle = 1 - cosAngle;
+
+					return Matrix4x4(
+						1 + oneMinusCosAngle * (x * x - 1),
+						z  * sinAngle + oneMinusCosAngle *  x * y,
+						-y * sinAngle + oneMinusCosAngle *  x * z,
+						0,
+
+						-z * sinAngle + oneMinusCosAngle *  y * x,
+						1 + oneMinusCosAngle * (y * y - 1),
+						x  * sinAngle + oneMinusCosAngle *  y * z,
+						0,
+
+						y  * sinAngle + oneMinusCosAngle *  z * x,
+						-x * sinAngle + oneMinusCosAngle *  z * y,
+						1 + oneMinusCosAngle * (z * z - 1),
+						0,
+
+						0, 0, 0, 1
+						);
+				}
+				static Matrix4x4 SkewX(FLOAT degreeX)
+				{
+					FLOAT angleInRadian = degreeX * (3.141592654f / 180.0f);
+
+					FLOAT tanAngle = D2D1Tan(angleInRadian);
+
+					return Matrix4x4(
+						1, 0, 0, 0,
+						tanAngle, 1, 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1
+						);
+				}
+				static Matrix4x4 SkewY(FLOAT degreeY)
+				{
+					FLOAT angleInRadian = degreeY * (3.141592654f / 180.0f);
+
+					FLOAT tanAngle = D2D1Tan(angleInRadian);
+
+					return Matrix4x4(
+						1, tanAngle, 0, 0,
+						0, 1, 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1
+						);
+				}
+				static Matrix4x4 PerspectiveProjection(FLOAT depth)
+				{
+					float proj = 0;
+
+					if (depth > 0)
+					{
+						proj = -1 / depth;
+					}
+
+					return Matrix4x4(
+						1, 0, 0, 0,
+						0, 1, 0, 0,
+						0, 0, 1, proj,
+						0, 0, 0, 1
+						);
+				}
+				property FLOAT Determinant
+				{
+					FLOAT get()
+					{
+						FLOAT minor1 = _41 * (_12 * (_23 * _34 - _33 * _24) - _13 * (_22 * _34 - _24 * _32) + _14 * (_22 * _33 - _23 * _32));
+						FLOAT minor2 = _42 * (_11 * (_21 * _34 - _31 * _24) - _13 * (_21 * _34 - _24 * _31) + _14 * (_21 * _33 - _23 * _31));
+						FLOAT minor3 = _43 * (_11 * (_22 * _34 - _32 * _24) - _12 * (_21 * _34 - _24 * _31) + _14 * (_21 * _32 - _22 * _31));
+						FLOAT minor4 = _44 * (_11 * (_22 * _33 - _32 * _23) - _12 * (_21 * _33 - _23 * _31) + _13 * (_21 * _32 - _22 * _31));
+
+						return minor1 - minor2 + minor3 - minor4;
+					}
+				}
+				property bool IsIdentity
+				{
+					bool get() {
+						return _11 == 1.f && _12 == 0.f && _13 == 0.f && _14 == 0.f
+							&& _21 == 0.f && _22 == 1.f && _23 == 0.f && _24 == 0.f
+							&& _31 == 0.f && _32 == 0.f && _33 == 1.f && _34 == 0.f
+							&& _41 == 0.f && _42 == 0.f && _43 == 0.f && _44 == 1.f;
+					}
+				}
+				void SetProduct(Matrix4x4 a, Matrix4x4 b)
+				{
+					_11 = a._11 * b._11 + a._12 * b._21 + a._13 * b._31 + a._14 * b._41;
+					_12 = a._11 * b._12 + a._12 * b._22 + a._13 * b._32 + a._14 * b._42;
+					_13 = a._11 * b._13 + a._12 * b._23 + a._13 * b._33 + a._14 * b._43;
+					_14 = a._11 * b._14 + a._12 * b._24 + a._13 * b._34 + a._14 * b._44;
+
+					_21 = a._21 * b._11 + a._22 * b._21 + a._23 * b._31 + a._24 * b._41;
+					_22 = a._21 * b._12 + a._22 * b._22 + a._23 * b._32 + a._24 * b._42;
+					_23 = a._21 * b._13 + a._22 * b._23 + a._23 * b._33 + a._24 * b._43;
+					_24 = a._21 * b._14 + a._22 * b._24 + a._23 * b._34 + a._24 * b._44;
+
+					_31 = a._31 * b._11 + a._32 * b._21 + a._33 * b._31 + a._34 * b._41;
+					_32 = a._31 * b._12 + a._32 * b._22 + a._33 * b._32 + a._34 * b._42;
+					_33 = a._31 * b._13 + a._32 * b._23 + a._33 * b._33 + a._34 * b._43;
+					_34 = a._31 * b._14 + a._32 * b._24 + a._33 * b._34 + a._34 * b._44;
+
+					_41 = a._41 * b._11 + a._42 * b._21 + a._43 * b._31 + a._44 * b._41;
+					_42 = a._41 * b._12 + a._42 * b._22 + a._43 * b._32 + a._44 * b._42;
+					_43 = a._41 * b._13 + a._42 * b._23 + a._43 * b._33 + a._44 * b._43;
+					_44 = a._41 * b._14 + a._42 * b._24 + a._43 * b._34 + a._44 * b._44;
+				}
+
+				static Matrix4x4 operator*(Matrix4x4 a, Matrix4x4 b) 
+				{
+					Matrix4x4 result;
+
+					result.SetProduct(a, b);
+
+					return result;
+				}
+
+				static Vector4 operator*(Matrix4x4 a, Vector4 v);
+				static Vector4 operator*(Vector4 v, Matrix4x4 a);
+
+				property FLOAT M11 { FLOAT get() { return _11; } }
+				property FLOAT M12 { FLOAT get() { return _12; } }
+				property FLOAT M13 { FLOAT get() { return _13; } }
+				property FLOAT M14 { FLOAT get() { return _14; } }
+
+				property FLOAT M21 { FLOAT get() { return _21; } }
+				property FLOAT M22 { FLOAT get() { return _22; } }
+				property FLOAT M23 { FLOAT get() { return _23; } }
+				property FLOAT M24 { FLOAT get() { return _24; } }
+
+				property FLOAT M31 { FLOAT get() { return _31; } }
+				property FLOAT M32 { FLOAT get() { return _32; } }
+				property FLOAT M33 { FLOAT get() { return _33; } }
+				property FLOAT M34 { FLOAT get() { return _34; } }
+
+				property FLOAT M41 { FLOAT get() { return _41; } }
+				property FLOAT M42 { FLOAT get() { return _42; } }
+				property FLOAT M43 { FLOAT get() { return _43; } }
+				property FLOAT M44 { FLOAT get() { return _44; } }
 			};
 
 			[StructLayout(LayoutKind::Sequential)]

@@ -404,6 +404,12 @@
     <ClCompile Include="XMath.cpp">
       <Filter>Source Files\Native</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DCommon.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
