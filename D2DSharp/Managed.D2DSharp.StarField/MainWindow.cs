@@ -44,8 +44,11 @@ namespace Managed.D2DSharp.StarField
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            this.angleY = -((float)(e.X - ClientSize.Width / 2) / ClientSize.Width) * 90;
-            this.angleX = ((float)(e.Y - ClientSize.Height / 2) / ClientSize.Height) * 90;
+            if (Form.ModifierKeys == Keys.Control)
+            {
+                this.angleY = -((float)(e.X - ClientSize.Width / 2) / ClientSize.Width) * 90;
+                this.angleX = ((float)(e.Y - ClientSize.Height / 2) / ClientSize.Height) * 90;
+            }
             base.OnMouseMove(e);
         }
 
