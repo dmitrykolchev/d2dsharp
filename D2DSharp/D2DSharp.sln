@@ -54,9 +54,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DNativeLib", "D2DNativeLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Math", "Managed.D2DSharp.Math\Managed.D2DSharp.Math.csproj", "{01188394-82B4-4D42-9962-97ED3864DA48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.StarField", "Managed.D2DSharp.StarField\Managed.D2DSharp.StarField.csproj", "{49CE691D-B7FD-4D53-A072-E9EA041A2617}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 19
+		SccNumberOfProjects = 20
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
 		SccLocalPath0 = .
@@ -132,6 +134,10 @@ Global
 		SccProjectTopLevelParentUniqueName18 = D2DSharp.sln
 		SccProjectName18 = Managed.D2DSharp.Math
 		SccLocalPath18 = Managed.D2DSharp.Math
+		SccProjectUniqueName19 = Managed.D2DSharp.StarField\\Managed.D2DSharp.StarField.csproj
+		SccProjectTopLevelParentUniqueName19 = D2DSharp.sln
+		SccProjectName19 = Managed.D2DSharp.StarField
+		SccLocalPath19 = Managed.D2DSharp.StarField
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -474,6 +480,22 @@ Global
 		{01188394-82B4-4D42-9962-97ED3864DA48}.Release|x64.Build.0 = Release|x64
 		{01188394-82B4-4D42-9962-97ED3864DA48}.Release|x86.ActiveCfg = Release|x86
 		{01188394-82B4-4D42-9962-97ED3864DA48}.Release|x86.Build.0 = Release|x86
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|x86.ActiveCfg = Debug|x86
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Debug|x86.Build.0 = Debug|x86
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|Win32.ActiveCfg = Release|Any CPU
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|x64.ActiveCfg = Release|x64
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|x64.Build.0 = Release|x64
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -498,5 +520,6 @@ Global
 		{0C7626A1-5B2C-42A1-B4C2-EF84F8FC0F72} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{39207DED-C018-4B62-8F1E-A1B18AD54B3B} = {0128DA73-F695-40DD-AF41-6832E9B7187B}
 		{01188394-82B4-4D42-9962-97ED3864DA48} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{49CE691D-B7FD-4D53-A072-E9EA041A2617} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
 EndGlobal
