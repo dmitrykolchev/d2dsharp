@@ -99,7 +99,7 @@ namespace Managed.D2DSharp.Marquee
         {
             base.OnCreateDeviceResources(renderTarget);
             this._brush = renderTarget.CreateSolidColorBrush(Managed.Graphics.Direct2D.Color.FromARGB(Managed.Graphics.Direct2D.Colors.LimeGreen, 1));
-            this._semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.5f));
+            this._semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.25f));
         }
         protected override void OnCleanUpDeviceIndependentResources()
         {
