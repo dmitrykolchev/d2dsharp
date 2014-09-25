@@ -59,10 +59,8 @@ namespace Managed.D2DSharp.StarField
             }
             this._stars = this._stars.OrderByDescending(t => t.Location.Z).ToArray();
         }
-
         public float PointOfView { get; set; }
         public SizeF ViewPortSize { get; set; }
-
         public Matrix4x4 Transform { get; set; }
         public Nullable<PointF> Project(Vector4 p)
         {
@@ -75,7 +73,6 @@ namespace Managed.D2DSharp.StarField
             double y = p.Y * t + ViewPortSize.Height / 2;
             return new PointF((float)x, (float)y);
         }
-
         public void Render(RenderTarget target)
         {
             Direct2DFactory factory = target.GetFactory();
