@@ -133,7 +133,8 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 			TextMetrics get()
 			{
 				TextMetrics value;
-				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->GetMetrics((DWRITE_TEXT_METRICS*) &value));
+				pin_ptr<TextMetrics> ptr = &value;
+				ComUtils::CheckResult(GetNative<IDWriteTextLayout>()->GetMetrics((DWRITE_TEXT_METRICS*)ptr));
 				return value;
 			}
 		}

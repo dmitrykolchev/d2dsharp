@@ -202,6 +202,15 @@ namespace Managed.Graphics.Forms
         {
         }
 
+        protected static void SafeDispose<T>(ref T d) where T: class, IDisposable
+        {
+            if (d != null)
+            {
+                ((IDisposable)d).Dispose();
+                d = default(T);
+            }
+        }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
