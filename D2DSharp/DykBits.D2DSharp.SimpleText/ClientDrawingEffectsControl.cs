@@ -43,9 +43,9 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceIndependentResources(factory);
 
-            this._redColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Red, 1));
-            this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Green, 1));
-            this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromARGB(Colors.Blue, 1));
+            this._redColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Red, 1));
+            this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Green, 1));
+            this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Blue, 1));
 
             this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
                 FontWeight.Normal,
@@ -97,7 +97,7 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceResources(renderTarget);
 
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
+            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
             this._customRenderer = new CustomTextRendererWithEffects(this.Direct2DFactory, renderTarget, this._blackBrush);
         }
 

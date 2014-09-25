@@ -73,7 +73,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 		ErrorDiffusion   = 0x00000008 
 	};
 
-	public enum class DesiredAccess
+	public enum class DesiredAccess: System::UInt32
 	{
 		Read = GENERIC_READ,
 		Write = GENERIC_WRITE

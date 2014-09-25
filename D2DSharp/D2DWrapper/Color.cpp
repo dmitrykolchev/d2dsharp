@@ -47,6 +47,28 @@ namespace Managed {
 			{
 				return XMath::ColorRgbToYuv(Vector4(*this));
 			}
+
+			Color Color::FromSRGB(float r, float g, float b, float a)
+			{
+				return (Color) XMath::ColorSrgbToRgb(Vector4(r, g, b, a));
+			}
+			Color Color::FromHSL(float h, float s, float l, float a)
+			{
+				return (Color) XMath::ColorSrgbToRgb(Vector4(h, s, l, a));
+			}
+			Color Color::FromHSV(float h, float s, float v, float a)
+			{
+				return (Color) XMath::ColorSrgbToRgb(Vector4(h, s, v, a));
+			}
+			Color Color::FromXYZ(float x, float y, float z, float a)
+			{
+				return (Color) XMath::ColorSrgbToRgb(Vector4(x, y, z, a));
+			}
+			Color Color::FromYUV(float y, float u, float v, float a)
+			{
+				return (Color) XMath::ColorSrgbToRgb(Vector4(y, u, v, a));
+			}
+
 		}
 	}
 }

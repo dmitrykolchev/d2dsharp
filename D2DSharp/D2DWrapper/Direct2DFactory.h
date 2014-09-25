@@ -273,6 +273,15 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		}
 	};
 
+	public enum class FactoryVersion
+	{
+		Auto,
+		V_1,
+		V_2
+	};
+
+	ref class Device;
+	ref class DxgiDevice;
 
 	public ref class Direct2DFactory: ComWrapper
 	{
@@ -283,6 +292,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 	public:
 		static Direct2DFactory^ CreateFactory(FactoryType factoryType, DebugLevel debugLevel);
+		static Direct2DFactory^ CreateFactory(FactoryType factoryType, DebugLevel debugLevel, FactoryVersion version);
 
 		WindowRenderTarget^ CreateWindowRenderTarget(Control^ control);
 		WindowRenderTarget^ CreateWindowRenderTarget(Control^ control, 
@@ -299,8 +309,31 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		RoundedRectangleGeometry^ CreateRoundedRectangleGeometry(RoundedRect rect);
 		TransformedGeometry^ CreateTransformedGeometry(Geometry^ sourceGeometry, Matrix3x2 transform);
 		GeometryGroup^ CreateGeometryGroup(FillMode fillMode, array<Geometry^>^ geometries);
-		PathGeometry^ CreatePathGeometry();
-
+		virtual PathGeometry^ CreatePathGeometry();
+		
+		//virtual Device^ CreateDevice(DxgiDevice^ dxgiDevice);
+		virtual StrokeStyle^ CreateStrokeStyle(StrokeStyleProperties1 properties, array<FLOAT>^ dashes);
+		virtual property FactoryVersion Version {
+			FactoryVersion get() { return FactoryVersion::V_1; }
+		}
+		property FLOAT DpiX
+		{
+			FLOAT get() {
+				FLOAT x;
+				FLOAT y;
+				GetNative<ID2D1Factory>()->GetDesktopDpi(&x, &y);
+				return x;
+			}
+		}
+		property FLOAT DpiY
+		{
+			FLOAT get() {
+				FLOAT x;
+				FLOAT y;
+				GetNative<ID2D1Factory>()->GetDesktopDpi(&x, &y);
+				return y;
+			}
+		}
 		void ReloadSystemMetrics()
 		{
 			ComUtils::CheckResult(GetNative<ID2D1Factory>()->ReloadSystemMetrics());
@@ -313,5 +346,19 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			dpiX = x;
 			dpiY = y;
 		}
+	};
+
+	private ref class Direct2DFactory1 : Direct2DFactory 
+	{
+	internal:
+		Direct2DFactory1(ID2D1Factory1* factory) : Direct2DFactory(factory)
+		{
+		}
+	public:
+		virtual StrokeStyle^ CreateStrokeStyle(StrokeStyleProperties1 properties, array<FLOAT>^ dashes) override;
+		virtual property FactoryVersion Version {
+			FactoryVersion get() override { return FactoryVersion::V_2; }
+		}
+		virtual PathGeometry^ CreatePathGeometry() override;
 	};
 }}}

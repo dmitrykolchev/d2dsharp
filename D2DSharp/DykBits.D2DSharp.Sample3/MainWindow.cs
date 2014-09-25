@@ -53,25 +53,25 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
 
             renderTarget.FillGeometry(this._radialGradientBrush, this._sunGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
             renderTarget.DrawGeometry(this._sceneBrush, 1, _sunGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.OliveDrab, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.OliveDrab, 1);
             renderTarget.FillGeometry(this._sceneBrush, this._leftMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
             renderTarget.DrawGeometry(this._sceneBrush, 1, this._leftMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.LightSkyBlue, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.LightSkyBlue, 1);
             renderTarget.FillGeometry(this._sceneBrush, this._riverGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
             renderTarget.DrawGeometry(this._sceneBrush, 1, this._riverGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.YellowGreen, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.YellowGreen, 1);
             renderTarget.FillGeometry(this._sceneBrush, this._rightMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromARGB(Colors.Black, 1);
+            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
             renderTarget.DrawGeometry(this._sceneBrush, 1, this._rightMountainGeometry);
         }
 
@@ -270,9 +270,9 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
             // Create an array of gradient stops to put in the gradient stop
             // collection that will be used in the gradient brush.
             GradientStop[] stops = new GradientStop[] {
-                new GradientStop(0, Color.FromARGB(Colors.Gold, 1)),
-                new GradientStop(0.85f, Color.FromARGB(Colors.Orange, 1)),
-                new GradientStop(1, Color.FromARGB(Colors.OrangeRed, 1))
+                new GradientStop(0, Color.FromKnown(Colors.Gold, 1)),
+                new GradientStop(0.85f, Color.FromKnown(Colors.Orange, 1)),
+                new GradientStop(1, Color.FromKnown(Colors.OrangeRed, 1))
             };
 
             using (GradientStopCollection gradiendStops = renderTarget.CreateGradientStopCollection(stops, Gamma.Gamma22, ExtendMode.Clamp))
@@ -289,7 +289,7 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
                         gradiendStops);
             }
 
-            this._sceneBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
+            this._sceneBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
             this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }
 

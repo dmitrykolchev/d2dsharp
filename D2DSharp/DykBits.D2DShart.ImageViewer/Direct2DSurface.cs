@@ -54,7 +54,7 @@ namespace Managed.D2DShart.ImageViewer
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._borderBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.White, 1));
+            this._borderBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.White, 1));
         }
 
         protected override void OnCleanUpDeviceResources()

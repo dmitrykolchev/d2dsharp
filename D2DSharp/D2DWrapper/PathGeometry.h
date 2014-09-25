@@ -49,4 +49,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		void Stream(GeometrySink^ geometrySink);
 		void Stream(ICustomGeometrySink^ customGeometrySink);
 	};
+
+	private ref class PathGeometry1 : PathGeometry {
+	internal:
+		PathGeometry1(ID2D1PathGeometry1* native) : PathGeometry(native)
+		{
+		}
+	public:
+	};
 }}}

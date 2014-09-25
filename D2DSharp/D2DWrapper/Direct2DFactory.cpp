@@ -17,9 +17,37 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 		ID2D1Factory* factory;
 
-		D2D1CreateFactory((D2D1_FACTORY_TYPE)factoryType, __uuidof(ID2D1Factory), &options, (void**)&factory);
+		D2D1CreateFactory((D2D1_FACTORY_TYPE)factoryType, __uuidof(ID2D1Factory), &options, reinterpret_cast<void**>(&factory));
 
 		return gcnew Direct2DFactory(factory);
+	}
+
+	Direct2DFactory^ Direct2DFactory::CreateFactory(FactoryType factoryType, DebugLevel debugLevel, FactoryVersion version)
+	{
+		D2D1_FACTORY_OPTIONS options = { (D2D1_DEBUG_LEVEL) debugLevel };
+		if (version == FactoryVersion::Auto)
+		{
+			ID2D1Factory1* factory1;
+			HRESULT hr = D2D1CreateFactory((D2D1_FACTORY_TYPE) factoryType, __uuidof(ID2D1Factory1), &options, reinterpret_cast<void**>(&factory1));
+			if (SUCCEEDED(hr))
+				return gcnew Direct2DFactory1(factory1);
+			ID2D1Factory* factory;
+			ComUtils::CheckResult(D2D1CreateFactory((D2D1_FACTORY_TYPE) factoryType, __uuidof(ID2D1Factory), &options, reinterpret_cast<void**>(&factory)));
+			return gcnew Direct2DFactory(factory);
+		}
+		else if (version == FactoryVersion::V_1)
+		{
+			ID2D1Factory* factory;
+			ComUtils::CheckResult(D2D1CreateFactory((D2D1_FACTORY_TYPE) factoryType, __uuidof(ID2D1Factory), &options, reinterpret_cast<void**>(&factory)));
+			return gcnew Direct2DFactory(factory);
+		}
+		else if (version == FactoryVersion::V_2)
+		{
+			ID2D1Factory1* factory1;
+			ComUtils::CheckResult(D2D1CreateFactory((D2D1_FACTORY_TYPE) factoryType, __uuidof(ID2D1Factory1), &options, reinterpret_cast<void**>(&factory1)));
+			return gcnew Direct2DFactory1(factory1);
+		}
+		throw gcnew ArgumentOutOfRangeException("version");
 	}
 
 	RenderTarget^ Direct2DFactory::CreateWicBitmapRenderTarget(WicBitmap^ bitmap, RenderTargetProperties renderTargetProperties)
@@ -43,7 +71,6 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			&renderTarget));
 		
 		return gcnew DCRenderTarget(renderTarget);
-
 	}
 
 	WindowRenderTarget^ Direct2DFactory::CreateWindowRenderTarget(Control^ control)
@@ -86,6 +113,24 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		return gcnew StrokeStyle(native);
 	}
 
+	StrokeStyle^ Direct2DFactory::CreateStrokeStyle(StrokeStyleProperties1 properties, array<FLOAT>^ dashes)
+	{
+		throw gcnew NotSupportedException();
+	}
+
+	StrokeStyle^ Direct2DFactory1::CreateStrokeStyle(StrokeStyleProperties1 properties, array<FLOAT>^ dashes)
+	{
+		UINT count = dashes != nullptr ? dashes->Length : 0;
+		pin_ptr<FLOAT> p = dashes != nullptr ? &dashes[0] : nullptr;
+		ID2D1StrokeStyle1 *native;
+		ComUtils::CheckResult(GetNative<ID2D1Factory1>()->CreateStrokeStyle(
+			(D2D1_STROKE_STYLE_PROPERTIES1 *) &properties,
+			p,
+			count,
+			&native));
+		return gcnew StrokeStyle1(native);
+	}
+
 	PathGeometry^ Direct2DFactory::CreatePathGeometry()
 	{
 		ID2D1PathGeometry *geometry;
@@ -94,6 +139,16 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		
 		return gcnew PathGeometry(geometry);
 	}
+
+	PathGeometry^ Direct2DFactory1::CreatePathGeometry()
+	{
+		ID2D1PathGeometry1 *geometry;
+
+		ComUtils::CheckResult(GetNative<ID2D1Factory1>()->CreatePathGeometry(&geometry));
+
+		return gcnew PathGeometry1(geometry);
+	}
+
 
 	EllipseGeometry^ Direct2DFactory::CreateEllipseGeometry(Ellipse ellipse)
 	{

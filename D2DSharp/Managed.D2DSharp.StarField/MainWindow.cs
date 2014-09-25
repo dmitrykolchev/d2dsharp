@@ -71,7 +71,7 @@ namespace Managed.D2DSharp.StarField
         }
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.75f)))
+            using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.75f)))
             {
                 renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             }
@@ -89,7 +89,7 @@ namespace Managed.D2DSharp.StarField
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._brush = renderTarget.CreateSolidColorBrush(Managed.Graphics.Direct2D.Color.FromARGB(Managed.Graphics.Direct2D.Colors.Brown, 1));
+            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Brown, 1));
         }
         protected override void OnCleanUpDeviceIndependentResources()
         {

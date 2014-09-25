@@ -41,7 +41,16 @@ namespace Managed {
 					a = alpha;
 				}
 			public:
+				[ObsoleteAttribute("Use FromRGB method")]
 				static Color FromARGB(int color, FLOAT alpha)
+				{
+					return Color(
+						(float) ((color & 0xFF0000) >> 16) / 255,
+						(float) ((color & 0x00FF00) >> 8) / 255,
+						(float) (color & 0x0000FF) / 255,
+						alpha);
+				}
+				static Color FromKnown(int color, FLOAT alpha)
 				{
 					return Color(
 						(float) ((color & 0xFF0000) >> 16) / 255,
@@ -101,6 +110,12 @@ namespace Managed {
 				Vector4 ToHSV();
 				Vector4 ToXYZ();
 				Vector4 ToYUV();
+
+				static Color FromSRGB(float r, float g, float b, float a);
+				static Color FromHSL(float h, float s, float l, float a);
+				static Color FromHSV(float h, float s, float v, float a);
+				static Color FromXYZ(float x, float y, float z, float a);
+				static Color FromYUV(float y, float u, float v, float a);
 			};
 		}
 	}

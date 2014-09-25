@@ -120,10 +120,10 @@ namespace Managed.D2DSharp.CombineGeometries
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            
-            this._outlineBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.DarkSlateBlue, 1), 1);
-            this._shapeFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.CornflowerBlue, 1), 0.5f);
-            this._textFillBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1), 1);
+
+            this._outlineBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.DarkSlateBlue, 1), 1);
+            this._shapeFillBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.CornflowerBlue, 1), 0.5f);
+            this._textFillBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1), 1);
             this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }
 

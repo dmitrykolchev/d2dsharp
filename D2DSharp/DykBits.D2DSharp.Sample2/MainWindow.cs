@@ -52,7 +52,7 @@ namespace Managed.D2DSharp.Sample2
         void MainWindow_Paint(object sender, PaintEventArgs e)
         {
             this._renderTarget.BeginDraw();
-            this._renderTarget.Clear(Color.FromARGB(Colors.Black,1));
+            this._renderTarget.Clear(Color.FromKnown(Colors.Black, 1));
             if (this._cache != null)
             {
                 this._renderTarget.DrawBitmap(this._cache, new RectF(0, 0, ClientSize.Width, ClientSize.Height),

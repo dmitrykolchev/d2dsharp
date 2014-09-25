@@ -64,12 +64,12 @@ namespace Managed.D2DSharp.BrushTypes
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
-            this._yellowGreenBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(0x9ACD32, 1));
+            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
+            this._yellowGreenBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(0x9ACD32, 1));
 
             GradientStop[] stops = new GradientStop[] {
-                new GradientStop(0, Color.FromARGB(Colors.Yellow, 1)),
-                new GradientStop(1, Color.FromARGB(Colors.ForestGreen, 1))
+                new GradientStop(0, Color.FromKnown(Colors.Yellow, 1)),
+                new GradientStop(1, Color.FromKnown(Colors.ForestGreen, 1))
             };
 
             using (GradientStopCollection collection = renderTarget.CreateGradientStopCollection(stops, Gamma.Gamma22, ExtendMode.Clamp))

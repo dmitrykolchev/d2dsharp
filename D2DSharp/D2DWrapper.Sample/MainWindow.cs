@@ -65,7 +65,7 @@ namespace D2DWrapper.Sample
                 if (this._brush == null)
                 {
 
-                    this._brush = _renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Red, 1), BrushProperties.Default);
+                    this._brush = _renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Red, 1), BrushProperties.Default);
                     this._brush.Opacity = 1f;
                 }
                 return this._brush;
@@ -77,7 +77,7 @@ namespace D2DWrapper.Sample
         void MainWindow_Paint(object sender, PaintEventArgs e)
         {
             this._renderTarget.BeginDraw();
-            this._renderTarget.Clear(Color.FromARGB(Colors.Blue, 1));
+            this._renderTarget.Clear(Color.FromKnown(Colors.Blue, 1));
 
             PointF center = new PointF(ClientSize.Width / 2, ClientSize.Height / 2);
             this._renderTarget.Transform = Matrix3x2.Rotation(_angle, center);
@@ -113,9 +113,9 @@ namespace D2DWrapper.Sample
                 ellipse.RadiusX,
                 ellipse.RadiusY);
             using (GradientStopCollection collection = _renderTarget.CreateGradientStopCollection(new GradientStop[] { 
-                        new GradientStop(0, Color.FromARGB(Colors.Blue,1)), 
-                        new GradientStop(0.5f, Color.FromARGB(Colors.Green,1)), 
-                        new GradientStop(1, Color.FromARGB(Colors.Blue,1))
+                        new GradientStop(0, Color.FromKnown(Colors.Blue,1)), 
+                        new GradientStop(0.5f, Color.FromKnown(Colors.Green,1)), 
+                        new GradientStop(1, Color.FromKnown(Colors.Blue,1))
                     }))
             {
                 Brush brush = _renderTarget.CreateRadialGradientBrush(properties, BrushProperties.Default, collection);
@@ -132,16 +132,22 @@ namespace D2DWrapper.Sample
             _textFormat.TextAlignment = TextAlignment.Center;
 
             this.ClientSize = new System.Drawing.Size(600, 600);
-            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
+            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None, FactoryVersion.Auto);
 
             this._renderTarget = this._factory.CreateWindowRenderTarget(this, PresentOptions.None, RenderTargetProperties.Default);
             AntialiasMode amode = this._renderTarget.AntialiasMode;
             TextAntialiasMode tamode = this._renderTarget.TextAntialiasMode;
-            this._strokeBrush = this._renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Cyan, 1));
-            this._strokeStyle = this._factory.CreateStrokeStyle(new StrokeStyleProperties(LineCapStyle.Flat,
-                LineCapStyle.Flat, LineCapStyle.Round, LineJoin.Miter, 10, DashStyle.Dot, 0), null);
-
-
+            this._strokeBrush = this._renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Cyan, 1));
+            try
+            {
+                this._strokeStyle = this._factory.CreateStrokeStyle(new StrokeStyleProperties1(LineCapStyle.Flat,
+                    LineCapStyle.Flat, LineCapStyle.Round, LineJoin.Miter, 10, DashStyle.Dot, 0, StrokeTransformType.Normal), null);
+            }
+            catch (NotSupportedException)
+            {
+                this._strokeStyle = this._factory.CreateStrokeStyle(new StrokeStyleProperties(LineCapStyle.Flat,
+                    LineCapStyle.Flat, LineCapStyle.Round, LineJoin.Miter, 10, DashStyle.Dot, 0), null);
+            }
             this.Resize += new EventHandler(MainWindow_Resize);
         }
 

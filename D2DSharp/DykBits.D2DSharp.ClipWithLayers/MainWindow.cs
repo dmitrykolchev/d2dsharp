@@ -72,7 +72,7 @@ namespace Managed.D2DSharp.ClipWithLayers
         {
             base.OnCreateDeviceResources(renderTarget);
             this._bitmap = renderTarget.CreateBitmap(this.GetType(), "fern.jpg");
-            this._brush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Orange, 1));
+            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Orange, 1));
             this._brush.Opacity = 0.75f;
             this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }

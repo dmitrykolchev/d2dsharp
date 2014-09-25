@@ -80,7 +80,7 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 1));
+            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
             using (Bitmap bitmap = renderTarget.CreateBitmap(this.GetType(), "flowers.jpg"))
             {
                 this._bitmapBrush = renderTarget.CreateBitmapBrush(bitmap, new BitmapBrushProperties(ExtendMode.Wrap, ExtendMode.Wrap, BitmapInterpolationMode.NearestNeighbor), BrushProperties.Default);
