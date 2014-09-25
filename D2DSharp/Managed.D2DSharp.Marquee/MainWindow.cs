@@ -63,7 +63,7 @@ namespace Managed.D2DSharp.Marquee
         private float _x = 0;
         private TextFormat _textFormat;
         private TextLayout _textLayout;
-        private string _text = "Hello World using  DirectWrite!";
+        private string _text = "Hello World using DirectWrite!";
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
