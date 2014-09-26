@@ -42,6 +42,8 @@ namespace Managed {
 				}
 			public:
 				[ObsoleteAttribute("Use FromRGB method")]
+				[System::ComponentModel::BrowsableAttribute(false)]
+				[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
 				static Color FromARGB(int color, FLOAT alpha)
 				{
 					return Color(
@@ -75,6 +77,8 @@ namespace Managed {
 					return Color((float) r / 255, (float) g / 255, (float) g / 255, 1);
 				}
 				[ObsoleteAttribute("Use FromRGB method")]
+				[System::ComponentModel::BrowsableAttribute(false)]
+				[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
 				static Color FromARGB(FLOAT alpha, FLOAT red, FLOAT green, FLOAT blue)
 				{
 					return Color(red, green, blue, alpha);

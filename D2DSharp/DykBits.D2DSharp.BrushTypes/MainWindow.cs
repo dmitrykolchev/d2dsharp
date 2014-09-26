@@ -50,7 +50,7 @@ namespace Managed.D2DSharp.BrushTypes
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Verdana", FontWeight.Bold, FontStyle.Normal, FontStretch.Normal, 10.5f);
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Verdana", 10.5f, FontWeight.Bold, FontStyle.Normal, FontStretch.Normal);
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Near;
             this._textFormat.TextAlignment = TextAlignment.Center;
         }

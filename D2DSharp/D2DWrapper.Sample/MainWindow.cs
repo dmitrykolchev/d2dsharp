@@ -127,7 +127,7 @@ namespace D2DWrapper.Sample
         void MainWindow_Load(object sender, EventArgs e)
         {
             DirectWriteFactory f = DirectWriteFactory.Create(DirectWriteFactoryType.Shared);
-            _textFormat = f.CreateTextFormat("Verdana", null, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, 110, null);
+            _textFormat = f.CreateTextFormat("Verdana", 110, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal);
             _textFormat.ParagraphAlignment = ParagraphAlignment.Far;
             _textFormat.TextAlignment = TextAlignment.Center;
 

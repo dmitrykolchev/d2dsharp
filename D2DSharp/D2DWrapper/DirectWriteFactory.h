@@ -92,23 +92,51 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 
 		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
 			Single fontSize);
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
+			Single fontSize,
+			FontWeight fontWeight);
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
+			Single fontSize,
+			FontWeight fontWeight,
+			FontStyle fontStyle);
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
+			Single fontSize,
+			FontWeight fontWeight,
+			FontStyle fontStyle,
+			FontStretch fontStretch);
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
+			Single fontSize,
+			FontWeight fontWeight,
+			FontStyle fontStyle,
+			FontStretch fontStretch,
+			FontCollection^ fontCollection,
+			System::Globalization::CultureInfo^ culture);
 
+		[ObsoleteAttribute]
+		[System::ComponentModel::BrowsableAttribute(false)]
+		[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
 		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
 			FontWeight fontWeight, 
 			Single fontSize);
-
-		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+		[ObsoleteAttribute]
+		[System::ComponentModel::BrowsableAttribute(false)]
+		[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
 			FontWeight fontWeight, 
 			FontStyle fontStyle, 
 			Single fontSize);
-
-		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+		[ObsoleteAttribute]
+		[System::ComponentModel::BrowsableAttribute(false)]
+		[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
 			FontWeight fontWeight, 
 			FontStyle fontStyle, 
 			FontStretch fontStretch, 
 			Single fontSize);
-
-		TextFormat^ CreateTextFormat(String^ fontFamilyName, 
+		[ObsoleteAttribute]
+		[System::ComponentModel::BrowsableAttribute(false)]
+		[System::ComponentModel::EditorBrowsableAttribute(System::ComponentModel::EditorBrowsableState::Never)]
+		TextFormat^ CreateTextFormat(String^ fontFamilyName,
 			FontCollection^ fontCollection, 
 			FontWeight fontWeight, 
 			FontStyle fontStyle, 

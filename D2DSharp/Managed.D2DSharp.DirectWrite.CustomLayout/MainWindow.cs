@@ -57,8 +57,11 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
                             LocalizedStrings desc = font.GetInformationalStrings(InformationalStringId.Designer);
                             
                             int cultureIndex = ls.FindCulture(CultureInfo.CurrentCulture);
-                            string faceName = ls[cultureIndex];
-                            FontMetrics metrics = font.Metrics;
+                            if (cultureIndex >= 0)
+                            {
+                                string faceName = ls[cultureIndex];
+                                FontMetrics metrics = font.Metrics;
+                            }
                         }
                     }
                 }

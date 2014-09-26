@@ -38,14 +38,22 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceIndependentResources(factory);
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
-                FontWeight.Normal,
-                FontStyle.Normal,
-                FontStretch.Normal,
-                72);
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
 
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+
+        }
+
+        protected override void OnCleanUpDeviceIndependentResources()
+        {
+            base.OnCleanUpDeviceIndependentResources();
+            this._textFormat.Dispose();
+        }
+
+        protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
+        {
+            base.OnCreateDeviceResources(renderTarget);
 
             float width = ClientSize.Width / _dpiScaleX;
             float height = ClientSize.Height / _dpiScaleY;
@@ -55,7 +63,7 @@ namespace Managed.D2DSharp.SimpleText
                 this._textFormat,
                 width,
                 height);
-            
+
             using (Typography typography = DirectWriteFactory.CreateTypography())
             {
                 typography.AddFontFeature(FontFeatureTag.StylisticSet7, 1);
@@ -67,18 +75,6 @@ namespace Managed.D2DSharp.SimpleText
             this._bitmapInlineObject = new BitmapInlineObject(RenderTarget, bitmap);
 
             this._textLayout.SetInlineObject(this._bitmapInlineObject, new TextRange(2, 1));
-        }
-
-        protected override void OnCleanUpDeviceIndependentResources()
-        {
-            base.OnCleanUpDeviceIndependentResources();
-            this._textFormat.Dispose();
-            this._textLayout.Dispose();
-        }
-
-        protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
-        {
-            base.OnCreateDeviceResources(renderTarget);
 
             this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
         }
@@ -86,6 +82,8 @@ namespace Managed.D2DSharp.SimpleText
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
+            this._textLayout.Dispose();
+            this._bitmapInlineObject.Dispose();
             this._blackBrush.Dispose();
         }
 

@@ -169,9 +169,9 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         {
             this._textFormat = DirectWriteFactory.CreateTextFormat(
                 FontName,
+                FontSize,
                 Bold ? FontWeight.Bold : FontWeight.Normal,
-                Italic ? FontStyle.Italic : FontStyle.Normal,
-                FontSize);
+                Italic ? FontStyle.Italic : FontStyle.Normal);
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
             this._textFormat.TextAlignment = TextAlignment.Center;
 

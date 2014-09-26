@@ -47,11 +47,7 @@ namespace Managed.D2DSharp.SimpleText
             this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Green, 1));
             this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Blue, 1));
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola",
-                FontWeight.Normal,
-                FontStyle.Normal,
-                FontStretch.Normal,
-                72);
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
 
             this._textFormat.TextAlignment = TextAlignment.Center;
             this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;

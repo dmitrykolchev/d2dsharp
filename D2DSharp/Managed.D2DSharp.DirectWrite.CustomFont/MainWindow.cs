@@ -97,8 +97,8 @@ namespace Managed.D2DSharp.DirectWrite.CustomFont
             {
                 using (TextFormat textFormat = DirectWriteFactory.CreateTextFormat(
                     this._paragraphs[index].FontFamily,
-                    this._paragraphs[index].Weight,
-                    this._paragraphs[index].FontSize * 96f / 72f))
+                    this._paragraphs[index].FontSize * 96f / 72f,
+                    this._paragraphs[index].Weight))
                 {
 
                     textFormat.TextAlignment = _paragraphs[index].TextAlignment;

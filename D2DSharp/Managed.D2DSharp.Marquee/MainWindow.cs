@@ -91,15 +91,15 @@ namespace Managed.D2DSharp.Marquee
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Arial", 96);
+            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 96);
             this._textLayout = DirectWriteFactory.CreateTextLayout(this._text, this._textFormat, float.MaxValue, float.MaxValue);
            
         }
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._brush = renderTarget.CreateSolidColorBrush(Managed.Graphics.Direct2D.Color.FromARGB(Managed.Graphics.Direct2D.Colors.LimeGreen, 1));
-            this._semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromARGB(Colors.Black, 0.25f));
+            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.LimeGreen, 1));
+            this._semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.25f));
         }
         protected override void OnCleanUpDeviceIndependentResources()
         {

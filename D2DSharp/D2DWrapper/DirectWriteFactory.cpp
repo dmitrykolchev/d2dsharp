@@ -42,7 +42,68 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		String^ fontFamilyName, 
 		Single fontSize)
 	{
-		return CreateTextFormat(fontFamilyName, nullptr, FontWeight::Normal, FontStyle::Normal, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+		return CreateTextFormat(fontFamilyName, fontSize, FontWeight::Normal, FontStyle::Normal, FontStretch::Normal, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName,
+		Single fontSize,
+		FontWeight fontWeight)
+	{
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, FontStyle::Normal, FontStretch::Normal, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName,
+		Single fontSize,
+		FontWeight fontWeight,
+		FontStyle fontStyle)
+	{
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, fontStyle, FontStretch::Normal, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName,
+		Single fontSize,
+		FontWeight fontWeight,
+		FontStyle fontStyle,
+		FontStretch fontStretch)
+	{
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, fontStyle, fontStretch, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
+	}
+
+	TextFormat^ DirectWriteFactory::CreateTextFormat(
+		String^ fontFamilyName,
+		Single fontSize,
+		FontWeight fontWeight,
+		FontStyle fontStyle,
+		FontStretch fontStretch,
+		FontCollection^ fontCollection,
+		System::Globalization::CultureInfo^ culture)
+	{
+		if (fontFamilyName == nullptr)
+			throw gcnew ArgumentNullException("fontFamilyName");
+
+		pin_ptr<const System::Char> pFontFamily = PtrToStringChars(fontFamilyName);
+
+		String^ localeName = culture == nullptr ? String::Empty : culture->Name;
+
+		pin_ptr<const System::Char> pLocaleName = localeName == nullptr ? L"" : PtrToStringChars(localeName);
+
+		IDWriteFontCollection* pFontCollection = fontCollection == nullptr ? NULL : fontCollection->GetNative<IDWriteFontCollection>();
+
+		IDWriteTextFormat *textFormat;
+
+		ComUtils::CheckResult(GetNative<IDWriteFactory>()->CreateTextFormat(
+			pFontFamily,
+			pFontCollection,
+			(DWRITE_FONT_WEIGHT) fontWeight,
+			(DWRITE_FONT_STYLE) fontStyle,
+			(DWRITE_FONT_STRETCH) fontStretch,
+			fontSize,
+			pLocaleName,
+			&textFormat));
+
+		return gcnew TextFormat(textFormat);
 	}
 
 	TextFormat^ DirectWriteFactory::CreateTextFormat(
@@ -50,7 +111,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		FontWeight fontWeight, 
 		Single fontSize)
 	{
-		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, FontStyle::Normal, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, FontStyle::Normal, FontStretch::Normal, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
 	}
 
 	TextFormat^ DirectWriteFactory::CreateTextFormat(
@@ -59,7 +120,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		FontStyle fontStyle, 
 		Single fontSize)
 	{
-		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, fontStyle, FontStretch::Normal, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, fontStyle, FontStretch::Normal, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
 	}
 
 	TextFormat^ DirectWriteFactory::CreateTextFormat(
@@ -69,7 +130,7 @@ namespace Managed { namespace Graphics { namespace DirectWrite
 		FontStretch fontStretch, 
 		Single fontSize)
 	{
-		return CreateTextFormat(fontFamilyName, nullptr, fontWeight, fontStyle, fontStretch, fontSize, System::Globalization::CultureInfo::CurrentUICulture);
+		return CreateTextFormat(fontFamilyName, fontSize, fontWeight, fontStyle, fontStretch, nullptr, System::Globalization::CultureInfo::CurrentUICulture);
 	}
 
 	TextFormat^ DirectWriteFactory::CreateTextFormat(
