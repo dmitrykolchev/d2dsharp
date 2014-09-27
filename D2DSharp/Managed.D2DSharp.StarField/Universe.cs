@@ -76,6 +76,9 @@ namespace Managed.D2DSharp.StarField
         public void Render(RenderTarget target)
         {
             Direct2DFactory factory = target.GetFactory();
+            Color red = Color.FromRGB(128, 64, 64);
+            Color white = Color.FromRGB(255, 255, 255);
+
             foreach (var star in this._stars)
             {
                 Vector4 location = star.Location;
@@ -86,19 +89,38 @@ namespace Managed.D2DSharp.StarField
                     PointF locV = locN.Value;
                     double r = Math.Sqrt(location.X * location.X + location.Y * location.Y + (location.Z - PointOfView) * (location.Z - PointOfView));
                     double rv = Math.Sqrt(locV.X * locV.X + locV.Y * locV.Y + PointOfView * PointOfView);
+                    double k = (rv / r);
+                    k = k > 1 ? 1 : (k < 0 ? 0 : k);
                     float radius = (float)(star.Radius * rv / r);
-                    if (radius > 0.75f)
+                    if (radius > 0.5f)
                     {
                         if (locV.X > 0 && locV.X < ViewPortSize.Width && locV.Y > 0 && locV.Y < ViewPortSize.Height)
                         {
                             using (EllipseGeometry ellipse = factory.CreateEllipseGeometry(new Ellipse(locV, radius, radius)))
                             {
-                                float hue = ((float)Math.Max(0, Math.Min(1, rv / r)) + 0.85f) % 1;
-                                Vector4 color = new Vector4(hue, 1f, (float)Math.Max(0, Math.Min(1, rv / r)), 1);
+                                float hue = (float)k;
+                                Vector4 color = new Vector4((hue + 0.45f) % 1, 1f, 0.5f, 1);
                                 Color rgb = (Color)XMath.ColorHslToRgb(color);
-                                using (SolidColorBrush brush = target.CreateSolidColorBrush(rgb))
+                                Color w = white.AdjustBrightness((float)Math.Sqrt(k));
+                                rgb = Color.Lerp(w, rgb, (float)k);
+                                if (radius > 3)
                                 {
-                                    target.FillGeometry(brush, ellipse);
+                                    Color rgb2 = rgb.AdjustBrightness(0.2f);
+                                    using (GradientStopCollection coll = target.CreateGradientStopCollection(new GradientStop[] { new GradientStop(0, rgb), new GradientStop(1, rgb2) }))
+                                    {
+                                        using (Brush brush = target.CreateRadialGradientBrush(new RadialGradientBrushProperties(locV, new PointF(radius / 22f, -radius / 2f), radius, radius),
+                                            new BrushProperties(1, Matrix3x2.Identity), coll))
+                                        {
+                                            target.FillGeometry(brush, ellipse);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    using (SolidColorBrush brush = target.CreateSolidColorBrush(rgb))
+                                    {
+                                        target.FillGeometry(brush, ellipse);
+                                    }
                                 }
                             }
                         }

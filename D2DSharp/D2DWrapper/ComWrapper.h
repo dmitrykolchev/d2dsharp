@@ -24,6 +24,12 @@ namespace Managed { namespace Runtime { namespace InteropServices
 			if (addRef)
 				native->AddRef();
 		}
+		void Attach(IUnknown* native)
+		{
+			if (_native != NULL)
+				reinterpret_cast<IUnknown*>(_native)->Release();
+			_native = native;
+		}
 	public:
 		~ComWrapper()
 		{

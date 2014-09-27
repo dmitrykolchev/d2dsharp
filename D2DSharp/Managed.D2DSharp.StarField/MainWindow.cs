@@ -131,7 +131,7 @@ namespace Managed.D2DSharp.StarField
             float halfWidth = 5500;
             float halfHeight = 5500;
 
-            this._universe.Genrate(30000, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 200000);
+            this._universe.Genrate(20000, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 200000);
             this._universe.PointOfView = -1000;
             this._universe.ViewPortSize = new SizeF(ClientSize.Width, ClientSize.Height);
             Invalidate();

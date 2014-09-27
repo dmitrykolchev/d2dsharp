@@ -40,5 +40,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			Brush(brush)
 		{
 		}
+	public:
+
 	};
 }}}

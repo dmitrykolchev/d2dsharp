@@ -14,6 +14,11 @@ namespace Managed {
 			{
 				return (Color) XMath::ColorAdjustSaturation(Vector4(*this), saturation);
 			}
+			Color Color::AdjustBrightness(FLOAT brightness)
+			{
+				Vector4 hsl = ToHSL();
+				return FromHSL(hsl.X, hsl.Y, hsl.Z * brightness, hsl.W);
+			}
 			Color Color::Modulate(Color c1, Color c2)
 			{
 				return (Color) XMath::ColorModulate(Vector4(c1), Vector4(c2));
@@ -69,6 +74,16 @@ namespace Managed {
 				return (Color) XMath::ColorSrgbToRgb(Vector4(y, u, v, a));
 			}
 
+			Color Color::Lerp(Color c1, Color c2, float t)
+			{
+				return Color::FromRGB(
+					c1.R + (c2.R - c1.R) * t,
+					c1.G + (c2.G - c1.G) * t,
+					c1.B + (c2.B - c1.B) * t,
+					c1.A + (c2.A - c1.A) * t
+					);
+				//return (Color) Vector4::Lerp(Vector4(c1.R, c1.G, c1.B, c1.A), Vector4(c2.R, c2.G, c2.B, c2.A), t);
+			}
 		}
 	}
 }

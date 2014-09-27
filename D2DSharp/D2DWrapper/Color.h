@@ -70,11 +70,11 @@ namespace Managed {
 				}
 				static Color FromRGB(byte r, byte g, byte b, byte a)
 				{
-					return Color((float) r / 255, (float) g / 255, (float) g / 255, (float) a / 255);
+					return Color((float) r / 255, (float) g / 255, (float) b / 255, (float) a / 255);
 				}
 				static Color FromRGB(byte r, byte g, byte b)
 				{
-					return Color((float) r / 255, (float) g / 255, (float) g / 255, 1);
+					return Color((float) r / 255, (float) g / 255, (float) b / 255, 1);
 				}
 				[ObsoleteAttribute("Use FromRGB method")]
 				[System::ComponentModel::BrowsableAttribute(false)]
@@ -106,6 +106,8 @@ namespace Managed {
 
 				Color AdjustContrast(FLOAT contrast);
 				Color AdjustSaturation(FLOAT saturation);
+				Color AdjustBrightness(FLOAT brightness);
+				
 				static Color operator*(Color c1, Color c2);
 				static Color Modulate(Color c1, Color c2);
 
@@ -115,6 +117,7 @@ namespace Managed {
 				Vector4 ToXYZ();
 				Vector4 ToYUV();
 
+				static Color Lerp(Color c1, Color c2, float t);
 				static Color FromSRGB(float r, float g, float b, float a);
 				static Color FromHSL(float h, float s, float l, float a);
 				static Color FromHSV(float h, float s, float v, float a);
