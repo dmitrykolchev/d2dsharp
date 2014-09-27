@@ -43,7 +43,6 @@ namespace Managed.D2DSharp.Bezier
         {
             InitializeComponent();
             this._pointOfView = new Vector4(960, 540, -10, 0);
-
         }
 
         private ControlPointArray _points;
@@ -53,11 +52,7 @@ namespace Managed.D2DSharp.Bezier
             {
                 if (this._points == null)
                 {
-                    //float halfWidth = ClientSize.Width / 2;
-                    //float halfHeight = ClientSize.Height / 2;
-                    //this._points = ControlPointArrayDx.Generate(100, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 1024, -512, new SizeF(1920, 1080));
                     this._points = ControlPointArray.Generate(65, 0, ClientSize.Width, 0, ClientSize.Height);
-                    //this._points.Transform = Matrix4x4.Identity;
                 }
                 return this._points;
             }
@@ -128,11 +123,7 @@ namespace Managed.D2DSharp.Bezier
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            if (this._brush != null)
-            {
-                this._brush.Dispose();
-                this._brush = null;
-            }
+            SafeDispose(ref this._brush);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
