@@ -82,8 +82,8 @@ namespace Managed {
 					c1.B + (c2.B - c1.B) * t,
 					c1.A + (c2.A - c1.A) * t
 					);
-				//return (Color) Vector4::Lerp(Vector4(c1.R, c1.G, c1.B, c1.A), Vector4(c2.R, c2.G, c2.B, c2.A), t);
 			}
+
 		}
 	}
 }

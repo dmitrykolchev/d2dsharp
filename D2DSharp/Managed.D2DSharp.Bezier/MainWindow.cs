@@ -36,6 +36,7 @@ namespace Managed.D2DSharp.Bezier
     {
         private float _time;
         private float _baseHue;
+        private SolidColorBrush _brush;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace Managed.D2DSharp.Bezier
             get
             {
                 if (this._points == null)
-                    this._points = ControlPointArray.Generate(55, 0, ClientSize.Width, 0, ClientSize.Height);
+                    this._points = ControlPointArray.Generate(60, 0, ClientSize.Width, 0, ClientSize.Height);
                 return this._points;
             }
         }
@@ -78,29 +79,26 @@ namespace Managed.D2DSharp.Bezier
                 this._task.Wait();
                 this._task.Dispose();
             }
+            List<Tuple<Geometry, Color>> copy = this._geometries;
             this._task = CreateGeometries(this._time);
 
             if (this._time == 0.1f)
                 renderTarget.Clear(Color.FromKnown(Colors.Black, 1f));
 
-            using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.2f)))
-            {
-                renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
-            }
-            List<Tuple<Geometry, Color>> copy = this._geometries;
+            renderTarget.FillRect(this._brush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             for (int index = 0; index < copy.Count; ++index)
             {
                 Tuple<Geometry, Color> tuple = copy[index];
                 using (Geometry geometry = tuple.Item1)
                 {
-                    using (SolidColorBrush brush = renderTarget.CreateSolidColorBrush(tuple.Item2))
+                    using (SolidColorBrush brush = renderTarget.CreateSolidColorBrush(tuple.Item2.AdjustContrast(1.5f)))
                     {
                         renderTarget.DrawGeometry(brush, 0.1f, geometry);
                     }
                 }
             }
             copy.Clear();
-            this._time += 0.003f;
+            this._time += 0.002f;
         }
         Task CreateGeometries(float time)
         {
@@ -134,6 +132,7 @@ namespace Managed.D2DSharp.Bezier
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
+            this._brush = this.RenderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.4f));
         }
         protected override void OnCleanUpDeviceIndependentResources()
         {
@@ -142,6 +141,7 @@ namespace Managed.D2DSharp.Bezier
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
+            SafeDispose(ref this._brush);
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

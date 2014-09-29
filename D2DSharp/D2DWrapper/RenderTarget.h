@@ -169,12 +169,13 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			{
 				FLOAT dpiX;
 				FLOAT dpiY;
-				GetNative<ID2D1RenderTarget>()->GetDpi(&dpiX, &dpiY);
+				reinterpret_cast<ID2D1RenderTarget*>(this->_native)->GetDpi(&dpiX, &dpiY);
+				//GetNative<ID2D1RenderTarget>()->GetDpi(&dpiX, &dpiY);
 				return dpiX;
 			}
 			void set(FLOAT value)
 			{
-				GetNative<ID2D1RenderTarget>()->SetDpi(value, DpiY);
+				reinterpret_cast<ID2D1RenderTarget*>(this->_native)->SetDpi(value, DpiY);
 			}
 		}
 		property FLOAT DpiY

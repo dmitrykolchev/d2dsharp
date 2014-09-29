@@ -49,7 +49,6 @@ namespace Managed { namespace Runtime { namespace InteropServices
 		{
 			return reinterpret_cast<Interface*>(_native);
 		}
-	private:
 		void* _native;
 	};
 }}}
