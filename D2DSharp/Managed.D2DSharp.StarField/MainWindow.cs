@@ -49,6 +49,11 @@ namespace Managed.D2DSharp.StarField
                 this.angleY = -((float)(e.X - ClientSize.Width / 2) / ClientSize.Width) * 90;
                 this.angleX = ((float)(e.Y - ClientSize.Height / 2) / ClientSize.Height) * 90;
             }
+            else if (Form.ModifierKeys == Keys.Shift)
+            {
+                this.shiftX = e.X - ClientSize.Width / 2;
+                this.shiftY = e.Y - ClientSize.Height / 2;
+            }
             base.OnMouseMove(e);
         }
 
@@ -108,6 +113,8 @@ namespace Managed.D2DSharp.StarField
         float angleX;
         float angleY;
         float angleZ;
+        float shiftX;
+        float shiftY;
         float z;
         float delta = 10;
         Random rand = new Random();
@@ -119,7 +126,7 @@ namespace Managed.D2DSharp.StarField
             this.z -= delta;
             if (this.z < -200000 || this.z > 10000)
                 delta = -delta;
-            Matrix4x4 transform = Matrix4x4.Translation(0, 0, z) * Matrix4x4.RotationX(angleX) * Matrix4x4.RotationY(angleY) * Matrix4x4.RotationZ(a);
+            Matrix4x4 transform = Matrix4x4.Translation(this.shiftX, this.shiftY, z) * Matrix4x4.RotationX(angleX) * Matrix4x4.RotationY(angleY) * Matrix4x4.RotationZ(a);
             this._universe.Transform = transform;
             Invalidate();
         }
