@@ -17,7 +17,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8FC6064-A18E-4EB2-84A4-DC68FBB634C1}"
 	ProjectSection(SolutionItems) = preProject
 		license.txt = license.txt
-		Performance2.psess = Performance2.psess
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Sample2", "DykBits.D2DSharp.Sample2\Managed.D2DSharp.Sample2.csproj", "{A281A863-46CD-4E26-8443-9A083D12FCD8}"

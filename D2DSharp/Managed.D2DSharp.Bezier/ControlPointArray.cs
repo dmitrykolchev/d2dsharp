@@ -76,6 +76,7 @@ namespace Managed.D2DSharp.Bezier
             }
             return result;
         }
+
         public Geometry CreateGeometry(Direct2DFactory factory)
         {
 
