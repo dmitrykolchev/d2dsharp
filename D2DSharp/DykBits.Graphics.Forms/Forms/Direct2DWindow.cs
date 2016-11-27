@@ -115,21 +115,9 @@ namespace Managed.Graphics.Forms
         private void CleanUpDeviceIndependentResources()
         {
             OnCleanUpDeviceIndependentResources();
-            if (this._imagingFactory != null)
-            {
-                this._imagingFactory.Dispose();
-                this._imagingFactory = null;
-            }
-            if (this._directWriteFactory != null)
-            {
-                this._directWriteFactory.Dispose();
-                this._directWriteFactory = null;
-            }
-            if (this._factory != null)
-            {
-                this._factory.Dispose();
-                this._factory = null;
-            }
+            SafeDispose(ref this._imagingFactory);
+            SafeDispose(ref this._directWriteFactory);
+            SafeDispose(ref this._factory);
         }
 
         protected virtual void OnCleanUpDeviceIndependentResources()

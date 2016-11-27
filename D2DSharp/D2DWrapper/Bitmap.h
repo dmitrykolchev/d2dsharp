@@ -16,29 +16,68 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
-	[StructLayout(LayoutKind::Sequential)]
-	public value struct BitmapProperties
+	public ref class BitmapProperties
 	{
 	private:
 		PixelFormat _pixelFormat;
 		FLOAT _dpiX;
 		FLOAT _dpiY;
 	public:
+		BitmapProperties()
+		{
+			_pixelFormat = PixelFormat::Default;
+			_dpiX = 96.0f;
+			_dpiY = 96.0f;
+		}
 		BitmapProperties(PixelFormat pixelFormat, FLOAT dpiX, FLOAT dpiY)
 		{
 			_pixelFormat = pixelFormat;
 			_dpiX = dpiX;
 			_dpiY = dpiY;
 		}
+		property PixelFormat Format
+		{
+			PixelFormat get() { return this->_pixelFormat; }
+			void set(PixelFormat value) { this->_pixelFormat = value; }
+		}
+		property FLOAT DpiX
+		{
+			FLOAT get() { return this->_dpiX; }
+			void set(FLOAT value) { this->_dpiX = value; }
+		}
+		property FLOAT DpiY
+		{
+			FLOAT get() { return this->_dpiY; }
+			void set(FLOAT value) { this->_dpiY = value; }
+		}
 	};
-	
+
+	[FlagsAttribute]
+	public enum class BitmapOptions
+	{
+		None = 0,
+		Target = 1,
+		CannotDraw = 2,
+		CpuRead = 4,
+		GdiCompatible = 8
+	};
+
 	ref class RenderTarget;
 
-	public ref class Bitmap: D2DResource
+	public ref class Image abstract: D2DResource
+	{
+	protected:
+		Image(ID2D1Image* native):
+			D2DResource(native)
+		{
+		}
+	};
+
+	public ref class Bitmap: Image
 	{
 	internal:
 		Bitmap(ID2D1Bitmap *native): 
-			D2DResource(native)
+			Image(native)
 		{
 		}
 	public:
@@ -77,6 +116,15 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			{
 				return SizeF(GetNative<ID2D1Bitmap>()->GetSize());
 			}
+		}
+	};
+
+	public ref class Bitmap1: Bitmap
+	{
+	internal:
+		Bitmap1(ID2D1Bitmap1* native): 
+			Bitmap(native)
+		{
 		}
 	};
 }}}

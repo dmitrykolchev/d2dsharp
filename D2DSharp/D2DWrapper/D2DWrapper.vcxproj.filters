@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Native">
       <UniqueIdentifier>{43116038-e096-4b37-8cb7-8315b7795c2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Dxgi">
+      <UniqueIdentifier>{8973dd8f-c18e-4b1a-80b4-5a85a6b61ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dxgi">
+      <UniqueIdentifier>{c9eb1e12-3a1c-48d3-892b-b7b4772e00ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -285,6 +291,12 @@
     <ClInclude Include="XMath.h">
       <Filter>Header Files\Native</Filter>
     </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="DxgiWrapper.h">
+      <Filter>Header Files\Dxgi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -409,6 +421,12 @@
     </ClCompile>
     <ClCompile Include="D2DCommon.cpp">
       <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Source Files\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="DxgiWrapper.cpp">
+      <Filter>Source Files\Dxgi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

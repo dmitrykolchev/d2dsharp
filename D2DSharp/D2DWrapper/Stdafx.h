@@ -14,6 +14,7 @@
 #include <dwrite.h>
 #include <wincodec.h>
 #include <vcclr.h>
+#include <dxgi.h>
 
 #include "ComUtils.h"
 #include "ComWrapper.h"

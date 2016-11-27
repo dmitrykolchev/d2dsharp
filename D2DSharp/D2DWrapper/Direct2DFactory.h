@@ -9,6 +9,7 @@
 #pragma comment(lib, "d2d1.lib")
 
 #include "StrokeStyle.h"
+#include "DxgiWrapper.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -20,6 +21,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 }}}
 
 using namespace Managed::Graphics::Imaging;
+using namespace Managed::Graphics::Dxgi;
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
@@ -295,13 +297,10 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		static Direct2DFactory^ CreateFactory(FactoryType factoryType, DebugLevel debugLevel, FactoryVersion version);
 
 		WindowRenderTarget^ CreateWindowRenderTarget(Control^ control);
-		WindowRenderTarget^ CreateWindowRenderTarget(Control^ control, 
-			PresentOptions presentOptions, 
-			RenderTargetProperties renderTargetProperties);
-		
+		WindowRenderTarget^ CreateWindowRenderTarget(Control^ control, PresentOptions presentOptions, RenderTargetProperties renderTargetProperties);
 		RenderTarget^ CreateWicBitmapRenderTarget(WicBitmap^ bitmap, RenderTargetProperties renderTargetProperties);
-
 		DCRenderTarget^ CreateDCRenderTarget(RenderTargetProperties renderTargetProperties);
+		RenderTarget^ CreateDxGiSurfaceRenderTarget(DxgiSurface^ surface, RenderTargetProperties renderTargetProperties);
 
 		StrokeStyle^ CreateStrokeStyle(StrokeStyleProperties properties, array<FLOAT>^ dashes);
 		EllipseGeometry^ CreateEllipseGeometry(Ellipse ellipse);

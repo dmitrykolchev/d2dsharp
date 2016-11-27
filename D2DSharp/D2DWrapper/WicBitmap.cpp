@@ -25,7 +25,7 @@ namespace Managed { namespace Graphics { namespace Imaging
 
 	WicBitmapLock^ WicBitmap::Lock(Managed::Graphics::Direct2D::RectU lockRect, WicBitmapLockFlags flags)
 	{
-		WICRect rect = { lockRect.X, lockRect.Y, lockRect.Width, lockRect.Height };
+		WICRect rect = { (INT)lockRect.X, (INT)lockRect.Y, (INT)lockRect.Width, (INT)lockRect.Height };
 		IWICBitmapLock* pLock;
 		ComUtils::CheckResult(GetNative<IWICBitmap>()->Lock(&rect, (DWORD) flags, &pLock));
 		return gcnew WicBitmapLock(pLock);

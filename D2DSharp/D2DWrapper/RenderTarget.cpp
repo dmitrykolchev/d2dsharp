@@ -76,43 +76,57 @@ namespace Managed {
 				GetNative<ID2D1RenderTarget>()->DrawLine(*(D2D1_POINT_2F*) &p0, *(D2D1_POINT_2F*) &p1, brush->GetNative<ID2D1Brush>(), strokeWidth, NULL);
 			}
 
-			Bitmap^ RenderTarget::CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties bitmapProperties)
+			Bitmap^ RenderTarget::CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties^ bitmapProperties)
 			{
+				D2D1_BITMAP_PROPERTIES properties = D2D1::BitmapProperties(
+					*(D2D1_PIXEL_FORMAT*) &bitmapProperties->Format,
+					bitmapProperties->DpiX,
+					bitmapProperties->DpiY
+					);
 				ID2D1Bitmap *bitmap;
-
 				ComUtils::CheckResult(GetNative<ID2D1RenderTarget>()->CreateBitmap(
 					*(D2D1_SIZE_U*) &size,
 					srcData.ToPointer(),
 					pitch,
-					(D2D1_BITMAP_PROPERTIES *) &bitmapProperties,
+					&properties,
 					&bitmap));
 
 				return gcnew Bitmap(bitmap);
 			}
 
-			Bitmap^ RenderTarget::CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties bitmapProperties)
+			Bitmap^ RenderTarget::CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties^ bitmapProperties)
 			{
 				pin_ptr<Byte> p = &srcData[0];
 
+				D2D1_BITMAP_PROPERTIES properties = D2D1::BitmapProperties(
+					*(D2D1_PIXEL_FORMAT*) &bitmapProperties->Format,
+					bitmapProperties->DpiX,
+					bitmapProperties->DpiY
+					);
 				ID2D1Bitmap *bitmap;
 
 				ComUtils::CheckResult(GetNative<ID2D1RenderTarget>()->CreateBitmap(
 					*(D2D1_SIZE_U*) &size,
 					p,
 					pitch,
-					(D2D1_BITMAP_PROPERTIES *) &bitmapProperties,
+					&properties,
 					&bitmap));
 
 				return gcnew Bitmap(bitmap);
 			}
 
-			Bitmap^ RenderTarget::CreateBitmap(WicBitmapSource^ source, BitmapProperties bitmapProperties)
+			Bitmap^ RenderTarget::CreateBitmap(WicBitmapSource^ source, BitmapProperties^ bitmapProperties)
 			{
+				D2D1_BITMAP_PROPERTIES properties = D2D1::BitmapProperties(
+					*(D2D1_PIXEL_FORMAT*) &bitmapProperties->Format,
+					bitmapProperties->DpiX,
+					bitmapProperties->DpiY
+					);
 				ID2D1Bitmap *bitmap;
 
 				ComUtils::CheckResult(GetNative<ID2D1RenderTarget>()->CreateBitmapFromWicBitmap(
 					source->GetNative<IWICBitmapSource>(),
-					(D2D1_BITMAP_PROPERTIES *) &bitmapProperties,
+					&properties,
 					&bitmap));
 
 				return gcnew Bitmap(bitmap);
@@ -137,7 +151,7 @@ namespace Managed {
 								try
 								{
 									converter->Convert(frame, WicPixelFormats::PixelFormat32bppPBGRA, BitmapDitherType::None, nullptr, 0, BitmapPaletteType::Custom);
-									BitmapProperties bitmapProperties = BitmapProperties();
+									BitmapProperties^ bitmapProperties = gcnew BitmapProperties();
 									return CreateBitmap(converter, bitmapProperties);
 								}
 								finally

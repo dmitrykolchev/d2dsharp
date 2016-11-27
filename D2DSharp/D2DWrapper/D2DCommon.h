@@ -13,7 +13,7 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed {
 	namespace Graphics {
-		
+
 		value struct Vector4;
 
 		namespace Direct2D
@@ -24,12 +24,51 @@ namespace Managed {
 				Winding = 1
 			};
 
+			public enum class PrimitiveBlend
+			{
+				SourceOver = D2D1_PRIMITIVE_BLEND_SOURCE_OVER,
+				Copy = D2D1_PRIMITIVE_BLEND_COPY,
+				Min = D2D1_PRIMITIVE_BLEND_MIN,
+				Add = D2D1_PRIMITIVE_BLEND_ADD
+			};
+
 			public enum class BitmapInterpolationMode
 			{
 				NearestNeighbor = 0,
 				Linear = 1
 			};
 
+			public enum class UnitMode
+			{
+				Dips = D2D1_UNIT_MODE_DIPS,
+				Pixels = D2D1_UNIT_MODE_PIXELS
+			};
+
+			public enum class InterpolationMode
+			{
+				NearestNeighbor = D2D1_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+				Linear = D2D1_INTERPOLATION_MODE_LINEAR,
+				Cubic = D2D1_INTERPOLATION_MODE_CUBIC,
+				MultiSampleLinear = D2D1_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR,
+				Anisotropic = D2D1_INTERPOLATION_MODE_ANISOTROPIC,
+				HighQualityCubic = D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC
+			};
+			public enum class CompositeMode
+			{
+				SourceOver = D2D1_COMPOSITE_MODE_SOURCE_OVER,
+				DestinationOver = D2D1_COMPOSITE_MODE_DESTINATION_OVER,
+				SourceIn = D2D1_COMPOSITE_MODE_SOURCE_IN,
+				DestinationIn = D2D1_COMPOSITE_MODE_DESTINATION_IN,
+				SourceOut = D2D1_COMPOSITE_MODE_SOURCE_OUT,
+				DestinationOut = D2D1_COMPOSITE_MODE_DESTINATION_OUT,
+				SourceAtop = D2D1_COMPOSITE_MODE_SOURCE_ATOP,
+				DestinationAtop = D2D1_COMPOSITE_MODE_DESTINATION_ATOP,
+				Xor = D2D1_COMPOSITE_MODE_XOR,
+				Plus = D2D1_COMPOSITE_MODE_PLUS,
+				SourceCopy = D2D1_COMPOSITE_MODE_SOURCE_COPY,
+				BoundedSourceCopy = D2D1_COMPOSITE_MODE_BOUNDED_SOURCE_COPY,
+				MaskInvert = D2D1_COMPOSITE_MODE_MASK_INVERT
+			};
 			public enum class ExtendMode
 			{
 				Clamp = 0,
@@ -815,7 +854,7 @@ namespace Managed {
 					_44 = a._41 * b._14 + a._42 * b._24 + a._43 * b._34 + a._44 * b._44;
 				}
 
-				static Matrix4x4 operator*(Matrix4x4 a, Matrix4x4 b) 
+				static Matrix4x4 operator*(Matrix4x4 a, Matrix4x4 b)
 				{
 					Matrix4x4 result;
 

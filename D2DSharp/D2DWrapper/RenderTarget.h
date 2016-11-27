@@ -220,9 +220,9 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			GetNative<ID2D1RenderTarget>()->Clear(reinterpret_cast<D2D_COLOR_F*>(&color));
 		}
 
-		Bitmap^ CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties bitmapProperties);
-		Bitmap^ CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties bitmapProperties);
-		Bitmap^ CreateBitmap(WicBitmapSource^ source, BitmapProperties bitmapProperties);
+		Bitmap^ CreateBitmap(SizeU size, IntPtr srcData, UInt32 pitch, BitmapProperties^ bitmapProperties);
+		Bitmap^ CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties^ bitmapProperties);
+		Bitmap^ CreateBitmap(WicBitmapSource^ source, BitmapProperties^ bitmapProperties);
 		Bitmap^ CreateBitmap(Type^ type, String^ resourceName);
 
 

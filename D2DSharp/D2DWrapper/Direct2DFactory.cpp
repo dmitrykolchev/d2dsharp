@@ -8,6 +8,7 @@
 
 #include "Direct2DFactory.h"
 #include "WicBitmap.h"
+#include "DxgiWrapper.h"
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
@@ -71,6 +72,15 @@ namespace Managed { namespace Graphics { namespace Direct2D
 			&renderTarget));
 		
 		return gcnew DCRenderTarget(renderTarget);
+	}
+
+	RenderTarget^ Direct2DFactory::CreateDxGiSurfaceRenderTarget(DxgiSurface^ surface, RenderTargetProperties renderTargetProperties)
+	{
+		ID2D1RenderTarget* renderTarget;
+		ComUtils::CheckResult(GetNative<ID2D1Factory>()->CreateDxgiSurfaceRenderTarget(surface->GetNative<IDXGISurface>(), 
+			(D2D1_RENDER_TARGET_PROPERTIES *)&renderTargetProperties,
+			&renderTarget));
+		return gcnew RenderTarget(renderTarget);
 	}
 
 	WindowRenderTarget^ Direct2DFactory::CreateWindowRenderTarget(Control^ control)
