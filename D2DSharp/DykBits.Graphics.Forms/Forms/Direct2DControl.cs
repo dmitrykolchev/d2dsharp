@@ -38,6 +38,7 @@ namespace Managed.Graphics.Forms
         private WicImagingFactory _imagingFactory;
         private WindowRenderTarget _renderTarget;
         private bool _clearBackground = true;
+        private bool _resourcesCreated;
 
         public Direct2DControl()
         {
@@ -46,18 +47,17 @@ namespace Managed.Graphics.Forms
                 ControlStyles.Opaque |
                 ControlStyles.UserPaint, true);
             InitializeComponent();
-            CreateDeviceIndependentResources();
             this.Disposed += new EventHandler(Direct2DControl_Disposed);
         }
 
         void Direct2DControl_Disposed(object sender, EventArgs e)
         {
             this.Disposed -= new EventHandler(Direct2DControl_Disposed);
-            CleanUpDeviceResources();
-            CleanUpDeviceIndependentResources();
+            CleanUpDeviceResourcesInternal();
+            CleanUpDeviceIndependentResourcesInternal();
         }
 
-        protected Direct2DFactory Direct2DFactory
+        public Direct2DFactory Direct2DFactory
         {
             get
             {
@@ -65,7 +65,7 @@ namespace Managed.Graphics.Forms
             }
         }
 
-        protected DirectWriteFactory DirectWriteFactory
+        public DirectWriteFactory DirectWriteFactory
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Managed.Graphics.Forms
             }
         }
 
-        protected WicImagingFactory ImagingFactory
+        public WicImagingFactory ImagingFactory
         {
             get
             {
@@ -110,12 +110,12 @@ namespace Managed.Graphics.Forms
                 return this._renderTarget;
             }
         }
-        private void CreateDeviceIndependentResources()
+        private void CreateDeviceIndependentResourcesInternal()
         {
             this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
             OnCreateDeviceIndependentResources(this._factory);
         }
-        private void CleanUpDeviceIndependentResources()
+        private void CleanUpDeviceIndependentResourcesInternal()
         {
             OnCleanUpDeviceIndependentResources();
             if (this._imagingFactory != null)
@@ -133,13 +133,18 @@ namespace Managed.Graphics.Forms
                 this._factory.Dispose();
                 this._factory = null;
             }
+            _resourcesCreated = false;
         }
 
         protected virtual void OnCleanUpDeviceIndependentResources()
         {
+            if (CleanUpDeviceIndependentResources != null)
+                CleanUpDeviceIndependentResources(this, EventArgs.Empty);
         }
 
-        private void CleanUpDeviceResources()
+        public event EventHandler CleanUpDeviceIndependentResources;
+
+        private void CleanUpDeviceResourcesInternal()
         {
             if (this._renderTarget != null)
             {
@@ -151,9 +156,13 @@ namespace Managed.Graphics.Forms
 
         protected virtual void OnCleanUpDeviceResources()
         {
+            if (CleanUpDeviceResources != null)
+                CleanUpDeviceResources(this, EventArgs.Empty);
         }
 
-        private void CreateDeviceResources()
+        public event EventHandler CleanUpDeviceResources;
+
+        private void CreateDeviceResourcesInternal()
         {
             if (this._renderTarget == null)
             {
@@ -164,15 +173,27 @@ namespace Managed.Graphics.Forms
 
         protected virtual void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
+            if (CreateDeviceResources != null)
+                CreateDeviceResources(this, new RenderTargetEventArgs(renderTarget));
         }
+
+        public event EventHandler<RenderTargetEventArgs> CreateDeviceResources;
 
         protected virtual void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
+            if (CreateDeviceIndependentResources != null)
+                CreateDeviceIndependentResources(this, EventArgs.Empty);
         }
+        public event EventHandler CreateDeviceIndependentResources;
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            CreateDeviceResources();
+            if (!_resourcesCreated)
+            {
+                CreateDeviceIndependentResourcesInternal();
+                _resourcesCreated = true;
+            }
+            CreateDeviceResourcesInternal();
             RenderInternal(this._renderTarget);
         }
 
@@ -182,24 +203,26 @@ namespace Managed.Graphics.Forms
             try
             {
                 renderTarget.Transform = Matrix3x2.Identity;
-                if(this.ClearBackground)
+                if (this.ClearBackground)
                     this._renderTarget.Clear(Color.FromRGB(this.BackColor.R, this.BackColor.G, this.BackColor.B));
                 OnRender(renderTarget);
             }
             finally
             {
                 if (!renderTarget.EndDraw())
-                    CleanUpDeviceResources();
+                    CleanUpDeviceResourcesInternal();
             }
         }
 
-        public void Render()
+        public void InvokeRender()
         {
             OnPaint(null);
         }
 
         protected virtual void OnRender(WindowRenderTarget renderTarget)
         {
+            if (Render != null)
+                Render(this, new RenderTargetEventArgs(renderTarget));
         }
 
         protected override void OnResize(EventArgs e)
@@ -211,5 +234,7 @@ namespace Managed.Graphics.Forms
                 Invalidate();
             }
         }
+
+        public event EventHandler<RenderTargetEventArgs> Render;
     }
 }

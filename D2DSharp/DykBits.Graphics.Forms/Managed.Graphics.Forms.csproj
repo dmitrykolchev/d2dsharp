@@ -98,6 +98,7 @@
     <Compile Include="Forms\Direct2DWindow.Designer.cs">
       <DependentUpon>Direct2DWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RenderEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
