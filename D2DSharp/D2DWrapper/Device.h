@@ -350,6 +350,73 @@ namespace Managed {
 				Bitmap1^ CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface, BitmapProperties^ bitmapProperties);
 				Bitmap1^ CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface);
 				void SetTarget(Image^ bitmap);
+		
+				//
+				// Draw an image to the device context. The image represents either a concrete
+				// bitmap or the output of an effect graph.
+				//
+				void DrawImage(Image^ image)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawImage(
+						image->GetNative<ID2D1Image>(),
+						nullptr,
+						nullptr,
+						D2D1_INTERPOLATION_MODE_LINEAR,
+						D2D1_COMPOSITE_MODE_SOURCE_OVER
+					);
+				}
+				//
+				// Draw an image to the device context. The image represents either a concrete
+				// bitmap or the output of an effect graph.
+				//
+				void DrawImage(Image^ image, PointF targetOffset)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawImage(
+						image->GetNative<ID2D1Image>(),
+						reinterpret_cast<D2D1_POINT_2F*>(&targetOffset),
+						nullptr,
+						D2D1_INTERPOLATION_MODE_LINEAR,
+						D2D1_COMPOSITE_MODE_SOURCE_OVER
+					);
+				}
+				//
+				// Draw an image to the device context. The image represents either a concrete
+				// bitmap or the output of an effect graph.
+				//
+				void DrawImage(Image^ image, PointF targetOffset, RectF imageRectangle, InterpolationMode interpolationMode, CompositeMode compositeMode)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawImage(
+						image->GetNative<ID2D1Image>(),
+						reinterpret_cast<D2D1_POINT_2F*>(&targetOffset),
+						reinterpret_cast<D2D1_RECT_F*>(&imageRectangle),
+						(D2D1_INTERPOLATION_MODE)interpolationMode,
+						(D2D1_COMPOSITE_MODE)compositeMode
+					);
+				}
+
+				void DrawBitmap(Bitmap^ bitmap, RectF destinationRectangle, FLOAT opacity, InterpolationMode interpolationMode, RectF sourceRectangle, Matrix4x4 transform)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawBitmap(
+						bitmap->GetNative<ID2D1Bitmap>(),
+						reinterpret_cast<D2D1_RECT_F*>(&destinationRectangle),
+						opacity,
+						(D2D1_INTERPOLATION_MODE)interpolationMode,
+						reinterpret_cast<D2D1_RECT_F*>(&sourceRectangle),
+						reinterpret_cast<D2D1_MATRIX_4X4_F*>(&transform)
+					);
+				}
+
+				void DrawBitmap(Bitmap^ bitmap, RectF destinationRectangle, FLOAT opacity, InterpolationMode interpolationMode)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawBitmap(
+						bitmap->GetNative<ID2D1Bitmap>(),
+						reinterpret_cast<D2D1_RECT_F*>(&destinationRectangle),
+						opacity,
+						(D2D1_INTERPOLATION_MODE)interpolationMode,
+						nullptr,
+						nullptr
+					);
+				}
 			};
 		}
 	}
