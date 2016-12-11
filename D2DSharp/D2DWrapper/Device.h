@@ -23,8 +23,26 @@ namespace Managed {
 				None = D2D1_DEVICE_CONTEXT_OPTIONS_NONE,
 				EnableMultiThreadedOptimizations = D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS
 			};
+			/// <summary>
+			/// This specifies the options while simultaneously creating the device, factory,
+			/// and device context.
+			/// </summary>
+			[StructLayout(LayoutKind::Sequential)]
+			public value struct CreationProperties
+			{
+
+				/// <summary>
+				/// Describes locking behavior of D2D resources
+				/// </summary>
+				ThreadingMode ThreadingMode;
+				DebugLevel DebugLevel;
+				DeviceContextOptions Options;
+
+			};
 
 			ref class DeviceContext;
+			ref class Managed::Graphics::Dxgi::DxgiDevice;
+
 
 			public ref class Device : D2DResource
 			{
@@ -34,6 +52,10 @@ namespace Managed {
 				{
 				}
 			public:
+				//
+				// Creates a new Direct2D device associated with the provided DXGI device.
+				//
+				static Device^ CreateDevice(DxgiDevice^ dxgiDevice, CreationProperties properties);
 				//
 				// Creates a new device context with no initially assigned target.
 				//
@@ -325,6 +347,9 @@ namespace Managed {
 					return gcnew CommandList(commandList);
 				}
 
+				Bitmap1^ CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface, BitmapProperties^ bitmapProperties);
+				Bitmap1^ CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface);
+				void SetTarget(Image^ bitmap);
 			};
 		}
 	}

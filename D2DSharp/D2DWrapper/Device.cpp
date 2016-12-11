@@ -1,13 +1,22 @@
 #include "Stdafx.h"
 #include "Device.h"
+#include "DxgiWrapper.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace Managed::Graphics::Dxgi;
 
 namespace Managed {
 	namespace Graphics {
 		namespace Direct2D
 		{
+			Device^ Device::CreateDevice(DxgiDevice^ dxgiDevice, CreationProperties properties)
+			{
+				ID2D1Device *device;
+				
+				ComUtils::CheckResult(D2D1CreateDevice(dxgiDevice->GetNative<IDXGIDevice>(), (D2D1_CREATION_PROPERTIES *)&properties, &device));
+				return gcnew Device(device);
+			}
 			DeviceContext^ Device::CreateDeviceContext(DeviceContextOptions options)
 			{
 				ID2D1DeviceContext* deviceContext;
@@ -33,6 +42,59 @@ namespace Managed {
 					&bitmapProperties1,
 					&bitmap));
 				return gcnew Bitmap1(bitmap);
+			}
+
+			Bitmap1^ DeviceContext::CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface, BitmapProperties^ bitmapProperties)
+			{
+				D2D1_BITMAP_PROPERTIES1 bitmapProperties1 = D2D1::BitmapProperties1(
+					D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+					*(D2D1_PIXEL_FORMAT*)&bitmapProperties->Format,
+					bitmapProperties->DpiX,
+					bitmapProperties->DpiY);
+
+				ID2D1DeviceContext* deviceContext = GetNative<ID2D1DeviceContext>();
+				IDXGISurface* surface = dxgiSurface->GetNative<IDXGISurface>();
+
+				ID2D1Bitmap1* bitmap;
+				HRESULT hr = deviceContext->CreateBitmapFromDxgiSurface(
+					surface,
+					bitmapProperties1,
+					&bitmap
+				);
+
+				ComUtils::CheckResult(hr);
+				return gcnew Bitmap1(bitmap);
+			}
+			Bitmap1^ DeviceContext::CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface)
+			{
+				D2D1_BITMAP_PROPERTIES1 bitmapProperties1 = D2D1::BitmapProperties1(
+					D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+					D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_IGNORE));
+				
+				ID2D1DeviceContext* deviceContext = GetNative<ID2D1DeviceContext>();
+				IDXGISurface* surface = dxgiSurface->GetNative<IDXGISurface>();
+
+				ID2D1Bitmap1* bitmap;
+				HRESULT hr = deviceContext->CreateBitmapFromDxgiSurface(
+					surface,
+					bitmapProperties1,
+					&bitmap
+				);
+
+				ComUtils::CheckResult(hr);
+				return gcnew Bitmap1(bitmap);
+			}
+
+			void DeviceContext::SetTarget(Image^ target)
+			{
+				if (target == nullptr)
+				{
+					GetNative<ID2D1DeviceContext>()->SetTarget(nullptr);
+				}
+				else 
+				{
+					GetNative<ID2D1DeviceContext>()->SetTarget(target->GetNative<ID2D1Image>());
+				}
 			}
 
 			unsigned long STDMETHODCALLTYPE CustomCommandSink::AddRef()

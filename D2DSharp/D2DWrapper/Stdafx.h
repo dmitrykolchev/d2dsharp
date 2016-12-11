@@ -15,6 +15,8 @@
 #include <wincodec.h>
 #include <vcclr.h>
 #include <dxgi.h>
+#include <d3d11.h>
+#include <dxgi1_3.h>
 
 #include "ComUtils.h"
 #include "ComWrapper.h"

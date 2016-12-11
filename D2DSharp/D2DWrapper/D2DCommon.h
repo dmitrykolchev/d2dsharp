@@ -902,6 +902,25 @@ namespace Managed {
 					_point3 = point3;
 				}
 			};
+
+			public enum class ThreadingMode
+			{
+
+				/// <summary>
+				/// Resources may only be invoked serially.  Reference counts on resources are
+				/// interlocked, however, resource and render target state is not protected from
+				/// multi-threaded access
+				/// </summary>
+				SingleThreaded = 0,
+
+				/// <summary>
+				/// Resources may be invoked from multiple threads. Resources use interlocked
+				/// reference counting and their state is protected.
+				/// </summary>
+				MultiThreaded = 1
+
+			} D2D1_THREADING_MODE;
+
 		}
 	}
 }

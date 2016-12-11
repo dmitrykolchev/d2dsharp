@@ -155,12 +155,14 @@
     <ClInclude Include="ComUtils.h" />
     <ClInclude Include="ComWrapper.h" />
     <ClInclude Include="D2DCommon.h" />
+    <ClInclude Include="D3DWrapper.h" />
     <ClInclude Include="DCRenderTarget.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="Direct2DFactory.h" />
     <ClInclude Include="D2DResource.h" />
     <ClInclude Include="DWCommon.h" />
     <ClInclude Include="DirectWriteFactory.h" />
+    <ClInclude Include="DxgiCommon.h" />
     <ClInclude Include="DxgiWrapper.h" />
     <ClInclude Include="EllipseGeometry.h" />
     <ClInclude Include="Font.h" />

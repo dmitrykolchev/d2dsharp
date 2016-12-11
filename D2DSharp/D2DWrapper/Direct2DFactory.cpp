@@ -9,6 +9,7 @@
 #include "Direct2DFactory.h"
 #include "WicBitmap.h"
 #include "DxgiWrapper.h"
+#include "Device.h"
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
@@ -50,7 +51,12 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		}
 		throw gcnew ArgumentOutOfRangeException("version");
 	}
-
+	Device^ Direct2DFactory::CreateDevice(DxgiDevice^ dxgiDevice)
+	{
+		ID2D1Device* device;
+		ComUtils::CheckResult(GetNative<ID2D1Factory1>()->CreateDevice(dxgiDevice->GetNative<IDXGIDevice>(), &device));
+		return gcnew Device(device);
+	}
 	RenderTarget^ Direct2DFactory::CreateWicBitmapRenderTarget(WicBitmap^ bitmap, RenderTargetProperties renderTargetProperties)
 	{
 		ID2D1RenderTarget *renderTarget;

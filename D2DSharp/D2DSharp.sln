@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Ellipse", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Sample3", "Managed.D2DSharp.Sample3\Managed.D2DSharp.Sample3.csproj", "{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.DCSample", "Managed.D2DSharp.DCSample\Managed.D2DSharp.DCSample.csproj", "{682997DE-4255-4356-BF97-9BDCDB5C15BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -485,6 +487,26 @@ Global
 		{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3}.Release|x64.Build.0 = Release|Any CPU
 		{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3}.Release|x86.ActiveCfg = Release|Any CPU
 		{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3}.Release|x86.Build.0 = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|Win32.Build.0 = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|x64.Build.0 = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Debug|x86.Build.0 = Debug|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Win32.ActiveCfg = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|Win32.Build.0 = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|x64.ActiveCfg = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|x64.Build.0 = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -513,9 +535,10 @@ Global
 		{68EE7BDD-1C33-43C2-8069-DD8438C282CA} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{1060896C-7C82-4442-B87A-30937572A165} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{682997DE-4255-4356-BF97-9BDCDB5C15BC} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 23
+		SccNumberOfProjects = 24
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
 		SccLocalPath0 = .
@@ -607,5 +630,9 @@ Global
 		SccProjectTopLevelParentUniqueName22 = D2DSharp.sln
 		SccProjectName22 = Managed.D2DSharp.Sample3
 		SccLocalPath22 = Managed.D2DSharp.Sample3
+		SccProjectUniqueName23 = Managed.D2DSharp.DCSample\\Managed.D2DSharp.DCSample.csproj
+		SccProjectTopLevelParentUniqueName23 = D2DSharp.sln
+		SccProjectName23 = Managed.D2DSharp.DCSample
+		SccLocalPath23 = Managed.D2DSharp.DCSample
 	EndGlobalSection
 EndGlobal

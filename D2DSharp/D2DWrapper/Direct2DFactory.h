@@ -283,7 +283,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	};
 
 	ref class Device;
-	ref class DxgiDevice;
+	ref class Managed::Graphics::Dxgi::DxgiDevice;
 
 	public ref class Direct2DFactory: ComWrapper
 	{
@@ -310,7 +310,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		GeometryGroup^ CreateGeometryGroup(FillMode fillMode, array<Geometry^>^ geometries);
 		virtual PathGeometry^ CreatePathGeometry();
 		
-		//virtual Device^ CreateDevice(DxgiDevice^ dxgiDevice);
+		virtual Device^ CreateDevice(DxgiDevice^ dxgiDevice);
 		virtual StrokeStyle^ CreateStrokeStyle(StrokeStyleProperties1 properties, array<FLOAT>^ dashes);
 		virtual property FactoryVersion Version {
 			FactoryVersion get() { return FactoryVersion::V_1; }

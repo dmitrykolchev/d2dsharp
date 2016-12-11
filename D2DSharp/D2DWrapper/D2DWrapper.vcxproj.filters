@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Dxgi">
       <UniqueIdentifier>{c9eb1e12-3a1c-48d3-892b-b7b4772e00ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\D3D">
+      <UniqueIdentifier>{f742ebe2-5be6-43a0-8ccf-ca49b3efa29f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -296,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="DxgiWrapper.h">
       <Filter>Header Files\Dxgi</Filter>
+    </ClInclude>
+    <ClInclude Include="DxgiCommon.h">
+      <Filter>Header Files\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DWrapper.h">
+      <Filter>Header Files\D3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
