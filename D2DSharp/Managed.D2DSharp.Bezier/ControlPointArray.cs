@@ -89,16 +89,14 @@ namespace Managed.D2DSharp.Bezier
                 sink.EndFigure(FigureEnd.Open);
                 sink.Close();
             }
-            List<Geometry> list = new List<Geometry>();
-            list.Add(geometry);
-
+            Geometry[] list = new Geometry[this._points.Length + 1];
+            list[0] = geometry;
+            
             for (int index = 0; index < this._points.Length; ++index)
             {
-                EllipseGeometry ellipse = factory.CreateEllipseGeometry(new Ellipse(this._points[index], 5, 5));
-                list.Add(ellipse);
+                list[index + 1] = factory.CreateEllipseGeometry(new Ellipse(this._points[index], 5, 5));
             }
-
-            GeometryGroup group = factory.CreateGeometryGroup(FillMode.Winding, list.ToArray());
+            GeometryGroup group = factory.CreateGeometryGroup(FillMode.Winding, list);
 
             return group;
         }

@@ -82,20 +82,18 @@ namespace Managed.D2DSharp.DCSample
             base.OnKeyDown(e);
         }
 
-        private List<Tuple<Geometry, Color>> _geometries = new List<Tuple<Geometry, Color>>();
-        private Task _task;
+        private Task<List<Tuple<Geometry, Color>>> _task;
         private void Render()
         {
             DeviceContext renderTarget = _deviceContext;
+
             renderTarget.BeginDraw();
 
-            if (this._task != null)
-            {
-                this._task.Wait();
-                this._task.Dispose();
-            }
-            List<Tuple<Geometry, Color>> copy = this._geometries;
-            this._task = CreateGeometries(this._time);
+            List<Tuple<Geometry, Color>> copy = _task == null
+                ? new List<Tuple<Geometry, Color>>()
+                : _task.Result;
+
+            _task = CreateGeometries(this._time);
 
             if (this._time == 0.1f)
                 renderTarget.Clear(Color.FromKnown(Colors.Black, 1f));
@@ -113,32 +111,27 @@ namespace Managed.D2DSharp.DCSample
                 }
             }
             renderTarget.EndDraw();
-
             _swapChain.Present(1, 0);
-
-            copy.Clear();
-
             this._time += 0.002f;
         }
-        Task CreateGeometries(float time)
+        Task<List<Tuple<Geometry, Color>>> CreateGeometries(float time)
         {
-            Task task = new Task(() =>
+            return Task.Run(() =>
             {
                 var temp = Points;
                 int count = Points.Count;
-                this._geometries = new List<Tuple<Geometry, Color>>();
+                var geometries = new List<Tuple<Geometry, Color>>();
                 for (int index = 0; index < count - 1; ++index)
                 {
                     float hue = (this._baseHue + (float)(index + 1) / (float)(count + 1)) % 1;
                     Vector4 hsv = new Vector4(hue, 1.0f, 1f, 1);
                     Color rgba = (Color)XMath.ColorHsvToRgb(hsv);
                     var array = temp.Reduce(time);
-                    this._geometries.Add(new Tuple<Geometry, Color>(array.CreateGeometry(_factory), rgba));
+                    geometries.Add(new Tuple<Geometry, Color>(array.CreateGeometry(_factory), rgba));
                     temp = array;
                 }
+                return geometries;
             });
-            task.Start();
-            return task;
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -169,8 +162,8 @@ namespace Managed.D2DSharp.DCSample
             if (_deviceContext != null)
             {
                 _deviceContext.SetTarget(null);
-                _bitmap.Dispose();
-                _surface.Dispose();
+                SafeDispose(ref _bitmap);
+                SafeDispose(ref _surface);
 
                 _swapChain.ResizeBuffers();
 
@@ -206,6 +199,7 @@ namespace Managed.D2DSharp.DCSample
             this._points = null;
             Random random = new Random((int)DateTime.Now.TimeOfDay.Ticks);
             this._baseHue = (float)random.NextDouble();
+            Invalidate();
         }
     }
 }
