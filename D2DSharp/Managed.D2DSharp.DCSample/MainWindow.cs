@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Managed.Graphics;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.Dxgi;
 using Managed.Graphics.D3D11;
+using Managed.D2DSharp.Bezier;
 
 namespace Managed.D2DSharp.DCSample
 {
@@ -20,6 +22,11 @@ namespace Managed.D2DSharp.DCSample
         private DeviceContext _deviceContext;
         private DxgiSurface _surface;
         private Bitmap1 _bitmap;
+
+        private float _time;
+        private float _baseHue;
+        private SolidColorBrush _brush;
+
         public MainWindow()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -38,6 +45,7 @@ namespace Managed.D2DSharp.DCSample
         private void CleanUp()
         {
             SafeDispose(ref _bitmap);
+            SafeDispose(ref _brush);
             SafeDispose(ref _deviceContext);
             SafeDispose(ref _surface);
             SafeDispose(ref _swapChain);
@@ -45,29 +53,116 @@ namespace Managed.D2DSharp.DCSample
             SafeDispose(ref _factory);
         }
 
+        private ControlPointArray _points;
+        public ControlPointArray Points
+        {
+            get
+            {
+                if (this._points == null)
+                    this._points = ControlPointArray.Generate(60, 0, ClientSize.Width, 0, ClientSize.Height);
+                return this._points;
+            }
+        }
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                this.timer1.Enabled = !this.timer1.Enabled;
+            else
+                this.Close();
+            base.OnMouseDown(e);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                this.Close();
+            }
+            base.OnKeyDown(e);
+        }
+
+        private List<Tuple<Geometry, Color>> _geometries = new List<Tuple<Geometry, Color>>();
+        private Task _task;
+        private void Render()
+        {
+            DeviceContext renderTarget = _deviceContext;
+            renderTarget.BeginDraw();
+
+            if (this._task != null)
+            {
+                this._task.Wait();
+                this._task.Dispose();
+            }
+            List<Tuple<Geometry, Color>> copy = this._geometries;
+            this._task = CreateGeometries(this._time);
+
+            if (this._time == 0.1f)
+                renderTarget.Clear(Color.FromKnown(Colors.Black, 1f));
+
+            renderTarget.FillRect(this._brush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
+            for (int index = 0; index < copy.Count; ++index)
+            {
+                Tuple<Geometry, Color> tuple = copy[index];
+                using (Geometry geometry = tuple.Item1)
+                {
+                    using (SolidColorBrush brush = renderTarget.CreateSolidColorBrush(tuple.Item2.AdjustContrast(1.5f)))
+                    {
+                        renderTarget.DrawGeometry(brush, 0.1f, geometry);
+                    }
+                }
+            }
+            renderTarget.EndDraw();
+
+            _swapChain.Present(1, 0);
+
+            copy.Clear();
+
+            this._time += 0.002f;
+        }
+        Task CreateGeometries(float time)
+        {
+            Task task = new Task(() =>
+            {
+                var temp = Points;
+                int count = Points.Count;
+                this._geometries = new List<Tuple<Geometry, Color>>();
+                for (int index = 0; index < count - 1; ++index)
+                {
+                    float hue = (this._baseHue + (float)(index + 1) / (float)(count + 1)) % 1;
+                    Vector4 hsv = new Vector4(hue, 1.0f, 1f, 1);
+                    Color rgba = (Color)XMath.ColorHsvToRgb(hsv);
+                    var array = temp.Reduce(time);
+                    this._geometries.Add(new Tuple<Geometry, Color>(array.CreateGeometry(_factory), rgba));
+                    temp = array;
+                }
+            });
+            task.Start();
+            return task;
+        }
         private void MainWindow_Load(object sender, EventArgs e)
         {
             if (_dxgiDevice != null)
             {
                 CleanUp();
             }
-
             _dxgiDevice = DxgiDevice.CreateDevice();
-            _factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.Information);
+            _factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
             using (Device device = _factory.CreateDevice(_dxgiDevice))
             {
                 _deviceContext = device.CreateDeviceContext(DeviceContextOptions.None);
-
-                using (DxgiAdapter adapter = _dxgiDevice.Adapter)
-                using (DxgiFactory factory = adapter.Factory)
+                using (DxgiAdapter adapter = _dxgiDevice.GetAdapter())
+                using (DxgiFactory factory = adapter.GetFactory())
                 {
                     _swapChain = factory.CreateSwapChainForHwnd(_dxgiDevice, this.Handle);
                     _dxgiDevice.MaximumFrameLatency = 1;
                     _swapChain.GetBuffer(0, out _surface);
                     _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
                     _deviceContext.SetTarget(_bitmap);
+                    _brush = _deviceContext.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.4f));
                 }
             }
+            uint value  = _deviceContext.MaximumBitmapSize;
         }
         protected override void OnResize(EventArgs e)
         {
@@ -82,24 +177,12 @@ namespace Managed.D2DSharp.DCSample
                 _swapChain.GetBuffer(0, out _surface);
                 _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
                 _deviceContext.SetTarget(_bitmap);
-                Invalidate();
+                Reset();
             }
         }
         protected override void OnPaint(PaintEventArgs e)
         {
             Render();
-        }
-
-        void Render()
-        {
-            using (SolidColorBrush brush = _deviceContext.CreateSolidColorBrush(Color.FromKnown(Colors.Red, 1)))
-            {
-                _deviceContext.BeginDraw();
-                _deviceContext.Clear(Color.FromKnown(Colors.Black, 1));
-                _deviceContext.DrawRect(brush, 1, new RectF(10.5f, 10.5f, ClientSize.Width - 20, ClientSize.Height - 20));
-                _deviceContext.EndDraw();
-            }
-            _swapChain.Present(1, 0);
         }
         protected static void SafeDispose<T>(ref T d) where T : class, IDisposable
         {
@@ -108,6 +191,25 @@ namespace Managed.D2DSharp.DCSample
                 ((IDisposable)d).Dispose();
                 d = default(T);
             }
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this._time > 0.9f)
+            {
+                Reset();
+            }
+            else
+            {
+                Invalidate();
+            }
+        }
+        private void Reset()
+        {
+            this._time = 0.1f;
+            this._points = null;
+            Random random = new Random();
+            this._baseHue = (float)random.NextDouble();
+            Invalidate();
         }
     }
 }

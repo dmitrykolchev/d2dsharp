@@ -11,9 +11,17 @@ namespace Managed {
 	namespace Graphics {
 		namespace Dxgi
 		{
+			void DxgiFactory::MakeWindowAssociation(IntPtr windowHandle)
+			{
+				MakeWindowAssociation(windowHandle, 0);
+			}
+
 			void DxgiFactory::MakeWindowAssociation(IntPtr windowHandle, int flags)
 			{
-				throw gcnew NotImplementedException();
+				IDXGIFactory *factory = GetNative<IDXGIFactory>();
+				ComUtils::CheckResult(
+					factory->MakeWindowAssociation((HWND)windowHandle.ToPointer(), flags)
+				);
 			}
 
 			DxgiSwapChain1^ DxgiFactory::CreateSwapChainForHwnd(ComWrapper^ device, IntPtr hwnd)
@@ -47,7 +55,7 @@ namespace Managed {
 				IDXGIFactory *factory = GetNative<IDXGIFactory>();
 				IDXGIFactory2 *factory2;
 				ComUtils::CheckResult(factory->QueryInterface(__uuidof(IDXGIFactory2), reinterpret_cast<void**>(&factory2)));
-				IDXGISwapChain1* swapChain1;
+
 				DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
 				ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
 				swapChainDesc.Width = desc.Width;
@@ -58,6 +66,7 @@ namespace Managed {
 				swapChainDesc.BufferUsage = (DXGI_USAGE)desc.BufferUsage;
 				swapChainDesc.BufferCount = desc.BufferCount;
 
+				IDXGISwapChain1* swapChain1;
 				HRESULT hr = factory2->CreateSwapChainForHwnd(
 					device->GetNative<IUnknown>(),
 					(HWND)hwnd.ToPointer(),
@@ -76,11 +85,22 @@ namespace Managed {
 				IDXGIFactory *factory = GetNative<IDXGIFactory>();
 				IDXGIFactory2 *factory2;
 				ComUtils::CheckResult(factory->QueryInterface(__uuidof(IDXGIFactory2), reinterpret_cast<void**>(&factory2)));
+
+				DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
+				ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
+				swapChainDesc.Width = desc.Width;
+				swapChainDesc.Height = desc.Height;
+				swapChainDesc.Format = (DXGI_FORMAT)desc.Format;
+				swapChainDesc.SampleDesc.Count = desc.SampleDesc.Count;
+				swapChainDesc.SampleDesc.Quality = desc.SampleDesc.Quality;
+				swapChainDesc.BufferUsage = (DXGI_USAGE)desc.BufferUsage;
+				swapChainDesc.BufferCount = desc.BufferCount;
+
 				IDXGISwapChain1* swapChain1;
 				HRESULT hr = factory2->CreateSwapChainForHwnd(
 					device->GetNative<IUnknown>(), 
 					(HWND)hwnd.ToPointer(),
-					reinterpret_cast<DXGI_SWAP_CHAIN_DESC1*>(&desc),
+					&swapChainDesc,
 					reinterpret_cast<DXGI_SWAP_CHAIN_FULLSCREEN_DESC*>(&fullscreenDesc),
 					nullptr,
 					&swapChain1);
@@ -88,14 +108,15 @@ namespace Managed {
 				ComUtils::CheckResult(hr);
 				return gcnew DxgiSwapChain1(swapChain1);
 			}
-
-			IntPtr GetWindowAssociation()
+			
+			DxgiAdapter^ DxgiFactory::CreateSoftwareAdapter(IntPtr module)
 			{
-				throw gcnew NotImplementedException();
-			}
-			DxgiAdapter^ CreateSoftwareAdapter(IntPtr module)
-			{
-				throw gcnew NotImplementedException();
+				IDXGIFactory *factory = GetNative<IDXGIFactory>();
+				IDXGIAdapter *adapter;
+				ComUtils::CheckResult(
+					factory->CreateSoftwareAdapter((HMODULE)module.ToPointer(), &adapter)
+				);
+				return gcnew DxgiAdapter(adapter);
 			}
 
 			DxgiSurface^ DxgiDevice::CreateSurface(DxgiSurfaceDescription description, int numSurfaces, DxgiUsage usage, DxgiSharedResource sharedResource)
@@ -109,8 +130,7 @@ namespace Managed {
 			DxgiDevice^ DxgiDevice::CreateDevice()
 			{
 				ID3D11Device *device;
-				UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT |
-					D3D11_CREATE_DEVICE_DEBUG;
+				UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
 				HRESULT hr = CreateD3DDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, flags, &device);
 				if (FAILED(hr))

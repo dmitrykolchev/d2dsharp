@@ -72,19 +72,19 @@ namespace Managed {
 				//	) PURE;
 
 
-				property UInt64 MaximumtextureMemory
+				property Int64 MaximumTextureMemory
 				{
 					//
 					// Gets the maximum amount of texture memory to maintain before evicting caches.
 					//
-					UInt64 get()
+					Int64 get()
 					{
 						return GetNative<ID2D1Device>()->GetMaximumTextureMemory();
 					}
 					//
 					// Sets the maximum amount of texture memory to maintain before evicting caches.
 					//
-					void set(UInt64 value)
+					void set(Int64 value)
 					{
 						GetNative<ID2D1Device>()->SetMaximumTextureMemory(value);
 					}
@@ -341,6 +341,9 @@ namespace Managed {
 				// memory.
 				//
 				Bitmap1^ CreateBitmap(SizeU size, array<Byte>^ srcData, UInt32 pitch, BitmapProperties^ bitmapProperties, BitmapOptions options, ColorContext^ colorContext);
+				Bitmap1^ CreateBitmapFromWicBitmap(WicBitmapSource^ source);
+				Bitmap1^ DeviceContext::CreateBitmapFromWicBitmap(WicBitmapSource^ source, BitmapProperties^ bitmapProperties, BitmapOptions options, ColorContext^ colorContext);
+
 				CommandList^ CreateCommandList() {
 					ID2D1CommandList* commandList;
 					ComUtils::CheckResult(GetNative<ID2D1DeviceContext>()->CreateCommandList(&commandList));
@@ -363,6 +366,20 @@ namespace Managed {
 						nullptr,
 						D2D1_INTERPOLATION_MODE_LINEAR,
 						D2D1_COMPOSITE_MODE_SOURCE_OVER
+					);
+				}
+				//
+				// Draw an image to the device context. The image represents either a concrete
+				// bitmap or the output of an effect graph.
+				//
+				void DrawImage(Image^ image, InterpolationMode interpolationMode, CompositeMode compositeMode)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawImage(
+						image->GetNative<ID2D1Image>(),
+						nullptr,
+						nullptr,
+						(D2D1_INTERPOLATION_MODE)interpolationMode,
+						(D2D1_COMPOSITE_MODE)compositeMode
 					);
 				}
 				//
@@ -393,7 +410,23 @@ namespace Managed {
 						(D2D1_COMPOSITE_MODE)compositeMode
 					);
 				}
-
+				//
+				// Draws a bitmap to the render target.
+				//
+				void DrawBitmap(Bitmap^ bitmap, FLOAT opacity, InterpolationMode interpolationMode)
+				{
+					GetNative<ID2D1DeviceContext>()->DrawBitmap(
+						bitmap->GetNative<ID2D1Bitmap>(),
+						nullptr,
+						opacity,
+						(D2D1_INTERPOLATION_MODE)interpolationMode,
+						nullptr,
+						nullptr
+					);
+				}
+				//
+				// Draws a bitmap to the render target.
+				//
 				void DrawBitmap(Bitmap^ bitmap, RectF destinationRectangle, FLOAT opacity, InterpolationMode interpolationMode, RectF sourceRectangle, Matrix4x4 transform)
 				{
 					GetNative<ID2D1DeviceContext>()->DrawBitmap(
@@ -405,7 +438,9 @@ namespace Managed {
 						reinterpret_cast<D2D1_MATRIX_4X4_F*>(&transform)
 					);
 				}
-
+				//
+				// Draws a bitmap to the render target.
+				//
 				void DrawBitmap(Bitmap^ bitmap, RectF destinationRectangle, FLOAT opacity, InterpolationMode interpolationMode)
 				{
 					GetNative<ID2D1DeviceContext>()->DrawBitmap(

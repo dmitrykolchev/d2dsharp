@@ -43,7 +43,37 @@ namespace Managed {
 					&bitmap));
 				return gcnew Bitmap1(bitmap);
 			}
+			Bitmap1^ DeviceContext::CreateBitmapFromWicBitmap(WicBitmapSource^ source)
+			{
+				ID2D1DeviceContext* deviceContext = GetNative<ID2D1DeviceContext>();
+				IWICBitmapSource *bitmapSource = source->GetNative<IWICBitmapSource>();
+				ID2D1Bitmap1* bitmap;
+				ComUtils::CheckResult(
+					deviceContext->CreateBitmapFromWicBitmap(bitmapSource, &bitmap)
+				);
+				return gcnew Bitmap1(bitmap);
+			}
+			Bitmap1^ DeviceContext::CreateBitmapFromWicBitmap(WicBitmapSource^ source, BitmapProperties^ bitmapProperties, BitmapOptions options, ColorContext^ colorContext)
+			{
+				ID2D1DeviceContext* deviceContext = GetNative<ID2D1DeviceContext>();
 
+				ID2D1ColorContext* colorContextPtr = colorContext == nullptr ? nullptr : colorContext->GetNative<ID2D1ColorContext>();
+
+				D2D1_BITMAP_PROPERTIES1 bitmapProperties1 = D2D1::BitmapProperties1(
+					(D2D1_BITMAP_OPTIONS)options,
+					*(D2D1_PIXEL_FORMAT*)&bitmapProperties->Format,
+					bitmapProperties->DpiX,
+					bitmapProperties->DpiY,
+					colorContextPtr);
+
+				IWICBitmapSource *bitmapSource = source->GetNative<IWICBitmapSource>();
+				ID2D1Bitmap1* bitmap;
+				ComUtils::CheckResult(
+					deviceContext->CreateBitmapFromWicBitmap(bitmapSource, &bitmapProperties1, &bitmap)
+				);
+				return gcnew Bitmap1(bitmap);
+
+			}
 			Bitmap1^ DeviceContext::CreateBitmapFromDxgiSurface(DxgiSurface^ dxgiSurface, BitmapProperties^ bitmapProperties)
 			{
 				D2D1_BITMAP_PROPERTIES1 bitmapProperties1 = D2D1::BitmapProperties1(

@@ -57,15 +57,17 @@ namespace Managed {
 			internal:
 				DxgiFactory(IDXGIFactory* native) : DxgiObject(native)
 				{
-
 				}
 			public:
 				void MakeWindowAssociation(IntPtr windowHandle, int flags);
-				IntPtr GetWindowAssociation() {
+				void MakeWindowAssociation(IntPtr windowHandle);
+				IntPtr GetWindowAssociation() 
+				{
 					HWND hwnd;
 					ComUtils::CheckResult(GetNative<IDXGIFactory>()->GetWindowAssociation(&hwnd));
 					return IntPtr((void*)hwnd);
 				}
+				DxgiAdapter^ CreateSoftwareAdapter(IntPtr module);
 				DxgiSwapChain1^ CreateSwapChainForHwnd(ComWrapper^ device, IntPtr hwnd, DxgiSwapChainDesc1 desc, DxgiSwapChainFullscreenDesc fuulscreenDesc);
 				DxgiSwapChain1^ CreateSwapChainForHwnd(ComWrapper^ device, IntPtr hwnd, DxgiSwapChainDesc1 desc);
 				DxgiSwapChain1^ CreateSwapChainForHwnd(ComWrapper^ device, IntPtr hwnd);
@@ -79,12 +81,11 @@ namespace Managed {
 				{
 				}
 			public:
-				property DxgiFactory^ Factory {
-					DxgiFactory^ get() {
-						IDXGIFactory *factory;
-						ComUtils::CheckResult(GetNative<IDXGIAdapter>()->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&factory)));
-						return gcnew DxgiFactory(factory);
-					}
+				DxgiFactory^ GetFactory()
+				{
+					IDXGIFactory *factory;
+					ComUtils::CheckResult(GetNative<IDXGIAdapter>()->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&factory)));
+					return gcnew DxgiFactory(factory);
 				}
 			};
 
@@ -97,18 +98,17 @@ namespace Managed {
 			public:
 				static DxgiDevice^ CreateDevice();
 
-				property DxgiAdapter^ Adapter
+				DxgiAdapter^ GetAdapter()
 				{
-					DxgiAdapter^ get() {
-						IDXGIAdapter* adapter;
-						ComUtils::CheckResult(this->GetNative<IDXGIDevice>()->GetAdapter(&adapter));
-						return gcnew DxgiAdapter(adapter);
-					}
+					IDXGIAdapter* adapter;
+					ComUtils::CheckResult(this->GetNative<IDXGIDevice>()->GetAdapter(&adapter));
+					return gcnew DxgiAdapter(adapter);
 				}
 
 				property int MaximumFrameLatency
 				{
-					int get() {
+					int get() 
+					{
 						IDXGIDevice* device = GetNative<IDXGIDevice>();
 						IDXGIDevice1* device1;
 						ComUtils::CheckResult(device->QueryInterface(__uuidof(IDXGIDevice1), reinterpret_cast<void**>(&device1)));
@@ -129,7 +129,8 @@ namespace Managed {
 					}
 				}
 
-				property int GPUThreadPriority {
+				property int GPUThreadPriority 
+				{
 					int get()
 					{
 						INT priority;
@@ -224,3 +225,4 @@ namespace Managed {
 		}
 	}
 }
+
