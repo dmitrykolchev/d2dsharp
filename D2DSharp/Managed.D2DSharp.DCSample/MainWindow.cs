@@ -30,7 +30,7 @@ namespace Managed.D2DSharp.DCSample
         public MainWindow()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint |
-                ControlStyles.Opaque | 
+                ControlStyles.Opaque |
                 ControlStyles.UserPaint, true);
             this.Load += MainWindow_Load;
             this.FormClosed += MainWindow_FormClosed;
@@ -162,7 +162,7 @@ namespace Managed.D2DSharp.DCSample
                     _brush = _deviceContext.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.4f));
                 }
             }
-            uint value  = _deviceContext.MaximumBitmapSize;
+            uint value = _deviceContext.MaximumBitmapSize;
         }
         protected override void OnResize(EventArgs e)
         {
@@ -198,18 +198,14 @@ namespace Managed.D2DSharp.DCSample
             {
                 Reset();
             }
-            else
-            {
-                Invalidate();
-            }
+            Invalidate();
         }
         private void Reset()
         {
             this._time = 0.1f;
             this._points = null;
-            Random random = new Random();
+            Random random = new Random((int)DateTime.Now.TimeOfDay.Ticks);
             this._baseHue = (float)random.NextDouble();
-            Invalidate();
         }
     }
 }
