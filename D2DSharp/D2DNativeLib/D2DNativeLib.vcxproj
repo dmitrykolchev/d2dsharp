@@ -87,6 +87,9 @@
     <PostBuildEvent>
       <Command>copy "$(OutDir)$(TargetName).lib"  "$(ProjectDir)..\D2DWrapper\$(TargetName).lib"</Command>
     </PostBuildEvent>
+    <Lib>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
