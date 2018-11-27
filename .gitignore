@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/D2DSharp/DykBits.D2DShart.ImageViewer/bin/x64/Debug
