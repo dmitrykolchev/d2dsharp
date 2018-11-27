@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DWrapper", "D2DWrapper\D2DWrapper.vcxproj", "{151AE681-22CC-404D-A759-8D80BF85E9F1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -16,7 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.ImageViewe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8FC6064-A18E-4EB2-84A4-DC68FBB634C1}"
 	ProjectSection(SolutionItems) = preProject
-		license.txt = license.txt
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Sample2", "DykBits.D2DSharp.Sample2\Managed.D2DSharp.Sample2.csproj", "{A281A863-46CD-4E26-8443-9A083D12FCD8}"
@@ -537,102 +538,7 @@ Global
 		{25AC9582-02CB-43D0-B3C3-2A59C87EB7D3} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{682997DE-4255-4356-BF97-9BDCDB5C15BC} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 24
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = D2DWrapper\\D2DWrapper.vcxproj
-		SccProjectTopLevelParentUniqueName1 = D2DSharp.sln
-		SccProjectName1 = D2DWrapper
-		SccLocalPath1 = D2DWrapper
-		SccProjectUniqueName2 = D2DWrapper.Sample\\Managed.D2DSharp.Sample1.csproj
-		SccProjectTopLevelParentUniqueName2 = D2DSharp.sln
-		SccProjectName2 = D2DWrapper.Sample
-		SccLocalPath2 = D2DWrapper.Sample
-		SccProjectUniqueName3 = DykBits.D2DShart.ImageViewer\\Managed.D2DSharp.ImageViewer.csproj
-		SccProjectTopLevelParentUniqueName3 = D2DSharp.sln
-		SccProjectName3 = DykBits.D2DShart.ImageViewer
-		SccLocalPath3 = DykBits.D2DShart.ImageViewer
-		SccProjectUniqueName4 = DykBits.D2DSharp.Sample2\\Managed.D2DSharp.Sample2.csproj
-		SccProjectTopLevelParentUniqueName4 = D2DSharp.sln
-		SccProjectName4 = DykBits.D2DSharp.Sample2
-		SccLocalPath4 = DykBits.D2DSharp.Sample2
-		SccProjectUniqueName5 = DykBits.D2DSharp.Sample3\\Managed.D2DSharp.AdvancedPathGeometries.csproj
-		SccProjectTopLevelParentUniqueName5 = D2DSharp.sln
-		SccProjectName5 = DykBits.D2DSharp.Sample3
-		SccLocalPath5 = DykBits.D2DSharp.Sample3
-		SccProjectUniqueName6 = DykBits.D2DSharp.BrushTypes\\Managed.D2DSharp.BrushTypes.csproj
-		SccProjectTopLevelParentUniqueName6 = D2DSharp.sln
-		SccProjectName6 = DykBits.D2DSharp.BrushTypes
-		SccLocalPath6 = DykBits.D2DSharp.BrushTypes
-		SccProjectUniqueName7 = DykBits.Graphics.Forms\\Managed.Graphics.Forms.csproj
-		SccProjectTopLevelParentUniqueName7 = D2DSharp.sln
-		SccProjectName7 = DykBits.Graphics.Forms
-		SccLocalPath7 = DykBits.Graphics.Forms
-		SccProjectUniqueName8 = DykBits.D2DSharp.ClipWithLayers\\Managed.D2DSharp.ClipWithLayers.csproj
-		SccProjectTopLevelParentUniqueName8 = D2DSharp.sln
-		SccProjectName8 = DykBits.D2DSharp.ClipWithLayers
-		SccLocalPath8 = DykBits.D2DSharp.ClipWithLayers
-		SccProjectUniqueName9 = DykBits.D2DSharp.CombineGeometries\\Managed.D2DSharp.CombineGeometries.csproj
-		SccProjectTopLevelParentUniqueName9 = D2DSharp.sln
-		SccProjectName9 = DykBits.D2DSharp.CombineGeometries
-		SccLocalPath9 = DykBits.D2DSharp.CombineGeometries
-		SccProjectUniqueName10 = DykBits.D2DSharp.SimpleText\\Managed.D2DSharp.SimpleText.csproj
-		SccProjectTopLevelParentUniqueName10 = D2DSharp.sln
-		SccProjectName10 = DykBits.D2DSharp.SimpleText
-		SccLocalPath10 = DykBits.D2DSharp.SimpleText
-		SccProjectUniqueName11 = Managed.D2DSharp.DirectWrite.HitTesting\\Managed.D2DSharp.DirectWrite.HitTesting.csproj
-		SccProjectTopLevelParentUniqueName11 = D2DSharp.sln
-		SccProjectName11 = Managed.D2DSharp.DirectWrite.HitTesting
-		SccLocalPath11 = Managed.D2DSharp.DirectWrite.HitTesting
-		SccProjectUniqueName12 = Managed.D2DSharp.DirectWrite.CustomLayout\\Managed.D2DSharp.DirectWrite.CustomLayout.csproj
-		SccProjectTopLevelParentUniqueName12 = D2DSharp.sln
-		SccProjectName12 = Managed.D2DSharp.DirectWrite.CustomLayout
-		SccLocalPath12 = Managed.D2DSharp.DirectWrite.CustomLayout
-		SccProjectUniqueName13 = Managed.D2DSharp.DirectWrite.FontEnumeration\\Managed.D2DSharp.DirectWrite.FontEnumeration.csproj
-		SccProjectTopLevelParentUniqueName13 = D2DSharp.sln
-		SccProjectName13 = Managed.D2DSharp.DirectWrite.FontEnumeration
-		SccLocalPath13 = Managed.D2DSharp.DirectWrite.FontEnumeration
-		SccProjectUniqueName14 = Managed.D2DSharp.DirectWrite.TextDialog\\Managed.D2DSharp.DirectWrite.TextDialog.csproj
-		SccProjectTopLevelParentUniqueName14 = D2DSharp.sln
-		SccProjectName14 = Managed.D2DSharp.DirectWrite.TextDialog
-		SccLocalPath14 = Managed.D2DSharp.DirectWrite.TextDialog
-		SccProjectUniqueName15 = Managed.D2DSharp.DirectWrite.CustomFont\\Managed.D2DSharp.DirectWrite.CustomFont.csproj
-		SccProjectTopLevelParentUniqueName15 = D2DSharp.sln
-		SccProjectName15 = Managed.D2DSharp.DirectWrite.CustomFont
-		SccLocalPath15 = Managed.D2DSharp.DirectWrite.CustomFont
-		SccProjectUniqueName16 = Managed.D2DSharp.Bezier\\Managed.D2DSharp.Bezier.csproj
-		SccProjectTopLevelParentUniqueName16 = D2DSharp.sln
-		SccProjectName16 = Managed.D2DSharp.Bezier
-		SccLocalPath16 = Managed.D2DSharp.Bezier
-		SccProjectUniqueName17 = D2DNativeLib\\D2DNativeLib.vcxproj
-		SccProjectTopLevelParentUniqueName17 = D2DSharp.sln
-		SccProjectName17 = D2DNativeLib
-		SccLocalPath17 = D2DNativeLib
-		SccProjectUniqueName18 = Managed.D2DSharp.Math\\Managed.D2DSharp.Math.csproj
-		SccProjectTopLevelParentUniqueName18 = D2DSharp.sln
-		SccProjectName18 = Managed.D2DSharp.Math
-		SccLocalPath18 = Managed.D2DSharp.Math
-		SccProjectUniqueName19 = Managed.D2DSharp.StarField\\Managed.D2DSharp.StarField.csproj
-		SccProjectTopLevelParentUniqueName19 = D2DSharp.sln
-		SccProjectName19 = Managed.D2DSharp.StarField
-		SccLocalPath19 = Managed.D2DSharp.StarField
-		SccProjectUniqueName20 = Managed.D2DSharp.Marquee\\Managed.D2DSharp.Marquee.csproj
-		SccProjectTopLevelParentUniqueName20 = D2DSharp.sln
-		SccProjectName20 = Managed.D2DSharp.Marquee
-		SccLocalPath20 = Managed.D2DSharp.Marquee
-		SccProjectUniqueName21 = Managed.D2DSharp.Ellipse\\Managed.D2DSharp.Ellipse.csproj
-		SccProjectTopLevelParentUniqueName21 = D2DSharp.sln
-		SccProjectName21 = Managed.D2DSharp.Ellipse
-		SccLocalPath21 = Managed.D2DSharp.Ellipse
-		SccProjectUniqueName22 = Managed.D2DSharp.Sample3\\Managed.D2DSharp.Sample3.csproj
-		SccProjectTopLevelParentUniqueName22 = D2DSharp.sln
-		SccProjectName22 = Managed.D2DSharp.Sample3
-		SccLocalPath22 = Managed.D2DSharp.Sample3
-		SccProjectUniqueName23 = Managed.D2DSharp.DCSample\\Managed.D2DSharp.DCSample.csproj
-		SccProjectTopLevelParentUniqueName23 = D2DSharp.sln
-		SccProjectName23 = Managed.D2DSharp.DCSample
-		SccLocalPath23 = Managed.D2DSharp.DCSample
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8082DB46-2DDF-4B0C-BDE9-00E1A0306198}
 	EndGlobalSection
 EndGlobal

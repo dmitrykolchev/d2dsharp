@@ -19,17 +19,8 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Managed.Graphics.Forms;
 using Managed.Graphics.Direct2D;
-using Managed.Graphics.DirectWrite;
-using Managed.Graphics.Imaging;
+using Managed.Graphics.Forms;
 
 namespace Managed.D2DSharp.ClipWithLayers
 {
@@ -48,8 +39,8 @@ namespace Managed.D2DSharp.ClipWithLayers
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._pathGeometry = factory.CreatePathGeometry();
-            using (GeometrySink sink = this._pathGeometry.Open())
+            _pathGeometry = factory.CreatePathGeometry();
+            using (GeometrySink sink = _pathGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
                 sink.BeginFigure(new PointF(20, 50), FigureBegin.Filled);
@@ -65,24 +56,24 @@ namespace Managed.D2DSharp.ClipWithLayers
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._pathGeometry.Dispose();
+            _pathGeometry.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._bitmap = renderTarget.CreateBitmap(this.GetType(), "fern.jpg");
-            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Orange, 1));
-            this._brush.Opacity = 0.75f;
-            this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
+            _bitmap = renderTarget.CreateBitmap(GetType(), "fern.jpg");
+            _brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Orange, 1));
+            _brush.Opacity = 0.75f;
+            _gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            this._bitmap.Dispose();
-            this._brush.Dispose();
-            this._gridPatternBrush.Dispose();
+            _bitmap.Dispose();
+            _brush.Dispose();
+            _gridPatternBrush.Dispose();
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
@@ -111,7 +102,7 @@ namespace Managed.D2DSharp.ClipWithLayers
             using (Layer layer = renderTarget.CreateLayer())
             {
                 renderTarget.Transform = Matrix3x2.Translation(350, 50);
-                LayerParameters layerParameters = new LayerParameters { Bounds = RectF.Infinite, Mask = this._pathGeometry };
+                LayerParameters layerParameters = new LayerParameters { Bounds = RectF.Infinite, Mask = _pathGeometry };
                 renderTarget.PushLayer(layerParameters, layer);
 
                 RenderScene(renderTarget);

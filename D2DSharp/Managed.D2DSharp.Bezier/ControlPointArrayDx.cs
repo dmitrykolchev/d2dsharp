@@ -19,13 +19,10 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using Managed.Graphics;
+using Managed.Graphics.Direct2D;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Managed.Graphics.Direct2D;
-using Managed.Graphics;
 
 namespace Managed.D2DSharp.Bezier
 {
@@ -35,7 +32,7 @@ namespace Managed.D2DSharp.Bezier
 
         private ControlPointArrayDx(int count)
         {
-            this._points = new Vector4[count];
+            _points = new Vector4[count];
         }
         public static ControlPointArrayDx Generate(int count, float minX, float maxX, float minY, float maxY, float minZ, float maxZ, float pointOfView, SizeF viewPortSize)
         {
@@ -47,18 +44,18 @@ namespace Managed.D2DSharp.Bezier
         }
         public IEnumerable<Vector4> Points
         {
-            get { return this._points; }
+            get { return _points; }
         }
         public int Count
         {
-            get { return this._points.Length; }
+            get { return _points.Length; }
         }
         private void Generate(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
         {
             Random random = new Random();
-            for (int index = 0; index < this._points.Length; ++index)
+            for (int index = 0; index < _points.Length; ++index)
             {
-                this._points[index] = new Vector4(
+                _points[index] = new Vector4(
                     (float)(minX + random.NextDouble() * (maxX - minX)),
                     (float)(minY + random.NextDouble() * (maxY - minY)),
                     (float)(minZ + random.NextDouble() * (maxZ - minZ)),
@@ -67,14 +64,14 @@ namespace Managed.D2DSharp.Bezier
         }
         public ControlPointArrayDx Reduce(float t)
         {
-            ControlPointArrayDx result = new ControlPointArrayDx(this.Count - 1);
-            result.PointOfView = this.PointOfView;
-            result.ViewPortSize = this.ViewPortSize;
-            result.Transform = this.Transform;
-            int count = this.Count;
+            ControlPointArrayDx result = new ControlPointArrayDx(Count - 1);
+            result.PointOfView = PointOfView;
+            result.ViewPortSize = ViewPortSize;
+            result.Transform = Transform;
+            int count = Count;
             for (var index = 0; index < count - 1; ++index)
             {
-                result._points[index] = Vector4.Lerp(this._points[index], this._points[index + 1], t);
+                result._points[index] = Vector4.Lerp(_points[index], _points[index + 1], t);
             }
             return result;
         }
@@ -83,11 +80,11 @@ namespace Managed.D2DSharp.Bezier
         public SizeF ViewPortSize { get; set; }
         public Matrix4x4 Transform { get; set; }
 
-        PointF Project(Vector4 p)
+        private PointF Project(Vector4 p)
         {
             Vector4 s = p;
             p = p * Transform;
-            double t = - PointOfView / (p.Z - PointOfView);
+            double t = -PointOfView / (p.Z - PointOfView);
             double x = p.X * t + ViewPortSize.Width / 2;
             double y = p.Y * t + ViewPortSize.Height / 2;
             return new PointF((float)x, (float)y);
@@ -109,9 +106,9 @@ namespace Managed.D2DSharp.Bezier
             List<Geometry> list = new List<Geometry>();
             //list.Add(geometry);
 
-            for (int index = 0; index < this._points.Length; ++index)
+            for (int index = 0; index < _points.Length; ++index)
             {
-                EllipseGeometry ellipse = factory.CreateEllipseGeometry(new Ellipse(Project(this._points[index]), 5, 5));
+                EllipseGeometry ellipse = factory.CreateEllipseGeometry(new Ellipse(Project(_points[index]), 5, 5));
                 list.Add(ellipse);
             }
 

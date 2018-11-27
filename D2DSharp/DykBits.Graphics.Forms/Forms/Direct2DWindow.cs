@@ -18,16 +18,12 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Imaging;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Managed.Graphics.Forms
 {
@@ -45,10 +41,10 @@ namespace Managed.Graphics.Forms
                 ControlStyles.UserPaint, true);
             CreateDeviceIndependentResources();
             InitializeComponent();
-            this.Disposed += Direct2DWindow_Disposed;
+            Disposed += Direct2DWindow_Disposed;
         }
 
-        void Direct2DWindow_Disposed(object sender, EventArgs e)
+        private void Direct2DWindow_Disposed(object sender, EventArgs e)
         {
             CleanUpDeviceResources();
             CleanUpDeviceIndependentResources();
@@ -58,7 +54,7 @@ namespace Managed.Graphics.Forms
         {
             get
             {
-                return this._factory;
+                return _factory;
             }
         }
 
@@ -66,11 +62,11 @@ namespace Managed.Graphics.Forms
         {
             get
             {
-                if (this._directWriteFactory == null)
+                if (_directWriteFactory == null)
                 {
-                    this._directWriteFactory = DirectWriteFactory.Create(DirectWriteFactoryType.Shared);
+                    _directWriteFactory = DirectWriteFactory.Create(DirectWriteFactoryType.Shared);
                 }
-                return this._directWriteFactory;
+                return _directWriteFactory;
             }
         }
 
@@ -78,23 +74,23 @@ namespace Managed.Graphics.Forms
         {
             get
             {
-                if (this._imagingFactory == null)
+                if (_imagingFactory == null)
                 {
-                    this._imagingFactory = WicImagingFactory.Create();
+                    _imagingFactory = WicImagingFactory.Create();
                 }
-                return this._imagingFactory;
+                return _imagingFactory;
             }
         }
 
         [DefaultValue(true)]
         public bool ClearBackground
         {
-            get { return this._clearBackground; }
+            get { return _clearBackground; }
             set
             {
-                if (this._clearBackground != value)
+                if (_clearBackground != value)
                 {
-                    this._clearBackground = value;
+                    _clearBackground = value;
                     Invalidate();
                 }
             }
@@ -104,20 +100,20 @@ namespace Managed.Graphics.Forms
         {
             get
             {
-                return this._renderTarget;
+                return _renderTarget;
             }
         }
         private void CreateDeviceIndependentResources()
         {
-            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
-            OnCreateDeviceIndependentResources(this._factory);
+            _factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
+            OnCreateDeviceIndependentResources(_factory);
         }
         private void CleanUpDeviceIndependentResources()
         {
             OnCleanUpDeviceIndependentResources();
-            SafeDispose(ref this._imagingFactory);
-            SafeDispose(ref this._directWriteFactory);
-            SafeDispose(ref this._factory);
+            SafeDispose(ref _imagingFactory);
+            SafeDispose(ref _directWriteFactory);
+            SafeDispose(ref _factory);
         }
 
         protected virtual void OnCleanUpDeviceIndependentResources()
@@ -126,11 +122,10 @@ namespace Managed.Graphics.Forms
 
         private void CleanUpDeviceResources()
         {
-            if (this._renderTarget != null)
+            if (_renderTarget != null)
             {
                 OnCleanUpDeviceResources();
-                this._renderTarget.Dispose();
-                this._renderTarget = null;
+                SafeDispose(ref _renderTarget);
             }
         }
 
@@ -140,12 +135,12 @@ namespace Managed.Graphics.Forms
 
         private void CreateDeviceResources()
         {
-            if (this._factory != null)
+            if (_factory != null)
             {
-                if (this._renderTarget == null)
+                if (_renderTarget == null)
                 {
-                    this._renderTarget = this._factory.CreateWindowRenderTarget(this);
-                    OnCreateDeviceResources(this._renderTarget);
+                    _renderTarget = _factory.CreateWindowRenderTarget(this);
+                    OnCreateDeviceResources(_renderTarget);
                 }
             }
         }
@@ -161,8 +156,10 @@ namespace Managed.Graphics.Forms
         protected sealed override void OnPaint(PaintEventArgs e)
         {
             CreateDeviceResources();
-            if(this._renderTarget != null)
-                RenderInternal(this._renderTarget);
+            if (_renderTarget != null)
+            {
+                RenderInternal(_renderTarget);
+            }
         }
         private void RenderInternal(WindowRenderTarget renderTarget)
         {
@@ -170,14 +167,19 @@ namespace Managed.Graphics.Forms
             try
             {
                 renderTarget.Transform = Matrix3x2.Identity;
-                if (this.ClearBackground)
-                    this._renderTarget.Clear(Color.FromRGB(this.BackColor.R, this.BackColor.G, this.BackColor.B));
+                if (ClearBackground)
+                {
+                    _renderTarget.Clear(Color.FromRGB(BackColor.R, BackColor.G, BackColor.B));
+                }
+
                 OnRender(renderTarget);
             }
             finally
             {
                 if (!renderTarget.EndDraw())
+                {
                     CleanUpDeviceResources();
+                }
             }
         }
 
@@ -190,11 +192,11 @@ namespace Managed.Graphics.Forms
         {
         }
 
-        protected static void SafeDispose<T>(ref T d) where T: class, IDisposable
+        protected static void SafeDispose<T>(ref T d) where T : class, IDisposable
         {
             if (d != null)
             {
-                ((IDisposable)d).Dispose();
+                d.Dispose();
                 d = default(T);
             }
         }
@@ -202,9 +204,9 @@ namespace Managed.Graphics.Forms
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (this.RenderTarget != null)
+            if (RenderTarget != null)
             {
-                this.RenderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
+                RenderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
                 Invalidate();
             }
         }

@@ -19,13 +19,10 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Managed.Graphics;
 using Managed.Graphics.Direct2D;
+using System;
+using System.Linq;
 
 namespace Managed.D2DSharp.StarField
 {
@@ -34,20 +31,21 @@ namespace Managed.D2DSharp.StarField
         public Vector4 Location { get; set; }
         public float Radius { get; set; }
     }
-    class Universe
+
+    internal class Universe
     {
         private Star[] _stars;
         public Universe()
         {
-            this.Transform = Matrix4x4.Identity;
+            Transform = Matrix4x4.Identity;
         }
         public void Genrate(int count, float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
         {
             Random random = new Random();
-            this._stars = new Star[count];
+            _stars = new Star[count];
             for (int index = 0; index < count; ++index)
             {
-                this._stars[index] = new Star
+                _stars[index] = new Star
                 {
                     Location = new Vector4(
                         (float)(minX + random.NextDouble() * (maxX - minX)),
@@ -57,7 +55,7 @@ namespace Managed.D2DSharp.StarField
                     Radius = (float)(5 + random.NextDouble() * 10)
                 };
             }
-            this._stars = this._stars.OrderByDescending(t => t.Location.Z).ToArray();
+            _stars = _stars.OrderByDescending(t => t.Location.Z).ToArray();
         }
         public float PointOfView { get; set; }
         public SizeF ViewPortSize { get; set; }
@@ -67,8 +65,11 @@ namespace Managed.D2DSharp.StarField
             Vector4 s = p;
             p = p * Transform;
             if (p.Z < PointOfView)
+            {
                 return null;
-            double t = - PointOfView / (p.Z - PointOfView);
+            }
+
+            double t = -PointOfView / (p.Z - PointOfView);
             double x = p.X * t + ViewPortSize.Width / 2;
             double y = p.Y * t + ViewPortSize.Height / 2;
             return new PointF((float)x, (float)y);
@@ -79,7 +80,7 @@ namespace Managed.D2DSharp.StarField
             Color red = Color.FromRGB(128, 64, 64);
             Color white = Color.FromRGB(255, 255, 255);
 
-            foreach (var star in this._stars)
+            foreach (var star in _stars)
             {
                 Vector4 location = star.Location;
                 Nullable<PointF> locN = Project(location);
@@ -100,7 +101,7 @@ namespace Managed.D2DSharp.StarField
                             {
                                 float hue = (float)k;
                                 Vector4 color = new Vector4((hue + 0.45f) % 1, 1f, 0.5f, 1);
-                                Color rgb = (Color)XMath.ColorHslToRgb(color);
+                                Color rgb = XMath.ColorHslToRgb(color);
                                 Color w = white.AdjustBrightness((float)Math.Sqrt(k));
                                 rgb = Color.Lerp(w, rgb, (float)k);
                                 if (radius > 3)

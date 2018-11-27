@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Managed.D2DSharp.Bezier;
 using Managed.Graphics;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.Dxgi;
-using Managed.Graphics.D3D11;
-using Managed.D2DSharp.Bezier;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Managed.D2DSharp.DCSample
 {
@@ -32,8 +27,8 @@ namespace Managed.D2DSharp.DCSample
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.Opaque |
                 ControlStyles.UserPaint, true);
-            this.Load += MainWindow_Load;
-            this.FormClosed += MainWindow_FormClosed;
+            Load += MainWindow_Load;
+            FormClosed += MainWindow_FormClosed;
             InitializeComponent();
         }
 
@@ -58,17 +53,25 @@ namespace Managed.D2DSharp.DCSample
         {
             get
             {
-                if (this._points == null)
-                    this._points = ControlPointArray.Generate(60, 0, ClientSize.Width, 0, ClientSize.Height);
-                return this._points;
+                if (_points == null)
+                {
+                    _points = ControlPointArray.Generate(60, 0, ClientSize.Width, 0, ClientSize.Height);
+                }
+
+                return _points;
             }
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                this.timer1.Enabled = !this.timer1.Enabled;
+            {
+                timer1.Enabled = !timer1.Enabled;
+            }
             else
-                this.Close();
+            {
+                Close();
+            }
+
             base.OnMouseDown(e);
         }
 
@@ -77,7 +80,7 @@ namespace Managed.D2DSharp.DCSample
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
-                this.Close();
+                Close();
             }
             base.OnKeyDown(e);
         }
@@ -93,12 +96,14 @@ namespace Managed.D2DSharp.DCSample
                 ? new List<Tuple<Geometry, Color>>()
                 : _task.Result;
 
-            _task = CreateGeometries(this._time);
+            _task = CreateGeometries(_time);
 
-            if (this._time == 0.1f)
+            if (_time == 0.1f)
+            {
                 renderTarget.Clear(Color.FromKnown(Colors.Black, 1f));
+            }
 
-            renderTarget.FillRect(this._brush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
+            renderTarget.FillRect(_brush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             for (int index = 0; index < copy.Count; ++index)
             {
                 Tuple<Geometry, Color> tuple = copy[index];
@@ -112,9 +117,10 @@ namespace Managed.D2DSharp.DCSample
             }
             renderTarget.EndDraw();
             _swapChain.Present(1, 0);
-            this._time += 0.002f;
+            _time += 0.002f;
         }
-        Task<List<Tuple<Geometry, Color>>> CreateGeometries(float time)
+
+        private Task<List<Tuple<Geometry, Color>>> CreateGeometries(float time)
         {
             return Task.Run(() =>
             {
@@ -123,9 +129,9 @@ namespace Managed.D2DSharp.DCSample
                 var geometries = new List<Tuple<Geometry, Color>>();
                 for (int index = 0; index < count - 1; ++index)
                 {
-                    float hue = (this._baseHue + (float)(index + 1) / (float)(count + 1)) % 1;
+                    float hue = (_baseHue + (index + 1) / (float)(count + 1)) % 1;
                     Vector4 hsv = new Vector4(hue, 1.0f, 1f, 1);
-                    Color rgba = (Color)XMath.ColorHsvToRgb(hsv);
+                    Color rgba = XMath.ColorHsvToRgb(hsv);
                     var array = temp.Reduce(time);
                     geometries.Add(new Tuple<Geometry, Color>(array.CreateGeometry(_factory), rgba));
                     temp = array;
@@ -147,7 +153,7 @@ namespace Managed.D2DSharp.DCSample
                 using (DxgiAdapter adapter = _dxgiDevice.GetAdapter())
                 using (DxgiFactory factory = adapter.GetFactory())
                 {
-                    _swapChain = factory.CreateSwapChainForHwnd(_dxgiDevice, this.Handle);
+                    _swapChain = factory.CreateSwapChainForHwnd(_dxgiDevice, Handle);
                     _dxgiDevice.MaximumFrameLatency = 1;
                     _swapChain.GetBuffer(0, out _surface);
                     _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
@@ -181,13 +187,13 @@ namespace Managed.D2DSharp.DCSample
         {
             if (d != null)
             {
-                ((IDisposable)d).Dispose();
+                d.Dispose();
                 d = default(T);
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (this._time > 0.9f)
+            if (_time > 0.9f)
             {
                 Reset();
             }
@@ -195,10 +201,10 @@ namespace Managed.D2DSharp.DCSample
         }
         private void Reset()
         {
-            this._time = 0.1f;
-            this._points = null;
+            _time = 0.1f;
+            _points = null;
             Random random = new Random((int)DateTime.Now.TimeOfDay.Ticks);
-            this._baseHue = (float)random.NextDouble();
+            _baseHue = (float)random.NextDouble();
             Invalidate();
         }
     }

@@ -19,12 +19,9 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using Managed.Graphics.Direct2D;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.Bezier
 {
@@ -34,7 +31,7 @@ namespace Managed.D2DSharp.Bezier
 
         private ControlPointArray(int count)
         {
-            this._points = new PointF[count];
+            _points = new PointF[count];
         }
         public static ControlPointArray Generate(int count, float minX, float maxX, float minY, float maxY)
         {
@@ -44,34 +41,34 @@ namespace Managed.D2DSharp.Bezier
         }
         public IEnumerable<PointF> Points
         {
-            get { return this._points; }
+            get { return _points; }
         }
         public int Count
         {
-            get { return this._points.Length; }
+            get { return _points.Length; }
         }
         public PointF this[int index]
         {
-            get { return this._points[index]; }
-            set { this._points[index] = value; }
+            get { return _points[index]; }
+            set { _points[index] = value; }
         }
         private void Generate(float minX, float maxX, float minY, float maxY)
         {
             Random random = new Random();
-            for (int index = 0; index < this._points.Length; ++index)
+            for (int index = 0; index < _points.Length; ++index)
             {
-                this._points[index].X = (float)(minX + random.NextDouble() * (maxX - minX));
-                this._points[index].Y = (float)(minY + random.NextDouble() * (maxY - minY));
+                _points[index].X = (float)(minX + random.NextDouble() * (maxX - minX));
+                _points[index].Y = (float)(minY + random.NextDouble() * (maxY - minY));
             }
         }
         public ControlPointArray Reduce(float t)
         {
-            ControlPointArray result = new ControlPointArray(this.Count - 1);
-            int count = this.Count;
+            ControlPointArray result = new ControlPointArray(Count - 1);
+            int count = Count;
             for (var index = 0; index < count - 1; ++index)
             {
-                var point1 = this._points[index];
-                var point2 = this._points[index + 1];
+                var point1 = _points[index];
+                var point2 = _points[index + 1];
                 result[index] = new PointF(point1.X + (point2.X - point1.X) * t, point1.Y + (point2.Y - point1.Y) * t);
             }
             return result;
@@ -84,17 +81,17 @@ namespace Managed.D2DSharp.Bezier
 
             using (GeometrySink sink = geometry.Open())
             {
-                sink.BeginFigure(this._points[0], FigureBegin.Hollow);
-                sink.AddLines(this._points);
+                sink.BeginFigure(_points[0], FigureBegin.Hollow);
+                sink.AddLines(_points);
                 sink.EndFigure(FigureEnd.Open);
                 sink.Close();
             }
-            Geometry[] list = new Geometry[this._points.Length + 1];
+            Geometry[] list = new Geometry[_points.Length + 1];
             list[0] = geometry;
-            
-            for (int index = 0; index < this._points.Length; ++index)
+
+            for (int index = 0; index < _points.Length; ++index)
             {
-                list[index + 1] = factory.CreateEllipseGeometry(new Ellipse(this._points[index], 5, 5));
+                list[index + 1] = factory.CreateEllipseGeometry(new Ellipse(_points[index], 5, 5));
             }
             GeometryGroup group = factory.CreateGeometryGroup(FillMode.Winding, list);
 
