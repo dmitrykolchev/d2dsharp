@@ -23,7 +23,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 
 
 	ref class SolidColorBrush;
-
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class WindowRenderTarget: RenderTarget
 	{
 	internal:

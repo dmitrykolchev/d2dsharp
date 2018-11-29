@@ -27,6 +27,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		}
 	};
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class LinearGradientBrush: Brush
 	{
 	internal:

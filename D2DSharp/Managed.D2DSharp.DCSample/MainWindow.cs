@@ -124,21 +124,22 @@ namespace Managed.D2DSharp.DCSample
         {
             return Task.Run(() =>
             {
-                var temp = Points;
+                ControlPointArray temp = Points;
                 int count = Points.Count;
-                var geometries = new List<Tuple<Geometry, Color>>();
+                List<Tuple<Geometry, Color>> geometries = new List<Tuple<Geometry, Color>>();
                 for (int index = 0; index < count - 1; ++index)
                 {
                     float hue = (_baseHue + (index + 1) / (float)(count + 1)) % 1;
                     Vector4 hsv = new Vector4(hue, 1.0f, 1f, 1);
                     Color rgba = XMath.ColorHsvToRgb(hsv);
-                    var array = temp.Reduce(time);
+                    ControlPointArray array = temp.Reduce(time);
                     geometries.Add(new Tuple<Geometry, Color>(array.CreateGeometry(_factory), rgba));
                     temp = array;
                 }
                 return geometries;
             });
         }
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
             if (_dxgiDevice != null)
@@ -163,6 +164,7 @@ namespace Managed.D2DSharp.DCSample
             }
             uint value = _deviceContext.MaximumBitmapSize;
         }
+
         protected override void OnResize(EventArgs e)
         {
             if (_deviceContext != null)
@@ -179,10 +181,12 @@ namespace Managed.D2DSharp.DCSample
                 Reset();
             }
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             Render();
         }
+
         protected static void SafeDispose<T>(ref T d) where T : class, IDisposable
         {
             if (d != null)
@@ -191,6 +195,7 @@ namespace Managed.D2DSharp.DCSample
                 d = default(T);
             }
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (_time > 0.9f)
@@ -199,6 +204,7 @@ namespace Managed.D2DSharp.DCSample
             }
             Invalidate();
         }
+
         private void Reset()
         {
             _time = 0.1f;

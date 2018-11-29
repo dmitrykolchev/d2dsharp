@@ -43,7 +43,7 @@ namespace Managed {
 			ref class DeviceContext;
 			ref class Managed::Graphics::Dxgi::DxgiDevice;
 
-
+			[System::Security::SuppressUnmanagedCodeSecurity]
 			public ref class Device : D2DResource
 			{
 			internal:
@@ -328,6 +328,7 @@ namespace Managed {
 				}
 			};
 
+			[System::Security::SuppressUnmanagedCodeSecurity]
 			public ref class DeviceContext : RenderTarget
 			{
 			internal:

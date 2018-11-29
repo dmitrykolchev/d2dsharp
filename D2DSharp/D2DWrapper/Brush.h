@@ -62,6 +62,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 		}
 	};
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class Brush abstract: D2DResource
 	{
 	protected:

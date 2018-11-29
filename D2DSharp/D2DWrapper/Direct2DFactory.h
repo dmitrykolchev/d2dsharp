@@ -285,6 +285,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	ref class Device;
 	ref class Managed::Graphics::Dxgi::DxgiDevice;
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class Direct2DFactory: ComWrapper
 	{
 	internal:

@@ -42,6 +42,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	ref class SimplifiedGeometrySink;
 	interface class ICustomSimplifiedGeometrySink;
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class Geometry: D2DResource
 	{
 	internal:

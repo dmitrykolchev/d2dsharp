@@ -14,6 +14,7 @@ using namespace System::Runtime::InteropServices;
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class GradientStopCollection: D2DResource
 	{
 	internal:

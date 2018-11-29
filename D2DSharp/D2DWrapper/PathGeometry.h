@@ -17,6 +17,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 	ref class GeometrySink;
 	interface class ICustomGeometrySink;
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class PathGeometry: Geometry
 	{
 	internal:

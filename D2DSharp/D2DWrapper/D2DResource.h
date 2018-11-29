@@ -17,6 +17,7 @@ namespace Managed { namespace Graphics { namespace Direct2D
 {
 	ref class Direct2DFactory;
 
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class D2DResource abstract: ComWrapper
 	{
 	internal:

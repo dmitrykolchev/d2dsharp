@@ -14,6 +14,7 @@ using namespace System;
 
 namespace Managed { namespace Graphics { namespace Direct2D 
 {
+	[System::Security::SuppressUnmanagedCodeSecurity]
 	public ref class SolidColorBrush: Brush
 	{
 	internal:
