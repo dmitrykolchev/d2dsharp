@@ -57,8 +57,9 @@ namespace Managed.D2DSharp.Bezier
             Random random = new Random();
             for (int index = 0; index < _points.Length; ++index)
             {
-                _points[index].X = (float)(minX + random.NextDouble() * (maxX - minX));
-                _points[index].Y = (float)(minY + random.NextDouble() * (maxY - minY));
+                _points[index] = new PointF(
+                    (float)(minX + random.NextDouble() * (maxX - minX)),
+                    (float)(minY + random.NextDouble() * (maxY - minY)));
             }
         }
         public ControlPointArray Reduce(float t)

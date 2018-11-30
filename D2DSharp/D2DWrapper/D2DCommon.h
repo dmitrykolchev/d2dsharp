@@ -130,13 +130,11 @@ namespace Managed {
 				property UINT32 Width
 				{
 					UINT32 get() { return _width; }
-					void set(UINT32 value) { _width = value; }
 				}
 
 				property UINT32 Height
 				{
 					UINT32 get() { return _height; }
-					void set(UINT32 value) { _height = value; }
 				}
 			};
 
@@ -157,13 +155,11 @@ namespace Managed {
 				property FLOAT X
 				{
 					FLOAT get() { return _x; }
-					void set(FLOAT value) { _x = value; }
 				}
 
 				property FLOAT Y
 				{
 					FLOAT get() { return _y; }
-					void set(FLOAT value) { _y = value; }
 				}
 			};
 
@@ -183,13 +179,11 @@ namespace Managed {
 				property UINT32 X
 				{
 					UINT32 get() { return _x; }
-					void set(UINT32 value) { _x = value; }
 				}
 
 				property UINT32 Y
 				{
 					UINT32 get() { return _y; }
-					void set(UINT32 value) { _y = value; }
 				}
 			};
 
@@ -213,13 +207,11 @@ namespace Managed {
 				property FLOAT Width
 				{
 					FLOAT get() { return _width; }
-					void set(FLOAT value) { _width = value; }
 				}
 
 				property FLOAT Height
 				{
 					FLOAT get() { return _height; }
-					void set(FLOAT value) { _height = value; }
 				}
 			};
 
@@ -243,13 +235,11 @@ namespace Managed {
 				property UINT32 X
 				{
 					UINT32 get() { return _left; }
-					void set(UINT32 value) { _left = value; }
 				}
 
 				property UINT32 Y
 				{
 					UINT32 get() { return _top; }
-					void set(UINT32 value) { _top = value; }
 				}
 
 				property UINT32 Width
@@ -313,12 +303,10 @@ namespace Managed {
 				property FLOAT X
 				{
 					FLOAT get() { return _left; }
-					void set(FLOAT value) { _left = value; }
 				}
 				property FLOAT Y
 				{
 					FLOAT get() { return _top; }
-					void set(FLOAT value) { _top = value; }
 				}
 
 				property FLOAT Width
@@ -365,19 +353,16 @@ namespace Managed {
 				property RectF Bounds
 				{
 					RectF get() { return _rect; }
-					void set(RectF value) { _rect = value; }
 				}
 
 				property FLOAT RadiusX
 				{
 					FLOAT get() { return _radiusX; }
-					void set(FLOAT value) { _radiusX = value; }
 				}
 
 				property FLOAT RadiusY
 				{
 					FLOAT get() { return _radiusY; }
-					void set(FLOAT value) { _radiusY = value; }
 				}
 			};
 
@@ -413,19 +398,16 @@ namespace Managed {
 				property PointF Center
 				{
 					PointF get() { return _center; }
-					void set(PointF value) { _center = value; }
 				}
 
 				property FLOAT RadiusX
 				{
 					FLOAT get() { return _radiusX; }
-					void set(FLOAT value) { _radiusX = value; }
 				}
 
 				property FLOAT RadiusY
 				{
 					FLOAT get() { return _radiusY; }
-					void set(FLOAT value) { _radiusY = value; }
 				}
 
 				property RectF Bounds

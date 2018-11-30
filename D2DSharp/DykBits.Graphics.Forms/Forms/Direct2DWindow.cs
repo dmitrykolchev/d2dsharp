@@ -206,7 +206,7 @@ namespace Managed.Graphics.Forms
             base.OnResize(e);
             if (RenderTarget != null)
             {
-                RenderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
+                RenderTarget.Resize(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height));
                 Invalidate();
             }
         }

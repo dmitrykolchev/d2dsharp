@@ -19,14 +19,9 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using Managed.Graphics.Direct2D;
+using System;
+using System.Windows.Forms;
 
 namespace Managed.D2DSharp.Sample2
 {
@@ -45,68 +40,62 @@ namespace Managed.D2DSharp.Sample2
                 ControlStyles.ResizeRedraw |
                 ControlStyles.UserPaint, true);
             InitializeComponent();
-            this.Load += new EventHandler(MainWindow_Load);
-            this.Paint += new PaintEventHandler(MainWindow_Paint);
+            Load += new EventHandler(MainWindow_Load);
+            Paint += new PaintEventHandler(MainWindow_Paint);
         }
 
-        void MainWindow_Paint(object sender, PaintEventArgs e)
+        private void MainWindow_Paint(object sender, PaintEventArgs e)
         {
-            this._renderTarget.BeginDraw();
-            this._renderTarget.Clear(Color.FromKnown(Colors.Black, 1));
-            if (this._cache != null)
+            _renderTarget.BeginDraw();
+            _renderTarget.Clear(Color.FromKnown(Colors.Black, 1));
+            if (_cache != null)
             {
-                this._renderTarget.DrawBitmap(this._cache, new RectF(0, 0, ClientSize.Width, ClientSize.Height),
+                _renderTarget.DrawBitmap(_cache, new RectF(0, 0, ClientSize.Width, ClientSize.Height),
                     1, BitmapInterpolationMode.Linear);
             }
-            this._renderTarget.EndDraw();
+            _renderTarget.EndDraw();
         }
 
-        void MainWindow_Load(object sender, EventArgs e)
+        private void MainWindow_Load(object sender, EventArgs e)
         {
-            this._factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
+            _factory = Direct2DFactory.CreateFactory(FactoryType.SingleThreaded, DebugLevel.None);
             StrokeStyleProperties ssp = new StrokeStyleProperties(LineCapStyle.Round, LineCapStyle.Round,
                 LineCapStyle.Round, LineJoin.Round, 10, DashStyle.Solid, 0);
-            this._strokeStyle = this._factory.CreateStrokeStyle(ssp, null);
-            this._renderTarget = this._factory.CreateWindowRenderTarget(this);
-            this.Resize += new EventHandler(MainWindow_Resize);
+            _strokeStyle = _factory.CreateStrokeStyle(ssp, null);
+            _renderTarget = _factory.CreateWindowRenderTarget(this);
+            Resize += new EventHandler(MainWindow_Resize);
         }
 
-        void MainWindow_Resize(object sender, EventArgs e)
+        private void MainWindow_Resize(object sender, EventArgs e)
         {
-            if (this._renderTarget != null)
+            if (_renderTarget != null)
             {
-                //if (this._cache != null)
-                //{
-                //    this._cache.Dispose();
-                //    this._cache = null;
-                //}
-                this._renderTarget.Resize(new SizeU { Width = (uint)ClientSize.Width, Height = (uint)ClientSize.Height });
-                //timer1_Tick(null, EventArgs.Empty);
+                _renderTarget.Resize(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height));
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.timer1.Enabled = false;
+            timer1.Enabled = false;
             Random rand = new Random();
-            this._renderTarget.BeginDraw();
+            _renderTarget.BeginDraw();
             for (int index = 0; index < 20; ++index)
             {
                 Color color = Color.FromRGB((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
-                using (SolidColorBrush brush = this._renderTarget.CreateSolidColorBrush(color))
+                using (SolidColorBrush brush = _renderTarget.CreateSolidColorBrush(color))
                 {
                     float strokeWidth = rand.Next(1, 5);
                     float patch = strokeWidth / 2 - (int)(strokeWidth / 2);
-                    this._renderTarget.DrawRect(brush, strokeWidth, this._strokeStyle,
+                    _renderTarget.DrawRect(brush, strokeWidth, _strokeStyle,
                         new RectF(
                         new PointF(rand.Next(0, ClientSize.Width) + patch, rand.Next(0, ClientSize.Height) + patch),
                         new PointF(rand.Next(0, ClientSize.Width) + patch, rand.Next(0, ClientSize.Height) + patch)));
                 }
             }
-            this._cache = this._renderTarget.CreateBitmap(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height), IntPtr.Zero, 0,
+            _cache = _renderTarget.CreateBitmap(new SizeU((uint)ClientSize.Width, (uint)ClientSize.Height), IntPtr.Zero, 0,
                 new BitmapProperties(new PixelFormat(DxgiFormat.B8G8R8A8_UNORM, AlphaMode.Ignore), 96, 96));
-            this._cache.CopyFromRenderTarget(new PointU(0, 0), this._renderTarget, new RectU(0, 0, (uint)ClientSize.Width, (uint)ClientSize.Height));
-            this._renderTarget.EndDraw();
+            _cache.CopyFromRenderTarget(new PointU(0, 0), _renderTarget, new RectU(0, 0, (uint)ClientSize.Width, (uint)ClientSize.Height));
+            _renderTarget.EndDraw();
         }
     }
 }
