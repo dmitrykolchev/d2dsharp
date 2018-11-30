@@ -6,6 +6,10 @@ This library allows to access Direct2D, DirectWrite and Windows Imaging Windows 
 Aim of the project is to simplify development of managed Direct2D applications.
 
 # Direct2D for Microsoft .Net Updates
+## 2018-12-01
+* **breaking changes** PointF, PointU, SizeF, SizeU, RectF, RectU structs now read only
+* new sample added [Managed.D2DSharp.Lines](url:https://github.com/dmitrykolchev/d2dsharp/tree/master/D2DSharp/Managed.D2DSharp.Lines)
+
 ## 2016-12-11
 * DeviceContext  class added (see How to render by using a Direct2D device context [url:https://msdn.microsoft.com/en-us/library/windows/desktop/hh780339(v=vs.85).aspx]
 * new sample added (Managed.D2DSharp.DCSample)
