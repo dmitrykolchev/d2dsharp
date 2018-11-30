@@ -19,7 +19,7 @@ Aim of the project is to simplify development of managed Direct2D applications.
 ## 2014-09-25
 * Direct2D sample added (Managed.D2DSharp.StarField)
 * DirectWrite sample added (Managed.D2DSharp.Marquee)
-
+![starfield screenshot](images/stars.png)
 ## 2014-09-24
 * bug: some files missing from the solution
 
