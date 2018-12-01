@@ -1,5 +1,5 @@
 ﻿/* 
-* Direct2DSurface.cs 
+* Program.cs 
 * 
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>

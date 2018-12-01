@@ -19,17 +19,10 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Managed.Graphics;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
+using System;
+using System.Windows.Forms;
 
 namespace Managed.D2DSharp.Marquee
 {
@@ -45,9 +38,14 @@ namespace Managed.D2DSharp.Marquee
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                this.timer1.Enabled = !this.timer1.Enabled;
+            {
+                timer1.Enabled = !timer1.Enabled;
+            }
             else
-                this.Close();
+            {
+                Close();
+            }
+
             base.OnMouseDown(e);
         }
         protected override void OnKeyDown(KeyEventArgs e)
@@ -55,7 +53,7 @@ namespace Managed.D2DSharp.Marquee
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
-                this.Close();
+                Close();
             }
             base.OnKeyDown(e);
         }
@@ -68,16 +66,16 @@ namespace Managed.D2DSharp.Marquee
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             //renderTarget.Clear(Color.FromARGB(Colors.Black, 1));
-            renderTarget.FillRect(this._semiTransparentBrush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
-            renderTarget.DrawText(this._text, this._textFormat,
-                new RectF(_x, (ClientSize.Height - this._textLayout.Metrics.Height) / 2, ClientSize.Width, ClientSize.Height), 
-                _brush, 
-                DrawTextOptions.None, 
+            renderTarget.FillRect(_semiTransparentBrush, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
+            renderTarget.DrawText(_text, _textFormat,
+                new RectF(_x, (ClientSize.Height - _textLayout.Metrics.Height) / 2, ClientSize.Width, ClientSize.Height),
+                _brush,
+                DrawTextOptions.None,
                 MeasuringMode.Natural);
-            if (this._x < 0)
+            if (_x < 0)
             {
-                renderTarget.DrawText(this._text, this._textFormat,
-                    new RectF(ClientSize.Width + _x, (ClientSize.Height - this._textLayout.Metrics.Height) / 2, ClientSize.Width, ClientSize.Height),
+                renderTarget.DrawText(_text, _textFormat,
+                    new RectF(ClientSize.Width + _x, (ClientSize.Height - _textLayout.Metrics.Height) / 2, ClientSize.Width, ClientSize.Height),
                     _brush,
                     DrawTextOptions.None,
                     MeasuringMode.Natural);
@@ -91,34 +89,38 @@ namespace Managed.D2DSharp.Marquee
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 96);
-            this._textLayout = DirectWriteFactory.CreateTextLayout(this._text, this._textFormat, float.MaxValue, float.MaxValue);
-           
+            _textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 96);
+            _textLayout = DirectWriteFactory.CreateTextLayout(_text, _textFormat, float.MaxValue, float.MaxValue);
+
         }
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.LimeGreen, 1));
-            this._semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.25f));
+            _brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.LimeGreen, 1));
+            _semiTransparentBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.25f));
         }
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            SafeDispose(ref this._textLayout);
-            SafeDispose(ref this._textFormat);
+            SafeDispose(ref _textLayout);
+            SafeDispose(ref _textFormat);
         }
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            SafeDispose(ref this._semiTransparentBrush);
-            SafeDispose(ref this._brush);
+            SafeDispose(ref _semiTransparentBrush);
+            SafeDispose(ref _brush);
         }
-        Random rand = new Random();
+
+        private Random rand = new Random();
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this._x -= 5;
-            if (this._x < 0 && Math.Abs(this._x) > this._textLayout.Metrics.Width)
-                this._x += ClientSize.Width;
+            _x -= 5;
+            if (_x < 0 && Math.Abs(_x) > _textLayout.Metrics.Width)
+            {
+                _x += ClientSize.Width;
+            }
+
             Invalidate();
         }
 

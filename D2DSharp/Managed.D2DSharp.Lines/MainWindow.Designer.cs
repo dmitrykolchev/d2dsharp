@@ -44,11 +44,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.ControlBox = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
+            this.Text = "Lines";
+            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 

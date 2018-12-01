@@ -1,5 +1,5 @@
 ﻿/* 
-* MainWindow.cs 
+* Program.cs 
 * 
 * Authors: 
 *  Dmitry Kolchev <dmitrykolchev@msn.com>

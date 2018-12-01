@@ -1,4 +1,26 @@
-﻿using Managed.Graphics.Direct2D;
+﻿/* 
+* MainWindow.cs
+* 
+* Authors: 
+*  Dmitry Kolchev <dmitrykolchev@msn.com>
+*  
+* Copyright (C) 2018 Dmitry Kolchev
+*
+* This sourcecode is licenced under The GNU Lesser General Public License
+* 
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+* NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+* DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+* OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+* USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+using Managed.Graphics.Direct2D;
+using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Dxgi;
 using System;
 using System.Windows.Forms;
@@ -7,6 +29,10 @@ namespace Managed.D2DSharp.Lines
 {
     public partial class MainWindow : Form
     {
+        private const float Velocity = 0.015f;
+        private const int PointCount = 128 * 3;
+        private const int NeighborCount = 10;
+
         private DxgiDevice _dxgiDevice;
         private Direct2DFactory _factory;
         private DxgiSwapChain1 _swapChain;
@@ -14,9 +40,9 @@ namespace Managed.D2DSharp.Lines
         private DxgiSurface _surface;
         private Bitmap1 _bitmap;
         private SolidColorBrush _brush;
-        private const float Velocity = 0.015f;
-        private const int PointCount = 128*3;
-        private const int NeighborCount = 8;
+        private SolidColorBrush _brush1;
+        private DirectWriteFactory _directWriteFactory;
+
         private PointF[] _points = new PointF[PointCount];
         private PointF[] _vectors = new PointF[PointCount];
         private int[,] _neighbors = new int[PointCount, NeighborCount];
@@ -40,6 +66,7 @@ namespace Managed.D2DSharp.Lines
         {
             SafeDispose(ref _bitmap);
             SafeDispose(ref _brush);
+            SafeDispose(ref _brush1);
             SafeDispose(ref _deviceContext);
             SafeDispose(ref _surface);
             SafeDispose(ref _swapChain);
@@ -63,11 +90,26 @@ namespace Managed.D2DSharp.Lines
 
             for (int index = 0; index < PointCount; ++index)
             {
-                renderTarget.DrawEllipse(_brush, 0.5f, new Ellipse(_points[index], 2, 2));
-                for(int n = 0; n < NeighborCount; ++n)
+                for (int n = 0; n < NeighborCount; ++n)
                 {
-                    renderTarget.DrawLine(_brush, (NeighborCount - n) / (float)(10 * NeighborCount), _points[index], _points[_neighbors[index, n]]);
+                    renderTarget.DrawLine(_brush1, (NeighborCount - n) / (float)(10 * NeighborCount), _points[index], _points[_neighbors[index, n]]);
                 }
+                renderTarget.DrawEllipse(_brush, 0.5f, new Ellipse(_points[index], 1.5f, 1.5f));
+            }
+
+            string text = "Press <Esc> to exit...";
+            using (TextFormat textFormat = _directWriteFactory.CreateTextFormat("Segoe UI", 13, FontWeight.Normal))
+            using (TextLayout textLayout = _directWriteFactory.CreateTextLayout(text, textFormat, float.MaxValue, float.MaxValue))
+            using (SolidColorBrush textBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.White, 1)))
+            {
+                renderTarget.DrawText(
+                    text,
+                    textFormat,
+                    new RectF(10, 10, ClientRectangle.Width, ClientRectangle.Height),
+                    textBrush,
+                    DrawTextOptions.None,
+                    MeasuringMode.Natural
+                    );
             }
 
             renderTarget.EndDraw();
@@ -100,12 +142,28 @@ namespace Managed.D2DSharp.Lines
             {
                 timer1.Enabled = !timer1.Enabled;
             }
-            else
-            {
-                Close();
-            }
 
             base.OnMouseDown(e);
+        }
+
+        protected override void OnMouseDoubleClick(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (WindowState == FormWindowState.Normal)
+                {
+                    FormBorderStyle = FormBorderStyle.None;
+                    TopMost = true;
+                    WindowState = FormWindowState.Maximized;
+                }
+                else if (WindowState == FormWindowState.Maximized)
+                {
+                    WindowState = FormWindowState.Normal;
+                    TopMost = false;
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                }
+            }
+            base.OnMouseDoubleClick(e);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -147,8 +205,10 @@ namespace Managed.D2DSharp.Lines
                     _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
                     _deviceContext.SetTarget(_bitmap);
                     _brush = _deviceContext.CreateSolidColorBrush(Color.FromRGB(0.1f, 0.75f, 0.5f, 1f));
+                    _brush1 = _deviceContext.CreateSolidColorBrush(Color.FromRGB(0.1f, 0.5f, 0.75f, 1f));
                 }
             }
+            _directWriteFactory = DirectWriteFactory.Create(DirectWriteFactoryType.Shared);
             CreatePoints();
         }
 
@@ -177,14 +237,16 @@ namespace Managed.D2DSharp.Lines
                 y = (float)(random.NextDouble() * 100) - 50f;
                 _vectors[index] = new PointF(x, y);
             }
+            MovePoints();
         }
+
         private void MovePoints()
         {
             for (int index = 0; index < PointCount; ++index)
             {
 
-                float x = (float)(_points[index].X + _vectors[index].X * Velocity);
-                float y = (float)(_points[index].Y + _vectors[index].Y * Velocity);
+                float x = _points[index].X + _vectors[index].X * Velocity;
+                float y = _points[index].Y + _vectors[index].Y * Velocity;
 
                 if (x < 0)
                 {
