@@ -23,6 +23,7 @@ using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Dxgi;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Managed.D2DSharp.Lines
@@ -30,8 +31,8 @@ namespace Managed.D2DSharp.Lines
     public partial class MainWindow : Form
     {
         private const float Velocity = 0.015f;
-        private const int PointCount = 128 * 3;
-        private const int NeighborCount = 10;
+        private const int PointCount = 128 * 4;
+        private const int NeighborCount = 8;
 
         private DxgiDevice _dxgiDevice;
         private Direct2DFactory _factory;
@@ -54,7 +55,31 @@ namespace Managed.D2DSharp.Lines
                 ControlStyles.UserPaint, true);
             Load += MainWindow_Load;
             FormClosed += MainWindow_FormClosed;
+            Paint += MainWindow_Paint;
+            Resize += MainWindow_Resize;
             InitializeComponent();
+        }
+
+        private async void MainWindow_Resize(object sender, EventArgs e)
+        {
+            if (_deviceContext != null)
+            {
+                _deviceContext.SetTarget(null);
+                SafeDispose(ref _bitmap);
+                SafeDispose(ref _surface);
+
+                _swapChain.ResizeBuffers();
+
+                _swapChain.GetBuffer(0, out _surface);
+                _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
+                _deviceContext.SetTarget(_bitmap);
+                await Reset();
+            }
+        }
+
+        private async void MainWindow_Paint(object sender, PaintEventArgs e)
+        {
+            await Render();
         }
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -74,12 +99,7 @@ namespace Managed.D2DSharp.Lines
             SafeDispose(ref _factory);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            Render();
-        }
-
-        private void Render()
+        private async Task Render()
         {
             DeviceContext renderTarget = _deviceContext;
 
@@ -116,24 +136,7 @@ namespace Managed.D2DSharp.Lines
 
             _swapChain.Present(1, 0);
 
-            MovePoints();
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            if (_deviceContext != null)
-            {
-                _deviceContext.SetTarget(null);
-                SafeDispose(ref _bitmap);
-                SafeDispose(ref _surface);
-
-                _swapChain.ResizeBuffers();
-
-                _swapChain.GetBuffer(0, out _surface);
-                _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
-                _deviceContext.SetTarget(_bitmap);
-                Reset();
-            }
+            await MovePoints();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -150,13 +153,14 @@ namespace Managed.D2DSharp.Lines
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (WindowState == FormWindowState.Normal)
+                if (FormBorderStyle != FormBorderStyle.None)
                 {
+                    WindowState = FormWindowState.Normal;
                     FormBorderStyle = FormBorderStyle.None;
                     TopMost = true;
                     WindowState = FormWindowState.Maximized;
                 }
-                else if (WindowState == FormWindowState.Maximized)
+                else 
                 {
                     WindowState = FormWindowState.Normal;
                     TopMost = false;
@@ -185,7 +189,7 @@ namespace Managed.D2DSharp.Lines
             }
         }
 
-        private void MainWindow_Load(object sender, EventArgs e)
+        private async void MainWindow_Load(object sender, EventArgs e)
         {
             if (_dxgiDevice != null)
             {
@@ -209,7 +213,7 @@ namespace Managed.D2DSharp.Lines
                 }
             }
             _directWriteFactory = DirectWriteFactory.Create(DirectWriteFactoryType.Shared);
-            CreatePoints();
+            await CreatePoints();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -217,89 +221,105 @@ namespace Managed.D2DSharp.Lines
             Invalidate();
         }
 
-        private void Reset()
+        private async Task Reset()
         {
-            CreatePoints();
+            await CreatePoints();
             Invalidate();
         }
 
-        private void CreatePoints()
+        private async Task CreatePoints()
         {
             Random random = new Random();
 
-            for (int index = 0; index < PointCount; ++index)
+            unchecked
             {
-                float x = (float)(random.NextDouble() * ClientRectangle.Width);
-                float y = (float)(random.NextDouble() * ClientRectangle.Height);
-                _points[index] = new PointF(x, y);
 
-                x = (float)(random.NextDouble() * 100) - 50f;
-                y = (float)(random.NextDouble() * 100) - 50f;
-                _vectors[index] = new PointF(x, y);
+                for (int index = 0; index < PointCount; ++index)
+                {
+                    float x = (float)(random.NextDouble() * ClientRectangle.Width);
+                    float y = (float)(random.NextDouble() * ClientRectangle.Height);
+                    _points[index] = new PointF(x, y);
+
+                    x = (float)(random.NextDouble() * 100) - 50f;
+                    y = (float)(random.NextDouble() * 100) - 50f;
+                    _vectors[index] = new PointF(x, y);
+                }
+                await MovePoints();
             }
-            MovePoints();
         }
 
-        private void MovePoints()
+        private async Task MovePoints()
         {
-            for (int index = 0; index < PointCount; ++index)
+            await Task.Run(() =>
             {
-
-                float x = _points[index].X + _vectors[index].X * Velocity;
-                float y = _points[index].Y + _vectors[index].Y * Velocity;
-
-                if (x < 0)
+                unchecked
                 {
-                    x = -x;
-                    _vectors[index] = new PointF(-_vectors[index].X, _vectors[index].Y);
-                }
-                else if (x > ClientRectangle.Width)
-                {
-                    x = ClientRectangle.Width * 2 - x;
-                    _vectors[index] = new PointF(-_vectors[index].X, _vectors[index].Y);
-                }
+                    for (int index = 0; index < PointCount; ++index)
+                    {
 
-                if (y < 0)
-                {
-                    y = -y;
-                    _vectors[index] = new PointF(_vectors[index].X, -_vectors[index].Y);
-                }
-                else if (y > ClientRectangle.Height)
-                {
-                    y = ClientRectangle.Height * 2 - y;
-                    _vectors[index] = new PointF(_vectors[index].X, -_vectors[index].Y);
-                }
+                        float x = _points[index].X + _vectors[index].X * Velocity;
+                        float y = _points[index].Y + _vectors[index].Y * Velocity;
 
-                _points[index] = new PointF(x, y);
-            }
-            FindNeighbors();
+                        if (x < 0)
+                        {
+                            x = -x;
+                            _vectors[index] = new PointF(-_vectors[index].X, _vectors[index].Y);
+                        }
+                        else if (x > ClientRectangle.Width)
+                        {
+                            x = ClientRectangle.Width * 2 - x;
+                            _vectors[index] = new PointF(-_vectors[index].X, _vectors[index].Y);
+                        }
+
+                        if (y < 0)
+                        {
+                            y = -y;
+                            _vectors[index] = new PointF(_vectors[index].X, -_vectors[index].Y);
+                        }
+                        else if (y > ClientRectangle.Height)
+                        {
+                            y = ClientRectangle.Height * 2 - y;
+                            _vectors[index] = new PointF(_vectors[index].X, -_vectors[index].Y);
+                        }
+
+                        _points[index] = new PointF(x, y);
+                    }
+                    FindNeighbors();
+                }
+            }).ConfigureAwait(false);
         }
 
         private void FindNeighbors()
         {
-            for (int index = 0; index < PointCount; ++index)
+            unchecked
             {
-                int[] indexes = GetOrderedIndexes(_points[index]);
-                for (int n = 0; n < NeighborCount; n++)
+                for (int index = 0; index < PointCount; ++index)
                 {
-                    _neighbors[index, n] = indexes[n + 1];
+                    int[] indexes = GetOrderedIndexes(_points[index]);
+                    for (int n = 0; n < NeighborCount; n++)
+                    {
+                        _neighbors[index, n] = indexes[n + 1];
+                    }
                 }
             }
         }
 
         private int[] GetOrderedIndexes(PointF point)
         {
-            float[] distance = new float[PointCount];
-            int[] indexes = new int[PointCount];
-            for (int index = 0; index < PointCount; ++index)
+            unchecked
             {
-                float dx = point.X - _points[index].X;
-                float dy = point.Y - _points[index].Y;
-                distance[index] = dx * dx + dy * dy;
-                indexes[index] = index;
+                float[] distance = new float[PointCount];
+                int[] indexes = new int[PointCount];
+                for (int index = 0; index < PointCount; ++index)
+                {
+                    float dx = point.X - _points[index].X;
+                    float dy = point.Y - _points[index].Y;
+                    distance[index] = dx * dx + dy * dy;
+                    indexes[index] = index;
+                }
+                Array.Sort(distance, indexes);
+                return indexes;
             }
-            Array.Sort(distance, indexes);
-            return indexes;
         }
 
     }
