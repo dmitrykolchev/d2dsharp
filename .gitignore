@@ -55,3 +55,9 @@
 /D2DSharp/Managed.D2DSharp.Lines/obj
 /D2DSharp/Managed.D2DSharp.Circles/bin/Release
 /D2DSharp/Managed.D2DSharp.Circles/obj/Release
+/D2DSharp/D2DNativeLib/Debug
+/D2DSharp/D2DWrapper/Debug
+/D2DSharp/D2DWrapper.Sample/bin/Debug
+/D2DSharp/Debug
+/D2DSharp/Managed.D2DSharp.Circles/bin
+/D2DSharp/Managed.D2DSharp.Circles/obj

@@ -30,7 +30,8 @@ namespace Managed.D2DSharp.Lines
 {
     public partial class MainWindow : Form
     {
-        private const float Velocity = 0.015f;
+        private const float VelocityMax = 0.020f;
+        private const float VelocityMin = 0.005f;
         private const int PointCount = 128 * 4;
         private const int NeighborCount = 8;
 
@@ -46,6 +47,7 @@ namespace Managed.D2DSharp.Lines
 
         private PointF[] _points = new PointF[PointCount];
         private PointF[] _vectors = new PointF[PointCount];
+        private float[] _velocity = new float[PointCount];
         private int[,] _neighbors = new int[PointCount, NeighborCount];
 
         public MainWindow()
@@ -160,7 +162,7 @@ namespace Managed.D2DSharp.Lines
                     TopMost = true;
                     WindowState = FormWindowState.Maximized;
                 }
-                else 
+                else
                 {
                     WindowState = FormWindowState.Normal;
                     TopMost = false;
@@ -243,6 +245,7 @@ namespace Managed.D2DSharp.Lines
                     x = (float)(random.NextDouble() * 100) - 50f;
                     y = (float)(random.NextDouble() * 100) - 50f;
                     _vectors[index] = new PointF(x, y);
+                    _velocity[index] = (float)(VelocityMin + random.NextDouble() * (VelocityMax - VelocityMin));
                 }
                 await MovePoints();
             }
@@ -257,8 +260,8 @@ namespace Managed.D2DSharp.Lines
                     for (int index = 0; index < PointCount; ++index)
                     {
 
-                        float x = _points[index].X + _vectors[index].X * Velocity;
-                        float y = _points[index].Y + _vectors[index].Y * Velocity;
+                        float x = _points[index].X + _vectors[index].X * _velocity[index];
+                        float y = _points[index].Y + _vectors[index].Y * _velocity[index];
 
                         if (x < 0)
                         {
