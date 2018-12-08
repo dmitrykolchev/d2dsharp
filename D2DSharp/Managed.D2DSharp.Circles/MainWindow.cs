@@ -23,25 +23,18 @@ using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Dxgi;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Managed.D2DSharp.Circles
 {
     public partial class MainWindow : Form
     {
-        private const float Velocity = 0.015f;
-        private const int PointCount = 128 * 4;
-        private const int NeighborCount = 8;
-
         private DxgiDevice _dxgiDevice;
         private Direct2DFactory _factory;
         private DxgiSwapChain1 _swapChain;
         private DeviceContext _deviceContext;
         private DxgiSurface _surface;
         private Bitmap1 _bitmap;
-        private SolidColorBrush _brush;
-        private SolidColorBrush _brush1;
         private DirectWriteFactory _directWriteFactory;
 
         private SolidColorBrush[] _brushes = new SolidColorBrush[1000];
@@ -79,10 +72,8 @@ namespace Managed.D2DSharp.Circles
                     _swapChain.GetBuffer(0, out _surface);
                     _bitmap = _deviceContext.CreateBitmapFromDxgiSurface(_surface);
                     _deviceContext.SetTarget(_bitmap);
-                    _brush = _deviceContext.CreateSolidColorBrush(Color.FromRGB(0.1f, 0.75f, 0.5f, 1f));
-                    _brush1 = _deviceContext.CreateSolidColorBrush(Color.FromRGB(0.1f, 0.5f, 0.75f, 1f));
                 }
-                for(int index = 0; index < _brushes.Length; ++index)
+                for (int index = 0; index < _brushes.Length; ++index)
                 {
                     _pens[index] = _deviceContext.CreateSolidColorBrush(GetRandomColor(_random, 1));
                     _brushes[index] = _deviceContext.CreateSolidColorBrush(GetRandomColor(_random, 0.25f));
@@ -126,8 +117,6 @@ namespace Managed.D2DSharp.Circles
         private void CleanUp()
         {
             SafeDispose(ref _bitmap);
-            SafeDispose(ref _brush);
-            SafeDispose(ref _brush1);
             SafeDispose(ref _deviceContext);
             SafeDispose(ref _surface);
             SafeDispose(ref _swapChain);
@@ -146,8 +135,8 @@ namespace Managed.D2DSharp.Circles
             _random = new Random(19292);
             for (int index = 0; index < _brushes.Length; ++index)
             {
-                float x = _random.Next(0, (int)ClientRectangle.Width);
-                float y = _random.Next(0, (int)ClientRectangle.Height);
+                float x = _random.Next(0, ClientRectangle.Width);
+                float y = _random.Next(0, ClientRectangle.Height);
                 Ellipse ellipse = new Ellipse(x, y, 50, 50);
                 renderTarget.FillEllipse(_brushes[index], ellipse);
                 renderTarget.DrawEllipse(_pens[index], 1, ellipse);
@@ -184,7 +173,7 @@ namespace Managed.D2DSharp.Circles
                     TopMost = true;
                     WindowState = FormWindowState.Maximized;
                 }
-                else 
+                else
                 {
                     WindowState = FormWindowState.Normal;
                     TopMost = false;
