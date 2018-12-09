@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Managed.Graphics.Direct2D;
+﻿using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
 using Managed.Graphics.Forms;
+using System;
+using System.ComponentModel;
 
 namespace Managed.D2DSharp.DirectWrite.TextDialog
 {
@@ -52,13 +47,13 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
+            _blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            this._blackBrush.Dispose();
+            _blackBrush.Dispose();
         }
 
         [Browsable(false)]
@@ -92,10 +87,10 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Bold
         {
-            get { return this._bold; }
+            get { return _bold; }
             set
             {
-                this._bold = value;
+                _bold = value;
                 OnPropertyChanged();
             }
         }
@@ -104,10 +99,10 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Italic
         {
-            get { return this._italic; }
+            get { return _italic; }
             set
             {
-                this._italic = value;
+                _italic = value;
                 OnPropertyChanged();
             }
         }
@@ -116,10 +111,10 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Underline
         {
-            get { return this._underline; }
+            get { return _underline; }
             set
             {
-                this._underline = value;
+                _underline = value;
                 OnPropertyChanged();
             }
         }
@@ -128,19 +123,19 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FontSize
         {
-            get { return this._fontSize; }
+            get { return _fontSize; }
             set
             {
-                this._fontSize = value;
+                _fontSize = value;
                 OnPropertyChanged();
             }
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
-            if (this._textLayout != null)
+            if (_textLayout != null)
             {
-                renderTarget.DrawTextLayout(new PointF(), this._textLayout, _blackBrush, DrawTextOptions.None);
+                renderTarget.DrawTextLayout(new PointF(), _textLayout, _blackBrush, DrawTextOptions.None);
             }
         }
 
@@ -153,47 +148,49 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
 
         private void CleanUpResources()
         {
-            if (this._textLayout != null)
+            if (_textLayout != null)
             {
-                this._textLayout.Dispose();
-                this._textLayout = null;
+                _textLayout.Dispose();
+                _textLayout = null;
             }
-            if (this._textFormat != null)
+            if (_textFormat != null)
             {
-                this._textFormat.Dispose();
-                this._textFormat = null;
+                _textFormat.Dispose();
+                _textFormat = null;
             }
         }
 
         private void CreateResources()
         {
-            this._textFormat = DirectWriteFactory.CreateTextFormat(
+            _textFormat = DirectWriteFactory.CreateTextFormat(
                 FontName,
                 FontSize,
                 Bold ? FontWeight.Bold : FontWeight.Normal,
                 Italic ? FontStyle.Italic : FontStyle.Normal);
-            this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
-            this._textFormat.TextAlignment = TextAlignment.Center;
+            _textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+            _textFormat.TextAlignment = TextAlignment.Center;
 
             float width = ClientSize.Width / dpiScaleX;
             float height = ClientSize.Height / dpiScaleY;
 
-            this._textLayout = DirectWriteFactory.CreateTextLayout(
+            _textLayout = DirectWriteFactory.CreateTextLayout(
                 Text,
                 _textFormat,
                 width,
                 height);
             if (Underline)
-                this._textLayout.SetUnderline(true, new TextRange(0, Text.Length));
+            {
+                _textLayout.SetUnderline(true, new TextRange(0, Text.Length));
+            }
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (this._textLayout != null)
+            if (_textLayout != null)
             {
-                this._textLayout.MaxWidth = ClientSize.Width / dpiScaleX;
-                this._textLayout.MaxHeight = ClientSize.Height / dpiScaleY;
+                _textLayout.MaxWidth = ClientSize.Width / dpiScaleX;
+                _textLayout.MaxHeight = ClientSize.Height / dpiScaleY;
             }
         }
     }

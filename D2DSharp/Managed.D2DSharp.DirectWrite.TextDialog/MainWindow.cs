@@ -1,13 +1,8 @@
-﻿using System;
+﻿using Managed.Graphics.DirectWrite;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Globalization;
-
-using Managed.Graphics.DirectWrite;
+using System.Windows.Forms;
 
 namespace Managed.D2DSharp.DirectWrite.TextDialog
 {
@@ -22,12 +17,12 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
         {
             base.OnLoad(e);
             List<string> fontNames = GetFontNames();
-            foreach(string fontName in fontNames)
+            foreach (string fontName in fontNames)
             {
-                this.comboFont.Items.Add(fontName);
+                comboFont.Items.Add(fontName);
             }
-            this.comboFont.Text = this.sampleTextControl1.FontName;
-            this.textText.Text = this.sampleTextControl1.Text;
+            comboFont.Text = sampleTextControl1.FontName;
+            textText.Text = sampleTextControl1.Text;
         }
 
         private static List<string> GetFontNames()
@@ -60,28 +55,34 @@ namespace Managed.D2DSharp.DirectWrite.TextDialog
 
         private void comboFont_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.sampleTextControl1.FontName = this.comboFont.Text;
+            sampleTextControl1.FontName = comboFont.Text;
         }
 
         private void textText_TextChanged(object sender, EventArgs e)
         {
-            this.sampleTextControl1.Text = this.textText.Text;
+            sampleTextControl1.Text = textText.Text;
         }
 
         private void trackFontSize_ValueChanged(object sender, EventArgs e)
         {
-            this.sampleTextControl1.FontSize = this.trackFontSize.Value;
-            this.labelFontSize.Text = this.trackFontSize.Value.ToString();
+            sampleTextControl1.FontSize = trackFontSize.Value;
+            labelFontSize.Text = trackFontSize.Value.ToString();
         }
 
         private void checkBold_CheckedChanged(object sender, EventArgs e)
         {
-            if (sender == this.checkBold)
-                this.sampleTextControl1.Bold = this.checkBold.Checked;
-            else if (sender == this.checkItalic)
-                this.sampleTextControl1.Italic = this.checkItalic.Checked;
-            else if (sender == this.checkUnderline)
-                this.sampleTextControl1.Underline = this.checkUnderline.Checked;
+            if (sender == checkBold)
+            {
+                sampleTextControl1.Bold = checkBold.Checked;
+            }
+            else if (sender == checkItalic)
+            {
+                sampleTextControl1.Italic = checkItalic.Checked;
+            }
+            else if (sender == checkUnderline)
+            {
+                sampleTextControl1.Underline = checkUnderline.Checked;
+            }
         }
     }
 }

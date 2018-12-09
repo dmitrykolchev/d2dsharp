@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using Managed.Graphics.Direct2D;
+﻿using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
-using Managed.Graphics.Imaging;
 using Managed.Graphics.Forms;
+using System;
 
 namespace Managed.D2DSharp.SimpleText
 {
@@ -22,7 +14,7 @@ namespace Managed.D2DSharp.SimpleText
         private TextFormat _textFormat;
         private TextLayout _textLayout;
         private SolidColorBrush _blackBrush;
-        
+
         private ColorDrawingEffect _redColorDrawingEffect;
         private ColorDrawingEffect _greenColorDrawingEffect;
         private ColorDrawingEffect _blueColorDrawingEffect;
@@ -43,79 +35,79 @@ namespace Managed.D2DSharp.SimpleText
         {
             base.OnCreateDeviceIndependentResources(factory);
 
-            this._redColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Red, 1));
-            this._greenColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Green, 1));
-            this._blueColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Blue, 1));
+            _redColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Red, 1));
+            _greenColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Green, 1));
+            _blueColorDrawingEffect = new ColorDrawingEffect(Color.FromKnown(Colors.Blue, 1));
 
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
+            _textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
 
-            this._textFormat.TextAlignment = TextAlignment.Center;
-            this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+            _textFormat.TextAlignment = TextAlignment.Center;
+            _textFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
             float width = ClientSize.Width / _dpiScaleX;
             float height = ClientSize.Height / _dpiScaleY;
 
-            this._textLayout = DirectWriteFactory.CreateTextLayout(
+            _textLayout = DirectWriteFactory.CreateTextLayout(
                 _text,
-                this._textFormat,
+                _textFormat,
                 width,
                 height);
 
-            this._textLayout.SetFontSize(100, new TextRange(20, 6));
+            _textLayout.SetFontSize(100, new TextRange(20, 6));
 
-            this._textLayout.SetDrawingEffect(_blueColorDrawingEffect, new TextRange(6, 5));
-            this._textLayout.SetDrawingEffect(_redColorDrawingEffect, new TextRange(20, 6));
-            this._textLayout.SetDrawingEffect(_greenColorDrawingEffect, new TextRange(26, 5));
+            _textLayout.SetDrawingEffect(_blueColorDrawingEffect, new TextRange(6, 5));
+            _textLayout.SetDrawingEffect(_redColorDrawingEffect, new TextRange(20, 6));
+            _textLayout.SetDrawingEffect(_greenColorDrawingEffect, new TextRange(26, 5));
 
-            ClientDrawingEffect effect = this._textLayout.GetDrawingEffect(7);
+            ClientDrawingEffect effect = _textLayout.GetDrawingEffect(7);
 
-            this._textLayout.SetUnderline(true, new TextRange(20, 11));
-            this._textLayout.SetFontWeight(FontWeight.Bold, new TextRange(20, 11));
+            _textLayout.SetUnderline(true, new TextRange(20, 11));
+            _textLayout.SetFontWeight(FontWeight.Bold, new TextRange(20, 11));
 
             using (Typography typography = DirectWriteFactory.CreateTypography())
             {
                 typography.AddFontFeature(FontFeatureTag.StylisticSet7, 1);
-                this._textLayout.SetTypography(typography, new TextRange(0, _text.Length));
+                _textLayout.SetTypography(typography, new TextRange(0, _text.Length));
             }
         }
 
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._textFormat.Dispose();
-            this._textLayout.Dispose();
-            this._blueColorDrawingEffect.Dispose();
-            this._redColorDrawingEffect.Dispose();
-            this._greenColorDrawingEffect.Dispose();
+            _textFormat.Dispose();
+            _textLayout.Dispose();
+            _blueColorDrawingEffect.Dispose();
+            _redColorDrawingEffect.Dispose();
+            _greenColorDrawingEffect.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
 
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
-            this._customRenderer = new CustomTextRendererWithEffects(this.Direct2DFactory, renderTarget, this._blackBrush);
+            _blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
+            _customRenderer = new CustomTextRendererWithEffects(Direct2DFactory, renderTarget, _blackBrush);
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            this._blackBrush.Dispose();
+            _blackBrush.Dispose();
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             PointF origin = new PointF(0, 0);
-            this._textLayout.Draw(this._customRenderer, origin.X, origin.Y);
+            _textLayout.Draw(_customRenderer, origin.X, origin.Y);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (this._textLayout != null)
+            if (_textLayout != null)
             {
-                this._textLayout.MaxWidth = ClientSize.Width / _dpiScaleX;
-                this._textLayout.MaxHeight = ClientSize.Height / _dpiScaleY;
+                _textLayout.MaxWidth = ClientSize.Width / _dpiScaleX;
+                _textLayout.MaxHeight = ClientSize.Height / _dpiScaleY;
             }
         }
     }

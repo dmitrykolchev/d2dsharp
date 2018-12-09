@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Globalization;
-
+﻿using Managed.Graphics.Direct2D;
 using Managed.Graphics.DirectWrite;
-using Managed.Graphics.Direct2D;
 using Managed.Graphics.Forms;
+using System;
+using System.Globalization;
 
 namespace Managed.D2DSharp.DirectWrite.CustomLayout
 {
@@ -36,15 +29,15 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
-            this._textFormat.TextAlignment = TextAlignment.Center;
-            this._textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+            _textFormat = DirectWriteFactory.CreateTextFormat("Gabriola", 72);
+            _textFormat.TextAlignment = TextAlignment.Center;
+            _textFormat.ParagraphAlignment = ParagraphAlignment.Center;
             float width = ClientSize.Width / dpiScaleX;
             float height = ClientSize.Height / dpiScaleY;
-            this._textLayout = DirectWriteFactory.CreateTextLayout("Click on this text Click on this text", this._textFormat, width, height);
-            this._textAnalyzer = DirectWriteFactory.CreateTextAnalyzer();
-            this._source = new MyTextSource("Click on this text Click on this text");
-            using (FontCollection coll = this._textFormat.FontCollection)
+            _textLayout = DirectWriteFactory.CreateTextLayout("Click on this text Click on this text", _textFormat, width, height);
+            _textAnalyzer = DirectWriteFactory.CreateTextAnalyzer();
+            _source = new MyTextSource("Click on this text Click on this text");
+            using (FontCollection coll = _textFormat.FontCollection)
             {
                 int count = coll.Count;
                 for (int index = 0; index < count; ++index)
@@ -55,7 +48,7 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
                         {
                             LocalizedStrings ls = font.FaceNames;
                             LocalizedStrings desc = font.GetInformationalStrings(InformationalStringId.Designer);
-                            
+
                             int cultureIndex = ls.FindCulture(CultureInfo.CurrentCulture);
                             if (cultureIndex >= 0)
                             {
@@ -66,43 +59,43 @@ namespace Managed.D2DSharp.DirectWrite.CustomLayout
                     }
                 }
             }
-            this._textAnalyzer.AnalyzeLineBreakpoints(_source, 0, (uint)_source.Text.Length);
-            this._textAnalyzer.AnalyzeScript(_source, 0, (uint)_source.Text.Length);
+            _textAnalyzer.AnalyzeLineBreakpoints(_source, 0, (uint)_source.Text.Length);
+            _textAnalyzer.AnalyzeScript(_source, 0, (uint)_source.Text.Length);
         }
 
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._textAnalyzer.Dispose();
-            this._textLayout.Dispose();
-            this._textFormat.Dispose();
+            _textAnalyzer.Dispose();
+            _textLayout.Dispose();
+            _textFormat.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
+            _blackBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            this._blackBrush.Dispose();
+            _blackBrush.Dispose();
         }
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             PointF origin = new PointF();
-            renderTarget.DrawTextLayout(origin, this._textLayout, _blackBrush, DrawTextOptions.None);
+            renderTarget.DrawTextLayout(origin, _textLayout, _blackBrush, DrawTextOptions.None);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (this._textLayout != null)
+            if (_textLayout != null)
             {
-                this._textLayout.MaxWidth = ClientSize.Width / dpiScaleX;
-                this._textLayout.MaxHeight = ClientSize.Height / dpiScaleY;
+                _textLayout.MaxWidth = ClientSize.Width / dpiScaleX;
+                _textLayout.MaxHeight = ClientSize.Height / dpiScaleY;
             }
         }
     }
