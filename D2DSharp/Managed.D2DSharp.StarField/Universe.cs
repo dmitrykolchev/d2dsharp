@@ -19,10 +19,10 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using Managed.Graphics;
-using Managed.Graphics.Direct2D;
 using System;
 using System.Linq;
+using Managed.Graphics;
+using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.StarField
 {
@@ -39,7 +39,8 @@ namespace Managed.D2DSharp.StarField
         {
             Transform = Matrix4x4.Identity;
         }
-        public void Genrate(int count, float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
+
+        public void Generate(int count, float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
         {
             Random random = new Random();
             _stars = new Star[count];
@@ -57,27 +58,30 @@ namespace Managed.D2DSharp.StarField
             }
             _stars = _stars.OrderByDescending(t => t.Location.Z).ToArray();
         }
+
         public float PointOfView { get; set; }
+
         public SizeF ViewPortSize { get; set; }
+
         public Matrix4x4 Transform { get; set; }
+
         public Nullable<PointF> Project(Vector4 p)
         {
-            Vector4 s = p;
-            p = p * Transform;
+            p *= Transform;
             if (p.Z < PointOfView)
             {
                 return null;
             }
-
             double t = -PointOfView / (p.Z - PointOfView);
             double x = p.X * t + ViewPortSize.Width / 2;
             double y = p.Y * t + ViewPortSize.Height / 2;
             return new PointF((float)x, (float)y);
         }
+
         public void Render(RenderTarget target)
+
         {
             Direct2DFactory factory = target.GetFactory();
-            Color red = Color.FromRGB(128, 64, 64);
             Color white = Color.FromRGB(255, 255, 255);
 
             foreach (var star in _stars)
@@ -86,7 +90,7 @@ namespace Managed.D2DSharp.StarField
                 Nullable<PointF> locN = Project(location);
                 if (locN != null)
                 {
-                    location = location * Transform;
+                    location *= Transform;
                     PointF locV = locN.Value;
                     double r = Math.Sqrt(location.X * location.X + location.Y * location.Y + (location.Z - PointOfView) * (location.Z - PointOfView));
                     double rv = Math.Sqrt(locV.X * locV.X + locV.Y * locV.Y + PointOfView * PointOfView);

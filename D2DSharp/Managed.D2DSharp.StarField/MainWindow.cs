@@ -20,14 +20,7 @@
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Managed.Graphics;
 using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.StarField
@@ -37,110 +30,127 @@ namespace Managed.D2DSharp.StarField
         private SolidColorBrush _brush;
         private float _time;
         private Universe _universe;
+
         public MainWindow()
         {
             InitializeComponent();
+            Bounds = Screen.FromPoint(Form.MousePosition).Bounds;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (Form.ModifierKeys == Keys.Control)
             {
-                this.angleY = -((float)(e.X - ClientSize.Width / 2) / ClientSize.Width) * 90;
-                this.angleX = ((float)(e.Y - ClientSize.Height / 2) / ClientSize.Height) * 90;
+                _angleY = -((float)(e.X - ClientSize.Width / 2) / ClientSize.Width) * 90;
+                _angleX = ((float)(e.Y - ClientSize.Height / 2) / ClientSize.Height) * 90;
             }
             else if (Form.ModifierKeys == Keys.Shift)
             {
-                this.shiftX = e.X - ClientSize.Width / 2;
-                this.shiftY = e.Y - ClientSize.Height / 2;
+                _shiftX = e.X - ClientSize.Width / 2;
+                _shiftY = e.Y - ClientSize.Height / 2;
             }
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                this.timer1.Enabled = !this.timer1.Enabled;
+            if (e.Button == MouseButtons.Right)
+            {
+                timer1.Enabled = !timer1.Enabled;
+            }
             else
-                this.Close();
+            {
+                Close();
+            }
+
             base.OnMouseDown(e);
         }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
-                this.Close();
+                Close();
             }
             base.OnKeyDown(e);
         }
+
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
             using (SolidColorBrush b = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.75f)))
             {
                 renderTarget.FillRect(b, new RectF(0, 0, ClientSize.Width, ClientSize.Height));
             }
-            this._universe.Render(renderTarget);
+            _universe.Render(renderTarget);
         }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Reset();
         }
+
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
         }
+
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
-            this._brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Brown, 1));
+            _brush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Brown, 1));
         }
+
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
         }
+
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            if (this._brush != null)
+            if (_brush != null)
             {
-                this._brush.Dispose();
-                this._brush = null;
+                _brush.Dispose();
+                _brush = null;
             }
         }
 
-        float angleX;
-        float angleY;
-        float angleZ;
-        float shiftX;
-        float shiftY;
-        float z;
-        float delta = 10;
-        Random rand = new Random();
+        private float _angleX;
+        private float _angleY;
+        private float _angleZ;
+        private float _shiftX;
+        private float _shiftY;
+        private float _z;
+        private float _delta = 10;
+        private readonly Random _rand = new Random();
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this._time += 0.003f;
-            this.angleZ = (float)(this.angleZ + 0.2) % 360;
-            float a = (float)(Math.Sin(this.angleZ * Math.PI / 180) * 20);
-            this.z -= delta;
-            if (this.z < -200000 || this.z > 10000)
-                delta = -delta;
-            Matrix4x4 transform = Matrix4x4.Translation(this.shiftX, this.shiftY, z) * Matrix4x4.RotationX(angleX) * Matrix4x4.RotationY(angleY) * Matrix4x4.RotationZ(a);
-            this._universe.Transform = transform;
+            _time += 0.003f;
+            _angleZ = (float)(_angleZ + 0.2) % 360;
+            float a = (float)(Math.Sin(_angleZ * Math.PI / 180) * 20);
+            _z -= _delta;
+            if (_z < -200000 || _z > 10000)
+            {
+                _delta = -_delta;
+            }
+            Matrix4x4 transform = Matrix4x4.Translation(_shiftX, _shiftY, _z) * Matrix4x4.RotationX(_angleX) * Matrix4x4.RotationY(_angleY) * Matrix4x4.RotationZ(a);
+            _universe.Transform = transform;
             Invalidate();
         }
 
 
         private void Reset()
         {
-            this._universe = new Universe();
+            _universe = new Universe();
             float halfWidth = 5500;
             float halfHeight = 5500;
 
-            this._universe.Genrate(20000, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 200000);
-            this._universe.PointOfView = -1000;
-            this._universe.ViewPortSize = new SizeF(ClientSize.Width, ClientSize.Height);
+            _universe.Generate(20000, -halfWidth, halfWidth, -halfHeight, halfHeight, 0, 200000);
+            _universe.PointOfView = -1000;
+            _universe.ViewPortSize = new SizeF(ClientSize.Width, ClientSize.Height);
             Invalidate();
         }
     }

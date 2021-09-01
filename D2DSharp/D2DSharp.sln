@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DWrapper", "D2DWrapper\D2DWrapper.vcxproj", "{151AE681-22CC-404D-A759-8D80BF85E9F1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -67,6 +67,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Lines", "Managed.D2DSharp.Lines\Managed.D2DSharp.Lines.csproj", "{8A5B99B8-85DC-4221-94EA-670B1A361F7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Circles", "Managed.D2DSharp.Circles\Managed.D2DSharp.Circles.csproj", "{DC20D8A7-93C5-4702-9AA5-BEA93ECA27CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managed.D2DSharp.Riemann", "Managed.D2DSharp.Riemann\Managed.D2DSharp.Riemann.csproj", "{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -348,6 +350,18 @@ Global
 		{DC20D8A7-93C5-4702-9AA5-BEA93ECA27CE}.Release|x64.Build.0 = Release|Any CPU
 		{DC20D8A7-93C5-4702-9AA5-BEA93ECA27CE}.Release|x86.ActiveCfg = Release|Any CPU
 		{DC20D8A7-93C5-4702-9AA5-BEA93ECA27CE}.Release|x86.Build.0 = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|x64.Build.0 = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|x64.Build.0 = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -379,6 +393,7 @@ Global
 		{682997DE-4255-4356-BF97-9BDCDB5C15BC} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{8A5B99B8-85DC-4221-94EA-670B1A361F7F} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 		{DC20D8A7-93C5-4702-9AA5-BEA93ECA27CE} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
+		{1EFAF6FD-E0BA-4832-885A-4D3214C8E7A8} = {76278E1B-8FA4-4D5D-AD81-815BAC067D8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8082DB46-2DDF-4B0C-BDE9-00E1A0306198}

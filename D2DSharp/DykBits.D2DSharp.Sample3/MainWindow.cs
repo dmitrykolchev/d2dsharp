@@ -19,13 +19,6 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using Managed.Graphics.Direct2D;
 using Managed.Graphics.Forms;
 
@@ -51,40 +44,40 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
             RectF bounds = new RectF(new PointF(), renderTarget.Size);
             renderTarget.FillRect(_gridPatternBrush, bounds);
 
-            renderTarget.FillGeometry(this._radialGradientBrush, this._sunGeometry);
+            renderTarget.FillGeometry(_radialGradientBrush, _sunGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
-            renderTarget.DrawGeometry(this._sceneBrush, 1, _sunGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
+            renderTarget.DrawGeometry(_sceneBrush, 1, _sunGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.OliveDrab, 1);
-            renderTarget.FillGeometry(this._sceneBrush, this._leftMountainGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.OliveDrab, 1);
+            renderTarget.FillGeometry(_sceneBrush, _leftMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
-            renderTarget.DrawGeometry(this._sceneBrush, 1, this._leftMountainGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
+            renderTarget.DrawGeometry(_sceneBrush, 1, _leftMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.LightSkyBlue, 1);
-            renderTarget.FillGeometry(this._sceneBrush, this._riverGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.LightSkyBlue, 1);
+            renderTarget.FillGeometry(_sceneBrush, _riverGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
-            renderTarget.DrawGeometry(this._sceneBrush, 1, this._riverGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
+            renderTarget.DrawGeometry(_sceneBrush, 1, _riverGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.YellowGreen, 1);
-            renderTarget.FillGeometry(this._sceneBrush, this._rightMountainGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.YellowGreen, 1);
+            renderTarget.FillGeometry(_sceneBrush, _rightMountainGeometry);
 
-            this._sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
-            renderTarget.DrawGeometry(this._sceneBrush, 1, this._rightMountainGeometry);
+            _sceneBrush.Color = Color.FromKnown(Colors.Black, 1);
+            renderTarget.DrawGeometry(_sceneBrush, 1, _rightMountainGeometry);
         }
 
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
-            this._leftMountainGeometry = factory.CreatePathGeometry();
-            using (GeometrySink sink = this._leftMountainGeometry.Open())
+            _leftMountainGeometry = factory.CreatePathGeometry();
+            using (GeometrySink sink = _leftMountainGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
                 sink.BeginFigure(new PointF(346, 255), FigureBegin.Filled);
                 sink.AddLines(
-                    new PointF[] { 
+                    new PointF[] {
                         new PointF(267, 177),
                         new PointF(236, 192),
                         new PointF(212, 160),
@@ -95,27 +88,27 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
                 sink.Close();
             }
 
-            this._rightMountainGeometry = factory.CreatePathGeometry();
-            using (GeometrySink sink = this._rightMountainGeometry.Open())
+            _rightMountainGeometry = factory.CreatePathGeometry();
+            using (GeometrySink sink = _rightMountainGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
                 sink.BeginFigure(new PointF(575, 263), FigureBegin.Filled);
                 sink.AddLines(
-                    new PointF[] { 
+                    new PointF[] {
                         new PointF(481, 146),
                         new PointF(449, 181),
                         new PointF(433, 159),
                         new PointF(401, 214),
-                        new PointF(381, 199), 
-                        new PointF(323, 263), 
+                        new PointF(381, 199),
+                        new PointF(323, 263),
                         new PointF(575, 263)
                     });
                 sink.EndFigure(FigureEnd.Closed);
                 sink.Close();
             }
 
-            this._sunGeometry = factory.CreatePathGeometry();
-            using (GeometrySink sink = this._sunGeometry.Open())
+            _sunGeometry = factory.CreatePathGeometry();
+            using (GeometrySink sink = _sunGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
                 sink.BeginFigure(new PointF(270, 255), FigureBegin.Filled);
@@ -218,8 +211,8 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
                 sink.EndFigure(FigureEnd.Open);
                 sink.Close();
             }
-            this._riverGeometry = factory.CreatePathGeometry();
-            using (GeometrySink sink = this._riverGeometry.Open())
+            _riverGeometry = factory.CreatePathGeometry();
+            using (GeometrySink sink = _riverGeometry.Open())
             {
                 sink.SetFillMode(FillMode.Winding);
                 sink.BeginFigure(
@@ -258,10 +251,10 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
-            this._leftMountainGeometry.Dispose();
-            this._rightMountainGeometry.Dispose();
-            this._sunGeometry.Dispose();
-            this._riverGeometry.Dispose();
+            _leftMountainGeometry.Dispose();
+            _rightMountainGeometry.Dispose();
+            _sunGeometry.Dispose();
+            _riverGeometry.Dispose();
         }
 
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
@@ -279,7 +272,7 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
             {
                 // The center of the gradient is in the center of the box.
                 // The gradient origin offset was set to zero(0, 0) or center in this case.
-                this._radialGradientBrush = renderTarget.CreateRadialGradientBrush(
+                _radialGradientBrush = renderTarget.CreateRadialGradientBrush(
                     new RadialGradientBrushProperties(
                         new PointF(330, 330),
                         new PointF(140, 140),
@@ -289,16 +282,16 @@ namespace Managed.D2DSharp.AdvancedPathGeometries
                         gradiendStops);
             }
 
-            this._sceneBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
-            this._gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
+            _sceneBrush = renderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 1));
+            _gridPatternBrush = renderTarget.CreateGridPatternBrush(new SizeF(10, 10), Color.FromRGB(0.93f, 0.94f, 0.96f));
         }
 
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
-            this._radialGradientBrush.Dispose();
-            this._sceneBrush.Dispose();
-            this._gridPatternBrush.Dispose();
+            _radialGradientBrush.Dispose();
+            _sceneBrush.Dispose();
+            _gridPatternBrush.Dispose();
         }
     }
 }

@@ -19,12 +19,12 @@
 * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 * USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using Managed.Graphics;
-using Managed.Graphics.Direct2D;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Managed.Graphics;
+using Managed.Graphics.Direct2D;
 
 namespace Managed.D2DSharp.Bezier
 {
@@ -33,11 +33,16 @@ namespace Managed.D2DSharp.Bezier
         private float _time;
         private float _baseHue;
         private SolidColorBrush _brush;
+        private ControlPointArray _points;
+        private List<Tuple<Geometry, Color>> _geometries = new List<Tuple<Geometry, Color>>();
+        private Task _task;
+
         public MainWindow()
         {
             InitializeComponent();
+            Bounds = Screen.FromPoint(Form.MousePosition).Bounds;
         }
-        private ControlPointArray _points;
+
         public ControlPointArray Points
         {
             get
@@ -50,6 +55,7 @@ namespace Managed.D2DSharp.Bezier
                 return _points;
             }
         }
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -63,6 +69,7 @@ namespace Managed.D2DSharp.Bezier
 
             base.OnMouseDown(e);
         }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -73,8 +80,6 @@ namespace Managed.D2DSharp.Bezier
             base.OnKeyDown(e);
         }
 
-        private List<Tuple<Geometry, Color>> _geometries = new List<Tuple<Geometry, Color>>();
-        private Task _task;
 
         protected override void OnRender(WindowRenderTarget renderTarget)
         {
@@ -127,29 +132,35 @@ namespace Managed.D2DSharp.Bezier
             task.Start();
             return task;
         }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Reset();
         }
+
         protected override void OnCreateDeviceIndependentResources(Direct2DFactory factory)
         {
             base.OnCreateDeviceIndependentResources(factory);
         }
+
         protected override void OnCreateDeviceResources(WindowRenderTarget renderTarget)
         {
             base.OnCreateDeviceResources(renderTarget);
             _brush = RenderTarget.CreateSolidColorBrush(Color.FromKnown(Colors.Black, 0.4f));
         }
+
         protected override void OnCleanUpDeviceIndependentResources()
         {
             base.OnCleanUpDeviceIndependentResources();
         }
+
         protected override void OnCleanUpDeviceResources()
         {
             base.OnCleanUpDeviceResources();
             SafeDispose(ref _brush);
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (_time > 0.9f)
@@ -161,6 +172,7 @@ namespace Managed.D2DSharp.Bezier
                 Invalidate();
             }
         }
+
         private void Reset()
         {
             _time = 0.1f;
